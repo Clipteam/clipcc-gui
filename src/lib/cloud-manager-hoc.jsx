@@ -3,7 +3,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import bindAll from 'lodash.bindall';
 
-import VM from 'scratch-vm';
+import VM from 'clipcc-vm';
 import CloudProvider from '../lib/cloud-provider';
 
 import {

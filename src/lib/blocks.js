@@ -1,4 +1,4 @@
-import ScratchBlocks from 'scratch-blocks';
+import ScratchBlocks from 'clipcc-block';
 
 /**
  * Connect scratch blocks with the vm
