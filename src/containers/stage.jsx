@@ -224,6 +224,7 @@ class Stage extends React.Component {
             mouseDownPosition: null
         });
         const data = {
+            button: e.button,
             isDown: false,
             x: x - this.rect.left,
             y: y - this.rect.top,
@@ -274,6 +275,7 @@ class Stage extends React.Component {
                 });
             }
             const data = {
+                button: e.button,
                 isDown: true,
                 x: mousePosition[0],
                 y: mousePosition[1],

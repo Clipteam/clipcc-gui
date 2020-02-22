@@ -473,6 +473,11 @@ const sensing = function (isStage) {
             </value>
         </block>
         <block type="sensing_mousedown"/>
+        <block type="sensing_mousepressed">
+            <value name="MOUSE_OPTION">
+                <shadow type="sensing_mouseoptions"/>
+            </value>
+        </block>
         <block type="sensing_mousex"/>
         <block type="sensing_mousey"/>
         ${isStage ? '' : `
