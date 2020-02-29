@@ -70,7 +70,7 @@ import remixIcon from './icon--remix.svg';
 import dropdownCaret from './dropdown-caret.svg';
 import languageIcon from '../language-selector/language-icon.svg';
 
-import scratchLogo from './scratch-logo.svg';
+import scratchLogo from './clipcc3_logo_white.svg';
 
 import sharedMessages from '../../lib/shared-messages';
 
@@ -322,7 +322,7 @@ class MenuBar extends React.Component {
                     <div className={styles.fileGroup}>
                         <div className={classNames(styles.menuBarItem)}>
                             <img
-                                alt="Scratch"
+                                alt="ClipCC"
                                 className={classNames(styles.scratchLogo, {
                                     [styles.clickable]: typeof this.props.onClickLogo !== 'undefined'
                                 })}
@@ -473,6 +473,7 @@ class MenuBar extends React.Component {
                             </MenuBarMenu>
                         </div>
                     </div>
+                    {/*
                     <Divider className={classNames(styles.divider)} />
                     <div
                         aria-label={this.props.intl.formatMessage(ariaMessages.tutorials)}
@@ -485,6 +486,8 @@ class MenuBar extends React.Component {
                         />
                         <FormattedMessage {...ariaMessages.tutorials} />
                     </div>
+                    */}
+                    {/*
                     <Divider className={classNames(styles.divider)} />
                     {this.props.canEditTitle ? (
                         <div className={classNames(styles.menuBarItem, styles.growable)}>
@@ -515,11 +518,11 @@ class MenuBar extends React.Component {
                                             <ShareButton
                                                 className={styles.menuBarButton}
                                                 isShared={this.props.isShared}
-                                                /* eslint-disable react/jsx-no-bind */
+                                                /* eslint-disable react/jsx-no-bind *\/
                                                 onClick={() => {
                                                     this.handleClickShare(waitForUpdate);
                                                 }}
-                                                /* eslint-enable react/jsx-no-bind */
+                                                /* eslint-enable react/jsx-no-bind *\/
                                             />
                                         )
                                     }
@@ -542,11 +545,11 @@ class MenuBar extends React.Component {
                                         waitForUpdate => (
                                             <CommunityButton
                                                 className={styles.menuBarButton}
-                                                /* eslint-disable react/jsx-no-bind */
+                                                /* eslint-disable react/jsx-no-bind *\/
                                                 onClick={() => {
                                                     this.handleClickSeeCommunity(waitForUpdate);
                                                 }}
-                                                /* eslint-enable react/jsx-no-bind */
+                                                /* eslint-enable react/jsx-no-bind *\/
                                             />
                                         )
                                     }
@@ -558,10 +561,12 @@ class MenuBar extends React.Component {
                             </MenuBarItemTooltip>
                         ) : [])}
                     </div>
+                    */}
                 </div>
 
                 {/* show the proper UI in the account menu, given whether the user is
                 logged in, and whether a session is available to log in with */}
+                {/*
                 <div className={styles.accountInfoGroup}>
                     <div className={styles.menuBarItem}>
                         {this.props.canSave && (
@@ -689,6 +694,7 @@ class MenuBar extends React.Component {
                         </React.Fragment>
                     )}
                 </div>
+                */}
             </Box>
         );
     }
