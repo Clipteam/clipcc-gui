@@ -1,6 +1,6 @@
 {
   "name": "clipcc-gui",
-  "version": "0.1.0-alpha.2",
+  "version": "3.0.0-4",
   "description": "GraphicaL User Interface for Clip CC",
   "main": "./dist/scratch-gui.js",
   "scripts": {
