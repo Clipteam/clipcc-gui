@@ -46,6 +46,9 @@ import gdxforInsetIconURL from './gdxfor/gdxfor-small.svg';
 import gdxforConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
 import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
+import libraImage from './libra/Libra.png';
+import libraInsetImage from './libra/Libra-small.svg';
+
 export default [
     {
         name: (
