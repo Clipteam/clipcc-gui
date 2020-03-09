@@ -456,8 +456,52 @@ const sensing = function (isStage) {
                     <shadow type="sensing_distancetomenu"/>
                 </value>
             </block>
-            ${blockSeparator}
         `}
+        <block type="sensing_distancebetweenposition">
+            <value name="X1">
+                <shadow type="math_number">
+                    <field name="NUM"/>
+                </shadow>
+            </value>
+            <value name="Y1">
+                <shadow type="math_number">
+                    <field name="NUM"/>
+                </shadow>
+            </value>
+            <value name="X2">
+                <shadow type="math_number">
+                    <field name="NUM"/>
+                </shadow>
+            </value>
+            <value name="Y2">
+                <shadow type="math_number">
+                    <field name="NUM"/>
+                </shadow>
+            </value>
+        </block>
+        <block type="sensing_directionbetweenposition">
+            <value name="X1">
+                <shadow type="math_number">
+                    <field name="NUM"/>
+                </shadow>
+            </value>
+            <value name="Y1">
+                <shadow type="math_number">
+                    <field name="NUM"/>
+                </shadow>
+            </value>
+            <value name="X2">
+                <shadow type="math_number">
+                    <field name="NUM"/>
+                </shadow>
+            </value>
+            <value name="Y2">
+                <shadow type="math_number">
+                    <field name="NUM"/>
+                </shadow>
+            </value>
+        </block>
+        ${blockSeparator}
         <block id="askandwait" type="sensing_askandwait">
             <value name="QUESTION">
                 <shadow type="text">
@@ -501,6 +545,11 @@ const sensing = function (isStage) {
         <block type="sensing_dayssince2000"/>
         ${blockSeparator}
         <block type="sensing_username"/>
+        ${blockSeparator}
+        <block type="sensing_operatingsystem"/>
+        <block type="sensing_isturbomode"/>
+        <block type="sensing_turnonturbomode"/>
+        <block type="sensing_turnoffturbomode"/>
         ${categorySeparator}
     </category>
     `;
