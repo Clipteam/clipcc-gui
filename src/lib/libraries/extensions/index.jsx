@@ -49,6 +49,9 @@ import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 import libraImage from './libra/Libra.png';
 import libraInsetImage from './libra/Libra-small.svg';
 
+import jsonImage from './json/json.png';
+import jsonInsetImage from './json/json-small.svg';
+
 export default [
     {
         name: (
@@ -95,7 +98,7 @@ export default [
             <FormattedMessage
                 defaultMessage="Libra"
                 description="Libra Redlist Plugin"
-                id="gui.extension.redlist.name"
+                id="gui.extension.libra.name"
             />
         ),
         collaborator: 'SCPO & Libra',
@@ -106,7 +109,28 @@ export default [
             <FormattedMessage
                 defaultMessage="Libra Redlist Plugin"
                 description="Libra Redlist Plugin"
-                id="gui.extension.redlist.description"
+                id="gui.extension.libra.description"
+            />
+        ),
+        featured: true
+    },
+    {
+        name: (
+            <FormattedMessage
+                defaultMessage="JSON"
+                description="Easy json plugin"
+                id="gui.extension.json.name"
+            />
+        ),
+        collaborator: 'Sparrow',
+        extensionId: 'json',
+        iconURL: jsonImage,
+        insetIconURL: jsonInsetImage,
+        description: (
+            <FormattedMessage
+                defaultMessage="Easy json plugin"
+                description="Easy json plugin"
+                id="gui.extension.json.description"
             />
         ),
         featured: true
