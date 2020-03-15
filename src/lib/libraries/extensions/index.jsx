@@ -46,6 +46,9 @@ import gdxforInsetIconURL from './gdxfor/gdxfor-small.svg';
 import gdxforConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
 import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
+import libraImage from './libra/Libra.png';
+import libraInsetImage from './libra/Libra-small.svg';
+
 export default [
     {
         name: (
@@ -83,6 +86,27 @@ export default [
                 defaultMessage="Draw with your sprites."
                 description="Description for the 'Pen' extension"
                 id="gui.extension.pen.description"
+            />
+        ),
+        featured: true
+    },
+    {
+        name: (
+            <FormattedMessage
+                defaultMessage="Libra"
+                description="Libra Redlist Plugin"
+                id="gui.extension.redlist.name"
+            />
+        ),
+        collaborator: 'SCPO & Libra',
+        extensionId: 'libra',
+        iconURL: libraImage,
+        insetIconURL: libraInsetImage,
+        description: (
+            <FormattedMessage
+                defaultMessage="Libra Redlist Plugin"
+                description="Libra Redlist Plugin"
+                id="gui.extension.redlist.description"
             />
         ),
         featured: true
