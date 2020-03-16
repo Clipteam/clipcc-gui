@@ -1,6 +1,6 @@
-const ACTIVATE_COLOR_PICKER = 'scratch-gui/color-picker/ACTIVATE_COLOR_PICKER';
-const DEACTIVATE_COLOR_PICKER = 'scratch-gui/color-picker/DEACTIVATE_COLOR_PICKER';
-const SET_CALLBACK = 'scratch-gui/color-picker/SET_CALLBACK';
+const ACTIVATE_COLOR_PICKER = 'clipcc-gui/color-picker/ACTIVATE_COLOR_PICKER';
+const DEACTIVATE_COLOR_PICKER = 'clipcc-gui/color-picker/DEACTIVATE_COLOR_PICKER';
+const SET_CALLBACK = 'clipcc-gui/color-picker/SET_CALLBACK';
 
 const initialState = {
     active: false,

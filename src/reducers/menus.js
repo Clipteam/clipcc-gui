@@ -1,5 +1,5 @@
-const OPEN_MENU = 'scratch-gui/menus/OPEN_MENU';
-const CLOSE_MENU = 'scratch-gui/menus/CLOSE_MENU';
+const OPEN_MENU = 'clipcc-gui/menus/OPEN_MENU';
+const CLOSE_MENU = 'clipcc-gui/menus/CLOSE_MENU';
 
 const MENU_ACCOUNT = 'accountMenu';
 const MENU_FILE = 'fileMenu';

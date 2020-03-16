@@ -58,7 +58,7 @@ class CustomProcedures extends React.Component {
             const dy = (metrics.viewHeight / 2) - (this.mutationRoot.height / 2) - y;
             let dx;
             if (this.props.isRtl) {
-                // // TODO: https://github.com/LLK/scratch-gui/issues/2838
+                // // TODO: https://github.com/LLK/clipcc-gui/issues/2838
                 // This is temporary until we can figure out what's going on width
                 // block positioning on the workspace for RTL.
                 // Workspace is always origin top-left, with x increasing to the right

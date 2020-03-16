@@ -1,6 +1,6 @@
-const ACTIVATE_CUSTOM_PROCEDURES = 'scratch-gui/custom-procedures/ACTIVATE_CUSTOM_PROCEDURES';
-const DEACTIVATE_CUSTOM_PROCEDURES = 'scratch-gui/custom-procedures/DEACTIVATE_CUSTOM_PROCEDURES';
-const SET_CALLBACK = 'scratch-gui/custom-procedures/SET_CALLBACK';
+const ACTIVATE_CUSTOM_PROCEDURES = 'clipcc-gui/custom-procedures/ACTIVATE_CUSTOM_PROCEDURES';
+const DEACTIVATE_CUSTOM_PROCEDURES = 'clipcc-gui/custom-procedures/DEACTIVATE_CUSTOM_PROCEDURES';
+const SET_CALLBACK = 'clipcc-gui/custom-procedures/SET_CALLBACK';
 
 const initialState = {
     active: false,

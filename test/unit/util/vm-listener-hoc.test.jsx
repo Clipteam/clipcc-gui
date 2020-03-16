@@ -64,7 +64,7 @@ describe('VMListenerHOC', () => {
         const editingTarget = 'id';
         vm.emit('targetsUpdate', {targetList, editingTarget});
         const actions = store.getActions();
-        expect(actions[0].type).toEqual('scratch-gui/targets/UPDATE_TARGET_LIST');
+        expect(actions[0].type).toEqual('clipcc-gui/targets/UPDATE_TARGET_LIST');
         expect(actions[0].targets).toEqual(targetList);
         expect(actions[0].editingTarget).toEqual(editingTarget);
     });

@@ -1,4 +1,4 @@
-const ACTIVATE_TAB = 'scratch-gui/navigation/ACTIVATE_TAB';
+const ACTIVATE_TAB = 'clipcc-gui/navigation/ACTIVATE_TAB';
 
 // Constants use numbers to make it easier to work with react-tabs
 const BLOCKS_TAB_INDEX = 0;

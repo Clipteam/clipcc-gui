@@ -6,8 +6,8 @@ import {isRtl} from 'scratch-l10n';
 
 addLocaleData(localeData);
 
-const UPDATE_LOCALES = 'scratch-gui/locales/UPDATE_LOCALES';
-const SELECT_LOCALE = 'scratch-gui/locales/SELECT_LOCALE';
+const UPDATE_LOCALES = 'clipcc-gui/locales/UPDATE_LOCALES';
+const SELECT_LOCALE = 'clipcc-gui/locales/SELECT_LOCALE';
 
 const initialState = {
     isRtl: false,

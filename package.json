@@ -1,8 +1,8 @@
 {
   "name": "clipcc-gui",
-  "version": "3.0.0-5",
+  "version": "3.0.0-6",
   "description": "GraphicaL User Interface for Clip CC",
-  "main": "./dist/scratch-gui.js",
+  "main": "./dist/clipcc-gui.js",
   "scripts": {
     "build": "npm run clean && webpack --progress --colors --bail",
     "clean": "rimraf ./build && mkdirp build && rimraf ./dist && mkdirp dist",

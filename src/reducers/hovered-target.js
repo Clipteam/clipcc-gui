@@ -1,5 +1,5 @@
-const SET_HOVERED_SPRITE = 'scratch-gui/hovered-target/SET_HOVERED_SPRITE';
-const SET_RECEIVED_BLOCKS = 'scratch-gui/hovered-target/SET_RECEIVED_BLOCKS';
+const SET_HOVERED_SPRITE = 'clipcc-gui/hovered-target/SET_HOVERED_SPRITE';
+const SET_RECEIVED_BLOCKS = 'clipcc-gui/hovered-target/SET_RECEIVED_BLOCKS';
 
 const initialState = {
     sprite: null,

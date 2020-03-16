@@ -1,9 +1,9 @@
 import log from '../lib/log';
 
-const ADD_MONITOR_RECT = 'scratch-gui/monitors/ADD_MONITOR_RECT';
-const MOVE_MONITOR_RECT = 'scratch-gui/monitors/MOVE_MONITOR_RECT';
-const RESIZE_MONITOR_RECT = 'scratch-gui/monitors/RESIZE_MONITOR_RECT';
-const REMOVE_MONITOR_RECT = 'scratch-gui/monitors/REMOVE_MONITOR_RECT';
+const ADD_MONITOR_RECT = 'clipcc-gui/monitors/ADD_MONITOR_RECT';
+const MOVE_MONITOR_RECT = 'clipcc-gui/monitors/MOVE_MONITOR_RECT';
+const RESIZE_MONITOR_RECT = 'clipcc-gui/monitors/RESIZE_MONITOR_RECT';
+const REMOVE_MONITOR_RECT = 'clipcc-gui/monitors/REMOVE_MONITOR_RECT';
 
 const initialState = {
     monitors: {},
@@ -144,7 +144,7 @@ const reducer = function (state, action) {
 
 // Init position --------------------------
 const PADDING = 5;
-// @todo fix these numbers when we fix https://github.com/LLK/scratch-gui/issues/980
+// @todo fix these numbers when we fix https://github.com/LLK/clipcc-gui/issues/980
 const SCREEN_WIDTH = 400;
 const SCREEN_HEIGHT = 300;
 const SCREEN_EDGE_BUFFER = 40;

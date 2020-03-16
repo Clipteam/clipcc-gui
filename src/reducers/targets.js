@@ -1,5 +1,5 @@
-const UPDATE_TARGET_LIST = 'scratch-gui/targets/UPDATE_TARGET_LIST';
-const HIGHLIGHT_TARGET = 'scratch-gui/targets/HIGHLIGHT_TARGET';
+const UPDATE_TARGET_LIST = 'clipcc-gui/targets/UPDATE_TARGET_LIST';
+const HIGHLIGHT_TARGET = 'clipcc-gui/targets/HIGHLIGHT_TARGET';
 
 const initialState = {
     sprites: {},

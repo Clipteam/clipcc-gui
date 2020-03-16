@@ -1,4 +1,4 @@
-const UPDATE = 'scratch-gui/mic-indicator/UPDATE';
+const UPDATE = 'clipcc-gui/mic-indicator/UPDATE';
 
 const initialState = false;
 

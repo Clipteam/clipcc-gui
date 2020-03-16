@@ -1,4 +1,4 @@
-const SET_PROJECT_CHANGED = 'scratch-gui/project-changed/SET_PROJECT_CHANGED';
+const SET_PROJECT_CHANGED = 'clipcc-gui/project-changed/SET_PROJECT_CHANGED';
 
 const initialState = false;
 

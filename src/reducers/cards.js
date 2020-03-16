@@ -2,15 +2,15 @@ import analytics from '../lib/analytics';
 
 import decks from '../lib/libraries/decks/index.jsx';
 
-const CLOSE_CARDS = 'scratch-gui/cards/CLOSE_CARDS';
-const SHRINK_EXPAND_CARDS = 'scratch-gui/cards/SHRINK_EXPAND_CARDS';
-const VIEW_CARDS = 'scratch-gui/cards/VIEW_CARDS';
-const ACTIVATE_DECK = 'scratch-gui/cards/ACTIVATE_DECK';
-const NEXT_STEP = 'scratch-gui/cards/NEXT_STEP';
-const PREV_STEP = 'scratch-gui/cards/PREV_STEP';
-const DRAG_CARD = 'scratch-gui/cards/DRAG_CARD';
-const START_DRAG = 'scratch-gui/cards/START_DRAG';
-const END_DRAG = 'scratch-gui/cards/END_DRAG';
+const CLOSE_CARDS = 'clipcc-gui/cards/CLOSE_CARDS';
+const SHRINK_EXPAND_CARDS = 'clipcc-gui/cards/SHRINK_EXPAND_CARDS';
+const VIEW_CARDS = 'clipcc-gui/cards/VIEW_CARDS';
+const ACTIVATE_DECK = 'clipcc-gui/cards/ACTIVATE_DECK';
+const NEXT_STEP = 'clipcc-gui/cards/NEXT_STEP';
+const PREV_STEP = 'clipcc-gui/cards/PREV_STEP';
+const DRAG_CARD = 'clipcc-gui/cards/DRAG_CARD';
+const START_DRAG = 'clipcc-gui/cards/START_DRAG';
+const END_DRAG = 'clipcc-gui/cards/END_DRAG';
 
 const initialState = {
     visible: false,

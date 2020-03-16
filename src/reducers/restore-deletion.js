@@ -1,4 +1,4 @@
-const RESTORE_UPDATE = 'scratch-gui/restore-deletion/RESTORE_UPDATE';
+const RESTORE_UPDATE = 'clipcc-gui/restore-deletion/RESTORE_UPDATE';
 
 const initialState = {
     restoreFun: null,

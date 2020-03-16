@@ -1,4 +1,4 @@
-const DRAG_UPDATE = 'scratch-gui/asset-drag/DRAG_UPDATE';
+const DRAG_UPDATE = 'clipcc-gui/asset-drag/DRAG_UPDATE';
 
 const initialState = {
     dragging: false,

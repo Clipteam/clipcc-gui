@@ -2,11 +2,11 @@ import alertsData from '../lib/alerts/index.jsx';
 import {AlertTypes, AlertLevels} from '../lib/alerts/index.jsx';
 import extensionData from '../lib/libraries/extensions/index.jsx';
 
-const SHOW_ALERT = 'scratch-gui/alerts/SHOW_ALERT';
-const SHOW_EXTENSION_ALERT = 'scratch-gui/alerts/SHOW_EXTENSION_ALERT';
-const CLOSE_ALERT = 'scratch-gui/alerts/CLOSE_ALERT';
-const CLOSE_ALERTS_WITH_ID = 'scratch-gui/alerts/CLOSE_ALERTS_WITH_ID';
-const CLOSE_ALERT_WITH_ID = 'scratch-gui/alerts/CLOSE_ALERT_WITH_ID';
+const SHOW_ALERT = 'clipcc-gui/alerts/SHOW_ALERT';
+const SHOW_EXTENSION_ALERT = 'clipcc-gui/alerts/SHOW_EXTENSION_ALERT';
+const CLOSE_ALERT = 'clipcc-gui/alerts/CLOSE_ALERT';
+const CLOSE_ALERTS_WITH_ID = 'clipcc-gui/alerts/CLOSE_ALERTS_WITH_ID';
+const CLOSE_ALERT_WITH_ID = 'clipcc-gui/alerts/CLOSE_ALERT_WITH_ID';
 
 /**
  * Initial state of alerts reducer

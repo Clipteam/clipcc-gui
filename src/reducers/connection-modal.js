@@ -1,4 +1,4 @@
-const SET_ID = 'scratch-gui/connection-modal/setId';
+const SET_ID = 'clipcc-gui/connection-modal/setId';
 
 const initialState = {
     extensionId: null

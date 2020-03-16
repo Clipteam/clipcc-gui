@@ -1,7 +1,7 @@
 import VM from 'clipcc-vm';
 import storage from '../lib/storage';
 
-const SET_VM = 'scratch-gui/vm/SET_VM';
+const SET_VM = 'clipcc-gui/vm/SET_VM';
 const defaultVM = new VM();
 defaultVM.attachStorage(storage);
 const initialState = defaultVM;

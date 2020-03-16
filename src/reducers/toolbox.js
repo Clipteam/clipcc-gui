@@ -1,4 +1,4 @@
-const UPDATE_TOOLBOX = 'scratch-gui/toolbox/UPDATE_TOOLBOX';
+const UPDATE_TOOLBOX = 'clipcc-gui/toolbox/UPDATE_TOOLBOX';
 import makeToolboxXML from '../lib/make-toolbox-xml';
 
 const initialState = {

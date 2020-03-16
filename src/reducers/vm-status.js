@@ -1,6 +1,6 @@
-const SET_RUNNING_STATE = 'scratch-gui/vm-status/SET_RUNNING_STATE';
-const SET_TURBO_STATE = 'scratch-gui/vm-status/SET_TURBO_STATE';
-const SET_STARTED_STATE = 'scratch-gui/vm-status/SET_STARTED_STATE';
+const SET_RUNNING_STATE = 'clipcc-gui/vm-status/SET_RUNNING_STATE';
+const SET_TURBO_STATE = 'clipcc-gui/vm-status/SET_TURBO_STATE';
+const SET_STARTED_STATE = 'clipcc-gui/vm-status/SET_STARTED_STATE';
 
 const initialState = {
     running: false,

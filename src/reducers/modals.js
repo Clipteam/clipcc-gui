@@ -1,5 +1,5 @@
-const OPEN_MODAL = 'scratch-gui/modals/OPEN_MODAL';
-const CLOSE_MODAL = 'scratch-gui/modals/CLOSE_MODAL';
+const OPEN_MODAL = 'clipcc-gui/modals/OPEN_MODAL';
+const CLOSE_MODAL = 'clipcc-gui/modals/CLOSE_MODAL';
 
 const MODAL_BACKDROP_LIBRARY = 'backdropLibrary';
 const MODAL_CAMERA_CAPTURE = 'cameraCapture';

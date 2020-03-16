@@ -1,4 +1,4 @@
-const UPDATE_MONITORS = 'scratch-gui/monitors/UPDATE_MONITORS';
+const UPDATE_MONITORS = 'clipcc-gui/monitors/UPDATE_MONITORS';
 import {OrderedMap} from 'immutable';
 
 const initialState = OrderedMap();

@@ -4,7 +4,7 @@
 # clipcc-gui
 </div>
 
-#### Clipcc is a powerful scratch-project editor based on scratch-gui which was created by MIT. And it migrates a lot of function from clipcc 1.x. 
+#### Clipcc is a powerful scratch-project editor based on clipcc-gui which was created by MIT. And it migrates a lot of function from clipcc 1.x. 
 
 ## Links
 ### [clipcc-l10n](https://github.com/Clipteam/clipcc-l10n)
@@ -201,7 +201,7 @@ Further reading: [Stack Overflow](https://stackoverflow.com/questions/46602286/n
 
 ## Publishing to GitHub Pages
 You can publish the GUI to github.io so that others on the Internet can view it.
-[Read the wiki for a step-by-step guide.](https://github.com/LLK/scratch-gui/wiki/Publishing-to-GitHub-Pages)
+[Read the wiki for a step-by-step guide.](https://github.com/LLK/clipcc-gui/wiki/Publishing-to-GitHub-Pages)
 
 ## Want to add more function?
 
