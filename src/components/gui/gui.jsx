@@ -86,6 +86,7 @@ const GUIComponent = props => {
         isPlayerOnly,
         isRtl,
         isShared,
+        isStandalone,
         loading,
         logo,
         renderLogin,
@@ -215,6 +216,7 @@ const GUIComponent = props => {
                     className={styles.menuBarPosition}
                     enableCommunity={enableCommunity}
                     isShared={isShared}
+                    isStandalone={isStandalone}
                     logo={logo}
                     renderLogin={renderLogin}
                     showComingSoon={showComingSoon}
