@@ -142,30 +142,35 @@ module.exports = [
             new HtmlWebpackPlugin({
                 chunks: ['lib.min', 'gui'],
                 template: 'src/playground/index.ejs',
-                title: 'Scratch 3.0 GUI',
+                title: 'ClipCC 3.0 GUI',
                 sentryConfig: process.env.SENTRY_CONFIG ? '"' + process.env.SENTRY_CONFIG + '"' : null
             }),
             new HtmlWebpackPlugin({
                 chunks: ['lib.min', 'blocksonly'],
                 template: 'src/playground/index.ejs',
                 filename: 'blocks-only.html',
-                title: 'Scratch 3.0 GUI: Blocks Only Example'
+                title: 'ClipCC 3.0 GUI: Blocks Only Example'
             }),
             new HtmlWebpackPlugin({
                 chunks: ['lib.min', 'compatibilitytesting'],
                 template: 'src/playground/index.ejs',
                 filename: 'compatibility-testing.html',
-                title: 'Scratch 3.0 GUI: Compatibility Testing'
+                title: 'ClipCC 3.0 GUI: Compatibility Testing'
             }),
             new HtmlWebpackPlugin({
                 chunks: ['lib.min', 'player'],
                 template: 'src/playground/index.ejs',
                 filename: 'player.html',
-                title: 'Scratch 3.0 GUI: Player Example'
+                title: 'ClipCC 3.0 GUI: Player Example'
             }),
             new CopyWebpackPlugin([{
+                from: 'static/favicon.ico',
+                to: 'static/favicon.ico'
+            }]),
+            new CopyWebpackPlugin([{
                 from: 'static',
-                to: 'static'
+                to: '.',
+                ignore: '*.ico'
             }]),
             new CopyWebpackPlugin([{
                 from: 'node_modules/clipcc-block/media',
