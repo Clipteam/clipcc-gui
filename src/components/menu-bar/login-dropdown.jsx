@@ -10,6 +10,7 @@ import React from 'react';
 import {defineMessages} from 'react-intl';
 
 import MenuBarMenu from './menu-bar-menu.jsx';
+import ConnectedLogin from './connected-login.jsx'
 
 import styles from './login-dropdown.css';
 
@@ -50,26 +51,45 @@ const LoginDropdown = ({
     isRtl,
     onClose,
     renderLogin
-}) => (
-    <MenuBarMenu
-        className={className}
-        open={isOpen}
-        // note: the Rtl styles are switched here, because this menu is justified
-        // opposite all the others
-        place={isRtl ? 'right' : 'left'}
-        onRequestClose={onClose}
-    >
-        <div
-            className={classNames(
-                styles.login
-            )}
+}) => {
+    if (typeof renderLogin === 'undefined') {
+        renderLogin = ({onClose}) => (
+            <ConnectedLogin
+                key="login-dropdown-presentation"
+                /* eslint-disable react/jsx-no-bind */
+                onLogin={(formData, callback) => {
+                    this.props.handleLogin(formData, result => {
+                        if (result.success === true) {
+                            onClose();
+                        }
+                        callback(result);
+                    });
+                }}
+                /* eslint-enable react/jsx-no-bind */
+            />
+        );
+    }
+    return (
+        <MenuBarMenu
+            className={className}
+            open={isOpen}
+            // note: the Rtl styles are switched here, because this menu is justified
+            // opposite all the others
+            place={isRtl ? 'right' : 'left'}
+            onRequestClose={onClose}
         >
-            {renderLogin({
-                onClose: onClose
-            })}
-        </div>
-    </MenuBarMenu>
-);
+            <div
+                className={classNames(
+                    styles.login
+                )}
+            >
+                {renderLogin({
+                    onClose: onClose
+                })}
+            </div>
+        </MenuBarMenu>
+    );
+};
 
 LoginDropdown.propTypes = {
     className: PropTypes.string,

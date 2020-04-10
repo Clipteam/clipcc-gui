@@ -1,0 +1,27 @@
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.flex-row.column {
+    flex-direction: column;
+    justify-content: center;
+}
+
+.flex-row.uneven {
+    align-items: flex-start;
+}
+
+.flex-row.uneven .short {
+    width: 220px;
+}
+
+.flex-row.uneven .long {
+    width: 620px;
+    text-align: left;
+}
+
+

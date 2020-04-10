@@ -576,6 +576,7 @@ class MenuBar extends React.Component {
                                 <SaveStatus />
                             )}
                         </div>
+                        <span>{this.props.sessionExists}</span>
                         {this.props.sessionExists ? (
                             this.props.username ? (
                                 // ************ user is logged in ************
@@ -771,6 +772,7 @@ MenuBar.defaultProps = {
 const mapStateToProps = (state, ownProps) => {
     const loadingState = state.scratchGui.projectState.loadingState;
     const user = state.session && state.session.session && state.session.session.user;
+    console.log(state.session);
     return {
         accountMenuOpen: accountMenuOpen(state),
         fileMenuOpen: fileMenuOpen(state),

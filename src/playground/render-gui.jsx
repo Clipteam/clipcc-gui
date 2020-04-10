@@ -11,6 +11,10 @@ const onClickLogo = () => {
     /*window.location = 'https://scratch.mit.edu';*/
 };
 
+const onSave = () => {
+    
+}
+
 const handleTelemetryModalCancel = () => {
     log('User canceled telemetry modal');
 };
@@ -67,7 +71,6 @@ export default appTarget => {
             <WrappedGui
                 canEditTitle
                 isScratchDesktop
-                isStandalone
                 showTelemetryModal
                 canSave={false}
                 onTelemetryModalCancel={handleTelemetryModalCancel}
@@ -76,12 +79,14 @@ export default appTarget => {
             /> :
             <WrappedGui
                 canEditTitle
-                isStandalone
-                backpackVisible={false}
+                canShare
+                enableCommunity
                 showComingSoon
+                backpackVisible={false}
                 backpackHost={backpackHost}
-                canSave={false}
+                canSave={true}
                 onClickLogo={onClickLogo}
+                onSave={onSave}
             />,
         appTarget);
 };

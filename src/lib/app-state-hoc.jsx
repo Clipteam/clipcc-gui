@@ -53,6 +53,11 @@ const AppStateHOC = function (WrappedComponent, localesOnly) {
                     initPlayer,
                     initTelemetryModal
                 } = guiRedux;
+                const sessionRedux = require('../reducers/session');
+                const sessionReducer = sessionRedux.default;
+                const {
+                    sessionInitialState
+                } = sessionRedux;
                 const {ScratchPaintReducer} = require('scratch-paint');
 
                 let initializedGui = guiInitialState;
@@ -69,11 +74,13 @@ const AppStateHOC = function (WrappedComponent, localesOnly) {
                 reducers = {
                     locales: localesReducer,
                     scratchGui: guiReducer,
-                    scratchPaint: ScratchPaintReducer
+                    scratchPaint: ScratchPaintReducer,
+                    session: sessionReducer
                 };
                 initialState = {
                     locales: initializedLocales,
-                    scratchGui: initializedGui
+                    scratchGui: initializedGui,
+                    session: sessionInitialState
                 };
                 enhancer = composeEnhancers(guiMiddleware);
             }

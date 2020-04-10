@@ -1,0 +1,66 @@
+@import "../../css/colors.css";
+
+.login {
+    padding: 10px;
+    width: 200px;
+    line-height: 1.5rem;
+    white-space: normal;
+    color: $type-white;
+    font-size: .8125rem;
+}
+
+.login-button {
+    padding: .75rem;
+}
+
+.login .row {
+    margin-bottom: 1.25rem;
+}
+
+.login-input-box {
+    margin-bottom: 12px;
+    width: 100%;
+    height: 2.25rem;
+}
+
+.login label {
+    padding-top: 5px;
+}
+
+.login-spinner {
+    margin: 0 .8rem;
+    width: 1rem;
+    vertical-align: middle;
+}
+
+.login-submit-row {
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.login-submit-button {
+    margin-top: 5px;
+    margin-right: 15px;
+}
+
+.login a {
+    margin: auto 0;
+    color: $ui-white;
+}
+
+.login a:link,
+.login a:visited,
+.login a:active {
+    color: $ui-white;
+}
+
+.login a:hover {
+    background-color: transparent;
+}
+
+.login.error {
+    border: 1px solid $active-dark-gray;
+    border-radius: 5px;
+    background-color: $ui-white;
+    padding: .75em 1em;
+}

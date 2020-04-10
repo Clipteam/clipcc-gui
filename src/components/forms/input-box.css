@@ -1,0 +1,38 @@
+@import "../../css/colors.css";
+
+$base-bg: $ui-light-gray;
+
+.row label {
+    font-weight: 500;
+}
+
+.input-box {
+    transition: all .5s ease;
+    margin-bottom: .75rem;
+    border: 1px solid $active-gray;
+    border-radius: 5px;
+    background-color: $base-bg;
+    padding: 0 1rem;
+    height: 3rem;
+    color: $type-gray;
+    font-size: .875rem;
+}
+
+.input-box:focus {
+    transition: all .5s ease;
+    outline: none;
+    border: 1px solid $ui-blue;
+}
+
+.input-box.fail {
+    border: 1px solid $ui-orange;
+}
+
+.input-box.pass {
+    border: 1px solid $ui-aqua;
+}
+
+/* IE10/11-specific style resets */
+.input-box::-ms-reveal, .input-box::-ms-clear {
+    display: none;
+}

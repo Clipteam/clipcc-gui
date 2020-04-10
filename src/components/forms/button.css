@@ -1,0 +1,55 @@
+@import "../../css/colors.css";
+
+$base-bg: $ui-blue;
+$fail-bg: $ui-red;
+$pass-bg: $ui-aqua;
+
+.button {
+    display: inline-block;
+    margin: .5em 0;
+    border: 0;
+    border-radius: .5rem;
+    background-color: #003ca2;
+    cursor: pointer;
+    padding: 1em 1.25em;
+    color: $type-white;
+    font-size: .8rem;
+    font-weight: bold;
+}
+
+/* USER BUTTON STATES */
+.button:focus {
+    outline: none;
+}
+
+/* DATA BUTTON STATES */
+.button.white {
+    background-color: $base-bg;
+    color: $ui-blue;
+}
+
+.button.pass {
+    background-color: $pass-bg;
+}
+
+.button.fail {
+    background-color: $fail-bg;
+}
+
+.button:disabled {
+    box-shadow: none;
+}
+
+.button.large {
+    border-radius: .25rem;
+    font-size: 1rem;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: .75rem 1.25rem .8125rem;
+}
+
+.button.icon-right img {
+    height: 1.25rem;
+    margin-bottom: -.25rem;
+    margin-left: .5rem;
+    margin-right: -.25rem;
+}
