@@ -48,7 +48,8 @@ import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
 import libraImage from './libra/Libra.png';
 import libraInsetImage from './libra/Libra-small.svg';
-
+import HTTPIOImage from './HTTPIO/CCUnknownExtension.jpg';
+import HTTPIOInSetImage from './HTTPIO/CCUnknownExtension.svg';
 export default [
     {
         name: (
@@ -86,6 +87,27 @@ export default [
                 defaultMessage="Draw with your sprites."
                 description="Description for the 'Pen' extension"
                 id="gui.extension.pen.description"
+            />
+        ),
+        featured: true
+    },
+    {
+        name: (
+            <FormattedMessage
+                defaultMessage="HTTPIO"
+                description="HTTPIO Plugin"
+                id="gui.extension.HTTPIO.name"
+            />
+        ),
+        collaborator: 'Clipteam',
+        extensionId: 'httpio',
+        iconURL: HTTPIOImage,
+        insetIconURL: HTTPIOInsetImage,
+        description: (
+            <FormattedMessage
+                defaultMessage="HTTPIO Plugin"
+                description="HTTPIO Plugin"
+                id="gui.extension.HTTPIO.description"
             />
         ),
         featured: true
