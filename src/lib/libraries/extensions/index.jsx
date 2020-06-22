@@ -49,7 +49,7 @@ import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 import libraImage from './libra/Libra.png';
 import libraInsetImage from './libra/Libra-small.svg';
 import HTTPIOImage from './HTTPIO/CCUnknownExtension.jpg';
-import HTTPIOInSetImage from './HTTPIO/CCUnknownExtension.svg';
+import HTTPIOInsetImage from './HTTPIO/CCUnknownExtension.svg';
 export default [
     {
         name: (
