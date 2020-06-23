@@ -48,8 +48,10 @@ import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
 import libraImage from './libra/Libra.png';
 import libraInsetImage from './libra/Libra-small.svg';
+
 import HTTPIOImage from './HTTPIO/CCUnknownExtension.jpg';
 import HTTPIOInsetImage from './HTTPIO/CCUnknownExtension.svg';
+
 export default [
     {
         name: (
@@ -105,7 +107,7 @@ export default [
         insetIconURL: HTTPIOInsetImage,
         description: (
             <FormattedMessage
-                defaultMessage="HTTPIO Plugin"
+                defaultMessage="Feel the charm of the Internet!"
                 description="HTTPIO Plugin"
                 id="gui.extension.HTTPIO.description"
             />
