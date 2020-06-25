@@ -2342,10 +2342,10 @@ cli-width@^2.0.0:
   resolved "https://registry.npmjs.org/cli-width/-/cli-width-2.2.1.tgz#b0433d0b4e9c847ef18868a4ef16fd5fc8271c48"
   integrity sha512-GRMWDxpOB6Dgk2E5Uo+3eEBvtOOlimMmpbFiKuLFnQzYDavtLFY3K5ona41jgN/WdRZtG7utuVSVTL4HbZHGkw==
 
-clipcc-block@latest:
-  version "3.0.0-6"
-  resolved "https://registry.npmjs.org/clipcc-block/-/clipcc-block-3.0.0-6.tgz#ef53808cb1c8e1c4dd8a0aaca7132963cf35223d"
-  integrity sha512-gWx4MWsE3lcQCtEwB1mY3Tsv27kBKEg/0/bdke2RKzAXk5QE645+YXDRE9akzXi5OI8ph0wJrL7kjFk41ocwaQ==
+clipcc-block@3.0.0-7:
+  version "3.0.0-7"
+  resolved "https://registry.yarnpkg.com/clipcc-block/-/clipcc-block-3.0.0-7.tgz#49686172472800e6055b96d0d8deaf19fcb9ded0"
+  integrity sha512-vvp6AKAxyKGI8ktu2FsGvbBxdf8khKJYNxEu0W+6E50HAUEXk8M+57Dt89CsfKu5T+GlFmQZhgL3FI3/rMeNoQ==
   dependencies:
     exports-loader "0.6.3"
     imports-loader "0.6.5"
@@ -2357,10 +2357,10 @@ clipcc-block@latest:
     google-closure-compiler-osx "^20200112.0.0"
     google-closure-compiler-windows "^20200112.0.0"
 
-clipcc-vm@latest:
-  version "0.1.0-alpha.4"
-  resolved "https://registry.npmjs.org/clipcc-vm/-/clipcc-vm-0.1.0-alpha.4.tgz#7ce0293656f1647ffd57a2c3f59b046ed803ac0b"
-  integrity sha512-5K/1mhSU6Fznm2GziQ3bj69jzn2ql//EIEP6PjoTqPk/FZikMvkbYeogQXQ92QyfqUWJtVQVRBFYgpSQNJSgBA==
+clipcc-vm@3.0.0-4:
+  version "3.0.0-4"
+  resolved "https://registry.yarnpkg.com/clipcc-vm/-/clipcc-vm-3.0.0-4.tgz#c7a9ec78c98e6fb7d47e36a3a039ac7237b16f03"
+  integrity sha512-3ot7ql1qs9NqgUuFEGs6+mMYIu+ztqAW2qNbOnOCVXqrRoTOOCkn46SuMqTRSPOWBPS+2Jcq/kWsmQ3IDJ7PDA==
   dependencies:
     "@vernier/godirect" "1.5.0"
     arraybuffer-loader "^1.0.6"
