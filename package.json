@@ -1,6 +1,6 @@
 {
   "name": "clipcc-gui",
-  "version": "3.0.0-7",
+  "version": "3.0.0-8",
   "description": "GraphicaL User Interface for Clip CC",
   "main": "./dist/clipcc-gui.js",
   "scripts": {
