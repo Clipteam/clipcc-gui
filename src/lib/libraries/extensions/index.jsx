@@ -112,7 +112,8 @@ export default [
                 id="gui.extension.HTTPIO.description"
             />
         ),
-        featured: true
+        featured: true,
+        internetConnectionRequired: true
     },
     {
         name: (
@@ -133,7 +134,8 @@ export default [
                 id="gui.extension.redlist.description"
             />
         ),
-        featured: true
+        featured: true,
+        internetConnectionRequired: true
     },
     {
         name: (
