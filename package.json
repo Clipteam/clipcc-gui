@@ -4,14 +4,14 @@
   "description": "GraphicaL User Interface for Clip CC",
   "main": "./dist/clipcc-gui.js",
   "scripts": {
-    "build": "npm run clean && webpack --progress --colors --bail",
+    "build": "yarn run clean && webpack --progress --colors --bail",
     "clean": "rimraf ./build && mkdirp build && rimraf ./dist && mkdirp dist",
     "deploy": "touch build/.nojekyll && gh-pages -t -d build -m \"Build for $(git log --pretty=format:%H -n1)\"",
     "prune": "./prune-gh-pages.sh",
     "i18n:push": "tx-push-src scratch-editor interface translations/en.json",
     "i18n:src": "rimraf ./translations/messages/src && babel src > tmp.js && rimraf tmp.js && build-i18n-src ./translations/messages/src ./translations/ && npm run i18n:push",
     "start": "webpack-dev-server",
-    "test": "npm run test:lint && npm run test:unit && npm run build && npm run test:integration",
+    "test": "yarn run test:lint && yarn run test:unit && yarn run build && yarn run test:integration",
     "test:integration": "jest --runInBand test[\\\\/]integration",
     "test:lint": "eslint . --ext .js,.jsx",
     "test:unit": "jest test[\\\\/]unit",
@@ -19,7 +19,7 @@
     "watch": "webpack --progress --colors --watch"
   },
   "author": "Clip Team",
-  "license": "BSD-3-Clause",
+  "license": "AGPL-3.0",
   "homepage": "https://github.com/clipteam/clipcc-gui",
   "repository": {
     "type": "git",
@@ -141,5 +141,6 @@
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/__mocks__/fileMock.js",
       "\\.(css|less)$": "<rootDir>/test/__mocks__/styleMock.js"
     }
-  }
+  },
+  "dependencies": {}
 }
