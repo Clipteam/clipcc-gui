@@ -49,6 +49,9 @@ import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 import libraImage from './libra/Libra.png';
 import libraInsetImage from './libra/Libra-small.svg';
 
+import HTTPIOImage from './HTTPIO/CCUnknownExtension.jpg';
+import HTTPIOInsetImage from './HTTPIO/CCUnknownExtension.svg';
+
 export default [
     {
         name: (
@@ -93,6 +96,28 @@ export default [
     {
         name: (
             <FormattedMessage
+                defaultMessage="HTTPIO"
+                description="HTTPIO Plugin"
+                id="gui.extension.HTTPIO.name"
+            />
+        ),
+        collaborator: 'Clipteam',
+        extensionId: 'httpio',
+        iconURL: HTTPIOImage,
+        insetIconURL: HTTPIOInsetImage,
+        description: (
+            <FormattedMessage
+                defaultMessage="Feel the charm of the Internet!"
+                description="HTTPIO Plugin"
+                id="gui.extension.HTTPIO.description"
+            />
+        ),
+        featured: true,
+        internetConnectionRequired: true
+    },
+    {
+        name: (
+            <FormattedMessage
                 defaultMessage="Libra"
                 description="Libra Redlist Plugin"
                 id="gui.extension.redlist.name"
@@ -109,7 +134,8 @@ export default [
                 id="gui.extension.redlist.description"
             />
         ),
-        featured: true
+        featured: true,
+        internetConnectionRequired: true
     },
     {
         name: (
