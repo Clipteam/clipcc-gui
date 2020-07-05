@@ -3,7 +3,7 @@ import defaultProjectGenerator from '../../../src/lib/default-project/index.js';
 describe('defaultProject', () => {
     // This test ensures that the assets referenced in the default project JSON
     // do not get out of sync with the raw assets that are included alongside.
-    // see https://github.com/LLK/clipcc-gui/issues/4844
+    // see https://github.com/LLK/scratch-gui/issues/4844
     test('assets referenced by the project are included', () => {
         const translatorFn = () => '';
         const defaultProject = defaultProjectGenerator(translatorFn);

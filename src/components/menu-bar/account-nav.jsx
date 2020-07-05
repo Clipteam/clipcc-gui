@@ -1,5 +1,5 @@
 /*
-NOTE: this file only temporarily resides in clipcc-gui.
+NOTE: this file only temporarily resides in scratch-gui.
 Nearly identical code appears in scratch-www, and the two should
 eventually be consolidated.
 */

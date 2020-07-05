@@ -413,32 +413,31 @@ const onFetchedProjectData = (projectData, loadingState) => {
 };
 
 const onLoadedProject = (loadingState, canSave, success) => {
-    if (success) {
-        switch (loadingState) {
-        case LoadingState.LOADING_VM_WITH_ID:
-            return {
-                type: DONE_LOADING_VM_WITH_ID
-            };
-        case LoadingState.LOADING_VM_FILE_UPLOAD:
-            if (canSave) {
-                return {
-                    type: DONE_LOADING_VM_TO_SAVE
-                };
-            }
-            return {
-                type: DONE_LOADING_VM_WITHOUT_ID
-            };
-        case LoadingState.LOADING_VM_NEW_DEFAULT:
-            return {
-                type: DONE_LOADING_VM_WITHOUT_ID
-            };
-        default:
-            return;
+    switch (loadingState) {
+    case LoadingState.LOADING_VM_WITH_ID:
+        if (success) {
+            return {type: DONE_LOADING_VM_WITH_ID};
         }
+        // failed to load project; just keep showing current project
+        return {type: RETURN_TO_SHOWING};
+    case LoadingState.LOADING_VM_FILE_UPLOAD:
+        if (success) {
+            if (canSave) {
+                return {type: DONE_LOADING_VM_TO_SAVE};
+            }
+            return {type: DONE_LOADING_VM_WITHOUT_ID};
+        }
+        // failed to load project; just keep showing current project
+        return {type: RETURN_TO_SHOWING};
+    case LoadingState.LOADING_VM_NEW_DEFAULT:
+        if (success) {
+            return {type: DONE_LOADING_VM_WITHOUT_ID};
+        }
+        // failed to load default project; show error
+        return {type: START_ERROR};
+    default:
+        return;
     }
-    return {
-        type: RETURN_TO_SHOWING
-    };
 };
 
 const doneUpdatingProject = loadingState => {
