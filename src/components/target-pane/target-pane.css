@@ -1,10 +1,19 @@
 @import "../../css/units.css";
 
+.target-pane.scratch2 {
+    flex-direction: row-reverse;
+}
+
 .target-pane {
     /* Makes columns for the sprite library selector + and the stage selector */
     display: flex;
     flex-direction: row;
     flex-grow: 1;
+}
+
+[dir="ltr"] .stage-selector-wrapper.scratch2 {
+  margin-left: 0;
+  margin-right: calc($space / 2);
 }
 
 .stage-selector-wrapper {

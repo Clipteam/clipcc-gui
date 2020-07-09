@@ -2,6 +2,10 @@
 @import "../../css/colors.css";
 @import "../../css/z-index.css";
 
+.stage.scratch2 {
+    margin-left: -2px;
+}
+
 .stage {
     /*
         Fixes a few extra pixels of margin/padding, that adds on to the bottom
