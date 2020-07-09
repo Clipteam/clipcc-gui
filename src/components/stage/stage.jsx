@@ -29,11 +29,12 @@ const StageComponent = props => {
         onDeactivateColorPicker,
         onDoubleClick,
         onQuestionAnswered,
+        layoutStyle,
         ...boxProps
     } = props;
 
     const stageDimensions = getStageDimensions(stageSize, isFullScreen);
-
+    console.log(layoutStyle, layoutStyle === 'scratch2' ? '-2px' : '')
     return (
         <div>
             <Box
@@ -51,7 +52,8 @@ const StageComponent = props => {
                 <Box
                     className={classNames(
                         styles.stage,
-                        {[styles.stageOverlayContent]: isFullScreen}
+                        {[styles.stageOverlayContent]: isFullScreen},
+                        {[styles.scratch2]: layoutStyle === 'scratch2'}
                     )}
                     style={{
                         height: stageDimensions.height,
@@ -146,10 +148,12 @@ StageComponent.propTypes = {
     onDoubleClick: PropTypes.func,
     onQuestionAnswered: PropTypes.func,
     question: PropTypes.string,
+    layoutStyle: PropTypes.string,
     stageSize: PropTypes.oneOf(Object.keys(STAGE_DISPLAY_SIZES)).isRequired,
     useEditorDragStyle: PropTypes.bool
 };
 StageComponent.defaultProps = {
-    dragRef: () => {}
+    dragRef: () => {},
+    layoutStyle: 'scratch3'
 };
 export default StageComponent;

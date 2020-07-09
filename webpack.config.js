@@ -37,26 +37,32 @@ const base = {
     module: {
         rules: [{
             test: /\.jsx?$/,
-            loader: 'babel-loader',
+            // loader: 'babel-loader',
+            use: [
+                'thread-loader',
+                {
+                    loader: 'babel-loader',
+                    options: {
+                        // Explicitly disable babelrc so we don't catch various config
+                        // in much lower dependencies.
+                        babelrc: false,
+                        plugins: [
+                            '@babel/plugin-syntax-dynamic-import',
+                            '@babel/plugin-transform-async-to-generator',
+                            '@babel/plugin-proposal-object-rest-spread',
+                            ['react-intl', {
+                                messagesDir: './translations/messages/'
+                            }]],
+                        presets: ['@babel/preset-env', '@babel/preset-react']
+                    }
+                }
+            ],
             include: [
                 path.resolve(__dirname, 'src'),
                 /node_modules[\\/]scratch-[^\\/]+[\\/]src/,
                 /node_modules[\\/]pify/,
                 /node_modules[\\/]@vernier[\\/]godirect/
-            ],
-            options: {
-                // Explicitly disable babelrc so we don't catch various config
-                // in much lower dependencies.
-                babelrc: false,
-                plugins: [
-                    '@babel/plugin-syntax-dynamic-import',
-                    '@babel/plugin-transform-async-to-generator',
-                    '@babel/plugin-proposal-object-rest-spread',
-                    ['react-intl', {
-                        messagesDir: './translations/messages/'
-                    }]],
-                presets: ['@babel/preset-env', '@babel/preset-react']
-            }
+            ]
         },
         {
             test: /\.css$/,

@@ -44,11 +44,12 @@ const TargetPane = ({
     stage,
     stageSize,
     sprites,
+    layoutStyle,
     vm,
     ...componentProps
 }) => (
     <div
-        className={styles.targetPane}
+        className={[styles.targetPane, layoutStyle === 'scratch2' ? styles.scratch2 : ''].join(' ')}
         {...componentProps}
     >
 
@@ -77,8 +78,9 @@ const TargetPane = ({
             onSelectSprite={onSelectSprite}
             onSpriteUpload={onSpriteUpload}
             onSurpriseSpriteClick={onSurpriseSpriteClick}
+            layoutStyle={layoutStyle}
         />
-        <div className={styles.stageSelectorWrapper}>
+        <div className={[styles.stageSelectorWrapper, layoutStyle === 'scratch2' ? styles.scratch2 : ''].join(' ')}>
             {stage.id && <StageSelector
                 asset={
                     stage.costume &&
@@ -124,6 +126,7 @@ const spriteShape = PropTypes.shape({
 
 TargetPane.propTypes = {
     editingTarget: PropTypes.string,
+    layoutStyle: PropTypes.string,
     extensionLibraryVisible: PropTypes.bool,
     fileInputRef: PropTypes.func,
     hoveredTarget: PropTypes.shape({
@@ -156,6 +159,10 @@ TargetPane.propTypes = {
     stage: spriteShape,
     stageSize: PropTypes.oneOf(Object.keys(STAGE_DISPLAY_SIZES)).isRequired,
     vm: PropTypes.instanceOf(VM)
+};
+
+TargetPane.defaultProps = {
+    layoutStyle: 'scratch3'
 };
 
 export default TargetPane;

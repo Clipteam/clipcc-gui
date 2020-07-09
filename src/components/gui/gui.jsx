@@ -30,6 +30,7 @@ import Alerts from '../../containers/alerts.jsx';
 import DragLayer from '../../containers/drag-layer.jsx';
 import ConnectionModal from '../../containers/connection-modal.jsx';
 import TelemetryModal from '../telemetry-modal/telemetry-modal.jsx';
+import SettingsModal from '../settings-modal/settings-modal.jsx';
 
 import layout, {STAGE_SIZE_MODES} from '../../lib/layout-constants';
 import {resolveStageSize} from '../../lib/screen-utils';
@@ -104,6 +105,7 @@ const GUIComponent = props => {
         onRequestCloseBackdropLibrary,
         onRequestCloseCostumeLibrary,
         onRequestCloseTelemetryModal,
+        onRequestCloseSettingsModal,
         onSeeCommunity,
         onShare,
         onTelemetryModalCancel,
@@ -114,7 +116,9 @@ const GUIComponent = props => {
         stageSizeMode,
         targetIsStage,
         telemetryModalVisible,
+        settingsVisible,
         tipsLibraryVisible,
+        layoutStyle,
         vm,
         ...componentProps
     } = omit(props, 'dispatch');
@@ -200,6 +204,11 @@ const GUIComponent = props => {
                         onRequestClose={onRequestCloseBackdropLibrary}
                     />
                 ) : null}
+                {settingsVisible ? (
+                    <SettingsModal
+                        onRequestClose={onRequestCloseSettingsModal}
+                    />
+                ) : null}
                 <MenuBar
                     accountNavOpen={accountNavOpen}
                     authorId={authorId}
@@ -231,7 +240,7 @@ const GUIComponent = props => {
                     onToggleLoginOpen={onToggleLoginOpen}
                 />
                 <Box className={styles.bodyWrapper}>
-                    <Box className={styles.flexWrapper}>
+                    <Box className={[styles.flexWrapper, layoutStyle === 'scratch2' ? styles.scratch2 : ''].join(' ')}>
                         <Box className={styles.editorWrapper}>
                             <Tabs
                                 forceRenderTabPanel
@@ -334,6 +343,7 @@ const GUIComponent = props => {
 
                         <Box className={classNames(styles.stageAndTargetWrapper, styles[stageSize])}>
                             <StageWrapper
+                                layoutStyle={layoutStyle}
                                 isRendererSupported={isRendererSupported}
                                 isRtl={isRtl}
                                 stageSize={stageSize}
@@ -342,6 +352,7 @@ const GUIComponent = props => {
                             <Box className={styles.targetWrapper}>
                                 <TargetPane
                                     stageSize={stageSize}
+                                    layoutStyle={layoutStyle}
                                     vm={vm}
                                 />
                             </Box>
@@ -399,6 +410,7 @@ GUIComponent.propTypes = {
     onRequestCloseBackdropLibrary: PropTypes.func,
     onRequestCloseCostumeLibrary: PropTypes.func,
     onRequestCloseTelemetryModal: PropTypes.func,
+    onRequestCloseSettingsModal: PropTypes.func,
     onSeeCommunity: PropTypes.func,
     onShare: PropTypes.func,
     onTabSelect: PropTypes.func,
@@ -413,6 +425,8 @@ GUIComponent.propTypes = {
     targetIsStage: PropTypes.bool,
     telemetryModalVisible: PropTypes.bool,
     tipsLibraryVisible: PropTypes.bool,
+    settingsVisible: PropTypes.bool,
+    layoutStyle: PropTypes.string,
     vm: PropTypes.instanceOf(VM).isRequired
 };
 GUIComponent.defaultProps = {
@@ -433,6 +447,7 @@ GUIComponent.defaultProps = {
     isShared: false,
     loading: false,
     showComingSoon: false,
+    layoutStyle: 'scratch3',
     stageSizeMode: STAGE_SIZE_MODES.large
 };
 

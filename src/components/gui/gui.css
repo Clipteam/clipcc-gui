@@ -15,6 +15,10 @@
     box-sizing: border-box;
 }
 
+.flex-wrapper.scratch2 {
+    flex-direction: row-reverse;
+}
+
 .flex-wrapper {
     display: flex;
 
