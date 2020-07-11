@@ -31,6 +31,7 @@ class SpriteLibrary extends React.PureComponent {
         this.props.vm.addSprite(JSON.stringify(item.json)).then(() => {
             this.props.onActivateBlocksTab();
         });
+        console.log(item);
     }
     render () {
         return (
