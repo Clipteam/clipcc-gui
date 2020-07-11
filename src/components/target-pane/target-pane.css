@@ -13,7 +13,7 @@
 
 [dir="ltr"] .stage-selector-wrapper.scratch2 {
   margin-left: 0;
-  margin-right: calc($space / 2);
+  margin-right: $space;
 }
 
 .stage-selector-wrapper {

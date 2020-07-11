@@ -145,7 +145,8 @@ class Blocks extends React.Component {
             this.props.customProceduresVisible !== nextProps.customProceduresVisible ||
             this.props.locale !== nextProps.locale ||
             this.props.anyModalVisible !== nextProps.anyModalVisible ||
-            this.props.stageSize !== nextProps.stageSize
+            this.props.stageSize !== nextProps.stageSize ||
+            this.props.layoutStyle !== nextProps.layoutStyle
         );
     }
     componentDidUpdate (prevProps) {
@@ -162,7 +163,10 @@ class Blocks extends React.Component {
         }
 
         if (this.props.isVisible === prevProps.isVisible) {
-            if (this.props.stageSize !== prevProps.stageSize) {
+            if (
+                this.props.stageSize !== prevProps.stageSize ||
+                this.props.layoutStyle !== prevProps.layoutStyle
+            ) {
                 // force workspace to redraw for the new stage size
                 window.dispatchEvent(new Event('resize'));
             }
@@ -525,6 +529,7 @@ class Blocks extends React.Component {
             onRequestCloseExtensionLibrary,
             onRequestCloseCustomProcedures,
             toolboxXML,
+            layoutStyle,
             ...props
         } = this.props;
         /* eslint-enable no-unused-vars */
@@ -575,6 +580,7 @@ Blocks.propTypes = {
     extensionLibraryVisible: PropTypes.bool,
     isRtl: PropTypes.bool,
     isVisible: PropTypes.bool,
+    layoutStyle: PropTypes.string,
     locale: PropTypes.string.isRequired,
     messages: PropTypes.objectOf(PropTypes.string),
     onActivateColorPicker: PropTypes.func,
@@ -640,6 +646,7 @@ Blocks.defaultOptions = {
 };
 
 Blocks.defaultProps = {
+    layoutStyle: 'scratch3',
     isVisible: true,
     options: Blocks.defaultOptions
 };

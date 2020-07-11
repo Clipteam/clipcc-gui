@@ -37,6 +37,7 @@ const StageWrapperComponent = function (props) {
                     isRendererSupported ?
                         <Stage
                             layoutStyle={layoutStyle}
+                            isFullScreen={isFullScreen}
                             stageSize={stageSize}
                             vm={vm}
                         /> :

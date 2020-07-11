@@ -34,7 +34,6 @@ const StageComponent = props => {
     } = props;
 
     const stageDimensions = getStageDimensions(stageSize, isFullScreen);
-    console.log(layoutStyle, layoutStyle === 'scratch2' ? '-2px' : '')
     return (
         <div>
             <Box
@@ -53,7 +52,7 @@ const StageComponent = props => {
                     className={classNames(
                         styles.stage,
                         {[styles.stageOverlayContent]: isFullScreen},
-                        {[styles.scratch2]: layoutStyle === 'scratch2'}
+                        {[styles.scratch2]: layoutStyle === 'scratch2' && !isFullScreen}
                     )}
                     style={{
                         height: stageDimensions.height,
