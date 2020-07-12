@@ -49,6 +49,7 @@ class StageComponent extends React.Component {
         canvas.removeEventListener('drop', this.handleDrop);
     }
     handleDragEnter (e) {
+        if (this.props.isFullScreen) return;
         e.preventDefault();
         e.stopPropagation();
         this.setState({
@@ -56,10 +57,12 @@ class StageComponent extends React.Component {
         });
     }
     handleDragOver (e) {
+        if (this.props.isFullScreen) return;
         e.preventDefault();
         e.stopPropagation();
     }
     handleDragLeave (e) {
+        if (this.props.isFullScreen) return;
         e.preventDefault();
         e.stopPropagation();
         this.setState({
@@ -67,6 +70,7 @@ class StageComponent extends React.Component {
         });
     }
     handleDrop (e) {
+        if (this.props.isFullScreen) return;
         e.preventDefault();
         e.stopPropagation();
         const thisFileInput = e.dataTransfer;
@@ -135,6 +139,7 @@ class StageComponent extends React.Component {
                                 [styles.dragingFile]: this.state.dragingFile
                             })}
                             style={{
+                                display: isFullScreen ? 'none' : 'inline',
                                 minHeight: stageDimensions.height + 1,
                                 minWidth: stageDimensions.width + 1
                             }}
