@@ -10,6 +10,7 @@ import Box from '../box/box.jsx';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import Modal from '../../containers/modal.jsx';
 import styles from './settings-modal.css';
+// eslint-disable-next-line no-unused-vars
 import Switch from './switch.jsx';
 import {connect} from 'react-redux';
 // eslint-disable-next-line no-unused-vars
@@ -54,9 +55,7 @@ Setting.propTypes = {
 
 const SettingsModal = ({
     intl,
-    onRequestClose,
-    onUpdateDarkFullscreenStage,
-    darkFullscreenStage
+    onRequestClose
 }) => (
     <Modal
         className={styles.modalContent}
@@ -65,15 +64,6 @@ const SettingsModal = ({
     >
         <Box className={styles.body}>
             <LayoutSetting />
-            <Setting
-                intl={intl}
-                message={messages.darkFullscreenStage}
-            >
-                <Switch
-                    onChanged={onUpdateDarkFullscreenStage}
-                    default={darkFullscreenStage}
-                />
-            </Setting>
         </Box>
     </Modal>
 );
@@ -81,9 +71,7 @@ const SettingsModal = ({
 
 SettingsModal.propTypes = {
     intl: intlShape.isRequired,
-    onRequestClose: PropTypes.func.isRequired,
-    onUpdateDarkFullscreenStage: PropTypes.func.isRequired,
-    darkFullscreenStage: PropTypes.bool.isRequired
+    onRequestClose: PropTypes.func.isRequired
 };
 
 // eslint-disable-next-line no-unused-vars
