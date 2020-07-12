@@ -226,6 +226,8 @@ StageComponent.propTypes = {
     micIndicator: PropTypes.bool,
     onDeactivateColorPicker: PropTypes.func,
     onDoubleClick: PropTypes.func,
+    canSave: PropTypes.bool,
+    userOwnsProject: PropTypes.bool,
     onQuestionAnswered: PropTypes.func,
     question: PropTypes.string,
     layoutStyle: PropTypes.string,
