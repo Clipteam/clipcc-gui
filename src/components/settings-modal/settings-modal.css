@@ -9,3 +9,7 @@
     background: $ui-white;
     padding: 1.5rem 2.25rem;
 }
+
+.body > * {
+    margin: $space 0;
+}

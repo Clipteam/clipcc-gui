@@ -61,6 +61,7 @@ class SBFileUploader extends React.Component {
             'onload',
             'resetFileInput'
         ]);
+        if (props.onRef) props.onRef(this);
     }
     componentWillMount () {
         this.reader = new FileReader();
@@ -184,6 +185,7 @@ SBFileUploader.propTypes = {
     requestProjectUpload: PropTypes.func,
     onReceivedProjectTitle: PropTypes.func,
     userOwnsProject: PropTypes.bool,
+    onRef: PropTypes.func,
     vm: PropTypes.shape({
         loadProject: PropTypes.func
     })

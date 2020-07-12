@@ -6,6 +6,22 @@
     margin-left: -2px;
 }
 
+.drag-layout {
+    pointer-events: none;
+    position: absolute;
+    background-color: transparent;
+    border-radius: $space;
+    overflow: hidden;
+    margin: -1px;
+    box-shadow: 0 0 0 0 $motion-primary;
+    transition: all 0.3s;
+}
+
+.draging-file {
+    background-color: $motion-transparent;
+    box-shadow: 0 0 0 4px $motion-primary;
+}
+
 .stage {
     /*
         Fixes a few extra pixels of margin/padding, that adds on to the bottom
@@ -58,6 +74,7 @@
     /* spacing between stage and control bar (on the top), or between
     stage and window edges (on left/right/bottom) */
     padding: $stage-full-screen-stage-padding;
+    overflow: hidden;
 }
 
 /* wraps only main content of overlay player, not monitors */
