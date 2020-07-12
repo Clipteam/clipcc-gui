@@ -28,6 +28,7 @@ const StageWrapperComponent = function (props) {
         >
             <Box className={styles.stageMenuWrapper}>
                 <StageHeader
+                    layoutStyle={layoutStyle}
                     stageSize={stageSize}
                     vm={vm}
                 />

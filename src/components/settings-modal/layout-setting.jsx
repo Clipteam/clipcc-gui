@@ -7,9 +7,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import classNames from 'classnames';
 import Box from '../box/box.jsx';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
-import {updateLayoutStyle, layoutStyle} from '../../reducers/layout';
+import {updateSetting, getSetting} from '../../reducers/settings';
 import styles from './layout-setting.css';
 
 // import sc1styleImg from './layout-style-sc1.png'; Just kidding :P
@@ -41,23 +42,23 @@ const messages = defineMessages({
 
 const LayoutSetting = props => (
     <Box
+        justifyContent="space-between"
         alignContent="center"
         alignItems="center"
         style={{display: 'flex'}}
     >
         <strong>{props.intl.formatMessage(messages.label)}</strong>
-        <span style={{flex: 1}} />
         <Box
             alignContent="center"
             alignItems="center"
             style={{display: 'flex'}}
         >
             <span
-                className={[
+                className={classNames(
                     styles.switchLeft,
                     styles.switch,
-                    props.layoutStyle === 'scratch2' ? styles.active : ''
-                ].join(' ')}
+                    props.layoutStyle === 'scratch2' ? styles.active : null
+                )}
                 onClick={props.onClickScratch2Style}
             >
                 <img
@@ -67,11 +68,11 @@ const LayoutSetting = props => (
                 <div>{props.intl.formatMessage(messages.scratch2)}</div>
             </span>
             <span
-                className={[
+                className={classNames(
                     styles.switchRight,
                     styles.switch,
                     props.layoutStyle === 'scratch3' ? styles.active : ''
-                ].join(' ')}
+                )}
                 onClick={props.onClickScratch3Style}
             >
                 <img
@@ -92,12 +93,12 @@ LayoutSetting.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    layoutStyle: layoutStyle(state)
+    layoutStyle: getSetting(state, 'layoutStyle')
 });
 
 const mapDispatchToProps = dispatch => ({
-    onClickScratch2Style: () => dispatch(updateLayoutStyle('scratch2')),
-    onClickScratch3Style: () => dispatch(updateLayoutStyle('scratch3'))
+    onClickScratch2Style: () => dispatch(updateSetting('layoutStyle', 'scratch2')),
+    onClickScratch3Style: () => dispatch(updateSetting('layoutStyle', 'scratch3'))
 });
 
 export default injectIntl(connect(

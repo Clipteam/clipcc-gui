@@ -10,6 +10,7 @@ import Button from '../button/button.jsx';
 import Controls from '../../containers/controls.jsx';
 import {getStageDimensions} from '../../lib/screen-utils';
 import {STAGE_SIZE_MODES} from '../../lib/layout-constants';
+import {getSetting} from '../../reducers/settings';
 
 import fullScreenIcon from './icon--fullscreen.svg';
 import largeStageIcon from './icon--large-stage.svg';
@@ -58,6 +59,7 @@ const StageHeaderComponent = function (props) {
         onSetStageUnFull,
         showBranding,
         stageSizeMode,
+        layoutStyle,
         vm
     } = props;
 
@@ -96,7 +98,10 @@ const StageHeaderComponent = function (props) {
         header = (
             <Box className={styles.stageHeaderWrapperOverlay}>
                 <Box
-                    className={styles.stageMenuWrapper}
+                    className={classNames(
+                        styles.stageMenuWrapper,
+                        (layoutStyle === 'scratch2') ? styles.scratch2 : null
+                    )}
                     style={{width: stageDimensions.width}}
                 >
                     <Controls vm={vm} />
@@ -148,9 +153,17 @@ const StageHeaderComponent = function (props) {
             );
         header = (
             <Box className={styles.stageHeaderWrapper}>
-                <Box className={styles.stageMenuWrapper}>
+                <Box
+                    className={classNames(styles.stageMenuWrapper,
+                        (layoutStyle === 'scratch2') ? styles.scratch2 : null
+                    )}
+                >
                     <Controls vm={vm} />
-                    <div className={styles.stageSizeRow}>
+                    <div
+                        className={classNames(styles.stageSizeRow,
+                            (layoutStyle === 'scratch2') ? styles.scratch2 : null
+                        )}
+                    >
                         {stageControls}
                         <div>
                             <Button
@@ -177,11 +190,13 @@ const StageHeaderComponent = function (props) {
 
 const mapStateToProps = state => ({
     // This is the button's mode, as opposed to the actual current state
-    stageSizeMode: state.scratchGui.stageSize.stageSize
+    stageSizeMode: state.scratchGui.stageSize.stageSize,
+    darkFullscreenStage: getSetting(state, 'darkFullscreenStage')
 });
 
 StageHeaderComponent.propTypes = {
     intl: intlShape,
+    layoutStyle: PropTypes.string,
     isFullScreen: PropTypes.bool.isRequired,
     isPlayerOnly: PropTypes.bool.isRequired,
     onKeyPress: PropTypes.func.isRequired,
@@ -195,7 +210,8 @@ StageHeaderComponent.propTypes = {
 };
 
 StageHeaderComponent.defaultProps = {
-    stageSizeMode: STAGE_SIZE_MODES.large
+    stageSizeMode: STAGE_SIZE_MODES.large,
+    layoutStyle: 'scratch3'
 };
 
 export default injectIntl(connect(
