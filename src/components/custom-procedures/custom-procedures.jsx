@@ -112,6 +112,19 @@ const CustomProcedures = props => (
                         id="gui.customProcedures.runWithoutScreenRefresh"
                     />
                 </label>
+                <br />
+                <label>
+                    <input
+                        checked={props.global}
+                        type="checkbox"
+                        onChange={props.onToggleGlobal}
+                    />
+                    <FormattedMessage
+                        defaultMessage="Global procedure"
+                        description="Label for checkbox to define a global procedure"
+                        id="gui.customProcedures.globalProcedure"
+                    />
+                </label>
             </div>
             <Box className={styles.buttonRow}>
                 <button
@@ -148,7 +161,9 @@ CustomProcedures.propTypes = {
     onCancel: PropTypes.func.isRequired,
     onOk: PropTypes.func.isRequired,
     onToggleWarp: PropTypes.func.isRequired,
-    warp: PropTypes.bool.isRequired
+    onToggleGlobal: PropTypes.func.isRequired,
+    warp: PropTypes.bool.isRequired,
+    global: PropTypes.bool.isRequired
 };
 
 export default injectIntl(CustomProcedures);
