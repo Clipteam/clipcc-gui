@@ -1,0 +1,18 @@
+@import "../../css/colors.css";
+@import "../../css/units.css";
+
+.modal-content {
+    width: 450px;
+}
+
+.body {
+    background: $ui-white;
+    padding: 1.5rem 2.25rem;
+}
+
+.logo {
+    display: block;
+    margin: 0px auto;
+    width: 100%;
+    max-width: 200px;
+}

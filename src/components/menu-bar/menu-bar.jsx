@@ -30,7 +30,11 @@ import DeletionRestorer from '../../containers/deletion-restorer.jsx';
 import TurboMode from '../../containers/turbo-mode.jsx';
 import MenuBarHOC from '../../containers/menu-bar-hoc.jsx';
 
-import {openTipsLibrary, openSettingsModal} from '../../reducers/modals';
+import {
+    openTipsLibrary,
+    openSettingsModal,
+    openAboutModal
+} from '../../reducers/modals';
 import {setPlayer} from '../../reducers/mode';
 import {
     autoUpdateProject,
@@ -155,6 +159,7 @@ class MenuBar extends React.Component {
             'handleClickSeeCommunity',
             'handleClickShare',
             'handleClickSettings',
+            'handleClickAbout',
             'handleKeyPress',
             'handleLanguageMouseUp',
             'handleRestoreOption',
@@ -218,6 +223,10 @@ class MenuBar extends React.Component {
     }
     handleClickSettings () {
         this.props.onOpenSettings();
+        this.props.onRequestCloseOther();
+    }
+    handleClickAbout () {
+        this.props.onOpenAbout();
         this.props.onRequestCloseOther();
     }
     handleRestoreOption (restoreFun) {
@@ -519,19 +528,14 @@ class MenuBar extends React.Component {
                                 >
                                     {settingsMessage}
                                 </MenuItem>
-                                {
-                                    /*
-                                        关于页面的菜单项，以后再做
-                                        <MenuSection>
-                                            <MenuItem
-                                                isRtl={this.props.isRtl}
-                                                onClick={this.handleClickSettings}
-                                            >
-                                                {aboutMessage}
-                                            </MenuItem>
-                                        </MenuSection>
-                                    */
-                                }
+                                <MenuSection>
+                                    <MenuItem
+                                        isRtl={this.props.isRtl}
+                                        onClick={this.handleClickAbout}
+                                    >
+                                        {aboutMessage}
+                                    </MenuItem>
+                                </MenuSection>
                             </MenuBarMenu>
                         </div>
                     </div>
@@ -806,6 +810,7 @@ MenuBar.propTypes = {
     onClickSave: PropTypes.func,
     onClickSaveAsCopy: PropTypes.func,
     onOpenSettings: PropTypes.func,
+    onOpenAbout: PropTypes.func,
     onLogOut: PropTypes.func,
     onOpenRegistration: PropTypes.func,
     // onOpenTipLibrary: PropTypes.func,
@@ -862,6 +867,7 @@ const mapDispatchToProps = dispatch => ({
     autoUpdateProject: () => dispatch(autoUpdateProject()),
     onOpenTipLibrary: () => dispatch(openTipsLibrary()),
     onOpenSettings: () => dispatch(openSettingsModal()),
+    onOpenAbout: () => dispatch(openAboutModal()),
     onClickAccount: () => dispatch(openAccountMenu()),
     onRequestCloseAccount: () => dispatch(closeAccountMenu()),
     onClickFile: () => dispatch(openFileMenu()),

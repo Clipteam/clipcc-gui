@@ -31,6 +31,7 @@ import DragLayer from '../../containers/drag-layer.jsx';
 import ConnectionModal from '../../containers/connection-modal.jsx';
 import TelemetryModal from '../telemetry-modal/telemetry-modal.jsx';
 import SettingsModal from '../settings-modal/settings-modal.jsx';
+import AboutModal from '../about-modal/about-modal.jsx';
 
 import layout, {STAGE_SIZE_MODES} from '../../lib/layout-constants';
 import {resolveStageSize} from '../../lib/screen-utils';
@@ -55,6 +56,7 @@ let isRendererSupported = null;
 
 const GUIComponent = props => {
     const {
+        aboutModalVisible,
         accountNavOpen,
         activeTabIndex,
         alertsVisible,
@@ -106,6 +108,7 @@ const GUIComponent = props => {
         onRequestCloseCostumeLibrary,
         onRequestCloseTelemetryModal,
         onRequestCloseSettingsModal,
+        onRequestCloseAboutModal,
         onSeeCommunity,
         onShare,
         onTelemetryModalCancel,
@@ -334,6 +337,12 @@ const GUIComponent = props => {
                         onRequestClose={onRequestCloseSettingsModal}
                     />
                 ) : null}
+                {aboutModalVisible ? (
+                    <AboutModal
+                        onRequestClose={onRequestCloseAboutModal}
+                    />
+                ) : null}
+
                 <MenuBar
                     accountNavOpen={accountNavOpen}
                     authorId={authorId}
@@ -376,6 +385,7 @@ const GUIComponent = props => {
 };
 
 GUIComponent.propTypes = {
+    aboutModalVisible: PropTypes.bool,
     accountNavOpen: PropTypes.bool,
     activeTabIndex: PropTypes.number,
     authorId: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]), // can be false
@@ -421,6 +431,7 @@ GUIComponent.propTypes = {
     onRequestCloseCostumeLibrary: PropTypes.func,
     onRequestCloseTelemetryModal: PropTypes.func,
     onRequestCloseSettingsModal: PropTypes.func,
+    onRequestCloseAboutModal: PropTypes.func,
     onSeeCommunity: PropTypes.func,
     onShare: PropTypes.func,
     onTabSelect: PropTypes.func,
@@ -429,13 +440,13 @@ GUIComponent.propTypes = {
     onTelemetryModalOptOut: PropTypes.func,
     onToggleLoginOpen: PropTypes.func,
     renderLogin: PropTypes.func,
+    settingsVisible: PropTypes.bool,
     showComingSoon: PropTypes.bool,
     soundsTabVisible: PropTypes.bool,
     stageSizeMode: PropTypes.oneOf(Object.keys(STAGE_SIZE_MODES)),
     targetIsStage: PropTypes.bool,
     telemetryModalVisible: PropTypes.bool,
     tipsLibraryVisible: PropTypes.bool,
-    settingsVisible: PropTypes.bool,
     layoutStyle: PropTypes.string,
     vm: PropTypes.instanceOf(VM).isRequired
 };
