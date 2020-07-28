@@ -24,7 +24,21 @@ import {
     closeTelemetryModal,
     openExtensionLibrary,
     closeSettingsModal,
-    closeAboutModal
+    closeAboutModal,
+    openLoadingProject,
+    closeLoadingProject
+} from '../reducers/modals';
+
+import {
+    LoadingStates,
+    getIsLoadingUpload,
+    getIsShowingWithoutId,
+    onLoadedProject,
+    requestProjectUpload
+} from '../reducers/project-state';
+import {setProjectTitle} from '../reducers/project-title';
+
+import {
 } from '../reducers/modals';
 
 import FontLoaderHOC from '../lib/font-loader-hoc.jsx';
@@ -43,6 +57,7 @@ import {setIsScratchDesktop} from '../lib/isScratchDesktop.js';
 
 class GUI extends React.Component {
     componentDidMount () {
+        this.props.onRef(this);
         setIsScratchDesktop(this.props.isScratchDesktop);
         this.props.onStorageInit(storage);
         this.props.onVmInit(this.props.vm);
@@ -103,9 +118,14 @@ GUI.propTypes = {
     intl: intlShape,
     isError: PropTypes.bool,
     isLoading: PropTypes.bool,
+    loadingState: PropTypes.oneOf(LoadingStates),
     isScratchDesktop: PropTypes.bool,
     isShowingProject: PropTypes.bool,
     loadingStateVisible: PropTypes.bool,
+    onRef: PropTypes.func,
+    onLoadingStarted: PropTypes.func,
+    onLoadingFinished: PropTypes.func,
+    requestProjectUpload: PropTypes.func,
     onProjectLoaded: PropTypes.func,
     onSeeCommunity: PropTypes.func,
     onStorageInit: PropTypes.func,
@@ -122,6 +142,7 @@ GUI.defaultProps = {
     onStorageInit: storageInstance => storageInstance.addOfficialScratchWebStores(),
     onProjectLoaded: () => {},
     onUpdateProjectId: () => {},
+    onRef: () => {},
     onVmInit: (/* vm */) => {}
 };
 
@@ -142,6 +163,7 @@ const mapStateToProps = state => {
         isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
         isRtl: state.locales.isRtl,
         isShowingProject: getIsShowingProject(loadingState),
+        loadingState: loadingState,
         loadingStateVisible: state.scratchGui.modals.loadingProject,
         projectId: state.scratchGui.projectState.projectId,
         soundsTabVisible: state.scratchGui.editorTab.activeTabIndex === SOUNDS_TAB_INDEX,
@@ -167,7 +189,14 @@ const mapDispatchToProps = dispatch => ({
     onRequestCloseCostumeLibrary: () => dispatch(closeCostumeLibrary()),
     onRequestCloseTelemetryModal: () => dispatch(closeTelemetryModal()),
     onRequestCloseSettingsModal: () => dispatch(closeSettingsModal()),
-    onRequestCloseAboutModal: () => dispatch(closeAboutModal())
+    onRequestCloseAboutModal: () => dispatch(closeAboutModal()),
+    onLoadingFinished: (loadingState, success) => {
+        dispatch(onLoadedProject(loadingState, false, success));
+        dispatch(closeLoadingProject());
+    },
+    requestProjectUpload: loadingState => dispatch(requestProjectUpload(loadingState)),
+    onLoadingStarted: () => dispatch(openLoadingProject()),
+    onReceivedProjectTitle: title => dispatch(setProjectTitle(title))
 });
 
 const ConnectedGUI = injectIntl(connect(

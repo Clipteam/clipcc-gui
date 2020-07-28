@@ -55,7 +55,6 @@ export default appTarget => {
             simulateScratchDesktop = scratchDesktopMatches[1];
         }
     }
-
     if (process.env.NODE_ENV === 'production' && typeof window === 'object') {
         // Warn before navigating away
         window.onbeforeunload = () => true;
