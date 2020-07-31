@@ -52,6 +52,9 @@ import libraInsetImage from './libra/Libra-small.svg';
 import HTTPIOImage from './HTTPIO/CCUnknownExtension.jpg';
 import HTTPIOInsetImage from './HTTPIO/CCUnknownExtension.svg';
 
+import ClipCCDefaultImage from './clipcc/CCUnknownExtension.jpg';
+import ClipCCDefaultInsetImage from './clipcc/CCUnknownExtension.svg';
+
 export default [
     {
         name: (
@@ -114,6 +117,27 @@ export default [
         ),
         featured: true,
         internetConnectionRequired: true
+    },
+    {
+        name: (
+            <FormattedMessage
+                defaultMessage="JSON"
+                description="Name for the 'JSON' extension"
+                id="gui.extension.clipcc.json.name"
+            />
+        ),
+        collaborator: 'Clip Team',
+        extensionId: 'clipcc_json',
+        iconURL: ClipCCDefaultImage,
+        insetIconURL: ClipCCDefaultInsetImage,
+        description: (
+            <FormattedMessage
+                defaultMessage="Useful JSON extension."
+                description="Description for the 'JSON' extension"
+                id="gui.extension.clipcc.json.description"
+            />
+        ),
+        featured: true
     },
     {
         name: (
