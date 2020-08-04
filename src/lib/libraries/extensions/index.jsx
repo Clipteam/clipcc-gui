@@ -49,8 +49,11 @@ import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 import libraImage from './libra/Libra.png';
 import libraInsetImage from './libra/Libra-small.svg';
 
-import HTTPIOImage from './HTTPIO/CCUnknownExtension.jpg';
-import HTTPIOInsetImage from './HTTPIO/CCUnknownExtension.svg';
+import HTTPIOImage from './HTTPIO/HTTPIO.png';
+import HTTPIOInsetImage from './HTTPIO/HTTPIO_icon.svg';
+
+import JSONImage from './JSON/JSON.png';
+import JSONInsetImage from './JSON/JSON_icon.svg';
 
 import ClipCCDefaultImage from './clipcc/CCUnknownExtension.jpg';
 import ClipCCDefaultInsetImage from './clipcc/CCUnknownExtension.svg';
@@ -126,10 +129,10 @@ export default [
                 id="gui.extension.clipcc.json.name"
             />
         ),
-        collaborator: 'Clip Team',
+        collaborator: 'Clipteam',
         extensionId: 'clipcc_json',
-        iconURL: ClipCCDefaultImage,
-        insetIconURL: ClipCCDefaultInsetImage,
+        iconURL: JSONImage,
+        insetIconURL: JSONInsetImage,
         description: (
             <FormattedMessage
                 defaultMessage="Useful JSON extension."
