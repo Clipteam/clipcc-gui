@@ -130,7 +130,7 @@ export default [
             />
         ),
         collaborator: 'Clipteam',
-        extensionId: 'clipcc_json',
+        extensionId: 'clipcc.json',
         iconURL: JSONImage,
         insetIconURL: JSONInsetImage,
         description: (
