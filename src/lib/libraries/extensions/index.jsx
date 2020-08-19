@@ -50,10 +50,10 @@ import libraImage from './libra/Libra.png';
 import libraInsetImage from './libra/Libra-small.svg';
 
 import HTTPIOImage from './HTTPIO/HTTPIO.png';
-import HTTPIOInsetImage from './HTTPIO/HTTPIO_icon.svg';
+import HTTPIOInsetImage from './HTTPIO/clipcc.httpio-small.svg';
 
 import JSONImage from './JSON/JSON.png';
-import JSONInsetImage from './JSON/JSON_icon.svg';
+import JSONInsetImage from './JSON/clipcc.json-small.svg';
 
 import ClipCCDefaultImage from './clipcc/CCUnknownExtension.jpg';
 import ClipCCDefaultInsetImage from './clipcc/CCUnknownExtension.svg';
