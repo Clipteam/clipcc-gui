@@ -6,7 +6,7 @@ import {defineMessages, injectIntl, intlShape, FormattedMessage} from 'react-int
 
 import extensionLibraryContent from '../lib/libraries/extensions/index.jsx';
 
-import LibraryComponent from '../components/library/library.jsx';
+import ExtensionLibraryComponent from '../components/extension-library/extension-library.jsx';
 import extensionIcon from '../components/action-menu/icon--sprite.svg';
 
 import uploadImageURL from '../lib/libraries/extensions/upload/upload.svg';
@@ -90,7 +90,7 @@ class ExtensionLibrary extends React.PureComponent {
             featured: true
         });
         return (
-            <LibraryComponent
+            <ExtensionLibraryComponent
                 data={extensionLibraryThumbnailData}
                 filterable={false}
                 id="extensionLibrary"

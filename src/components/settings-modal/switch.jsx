@@ -1,3 +1,4 @@
+import bindAll from 'lodash.bindall';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './switch.css';
@@ -6,8 +7,10 @@ import classNames from 'classnames';
 class Switch extends React.Component {
     constructor (props) {
         super(props);
+        bindAll(this, [
+            'handleClick'
+        ]);
         this.state = {checked: props.default};
-        this.handleClick = this.handleClick.bind(this);
     }
     handleClick () {
         this.setState((state, props) => {
@@ -42,7 +45,7 @@ Switch.propTypes = {
 
 Switch.defaultProps = {
     default: false,
-    onChanged: () => {}
+    onChanged: (/* state */) => {}
 };
 
 export default Switch;

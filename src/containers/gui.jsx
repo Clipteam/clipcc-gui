@@ -38,9 +38,6 @@ import {
 } from '../reducers/project-state';
 import {setProjectTitle} from '../reducers/project-title';
 
-import {
-} from '../reducers/modals';
-
 import FontLoaderHOC from '../lib/font-loader-hoc.jsx';
 import LocalizationHOC from '../lib/localization-hoc.jsx';
 import ProjectFetcherHOC from '../lib/project-fetcher-hoc.jsx';
@@ -51,6 +48,7 @@ import storage from '../lib/storage';
 import vmListenerHOC from '../lib/vm-listener-hoc.jsx';
 import vmManagerHOC from '../lib/vm-manager-hoc.jsx';
 import cloudManagerHOC from '../lib/cloud-manager-hoc.jsx';
+import {loadBuiltinExtension} from '../lib/extension-manager.js';
 
 import GUIComponent from '../components/gui/gui.jsx';
 import {setIsScratchDesktop} from '../lib/isScratchDesktop.js';
@@ -61,6 +59,7 @@ class GUI extends React.Component {
         setIsScratchDesktop(this.props.isScratchDesktop);
         this.props.onStorageInit(storage);
         this.props.onVmInit(this.props.vm);
+        this.props.onLoadBuiltinExtension();
     }
     componentDidUpdate (prevProps) {
         if (this.props.projectId !== prevProps.projectId && this.props.projectId !== null) {
@@ -125,6 +124,7 @@ GUI.propTypes = {
     onRef: PropTypes.func,
     onLoadingStarted: PropTypes.func,
     onLoadingFinished: PropTypes.func,
+    onLoadBuiltinExtension: PropTypes.func,
     requestProjectUpload: PropTypes.func,
     onProjectLoaded: PropTypes.func,
     onSeeCommunity: PropTypes.func,
@@ -196,7 +196,8 @@ const mapDispatchToProps = dispatch => ({
     },
     requestProjectUpload: loadingState => dispatch(requestProjectUpload(loadingState)),
     onLoadingStarted: () => dispatch(openLoadingProject()),
-    onReceivedProjectTitle: title => dispatch(setProjectTitle(title))
+    onReceivedProjectTitle: title => dispatch(setProjectTitle(title)),
+    onLoadBuiltinExtension: () => loadBuiltinExtension(dispatch)
 });
 
 const ConnectedGUI = injectIntl(connect(

@@ -26,6 +26,8 @@ import toolboxReducer, {toolboxInitialState} from './toolbox';
 import vmReducer, {vmInitialState} from './vm';
 import vmStatusReducer, {vmStatusInitialState} from './vm-status';
 import settingsReducer, {settingsInitialState} from './settings';
+import extensionReducer, {extensionInitialState} from './extension';
+
 import throttle from 'redux-throttle';
 
 import decks from '../lib/libraries/decks/index.jsx';
@@ -59,7 +61,8 @@ const guiInitialState = {
     toolbox: toolboxInitialState,
     vm: vmInitialState,
     vmStatus: vmStatusInitialState,
-    settings: settingsInitialState
+    settings: settingsInitialState,
+    extension: extensionInitialState
 };
 
 const initPlayer = function (currentState) {
@@ -158,7 +161,8 @@ const guiReducer = combineReducers({
     toolbox: toolboxReducer,
     vm: vmReducer,
     vmStatus: vmStatusReducer,
-    settings: settingsReducer
+    settings: settingsReducer,
+    extension: extensionReducer
 });
 
 export {

@@ -1,0 +1,40 @@
+@import "../../css/colors.css";
+@import "../../css/units.css";
+
+.extension-item {
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    line-height: 1.8em;
+    align-items: center;
+    padding: 0 1em;
+    border-bottom: black solid 1px;
+}
+
+.extension-item > * {
+    flex: 1;
+}
+
+.extension-item-index {
+    flex: none;
+    width: 3em;
+    text-align: center;
+}
+
+.extension-item-requirement {
+    flex: none;
+    width: 10em;
+}
+
+.extension-item-requirement > img {
+    vertical-align: middle;
+}
+
+.extension-item-enable {
+    flex: none;
+    width: 3em;
+}
+
+.extension-item-enable > div {
+    display: block;
+}
