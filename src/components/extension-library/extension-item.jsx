@@ -28,14 +28,14 @@ class ExtensionItemComponent extends React.PureComponent {
                 className={classNames(styles.extensionItem)}
             >
                 <span className={styles.extensionItemIndex}>{this.props.index}</span>
-                <span>{this.props.name}</span>
-                <span>{this.props.description}</span>
+                <FormattedMessage id={this.props.name} />
+                <FormattedMessage id={this.props.description} />
                 <span>{this.props.extensionId}</span>
                 <div className={styles.extensionItemRequirement}>
-                    {this.props.bluetoothRequired ? (
+                    {this.props.requirement && this.props.requirement.includes('bluetooth') ? (
                         <img src={bluetoothIconURL} />
                     ) : null}
-                    {this.props.internetConnectionRequired ? (
+                    {this.props.requirement && this.props.requirement.includes('internet') ? (
                         <img src={internetConnectionIconURL} />
                     ) : null}
                 </div>
@@ -51,7 +51,7 @@ class ExtensionItemComponent extends React.PureComponent {
 }
 
 ExtensionItemComponent.propTypes = {
-    bluetoothRequired: PropTypes.bool,
+    requirement: PropTypes.array,
     collaborator: PropTypes.string,
     description: PropTypes.oneOfType([
         PropTypes.string,
@@ -65,7 +65,6 @@ ExtensionItemComponent.propTypes = {
     iconURL: PropTypes.string,
     index: PropTypes.number,
     insetIconURL: PropTypes.string,
-    internetConnectionRequired: PropTypes.bool,
     isPlaying: PropTypes.bool,
     name: PropTypes.oneOfType([
         PropTypes.string,

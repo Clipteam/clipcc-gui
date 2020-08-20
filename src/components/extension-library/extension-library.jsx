@@ -191,6 +191,7 @@ class ExtensionLibraryComponent extends React.Component {
                             description={dataItem.description}
                             /*disabled={dataItem.disabled}*/
                             extensionId={dataItem.extensionId}
+                            requirement={dataItem.requirement}
                             /*featured={dataItem.featured}*/
                             /*hidden={dataItem.hidden}*/
                             /*iconMd5={dataItem.md5}*/
