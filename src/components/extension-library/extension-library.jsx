@@ -40,7 +40,7 @@ class ExtensionLibraryComponent extends React.Component {
             'handleClose',
             'handleFilterChange',
             'handleFilterClear',
-            //'handleMouseEnter',
+            // 'handleMouseEnter',
             'handleMouseLeave',
             'handlePlayingEnd',
             'handleChange',
@@ -71,7 +71,7 @@ class ExtensionLibraryComponent extends React.Component {
     }
     handleSelect (id) {
         // this.handleClose();
-        //this.props.onItemSelected(this.getFilteredData()[id]);
+        // this.props.onItemSelected(this.getFilteredData()[id]);
     }
     handleChange (extensionId, status) {
         if (status) this.props.onEnableExtension(extensionId);
@@ -87,7 +87,7 @@ class ExtensionLibraryComponent extends React.Component {
                 selectedTag: tag.toLowerCase()
             });
         }
-        //TODO
+        // TODO
     }
     handleMouseLeave (id) {
         if (this.props.onItemMouseLeave) {
@@ -160,7 +160,7 @@ class ExtensionLibraryComponent extends React.Component {
                 id={this.props.id}
                 onRequestClose={this.handleClose}
             >
-                {(this.props.filterable /*|| this.props.tags*/) && (
+                {(this.props.filterable /* || this.props.tags*/) && (
                     <div/* className={styles.filterBar}*/>
                         {this.props.filterable && (
                             <Filter
@@ -173,50 +173,55 @@ class ExtensionLibraryComponent extends React.Component {
                     </div>
                 )}
                 <div
-                    className={styles.extensionTable}
-                    ref={this.setFilteredDataRef}
+                    className={classNames({
+                        [styles.extensionContainer]: true,
+                        [styles.loading]: !this.state.loaded
+                    })}
                 >
-                    <div className={styles.extensionTitle}>
-                        <span className={styles.extensionTitleIndex}>No</span>
-                        <span>Name</span>
-                        <span>Description</span>
-                        <span>ID</span>
-                        <span className={styles.extensionTitleRequirement}>Requirement</span>
-                        <span className={styles.extensionTitleEnable}>Enable</span>
-                    </div>
-                    {this.state.loaded ? (Object.values(this.props.extension).map((dataItem, index) => (
-                        <ExtensionItemComponent
-                            /*bluetoothRequired={dataItem.bluetoothRequired}*/
-                            collaborator={dataItem.collaborator}
-                            description={dataItem.description}
-                            /*disabled={dataItem.disabled}*/
-                            extensionId={dataItem.extensionId}
-                            requirement={dataItem.requirement}
-                            /*featured={dataItem.featured}*/
-                            /*hidden={dataItem.hidden}*/
-                            /*iconMd5={dataItem.md5}*/
-                            /*iconRawURL={dataItem.rawURL}*/
-                            /*icons={dataItem.json && dataItem.json.costumes}*/
-                            index={index}
-                            insetIconURL={dataItem.insetIconURL}
-                            /*internetConnectionRequired={dataItem.internetConnectionRequired}*/
-                            /*isPlaying={this.state.playingItem === index}*/
-                            /*key={typeof dataItem.name === 'string' ? dataItem.name : dataItem.rawURL}*/
-                            name={dataItem.name}
-                            /*showPlayButton={this.props.showPlayButton}*/
-                            /*onMouseEnter={this.handleMouseEnter}*/
-                            /*onMouseLeave={this.handleMouseLeave}*/
-                            enabled={dataItem.enabled}
-                            onChange={this.handleChange}
-                        />
-                    ))) : (
-                        <div>
-                            <Spinner
-                                large
-                                level="primary"
-                            />
-                        </div>
-                    )}
+                    {this.state.loaded ? (
+                        <table
+                            className={styles.extensionTable}
+                            ref={this.setFilteredDataRef}
+                        >
+                            <thead>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>ID</th>
+                                <th>Requirement</th>
+                                <th>Enable</th>
+                            </thead>
+                            <tbody>
+                                {Object.values(this.props.data).map(dataItem => (
+                                    <ExtensionItemComponent
+                                        bluetoothRequired={dataItem.bluetoothRequired}
+                                        insetIconURL={dataItem.insetIconURL}
+                                        collaborator={dataItem.collaborator}
+                                        description={dataItem.description}
+                                        /* disabled={dataItem.disabled}*/
+                                        extensionId={dataItem.extensionId}
+                                        requirement={dataItem.requirement}
+                                        /* featured={dataItem.featured}*/
+                                        /* hidden={dataItem.hidden}*/
+                                        /* iconMd5={dataItem.md5}*/
+                                        /* iconRawURL={dataItem.rawURL}*/
+                                        /* icons={dataItem.json && dataItem.json.costumes}*/
+                                        internetConnectionRequired={dataItem.internetConnectionRequired}
+                                        /* isPlaying={this.state.playingItem === index}*/
+                                        key={typeof dataItem.name === 'string' ? dataItem.name : dataItem.rawURL}
+                                        name={dataItem.name}
+                                        /* showPlayButton={this.props.showPlayButton}*/
+                                        /* onMouseEnter={this.handleMouseEnter}*/
+                                        /* onMouseLeave={this.handleMouseLeave}*/
+                                        enabled={dataItem.enabled}
+                                        onChange={this.handleChange}
+                                    />
+                                ))}
+                            </tbody>
+                        </table>) : (<Spinner
+                            large
+                            level="primary"
+                        />)}
+                                    
                 </div>
             </Modal>
         );
@@ -237,10 +242,9 @@ ExtensionLibraryComponent.propTypes = {
     filterable: PropTypes.bool,
     id: PropTypes.string.isRequired,
     intl: intlShape.isRequired,
-    extension: PropTypes.object,
     onItemMouseEnter: PropTypes.func,
     onItemMouseLeave: PropTypes.func,
-    onItemSelected : PropTypes.func,
+    onItemSelected: PropTypes.func,
     onRequestClose: PropTypes.func,
     onDisableExtension: PropTypes.func,
     onEnableExtension: PropTypes.func,

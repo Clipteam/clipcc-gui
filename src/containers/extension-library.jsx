@@ -13,9 +13,9 @@ import uploadImageURL from '../lib/libraries/extensions/upload/upload.svg';
 
 const messages = defineMessages({
     extensionTitle: {
-        defaultMessage: 'Choose an Extension',
-        description: 'Heading for the extension library',
-        id: 'gui.extensionLibrary.chooseAnExtension'
+        defaultMessage: 'Extension Manager',
+        description: 'Heading for the extension manager',
+        id: 'gui.extensionLibrary.extensionManager'
     },
     extensionUrl: {
         defaultMessage: 'Enter the URL of the extension',
@@ -30,6 +30,9 @@ class ExtensionLibrary extends React.PureComponent {
         bindAll(this, [
             'handleItemSelect'
         ]);
+    }
+    onEnableExtension (id) {
+
     }
     handleItemSelect (item) {
         const id = item.extensionId;
@@ -97,6 +100,7 @@ class ExtensionLibrary extends React.PureComponent {
                 title={this.props.intl.formatMessage(messages.extensionTitle)}
                 visible={this.props.visible}
                 onItemSelected={this.handleItemSelect}
+                onEnableExtension={this.onEnableExtension}
                 onRequestClose={this.props.onRequestClose}
             />
         );

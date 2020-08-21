@@ -1,39 +1,27 @@
+@import '../../css/colors.css';
+@import "../../css/units.css";
+
+.extension-container {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    overflow-y: auto;
+    height: auto;
+    height: calc(100% - $library-header-height);
+}
+
+.extension-container.loading {
+    align-content: center;
+    align-items: center;
+}
+
 .extension-table {
     width: 80%;
     min-width: 900px;
-    margin: 3em auto;
-    padding: 1em 0;
-    background-color: white;
-    border: black solid 1px;
-    border-radius: 1em;
+    margin: calc($space * 10) 0;
 }
 
-.extension-title {
-    background-color: white;
-    display: flex;
-    flex-direction: row;
-    line-height: 1.8em;
-    align-items: center;
-    padding: 0 1em;
-    border-bottom: black solid 1px;
-}
-
-.extension-title * {
-    flex: 1;
-}
-
-.extension-title-index {
-    flex: none;
-    width: 3em;
-    text-align: center;
-}
-
-.extension-title-requirement {
-    flex: none;
-    width: 10em;
-}
-
-.extension-title-enable {
-    flex: none;
-    width: 3em;
+.extension-table > thead > th {
+    line-height: 2rem;
+    text-align: left;
 }

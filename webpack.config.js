@@ -6,6 +6,7 @@ var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+var HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 // PostCss
 var autoprefixer = require('autoprefixer');
@@ -98,7 +99,7 @@ const base = {
             })
         ]
     },
-    plugins: []
+    plugins: [new HardSourceWebpackPlugin()]
 };
 
 module.exports = [

@@ -24,28 +24,39 @@ class ExtensionItemComponent extends React.PureComponent {
     }
     render () {
         return (
-            <Box
-                className={classNames(styles.extensionItem)}
-            >
-                <span className={styles.extensionItemIndex}>{this.props.index}</span>
-                <FormattedMessage id={this.props.name} />
-                <FormattedMessage id={this.props.description} />
-                <span>{this.props.extensionId}</span>
-                <div className={styles.extensionItemRequirement}>
-                    {this.props.requirement && this.props.requirement.includes('bluetooth') ? (
+            <tr className={styles.itemRow}>
+                <td className={styles.itemRowName}>
+                    <div
+                        className={classNames({
+                            [styles.insetIcon]: true,
+                            [styles.hiddenInsetIcon]: !this.props.insetIconURL
+                        })}
+                    >
+                        <img src={this.props.insetIconURL} />
+                    </div>
+                    {this.props.name}
+                </td>
+                <td>{this.props.description}</td>
+                <td>{this.props.extensionId}</td>
+                <td>
+                    {this.props.bluetoothRequired || this.props.requirement && this.props.requirement.includes('bluetooth') ? (
                         <img src={bluetoothIconURL} />
                     ) : null}
-                    {this.props.requirement && this.props.requirement.includes('internet') ? (
+                    {this.props.internetConnectionRequired || this.props.requirement && this.props.requirement.includes('internet') ? (
                         <img src={internetConnectionIconURL} />
                     ) : null}
-                </div>
-                <div className={styles.extensionItemEnable}>
+                </td>
+                <td
+                    style={{
+                        width: 'fit-content'
+                    }}
+                >
                     <Switch
                         onChanged={this.handleChange}
                         default={this.props.enabled}
                     />
-                </div>
-            </Box>
+                </td>
+            </tr>
         );
     }
 }
