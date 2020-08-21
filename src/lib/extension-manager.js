@@ -108,7 +108,7 @@ const builtinExtensions = [
     {
         extensionId: 'videoSensing',
         iconURL: videoSensingIconURL,
-        insetIconNURL: videoSensingInsetIconURL,
+        insetIconURL: videoSensingInsetIconURL,
         author: 'Scratch Team',
         name: 'gui.extension.videosensing.name',
         description: 'gui.extension.videosensing.description'
@@ -116,7 +116,7 @@ const builtinExtensions = [
     {
         extensionId: 'text2speech',
         iconURL: text2speechIconURL,
-        insetIconNURL: text2speechInsetIconURL,
+        insetIconURL: text2speechInsetIconURL,
         author: ['Scratch Team', 'Amazon Web Services'],
         name: 'gui.extension.text2speech.name',
         description: 'gui.extension.text2speech.description',
@@ -125,7 +125,7 @@ const builtinExtensions = [
     {
         extensionId: 'translate',
         iconURL: translateIconURL,
-        insetIconNURL: translateInsetIconURL,
+        insetIconURL: translateInsetIconURL,
         author: ['Scratch Team', 'Google'],
         name: 'gui.extension.translate.name',
         description: 'gui.extension.translate.description',
@@ -134,7 +134,7 @@ const builtinExtensions = [
     {
         extensionId: 'makeymakey',
         iconURL: makeymakeyIconURL,
-        insetIconNURL: makeymakeyInsetIconURL,
+        insetIconURL: makeymakeyInsetIconURL,
         author: ['Scratch Team', 'JoyLabz'],
         name: 'gui.extension.makeymakey.name',
         description: 'gui.extension.makeymakey.description'
@@ -142,7 +142,7 @@ const builtinExtensions = [
     {
         extensionId: 'micro:bit',
         iconURL: microbitIconURL,
-        insetIconNURL: microbitInsetIconURL,
+        insetIconURL: microbitInsetIconURL,
         author: ['Scratch Team', 'micro:bit'],
         name: 'gui.extension.microbit.name',
         description: 'gui.extension.microbit.description',
@@ -151,7 +151,7 @@ const builtinExtensions = [
     {
         extensionId: 'ev3',
         iconURL: ev3IconURL,
-        insetIconNURL: ev3InsetIconURL,
+        insetIconURL: ev3InsetIconURL,
         author: ['Scratch Team', 'LEGO'],
         name: 'gui.extension.ev3.name',
         description: 'gui.extension.ev3.description',
@@ -160,7 +160,7 @@ const builtinExtensions = [
     {
         extensionId: 'boost',
         iconURL: boostIconURL,
-        insetIconNURL: boostInsetIconURL,
+        insetIconURL: boostInsetIconURL,
         author: ['Scratch Team', 'LEGO'],
         name: 'gui.extension.boost.name',
         description: 'gui.extension.boost.description',
@@ -169,7 +169,7 @@ const builtinExtensions = [
     {
         extensionId: 'wedo2',
         iconURL: wedo2IconURL,
-        insetIconNURL: wedo2InsetIconURL,
+        insetIconURL: wedo2InsetIconURL,
         author: ['Scratch Team', 'LEGO'],
         name: 'gui.extension.wedo2.name',
         description: 'gui.extension.wedo2.description',
@@ -178,7 +178,7 @@ const builtinExtensions = [
     {
         extensionId: 'gdxfor',
         iconURL: gdxforIconURL,
-        insetIconNURL: gdxforInsetIconURL,
+        insetIconURL: gdxforInsetIconURL,
         author: ['Scratch Team', 'Vernier'],
         name: 'gui.extension.gdxfor.name',
         description: 'gui.extension.gdxfor.description',

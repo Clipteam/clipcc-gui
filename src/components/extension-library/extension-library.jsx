@@ -6,9 +6,7 @@ import {connect} from 'react-redux';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
 
 import Modal from '../../containers/modal.jsx';
-import Filter from '../filter/filter.jsx';
 import Spinner from '../spinner/spinner.jsx';
-import TagButton from '../../containers/tag-button.jsx';
 import ExtensionItemComponent from './extension-item.jsx';
 
 import {
@@ -28,7 +26,8 @@ const messages = defineMessages({
         id: 'gui.extensionlibrary.allTag',
         defaultMessage: 'All',
         description: 'Label for extension library tag to revert to all items after filtering by tag.'
-    }
+    },
+
 });
 
 const ALL_TAG = {tag: 'all', intlLabel: messages.allTag};
@@ -38,14 +37,7 @@ class ExtensionLibraryComponent extends React.Component {
         super(props);
         bindAll(this, [
             'handleClose',
-            'handleFilterChange',
-            'handleFilterClear',
-            // 'handleMouseEnter',
-            'handleMouseLeave',
-            'handlePlayingEnd',
-            'handleChange',
-            'handleTagClick',
-            'setFilteredDataRef'
+            'handleChange'
         ]);
         this.state = {
             playingItem: null,
@@ -58,21 +50,11 @@ class ExtensionLibraryComponent extends React.Component {
         setTimeout(() => {
             this.setState({loaded: true});
         });
-        if (this.props.setStopHandler) {
-            this.props.setStopHandler(this.handlePlayingEnd);
-        }
     }
+    /*
     componentDidUpdate (prevProps, prevState) {
-        if (prevState.filterQuery !== this.state.filterQuery ||
-            prevState.selectedTag !== this.state.selectedTag
-        ) {
-            this.scrollToTop();
-        }
     }
-    handleSelect (id) {
-        // this.handleClose();
-        // this.props.onItemSelected(this.getFilteredData()[id]);
-    }
+    */
     handleChange (extensionId, status) {
         if (status) this.props.onEnableExtension(extensionId);
         else this.props.onDisableExtension(extensionId);
@@ -111,46 +93,12 @@ class ExtensionLibraryComponent extends React.Component {
                 selectedTag: ALL_TAG.tag
             });
         } else {
-            this.props.onItemMouseLeave(this.getFilteredData()[[this.state.playingItem]]);
-            this.setState({
-                filterQuery: event.target.value,
-                playingItem: null,
-                selectedTag: ALL_TAG.tag
-            });
+            this.props.setExtensionDisable(extensionId);
+            this.props.onDisableExtension(extensionId);
         }
     }
-    handleFilterClear () {
-        this.setState({filterQuery: ''});
-    }
-    getFilteredData () {
-        if (this.state.selectedTag === 'all') {
-            if (!this.state.filterQuery) return this.props.data;
-            return this.props.data.filter(dataItem => (
-                (dataItem.tags || [])
-                    // Second argument to map sets `this`
-                    .map(String.prototype.toLowerCase.call, String.prototype.toLowerCase)
-                    .concat(dataItem.name ?
-                        (typeof dataItem.name === 'string' ?
-                        // Use the name if it is a string, else use formatMessage to get the translated name
-                            dataItem.name : this.props.intl.formatMessage(dataItem.name.props)
-                        ).toLowerCase() :
-                        null)
-                    .join('\n') // unlikely to partially match newlines
-                    .indexOf(this.state.filterQuery.toLowerCase()) !== -1
-            ));
-        }
-        return this.props.data.filter(dataItem => (
-            dataItem.tags &&
-            dataItem.tags
-                .map(String.prototype.toLowerCase.call, String.prototype.toLowerCase)
-                .indexOf(this.state.selectedTag) !== -1
-        ));
-    }
-    scrollToTop () {
-        this.filteredDataRef.scrollTop = 0;
-    }
-    setFilteredDataRef (ref) {
-        this.filteredDataRef = ref;
+    handleClose () {
+        this.props.onRequestClose();
     }
     render () {
         return (
@@ -160,18 +108,6 @@ class ExtensionLibraryComponent extends React.Component {
                 id={this.props.id}
                 onRequestClose={this.handleClose}
             >
-                {(this.props.filterable /* || this.props.tags*/) && (
-                    <div/* className={styles.filterBar}*/>
-                        {this.props.filterable && (
-                            <Filter
-                                filterQuery={this.state.filterQuery}
-                                placeholderText={this.props.intl.formatMessage(messages.filterPlaceholder)}
-                                onChange={this.handleFilterChange}
-                                onClear={this.handleFilterClear}
-                            />
-                        )}
-                    </div>
-                )}
                 <div
                     className={classNames({
                         [styles.extensionContainer]: true,
@@ -229,28 +165,24 @@ class ExtensionLibraryComponent extends React.Component {
 }
 
 ExtensionLibraryComponent.propTypes = {
-    data: PropTypes.arrayOf(
-        PropTypes.shape({
-            md5: PropTypes.string,
-            name: PropTypes.oneOfType([
-                PropTypes.string,
-                PropTypes.node
-            ]),
-            rawURL: PropTypes.string
-        })
-    ),
-    filterable: PropTypes.bool,
     id: PropTypes.string.isRequired,
-    intl: intlShape.isRequired,
-    onItemMouseEnter: PropTypes.func,
-    onItemMouseLeave: PropTypes.func,
-    onItemSelected: PropTypes.func,
+    extension: PropTypes.shape({
+        extensionId: PropTypes.string,
+        iconURL: PropTypes.string,
+        insetIconURL: PropTypes.string,
+        author: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.arrayOf(PropTypes.string)
+        ]),
+        name: PropTypes.string,
+        description: PropTypes.string,
+        requirement: PropTypes.arrayOf(PropTypes.string)
+    }),
     onRequestClose: PropTypes.func,
     onDisableExtension: PropTypes.func,
     onEnableExtension: PropTypes.func,
-    setStopHandler: PropTypes.func,
-    showPlayButton: PropTypes.bool,
-    tags: PropTypes.arrayOf(PropTypes.shape(TagButton.propTypes)),
+    setExtensionEnable: PropTypes.func,
+    setExtensionDisable: PropTypes.func,
     title: PropTypes.string.isRequired
 };
 
@@ -263,8 +195,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onEnableExtension: id => dispatch(enableExtension(id)),
-    onDisableExtension: id => dispatch(disableExtension(id))
+    setExtensionEnable: id => dispatch(enableExtension(id)),
+    setExtensionDisable: id => dispatch(disableExtension(id))
 });
 
 export default injectIntl(connect(

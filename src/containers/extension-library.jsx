@@ -28,7 +28,9 @@ class ExtensionLibrary extends React.PureComponent {
     constructor (props) {
         super(props);
         bindAll(this, [
-            'handleItemSelect'
+            'handleItemSelect',
+            'handleEnableExtension',
+            'handleDisableExtension'
         ]);
     }
     onEnableExtension (id) {
@@ -68,6 +70,14 @@ class ExtensionLibrary extends React.PureComponent {
                 }
             }
         }
+    }
+    handleEnableExtension (extensionId) {
+        if (!this.props.vm.extensionManager.isExtensionLoaded(extensionId)) {
+            this.props.vm.extensionManager.loadExtensionURL(extensionId);
+        }
+    }
+    handleDisableExtension (extensionId) {
+        // TODO: Unload extension
     }
     render () {
         const extensionLibraryThumbnailData = extensionLibraryContent.map(extension => ({
