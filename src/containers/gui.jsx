@@ -48,7 +48,10 @@ import storage from '../lib/storage';
 import vmListenerHOC from '../lib/vm-listener-hoc.jsx';
 import vmManagerHOC from '../lib/vm-manager-hoc.jsx';
 import cloudManagerHOC from '../lib/cloud-manager-hoc.jsx';
-import {loadBuiltinExtension} from '../lib/extension-manager.js';
+import {
+    initExtensionAPI,
+    loadBuiltinExtension
+} from '../lib/extension-manager.js';
 
 import GUIComponent from '../components/gui/gui.jsx';
 import {setIsScratchDesktop} from '../lib/isScratchDesktop.js';
@@ -59,6 +62,7 @@ class GUI extends React.Component {
         setIsScratchDesktop(this.props.isScratchDesktop);
         this.props.onStorageInit(storage);
         this.props.onVmInit(this.props.vm);
+        initExtensionAPI(this.props.vm);
         this.props.onLoadBuiltinExtension();
     }
     componentDidUpdate (prevProps) {

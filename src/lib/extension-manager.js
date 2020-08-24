@@ -5,6 +5,8 @@ import {
     disableExtension
 } from '../reducers/extension';
 
+import extension from 'clipcc-extension';
+
 import musicIconURL from './libraries/extensions/music/music.png';
 import musicInsetIconURL from './libraries/extensions/music/music-small.svg';
 
@@ -94,7 +96,8 @@ const builtinExtensions = [
         insetIconURL: JSONInsetImage,
         author: 'Clip Team',
         name: 'gui.extension.clipcc.json.name',
-        description: 'gui.extension.clipcc.json.description'
+        description: 'gui.extension.clipcc.json.description',
+        extensionAPI: true
     },
     {
         extensionId: 'libra',
@@ -187,11 +190,21 @@ const builtinExtensions = [
 ];
 
 const loadBuiltinExtension = dispatch => {
-    for (const extension of builtinExtensions) {
-        dispatch(initExtension(extension));
+    for (const ext of builtinExtensions) {
+        dispatch(initExtension(ext));
     }
 };
 
+const extensionAPI = new extension.ExtensionAPI();
+
+const initExtensionAPI = vm => {
+    console.log(extensionAPI);
+    extensionAPI.initExtensionAPI(vm.extensionAPI);
+    console.log(extensionAPI);
+};
+
 export {
-    loadBuiltinExtension
+    loadBuiltinExtension,
+    initExtensionAPI,
+    extensionAPI
 };

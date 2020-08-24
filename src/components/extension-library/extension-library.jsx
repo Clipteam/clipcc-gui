@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import ext from 'clipcc-extension';
 
 import Modal from '../../containers/modal.jsx';
 import Spinner from '../spinner/spinner.jsx';
@@ -13,6 +14,8 @@ import {
     enableExtension,
     disableExtension
 } from '../../reducers/extension';
+
+import {extensionAPI} from '../../lib/extension-manager';
 
 import styles from './extension-library.css';
 
@@ -56,42 +59,14 @@ class ExtensionLibraryComponent extends React.Component {
     }
     */
     handleChange (extensionId, status) {
-        if (status) this.props.onEnableExtension(extensionId);
-        else this.props.onDisableExtension(extensionId);
-    }
-    handleClose () {
-        this.props.onRequestClose();
-    }
-    handleTagClick (tag) {
-        if (this.state.playingItem === null) {
-            this.setState({
-                filterQuery: '',
-                selectedTag: tag.toLowerCase()
-            });
-        }
-        // TODO
-    }
-    handleMouseLeave (id) {
-        if (this.props.onItemMouseLeave) {
-            this.props.onItemMouseLeave(this.getFilteredData()[id]);
-            this.setState({
-                playingItem: null
-            });
-        }
-    }
-    handlePlayingEnd () {
-        if (this.state.playingItem !== null) {
-            this.setState({
-                playingItem: null
-            });
-        }
-    }
-    handleFilterChange (event) {
-        if (this.state.playingItem === null) {
-            this.setState({
-                filterQuery: event.target.value,
-                selectedTag: ALL_TAG.tag
-            });
+        if (status) {
+            if (this.props.extension[extensionId].extensionAPI) {
+                console.log(extensionAPI);
+                const instance = new ext.SampleExtension(extensionAPI);
+                instance.init();
+            }
+            this.props.setExtensionEnable(extensionId);
+            this.props.onEnableExtension(extensionId);
         } else {
             this.props.setExtensionDisable(extensionId);
             this.props.onDisableExtension(extensionId);
@@ -101,6 +76,7 @@ class ExtensionLibraryComponent extends React.Component {
         this.props.onRequestClose();
     }
     render () {
+        /* eslint-disable react/jsx-no-literals */
         return (
             <Modal
                 fullScreen
@@ -127,7 +103,7 @@ class ExtensionLibraryComponent extends React.Component {
                                 <th>Enable</th>
                             </thead>
                             <tbody>
-                                {Object.values(this.props.data).map(dataItem => (
+                                {Object.values(this.props.extension).map(dataItem => (
                                     <ExtensionItemComponent
                                         bluetoothRequired={dataItem.bluetoothRequired}
                                         insetIconURL={dataItem.insetIconURL}
@@ -153,14 +129,17 @@ class ExtensionLibraryComponent extends React.Component {
                                     />
                                 ))}
                             </tbody>
-                        </table>) : (<Spinner
+                        </table>
+                    ) : (
+                        <Spinner
                             large
                             level="primary"
-                        />)}
-                                    
+                        />
+                    )}
                 </div>
             </Modal>
         );
+        /* eslint-enable react/jsx-no-literals */
     }
 }
 

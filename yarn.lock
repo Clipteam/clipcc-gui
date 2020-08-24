@@ -2454,6 +2454,11 @@ clipcc-block@3.0.0-7:
     google-closure-compiler-osx "^20200112.0.0"
     google-closure-compiler-windows "^20200112.0.0"
 
+clipcc-extension@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.npm.taobao.org/clipcc-extension/download/clipcc-extension-0.1.0.tgz#973c8a86802c83ad2247d3e301ddae2e47f9f39b"
+  integrity sha1-lzyKhoAsg60iR9PjAd2uLkf585s=
+
 clipcc-l10n@3.0.0-1:
   version "3.0.0-1"
   resolved "https://registry.npm.taobao.org/clipcc-l10n/download/clipcc-l10n-3.0.0-1.tgz#c27fa7f30808b79939a2be048019bebfbbc83a77"

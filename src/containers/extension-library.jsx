@@ -33,9 +33,6 @@ class ExtensionLibrary extends React.PureComponent {
             'handleDisableExtension'
         ]);
     }
-    onEnableExtension (id) {
-
-    }
     handleItemSelect (item) {
         const id = item.extensionId;
         let url = item.extensionURL ? item.extensionURL : id;
@@ -104,13 +101,13 @@ class ExtensionLibrary extends React.PureComponent {
         });
         return (
             <ExtensionLibraryComponent
-                data={extensionLibraryThumbnailData}
                 filterable={false}
                 id="extensionLibrary"
                 title={this.props.intl.formatMessage(messages.extensionTitle)}
                 visible={this.props.visible}
                 onItemSelected={this.handleItemSelect}
-                onEnableExtension={this.onEnableExtension}
+                onEnableExtension={this.handleEnableExtension}
+                onDisableExtension={this.handleDisableExtension}
                 onRequestClose={this.props.onRequestClose}
             />
         );
