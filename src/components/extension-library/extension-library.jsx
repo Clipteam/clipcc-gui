@@ -1,16 +1,18 @@
+import vm from 'vm';
 import classNames from 'classnames';
 import bindAll from 'lodash.bindall';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
-import ext from 'clipcc-extension';
+import extension from 'clipcc-extension';
 
 import Modal from '../../containers/modal.jsx';
 import Spinner from '../spinner/spinner.jsx';
 import ExtensionItemComponent from './extension-item.jsx';
 
 import {
+    initExtension,
     enableExtension,
     disableExtension
 } from '../../reducers/extension';
@@ -40,7 +42,8 @@ class ExtensionLibraryComponent extends React.Component {
         super(props);
         bindAll(this, [
             'handleClose',
-            'handleChange'
+            'handleChange',
+            'handleUploadExtension'
         ]);
         this.state = {
             playingItem: null,
@@ -61,8 +64,13 @@ class ExtensionLibraryComponent extends React.Component {
     handleChange (extensionId, status) {
         if (status) {
             if (this.props.extension[extensionId].extensionAPI) {
+                if (this.props.extension[extensionId].instance) {
+                    console.log(this.props.extension[extensionId].instance);
+                    this.props.extension[extensionId].instance.init();
+                    return;
+                }
                 console.log(extensionAPI);
-                const instance = new ext.SampleExtension(extensionAPI);
+                const instance = new extension.SampleExtension(extensionAPI);
                 instance.init();
             }
             this.props.setExtensionEnable(extensionId);
@@ -71,6 +79,53 @@ class ExtensionLibraryComponent extends React.Component {
             this.props.setExtensionDisable(extensionId);
             this.props.onDisableExtension(extensionId);
         }
+    }
+    handleUploadExtension () {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', '.js,.ccx');
+        input.onchange = event => {
+            const files = event.target.files;
+            for (const file of files) {
+                const fileName = file.name;
+                const fileExt = fileName.substring(fileName.lastIndexOf('.') + 1);
+                let extensionInfo = {};
+                switch (fileExt) {
+                case 'ccx': {
+                    console.log('Unsupported ccx');
+                    break;
+                }
+                case 'js': {
+                    const url = URL.createObjectURL(file);
+                    const reader = new FileReader();
+                    reader.readAsText(file, 'utf8');
+                    reader.onload = () => {
+                        const Extension = vm.runInThisContext(reader.result);
+                        const instance = new Extension();
+                        const info = instance.getInfo();
+                        const apiInstance = new extension.CompatibleExtension(instance, extensionAPI);
+                        extensionInfo = {
+                            extensionId: info.id,
+                            iconURL: info.blockIconURL,
+                            insetIconURL: info.blockIconURL,
+                            author: 'External Extension',
+                            name: info.name,
+                            description: 'External Extension',
+                            requirement: [],
+                            instance: apiInstance,
+                            extensionAPI: true
+                        };
+                        this.props.initExtension(extensionInfo);
+                    };
+                    break;
+                }
+                default: {
+                    console.error('Unkown extension type');
+                }
+                }
+            }
+        };
+        input.click();
     }
     handleClose () {
         this.props.onRequestClose();
@@ -90,6 +145,7 @@ class ExtensionLibraryComponent extends React.Component {
                         [styles.loading]: !this.state.loaded
                     })}
                 >
+                    <p onClick={this.handleUploadExtension}>Upload Extension</p>
                     {this.state.loaded ? (
                         <table
                             className={styles.extensionTable}
@@ -162,6 +218,7 @@ ExtensionLibraryComponent.propTypes = {
     onEnableExtension: PropTypes.func,
     setExtensionEnable: PropTypes.func,
     setExtensionDisable: PropTypes.func,
+    initExtension: PropTypes.func,
     title: PropTypes.string.isRequired
 };
 
@@ -174,6 +231,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    initExtension: data => dispatch(initExtension(data)),
     setExtensionEnable: id => dispatch(enableExtension(id)),
     setExtensionDisable: id => dispatch(disableExtension(id))
 });
