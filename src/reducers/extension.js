@@ -9,25 +9,35 @@ const initialState = {
 const reducer = function (state, action) {
     if (typeof state === 'undefined') state = initialState;
     switch (action.type) {
-    case EXTENSION_INIT:
+    case EXTENSION_INIT: {
         if (state.extension.hasOwnProperty(action.extension)) {
             return state;
         }
-        state.extension[action.id] = action.extension;
-        state.extension[action.id].enabled = false;
-        return Object.assign({}, state);
-    case EXTENSION_ENABLE:
+        const newState = Object.assign({}, state.extension);
+        newState[action.id] = {
+            ...action.extension,
+            enabled: false
+        };
+        return Object.assign({}, state, {
+            extension: newState
+        });
+    }
+    case EXTENSION_ENABLE: {
         if (!state.extension.hasOwnProperty(action.id)) {
             return state;
         }
-        state.extension[action.id].enabled = true;
-        return Object.assign({}, state);
-    case EXTENSION_DISABLE:
+        const newState = Object.assign({}, state);
+        newState.extension[action.id].enable = true;
+        return newState;
+    }
+    case EXTENSION_DISABLE: {
         if (!state.extension.hasOwnProperty(action.id)) {
             return state;
         }
-        state.extension[action.id].enabled = false;
-        return Object.assign({}, state);
+        const newState = Object.assign({}, state);
+        newState.extension[action.id].enabled = false;
+        return newState;
+    }
     default:
         return state;
     }
