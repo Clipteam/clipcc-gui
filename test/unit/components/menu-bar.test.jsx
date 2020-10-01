@@ -6,7 +6,7 @@ import {LoadingState} from '../../../src/reducers/project-state';
 
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
-import VM from 'scratch-vm';
+import VM from 'clipcc-vm';
 
 
 describe('MenuBar Component', () => {
