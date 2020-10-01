@@ -52,11 +52,7 @@ const TargetPane = ({
         className={[styles.targetPane, layoutStyle === 'scratch2' ? styles.scratch2 : ''].join(' ')}
         {...componentProps}
     >
-
         <SpriteSelectorComponent
-            editingTarget={editingTarget}
-            hoveredTarget={hoveredTarget}
-            raised={raiseSprites}
             selectedId={editingTarget}
             spriteFileInput={fileInputRef}
             sprites={sprites}
