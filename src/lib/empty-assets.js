@@ -28,6 +28,7 @@ const emptyCostume = name => ({
 const emptySprite = (name, soundName, costumeName) => ({
     objName: name,
     sounds: [
+        /*
         {
             soundName: soundName,
             soundID: -1,
@@ -36,6 +37,7 @@ const emptySprite = (name, soundName, costumeName) => ({
             rate: 11025,
             format: ''
         }
+        */
     ],
     costumes: [
         {

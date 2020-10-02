@@ -38,32 +38,29 @@ const base = {
     module: {
         rules: [{
             test: /\.jsx?$/,
-            // loader: 'babel-loader',
-            use: [
-                'thread-loader',
-                {
-                    loader: 'babel-loader',
-                    options: {
-                        // Explicitly disable babelrc so we don't catch various config
-                        // in much lower dependencies.
-                        babelrc: false,
-                        plugins: [
-                            '@babel/plugin-syntax-dynamic-import',
-                            '@babel/plugin-transform-async-to-generator',
-                            '@babel/plugin-proposal-object-rest-spread',
-                            ['react-intl', {
-                                messagesDir: './translations/messages/'
-                            }]],
-                        presets: ['@babel/preset-env', '@babel/preset-react']
-                    }
-                }
-            ],
+            loader: 'babel-loader',
             include: [
                 path.resolve(__dirname, 'src'),
                 /node_modules[\\/]scratch-[^\\/]+[\\/]src/,
                 /node_modules[\\/]pify/,
                 /node_modules[\\/]@vernier[\\/]godirect/
-            ]
+            ],
+            options: {
+                // Explicitly disable babelrc so we don't catch various config
+                // in much lower dependencies.
+                babelrc: false,
+                plugins: [
+                    '@babel/plugin-syntax-dynamic-import',
+                    '@babel/plugin-transform-async-to-generator',
+                    '@babel/plugin-proposal-object-rest-spread',
+                    ['react-intl', {
+                        messagesDir: './translations/messages/'
+                    }]],
+                presets: [
+                    ['@babel/preset-env', {"targets": {"browsers": ["last 3 versions", "Safari >= 8", "iOS >= 8"]}}], 
+                    '@babel/preset-react'
+                ]
+            }
         },
         {
             test: /\.css$/,
@@ -101,6 +98,10 @@ const base = {
     },
     plugins: [new HardSourceWebpackPlugin()]
 };
+
+if (!process.env.CI) {
+    base.plugins.push(new webpack.ProgressPlugin());
+}
 
 module.exports = [
     // to run editor examples
@@ -171,13 +172,8 @@ module.exports = [
                 title: 'ClipCC 3.0 GUI: Player Example'
             }),
             new CopyWebpackPlugin([{
-                from: 'static/favicon.ico',
-                to: 'static/favicon.ico'
-            }]),
-            new CopyWebpackPlugin([{
                 from: 'static',
-                to: '.',
-                ignore: '*.ico'
+                to: 'static'
             }]),
             new CopyWebpackPlugin([{
                 from: 'node_modules/clipcc-block/media',
