@@ -27,7 +27,7 @@ const reducer = function (state, action) {
             return state;
         }
         const newState = Object.assign({}, state);
-        newState.extension[action.id].enable = true;
+        newState.extension[action.id].enabled = true;
         return newState;
     }
     case EXTENSION_DISABLE: {

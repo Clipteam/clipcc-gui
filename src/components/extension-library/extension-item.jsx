@@ -34,9 +34,9 @@ class ExtensionItemComponent extends React.PureComponent {
                     >
                         <img src={this.props.insetIconURL} />
                     </div>
-                    {this.props.name}
+                    <FormattedMessage id={this.props.name} />
                 </td>
-                <td>{this.props.description}</td>
+                <td><FormattedMessage id={this.props.description} /></td>
                 <td>{this.props.extensionId}</td>
                 <td>
                     {this.props.bluetoothRequired || this.props.requirement && this.props.requirement.includes('bluetooth') ? (

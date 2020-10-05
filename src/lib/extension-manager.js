@@ -5,7 +5,7 @@ import {
     disableExtension
 } from '../reducers/extension';
 
-import extension from 'clipcc-extension';
+import ClipCCExtension from 'clipcc-extension';
 
 import musicIconURL from './libraries/extensions/music/music.png';
 import musicInsetIconURL from './libraries/extensions/music/music-small.svg';
@@ -195,16 +195,13 @@ const loadBuiltinExtension = dispatch => {
     }
 };
 
-const extensionAPI = new extension.ExtensionAPI();
-
 const initExtensionAPI = vm => {
-    console.log(extensionAPI);
-    extensionAPI.initExtensionAPI(vm.extensionAPI);
-    console.log(extensionAPI);
+    console.log(ClipCCExtension);
+    ClipCCExtension.registExtensionAPI(vm.extensionAPI);
+    console.log(ClipCCExtension);
 };
 
 export {
     loadBuiltinExtension,
-    initExtensionAPI,
-    extensionAPI
+    initExtensionAPI
 };

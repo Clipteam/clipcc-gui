@@ -32,6 +32,7 @@
     "bowser": "1.9.4",
     "classnames": "2.2.6",
     "clipcc-block": "3.0.0-7",
+    "clipcc-extension": "^0.1.0",
     "clipcc-l10n": "3.0.0-1",
     "clipcc-vm": "3.0.0-4",
     "computed-style-to-inline-style": "3.0.0",
@@ -48,6 +49,7 @@
     "immutable": "3.8.2",
     "intl": "1.2.5",
     "js-base64": "2.4.9",
+    "jszip": "^3.5.0",
     "keymirror": "0.1.1",
     "lodash.bindall": "4.4.0",
     "lodash.debounce": "4.0.8",
@@ -55,6 +57,7 @@
     "lodash.isequal": "4.5.0",
     "lodash.omit": "4.5.0",
     "lodash.throttle": "4.0.1",
+    "mime-types": "^2.1.27",
     "minilog": "3.1.0",
     "omggif": "1.0.9",
     "papaparse": "5.2.0",
@@ -104,6 +107,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/plugin-transform-async-to-generator": "^7.1.0",
+    "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "babel-core": "7.0.0-bridge.0",
@@ -147,8 +151,5 @@
       "\\.(css|less)$": "<rootDir>/test/__mocks__/styleMock.js",
       "editor-msgs(\\.js)?$": "<rootDir>/test/__mocks__/editor-msgs-mock.js"
     }
-  },
-  "dependencies": {
-    "clipcc-extension": "^0.1.0"
   }
 }

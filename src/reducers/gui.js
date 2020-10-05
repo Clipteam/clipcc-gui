@@ -63,7 +63,7 @@ const guiInitialState = {
     vm: vmInitialState,
     vmStatus: vmStatusInitialState,
     settings: settingsInitialState,
-    extension: extensionInitialState
+    extension: extensionInitialState,
     workspaceMetrics: workspaceMetricsInitialState
 };
 
@@ -164,7 +164,7 @@ const guiReducer = combineReducers({
     vm: vmReducer,
     vmStatus: vmStatusReducer,
     settings: settingsReducer,
-    extension: extensionReducer
+    extension: extensionReducer,
     workspaceMetrics: workspaceMetricsReducer
 });
 

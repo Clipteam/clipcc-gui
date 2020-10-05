@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
-import extension from 'clipcc-extension';
+import JSZip from 'jszip';
+import mime from 'mime-types';
+import ClipCCExtension from 'clipcc-extension';
 
 import Modal from '../../containers/modal.jsx';
 import Spinner from '../spinner/spinner.jsx';
@@ -16,10 +18,15 @@ import {
     enableExtension,
     disableExtension
 } from '../../reducers/extension';
+import {
+    addLocales
+} from '../../reducers/locales';
 
 import {extensionAPI} from '../../lib/extension-manager';
 
 import styles from './extension-library.css';
+
+global.ClipCCExtension = ClipCCExtension;
 
 const messages = defineMessages({
     filterPlaceholder: {
@@ -64,20 +71,26 @@ class ExtensionLibraryComponent extends React.Component {
     handleChange (extensionId, status) {
         if (status) {
             if (this.props.extension[extensionId].extensionAPI) {
-                if (this.props.extension[extensionId].instance) {
-                    console.log(this.props.extension[extensionId].instance);
+                if (this.props.extension[extensionId].instance.init) {
                     this.props.extension[extensionId].instance.init();
-                    return;
                 }
-                console.log(extensionAPI);
-                const instance = new extension.SampleExtension(extensionAPI);
-                instance.init();
+                this.props.setExtensionEnable(extensionId);
             }
-            this.props.setExtensionEnable(extensionId);
-            this.props.onEnableExtension(extensionId);
+            else {
+                this.props.setExtensionEnable(extensionId);
+                this.props.onEnableExtension(extensionId);
+            }
         } else {
-            this.props.setExtensionDisable(extensionId);
-            this.props.onDisableExtension(extensionId);
+            if (this.props.extension[extensionId].extensionAPI) {
+                if (this.props.extension[extensionId].instance.uninit) {
+                    this.props.extension[extensionId].instance.uninit();
+                }
+                this.props.setExtensionDisable(extensionId);
+            }
+            else {
+                this.props.setExtensionDisable(extensionId);
+                this.props.onDisableExtension(extensionId);
+            }
         }
     }
     handleUploadExtension () {
@@ -92,7 +105,69 @@ class ExtensionLibraryComponent extends React.Component {
                 let extensionInfo = {};
                 switch (fileExt) {
                 case 'ccx': {
-                    console.log('Unsupported ccx');
+                    console.log('Experimental CCX file support.');
+                    const url = URL.createObjectURL(file);
+                    const reader = new FileReader();
+                    reader.readAsArrayBuffer(file, 'utf8');
+                    reader.onload = async () => {
+                        const zipData = await JSZip.loadAsync(reader.result);
+                        let info = {};
+                        let instance = null;
+
+                        // Load info
+                        if ('info.json' in zipData.files) {
+                            const content = await zipData.files['info.json'].async('text');
+                            info = JSON.parse(content);
+                            console.log(info);
+                            console.log(zipData);
+                            if (info.icon) {
+                                info.icon = URL.createObjectURL(new Blob(
+                                    [await zipData.files[info.icon].async('arraybuffer')],
+                                    {type: mime.lookup(info.icon)}
+                                ));
+                            }
+                            if (info.inset_icon) {
+                                info.inset_icon = URL.createObjectURL(new Blob(
+                                    [await zipData.files[info.inset_icon].async('blob')],
+                                    {type: mime.lookup(info.inset_icon)}
+                                ));
+                            }
+                        } else {
+                            console.error('Cannot find \'info.json\' in ' + fileName);
+                        }
+
+                        // Load extension class
+                        if ('main.js' in zipData.files) {
+                            const Extension = vm.runInThisContext(await zipData.files['main.js'].async('text'));
+                            instance = new Extension();
+                        } else {
+                            console.error('Cannot find \'main.js\' in ' + fileName);
+                        }
+
+                        // Load locale
+                        const locale = {};
+                        for (const fileName in zipData.files) {
+                            const result = fileName.match(/(?<=locales[\\/])[0-9A-Za-z_\-]*(?=.json)/);
+                            if (result) {
+                                console.log(result[0]);
+                                locale[result[0]] = JSON.parse(await zipData.files[fileName].async('text'));
+                            }
+                        }
+                        this.props.addLocales(locale);
+
+                        extensionInfo = {
+                            extensionId: info.id,
+                            name: info.id + '.name',
+                            description: info.id + '.description',
+                            iconURL: info.icon,
+                            insetIconURL: info.inset_icon,
+                            author: info.author,
+                            requirement: info.requirement,
+                            instance: instance,
+                            extensionAPI: true
+                        };
+                        this.props.initExtension(extensionInfo);
+                    };
                     break;
                 }
                 case 'js': {
@@ -103,7 +178,7 @@ class ExtensionLibraryComponent extends React.Component {
                         const Extension = vm.runInThisContext(reader.result);
                         const instance = new Extension();
                         const info = instance.getInfo();
-                        const apiInstance = new extension.CompatibleExtension(instance, extensionAPI);
+                        const apiInstance = new ClipCCExtension.CompatibleExtension(instance);
                         extensionInfo = {
                             extensionId: info.id,
                             iconURL: info.blockIconURL,
@@ -219,6 +294,7 @@ ExtensionLibraryComponent.propTypes = {
     setExtensionEnable: PropTypes.func,
     setExtensionDisable: PropTypes.func,
     initExtension: PropTypes.func,
+    addLocales: PropTypes.func,
     title: PropTypes.string.isRequired
 };
 
@@ -233,7 +309,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     initExtension: data => dispatch(initExtension(data)),
     setExtensionEnable: id => dispatch(enableExtension(id)),
-    setExtensionDisable: id => dispatch(disableExtension(id))
+    setExtensionDisable: id => dispatch(disableExtension(id)),
+    addLocales: msgs => dispatch(addLocales(msgs))
 });
 
 export default injectIntl(connect(
