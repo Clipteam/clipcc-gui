@@ -197,7 +197,7 @@ const loadBuiltinExtension = dispatch => {
 
 const initExtensionAPI = vm => {
     console.log(ClipCCExtension);
-    ClipCCExtension.registExtensionAPI(vm.extensionAPI);
+    ClipCCExtension.API.registExtensionAPI(vm.extensionAPI);
     console.log(ClipCCExtension);
 };
 
