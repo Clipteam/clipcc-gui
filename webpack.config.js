@@ -1,18 +1,22 @@
 const defaultsDeep = require('lodash.defaultsdeep');
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 
 // Plugins
-var CopyWebpackPlugin = require('copy-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 
 // PostCss
-var autoprefixer = require('autoprefixer');
-var postcssVars = require('postcss-simple-vars');
-var postcssImport = require('postcss-import');
+const autoprefixer = require('autoprefixer');
+const postcssVars = require('postcss-simple-vars');
+const postcssImport = require('postcss-import');
 
 const STATIC_PATH = process.env.STATIC_PATH || '/static';
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const ENABLE_PWA = process.env.ENABLE_PWA;
+const ENABLE_HTTPS = process.env.ENABLE_HTTPS;
 
 const base = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
@@ -20,7 +24,8 @@ const base = {
     devServer: {
         contentBase: path.resolve(__dirname, 'build'),
         host: '0.0.0.0',
-        port: process.env.PORT || 8601
+        port: process.env.PORT || 8601,
+        https: ENABLE_HTTPS
     },
     output: {
         library: 'GUI',
@@ -150,6 +155,7 @@ module.exports = [
                 chunks: ['lib.min', 'gui'],
                 template: 'src/playground/index.ejs',
                 title: 'ClipCC 3.0 GUI',
+                enablePWA: ENABLE_PWA,
                 sentryConfig: process.env.SENTRY_CONFIG ? '"' + process.env.SENTRY_CONFIG + '"' : null
             }),
             new HtmlWebpackPlugin({
@@ -172,7 +178,8 @@ module.exports = [
             }),
             new CopyWebpackPlugin([{
                 from: 'static',
-                to: 'static'
+                to: 'static',
+                ignore: ['static/sw.js', 'static/manifest.json']
             }]),
             new CopyWebpackPlugin([{
                 from: 'node_modules/clipcc-block/media',
@@ -186,7 +193,18 @@ module.exports = [
             new CopyWebpackPlugin([{
                 from: 'extension-worker.{js,js.map}',
                 context: 'node_modules/clipcc-vm/dist/web'
-            }])
+            }]),
+            ENABLE_PWA ? new ServiceWorkerWebpackPlugin({
+                entry: path.resolve(__dirname, 'static/sw.js')
+            }) : null,
+            ENABLE_PWA ? new CopyWebpackPlugin([{
+                from: 'static/sw.js',
+                to: 'sw.js',
+            }]) : null,
+            ENABLE_PWA ? new CopyWebpackPlugin([{
+                from: 'static/manifest.json',
+                to: 'manifest.json',
+            }]) : null
         ])
     })
 ].concat(
