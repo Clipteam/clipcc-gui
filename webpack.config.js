@@ -179,7 +179,7 @@ module.exports = [
             new CopyWebpackPlugin([{
                 from: 'static',
                 to: 'static',
-                ignore: ['static/sw.js', 'static/manifest.json']
+                ignore: ['sw.js', 'manifest.json']
             }]),
             new CopyWebpackPlugin([{
                 from: 'node_modules/clipcc-block/media',
@@ -196,15 +196,15 @@ module.exports = [
             }]),
             ENABLE_PWA ? new ServiceWorkerWebpackPlugin({
                 entry: path.resolve(__dirname, 'static/sw.js')
-            }) : null,
+            }) : {},
             ENABLE_PWA ? new CopyWebpackPlugin([{
                 from: 'static/sw.js',
                 to: 'sw.js',
-            }]) : null,
+            }]) : {},
             ENABLE_PWA ? new CopyWebpackPlugin([{
                 from: 'static/manifest.json',
                 to: 'manifest.json',
-            }]) : null
+            }]) : {}
         ])
     })
 ].concat(

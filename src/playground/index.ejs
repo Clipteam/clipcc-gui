@@ -17,7 +17,7 @@
     <% } %>
     <% if (htmlWebpackPlugin.options.enablePWA ) { %>
         <!--<meta name="viewport" content="width=device-width, user-scalable=no" />-->
-        <link rel="manifest" href="static/manifest.json">
+        <link rel="manifest" href="manifest.json">
         <script>
             if (navigator.serviceWorker) {
                 navigator.serviceWorker.register('sw.js').then(registration => {
