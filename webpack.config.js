@@ -107,6 +107,75 @@ if (!process.env.CI) {
     base.plugins.push(new webpack.ProgressPlugin());
 }
 
+function getPlugins() {
+    const res = base.plugins.concat([
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': '"' + process.env.NODE_ENV + '"',
+            'process.env.DEBUG': Boolean(process.env.DEBUG),
+            'process.env.GA_ID': '"' + (process.env.GA_ID || 'UA-000000-01') + '"'
+        }),
+        new HtmlWebpackPlugin({
+            chunks: ['lib.min', 'gui'],
+            template: 'src/playground/index.ejs',
+            title: 'ClipCC 3.0 GUI',
+            enablePWA: ENABLE_PWA,
+            sentryConfig: process.env.SENTRY_CONFIG ? '"' + process.env.SENTRY_CONFIG + '"' : null
+        }),
+        new HtmlWebpackPlugin({
+            chunks: ['lib.min', 'blocksonly'],
+            template: 'src/playground/index.ejs',
+            filename: 'blocks-only.html',
+            title: 'ClipCC 3.0 GUI: Blocks Only Example'
+        }),
+        new HtmlWebpackPlugin({
+            chunks: ['lib.min', 'compatibilitytesting'],
+            template: 'src/playground/index.ejs',
+            filename: 'compatibility-testing.html',
+            title: 'ClipCC 3.0 GUI: Compatibility Testing'
+        }),
+        new HtmlWebpackPlugin({
+            chunks: ['lib.min', 'player'],
+            template: 'src/playground/index.ejs',
+            filename: 'player.html',
+            title: 'ClipCC 3.0 GUI: Player Example'
+        }),
+        new CopyWebpackPlugin([{
+            from: 'static',
+            to: 'static',
+            ignore: ['sw.js', 'manifest.json']
+        }]),
+        new CopyWebpackPlugin([{
+            from: 'node_modules/clipcc-block/media',
+            to: 'static/blocks-media'
+        }]),
+        new CopyWebpackPlugin([{
+            from: 'extensions/**',
+            to: 'static',
+            context: 'src/examples'
+        }]),
+        new CopyWebpackPlugin([{
+            from: 'extension-worker.{js,js.map}',
+            context: 'node_modules/clipcc-vm/dist/web'
+        }])
+    ]);
+    if (ENABLE_PWA) {
+        res = res.concat([
+            new ServiceWorkerWebpackPlugin({
+                entry: path.resolve(__dirname, 'static/sw.js')
+            }),
+            new CopyWebpackPlugin([{
+                from: 'static/sw.js',
+                to: 'sw.js',
+            }]),
+            new CopyWebpackPlugin([{
+                from: 'static/manifest.json',
+                to: 'manifest.json',
+            }])
+        ]);
+    }
+    return res;
+}
+
 module.exports = [
     // to run editor examples
     defaultsDeep({}, base, {
@@ -145,67 +214,7 @@ module.exports = [
                 name: 'lib.min'
             }
         },
-        plugins: base.plugins.concat([
-            new webpack.DefinePlugin({
-                'process.env.NODE_ENV': '"' + process.env.NODE_ENV + '"',
-                'process.env.DEBUG': Boolean(process.env.DEBUG),
-                'process.env.GA_ID': '"' + (process.env.GA_ID || 'UA-000000-01') + '"'
-            }),
-            new HtmlWebpackPlugin({
-                chunks: ['lib.min', 'gui'],
-                template: 'src/playground/index.ejs',
-                title: 'ClipCC 3.0 GUI',
-                enablePWA: ENABLE_PWA,
-                sentryConfig: process.env.SENTRY_CONFIG ? '"' + process.env.SENTRY_CONFIG + '"' : null
-            }),
-            new HtmlWebpackPlugin({
-                chunks: ['lib.min', 'blocksonly'],
-                template: 'src/playground/index.ejs',
-                filename: 'blocks-only.html',
-                title: 'ClipCC 3.0 GUI: Blocks Only Example'
-            }),
-            new HtmlWebpackPlugin({
-                chunks: ['lib.min', 'compatibilitytesting'],
-                template: 'src/playground/index.ejs',
-                filename: 'compatibility-testing.html',
-                title: 'ClipCC 3.0 GUI: Compatibility Testing'
-            }),
-            new HtmlWebpackPlugin({
-                chunks: ['lib.min', 'player'],
-                template: 'src/playground/index.ejs',
-                filename: 'player.html',
-                title: 'ClipCC 3.0 GUI: Player Example'
-            }),
-            new CopyWebpackPlugin([{
-                from: 'static',
-                to: 'static',
-                ignore: ['sw.js', 'manifest.json']
-            }]),
-            new CopyWebpackPlugin([{
-                from: 'node_modules/clipcc-block/media',
-                to: 'static/blocks-media'
-            }]),
-            new CopyWebpackPlugin([{
-                from: 'extensions/**',
-                to: 'static',
-                context: 'src/examples'
-            }]),
-            new CopyWebpackPlugin([{
-                from: 'extension-worker.{js,js.map}',
-                context: 'node_modules/clipcc-vm/dist/web'
-            }]),
-            ENABLE_PWA ? new ServiceWorkerWebpackPlugin({
-                entry: path.resolve(__dirname, 'static/sw.js')
-            }) : {},
-            ENABLE_PWA ? new CopyWebpackPlugin([{
-                from: 'static/sw.js',
-                to: 'sw.js',
-            }]) : {},
-            ENABLE_PWA ? new CopyWebpackPlugin([{
-                from: 'static/manifest.json',
-                to: 'manifest.json',
-            }]) : {}
-        ])
+        plugins: getPlugins()
     })
 ].concat(
     process.env.NODE_ENV === 'production' || process.env.BUILD_MODE === 'dist' ? (
