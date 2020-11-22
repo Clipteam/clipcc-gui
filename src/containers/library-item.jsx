@@ -16,6 +16,7 @@ class LibraryItem extends React.PureComponent {
             'handleMouseEnter',
             'handleMouseLeave',
             'handlePlay',
+            'handleSwitchChange',
             'handleStop',
             'rotateIcon',
             'startRotatingIcons',
@@ -37,6 +38,11 @@ class LibraryItem extends React.PureComponent {
             this.props.onSelect(this.props.id);
         }
         e.preventDefault();
+    }
+    handleSwitchChange (status) {
+        if (!this.props.disabled) {
+            this.props.onSwitchChange(this.props.id, status);
+        }
     }
     handleFocus (id) {
         if (!this.props.showPlayButton) {
@@ -133,12 +139,18 @@ class LibraryItem extends React.PureComponent {
                 onMouseLeave={this.handleMouseLeave}
                 onPlay={this.handlePlay}
                 onStop={this.handleStop}
+                switchable={this.props.switchable}
+                onSwitchChange={this.handleSwitchChange}
+                enabled={this.props.enabled}
             />
         );
     }
 }
 
 LibraryItem.propTypes = {
+    switchable: PropTypes.bool,
+    onSwitchChange: PropTypes.func,
+    enabled: PropTypes.bool,
     bluetoothRequired: PropTypes.bool,
     collaborator: PropTypes.string,
     description: PropTypes.oneOfType([

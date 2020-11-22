@@ -52,7 +52,7 @@ class ExtensionItemComponent extends React.PureComponent {
                     }}
                 >
                     <Switch
-                        onChanged={this.handleChange}
+                        onChange={this.handleChange}
                         default={this.props.enabled}
                     />
                 </td>

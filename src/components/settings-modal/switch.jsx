@@ -14,7 +14,7 @@ class Switch extends React.Component {
     }
     handleClick () {
         this.setState((state, props) => {
-            props.onChanged(!state.checked);
+            props.onChange(!state.checked);
             return {
                 checked: !state.checked
             };
@@ -40,12 +40,12 @@ class Switch extends React.Component {
 
 Switch.propTypes = {
     default: PropTypes.bool,
-    onChanged: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired
 };
 
 Switch.defaultProps = {
     default: false,
-    onChanged: (/* state */) => {}
+    onChange: (/* state */) => {}
 };
 
 export default Switch;

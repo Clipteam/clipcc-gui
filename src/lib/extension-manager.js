@@ -96,8 +96,7 @@ const builtinExtensions = [
         insetIconURL: JSONInsetImage,
         author: 'Clip Team',
         name: 'gui.extension.clipcc.json.name',
-        description: 'gui.extension.clipcc.json.description',
-        extensionAPI: true
+        description: 'gui.extension.clipcc.json.description'
     },
     {
         extensionId: 'libra',
@@ -196,9 +195,7 @@ const loadBuiltinExtension = dispatch => {
 };
 
 const initExtensionAPI = vm => {
-    console.log(ClipCCExtension);
     ClipCCExtension.API.registExtensionAPI(vm.extensionAPI);
-    console.log(ClipCCExtension);
 };
 
 export {

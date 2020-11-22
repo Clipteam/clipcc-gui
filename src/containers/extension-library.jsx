@@ -2,20 +2,36 @@ import bindAll from 'lodash.bindall';
 import PropTypes from 'prop-types';
 import React from 'react';
 import VM from 'clipcc-vm';
+import {connect} from 'react-redux';
 import {defineMessages, injectIntl, intlShape, FormattedMessage} from 'react-intl';
+import JSZip from 'jszip';
+import mime from 'mime-types';
+import vm from 'vm';
+import ClipCCExtension from 'clipcc-extension';
 
 import extensionLibraryContent from '../lib/libraries/extensions/index.jsx';
 
-import ExtensionLibraryComponent from '../components/extension-library/extension-library.jsx';
+import LibraryComponent from '../components/library/library.jsx';
 import extensionIcon from '../components/action-menu/icon--sprite.svg';
 
 import uploadImageURL from '../lib/libraries/extensions/upload/upload.svg';
 
+import {
+    initExtension,
+    enableExtension,
+    disableExtension
+} from '../reducers/extension';
+import {
+    addLocales
+} from '../reducers/locales';
+
+global.ClipCCExtension = ClipCCExtension;
+
 const messages = defineMessages({
     extensionTitle: {
-        defaultMessage: 'Extension Manager',
-        description: 'Heading for the extension manager',
-        id: 'gui.extensionLibrary.extensionManager'
+        defaultMessage: 'Choose an Extension',
+        description: 'Heading for the extension library',
+        id: 'gui.extensionLibrary.chooseAnExtension'
     },
     extensionUrl: {
         defaultMessage: 'Enter the URL of the extension',
@@ -29,30 +45,17 @@ class ExtensionLibrary extends React.PureComponent {
         super(props);
         bindAll(this, [
             'handleItemSelect',
-            'handleEnableExtension',
-            'handleDisableExtension'
+            'handleUploadExtension',
+            'handleItemChange'
         ]);
     }
     handleItemSelect (item) {
-        const id = item.extensionId;
-        let url = item.extensionURL ? item.extensionURL : id;
         if ('upload' in item) {
-            const fileInput = document.createElement('input');
-            fileInput.setAttribute('type', 'file');
-            fileInput.setAttribute('accept', '.js');
-            fileInput.onchange = e => {
-                const file = e.target.files[0];
-                url = URL.createObjectURL(file);
-                if (this.props.vm.extensionManager.isExtensionLoaded(url)) {
-                    this.props.onCategorySelected(id);
-                } else {
-                    this.props.vm.extensionManager.loadExtensionURL(url).then(() => {
-                        this.props.onCategorySelected(id);
-                    });
-                }
-            };
-            fileInput.click();
-        } else {
+            this.handleUploadExtension();
+        }
+        /* else {
+            const id = item.extensionId;
+            let url = item.extensionURL ? item.extensionURL : id;
             if (!item.disabled && !id) {
                 // eslint-disable-next-line no-alert
                 url = prompt(this.props.intl.formatMessage(messages.extensionUrl));
@@ -66,20 +69,160 @@ class ExtensionLibrary extends React.PureComponent {
                     });
                 }
             }
+        }*/
+    }
+    handleItemChange (item, status) {
+        const extensionId = item.extensionId;
+        console.log('item change', extensionId, status);
+        if (status) {
+            if (this.props.extension[extensionId].extensionAPI) {
+                if (this.props.extension[extensionId].instance.init) {
+                    this.props.extension[extensionId].instance.init();
+                }
+            }
+            else {
+                if (!this.props.vm.extensionManager.isExtensionLoaded(extensionId)) {
+                    this.props.vm.extensionManager.loadExtensionURL(extensionId);
+                }
+            }
+            this.props.setExtensionEnable(extensionId);
+        } else {
+            if (this.props.extension[extensionId].extensionAPI) {
+                if (this.props.extension[extensionId].instance.uninit) {
+                    this.props.extension[extensionId].instance.uninit();
+                }
+            }
+            else {
+            }
+            this.props.setExtensionDisable(extensionId);
         }
     }
-    handleEnableExtension (extensionId) {
-        if (!this.props.vm.extensionManager.isExtensionLoaded(extensionId)) {
-            this.props.vm.extensionManager.loadExtensionURL(extensionId);
-        }
-    }
-    handleDisableExtension (extensionId) {
-        // TODO: Unload extension
+    handleUploadExtension () {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', '.js,.ccx');
+        input.onchange = event => {
+            const files = event.target.files;
+            for (const file of files) {
+                const fileName = file.name;
+                const fileExt = fileName.substring(fileName.lastIndexOf('.') + 1);
+                let extensionInfo = {};
+                switch (fileExt) {
+                case 'ccx': {
+                    console.log('Experimental CCX file support.');
+                    const url = URL.createObjectURL(file);
+                    const reader = new FileReader();
+                    reader.readAsArrayBuffer(file, 'utf8');
+                    reader.onload = async () => {
+                        const zipData = await JSZip.loadAsync(reader.result);
+                        let info = {};
+                        let instance = null;
+
+                        // Load info
+                        if ('info.json' in zipData.files) {
+                            const content = await zipData.files['info.json'].async('text');
+                            info = JSON.parse(content);
+                            console.log(info);
+                            console.log(zipData);
+                            if (info.icon) {
+                                info.icon = URL.createObjectURL(new Blob(
+                                    [await zipData.files[info.icon].async('arraybuffer')],
+                                    {type: mime.lookup(info.icon)}
+                                ));
+                            }
+                            if (info.inset_icon) {
+                                info.inset_icon = URL.createObjectURL(new Blob(
+                                    [await zipData.files[info.inset_icon].async('blob')],
+                                    {type: mime.lookup(info.inset_icon)}
+                                ));
+                            }
+                        } else {
+                            console.error('Cannot find \'info.json\' in ' + fileName);
+                        }
+
+                        // Load extension class
+                        if ('main.js' in zipData.files) {
+                            const script = new vm.Script(await zipData.files['main.js'].async('text'));
+                            const Extension = script.runInThisContext();
+                            instance = new Extension();
+                        } else {
+                            console.error('Cannot find \'main.js\' in ' + fileName);
+                        }
+
+                        // Load locale
+                        const locale = {};
+                        for (const fileName in zipData.files) {
+                            const result = fileName.match(/(?<=locales[\\/])[0-9A-Za-z_\-]*(?=.json)/);
+                            if (result) {
+                                console.log(result[0]);
+                                locale[result[0]] = JSON.parse(await zipData.files[fileName].async('text'));
+                            }
+                        }
+                        this.props.addLocales(locale);
+
+                        extensionInfo = {
+                            extensionId: info.id,
+                            name: info.id + '.name',
+                            description: info.id + '.description',
+                            iconURL: info.icon,
+                            insetIconURL: info.inset_icon,
+                            author: info.author,
+                            requirement: info.requirement,
+                            instance: instance,
+                            extensionAPI: true
+                        };
+                        this.props.initExtension(extensionInfo);
+                    };
+                    break;
+                }
+                case 'js': {
+                    const url = URL.createObjectURL(file);
+                    const reader = new FileReader();
+                    reader.readAsText(file, 'utf8');
+                    reader.onload = () => {
+                        const Extension = vm.runInThisContext(reader.result);
+                        const instance = new Extension();
+                        const info = instance.getInfo();
+                        const apiInstance = new ClipCCExtension.CompatibleExtension(instance);
+                        extensionInfo = {
+                            extensionId: info.id,
+                            iconURL: info.blockIconURL,
+                            insetIconURL: info.blockIconURL,
+                            author: 'External Extension',
+                            name: info.name,
+                            description: 'External Extension',
+                            requirement: [],
+                            instance: apiInstance,
+                            extensionAPI: true
+                        };
+                        this.props.initExtension(extensionInfo);
+                    };
+                    break;
+                }
+                default: {
+                    console.error('Unkown extension type');
+                }
+                }
+            }
+        };
+        input.click();
     }
     render () {
-        const extensionLibraryThumbnailData = extensionLibraryContent.map(extension => ({
+        const extensionLibraryThumbnailData = Object.values(this.props.extension).map(extension => ({
+            ...extension,
             rawURL: extension.iconURL || extensionIcon,
-            ...extension
+            featured: true,
+            switchable: true,
+            name: (
+                <FormattedMessage
+                    id={extension.name}
+                />
+            ),
+            description: (
+                <FormattedMessage
+                    id={extension.description}
+                />
+            )
         }));
         extensionLibraryThumbnailData.push({
             name: (
@@ -97,17 +240,19 @@ class ExtensionLibrary extends React.PureComponent {
             rawURL: uploadImageURL,
             extensionId: 'upload',
             upload: true,
-            featured: true
+            featured: true,
+            switchable: false
         });
         return (
-            <ExtensionLibraryComponent
+            <LibraryComponent
+                data={extensionLibraryThumbnailData}
                 filterable={false}
                 id="extensionLibrary"
                 title={this.props.intl.formatMessage(messages.extensionTitle)}
                 visible={this.props.visible}
+                closeAfterSelect={false}
                 onItemSelected={this.handleItemSelect}
-                onEnableExtension={this.handleEnableExtension}
-                onDisableExtension={this.handleDisableExtension}
+                onItemSwitchChange={this.handleItemChange}
                 onRequestClose={this.props.onRequestClose}
             />
         );
@@ -115,6 +260,18 @@ class ExtensionLibrary extends React.PureComponent {
 }
 
 ExtensionLibrary.propTypes = {
+    extension: PropTypes.shape({
+        extensionId: PropTypes.string,
+        iconURL: PropTypes.string,
+        insetIconURL: PropTypes.string,
+        author: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.arrayOf(PropTypes.string)
+        ]),
+        name: PropTypes.string,
+        description: PropTypes.string,
+        requirement: PropTypes.arrayOf(PropTypes.string)
+    }),
     intl: intlShape.isRequired,
     onCategorySelected: PropTypes.func,
     onRequestClose: PropTypes.func,
@@ -122,4 +279,18 @@ ExtensionLibrary.propTypes = {
     vm: PropTypes.instanceOf(VM).isRequired // eslint-disable-line react/no-unused-prop-types
 };
 
-export default injectIntl(ExtensionLibrary);
+const mapStateToProps = state => ({
+    extension: state.scratchGui.extension.extension
+});
+
+const mapDispatchToProps = dispatch => ({
+    initExtension: data => dispatch(initExtension(data)),
+    setExtensionEnable: id => dispatch(enableExtension(id)),
+    setExtensionDisable: id => dispatch(disableExtension(id)),
+    addLocales: msgs => dispatch(addLocales(msgs))
+});
+
+export default injectIntl(connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ExtensionLibrary));

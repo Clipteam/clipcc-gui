@@ -32,6 +32,12 @@
     border-color: $motion-primary;
 }
 
+.library-item-switch {
+    position: absolute;
+    right: 1em;
+    top: 1em;
+}
+
 .hidden {
     display: none;
 }
