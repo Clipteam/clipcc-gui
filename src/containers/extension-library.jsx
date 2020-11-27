@@ -33,6 +33,11 @@ const messages = defineMessages({
         description: 'Heading for the extension library',
         id: 'gui.extensionLibrary.chooseAnExtension'
     },
+    extensionManagement: {
+        defaultMessage: 'Extension Management',
+        description: 'Heading for the extension library',
+        id: 'gui.extensionLibrary.extensionManagement'
+    },
     extensionUrl: {
         defaultMessage: 'Enter the URL of the extension',
         description: 'Prompt for unoffical extension url',
@@ -248,7 +253,7 @@ class ExtensionLibrary extends React.PureComponent {
                 data={extensionLibraryThumbnailData}
                 filterable={false}
                 id="extensionLibrary"
-                title={this.props.intl.formatMessage(messages.extensionTitle)}
+                title={this.props.intl.formatMessage(messages.extensionManagement)}
                 visible={this.props.visible}
                 closeAfterSelect={false}
                 onItemSelected={this.handleItemSelect}
