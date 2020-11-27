@@ -53,6 +53,8 @@ const TargetPane = ({
         {...componentProps}
     >
         <SpriteSelectorComponent
+            hoveredTarget={hoveredTarget}
+            editingTarget={editingTarget}
             selectedId={editingTarget}
             spriteFileInput={fileInputRef}
             sprites={sprites}
