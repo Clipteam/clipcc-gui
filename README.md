@@ -20,13 +20,13 @@ This requires you to have Git and Node.js installed.
 
 In your own node environment/application:
 ```bash
-yarn install https://github.com/Clipteam/clipcc-gui.git
+yarn install https://github.com/Clipteam/clipcc-gui.git --prod=false
 ```
 If you want to edit/play yourself:
 ```bash
 git clone https://github.com/Clipteam/clipcc-gui.git
 cd clipcc-gui
-yarn install
+yarn install --prod=false
 ```
 
 ## Getting started

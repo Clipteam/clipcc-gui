@@ -1,22 +1,19 @@
 const defaultsDeep = require('lodash.defaultsdeep');
-const path = require('path');
-const webpack = require('webpack');
+var path = require('path');
+var webpack = require('webpack');
 
 // Plugins
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CompressionPlugin = require('compression-webpack-plugin');
+var { ESBuildPlugin, ESBuildMinifyPlugin } = require('esbuild-loader');
 
 // PostCss
-const autoprefixer = require('autoprefixer');
-const postcssVars = require('postcss-simple-vars');
-const postcssImport = require('postcss-import');
+var autoprefixer = require('autoprefixer');
+var postcssVars = require('postcss-simple-vars');
+var postcssImport = require('postcss-import');
 
 const STATIC_PATH = process.env.STATIC_PATH || '/static';
-const NODE_ENV = process.env.NODE_ENV || 'development';
-const ENABLE_PWA = process.env.ENABLE_PWA;
-const ENABLE_HTTPS = process.env.ENABLE_HTTPS;
 
 const base = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
@@ -24,8 +21,7 @@ const base = {
     devServer: {
         contentBase: path.resolve(__dirname, 'build'),
         host: '0.0.0.0',
-        port: process.env.PORT || 8601,
-        https: ENABLE_HTTPS
+        port: process.env.PORT || 8601
     },
     output: {
         library: 'GUI',
@@ -37,34 +33,25 @@ const base = {
         ReactDOM: 'react-dom'
     },
     resolve: {
-        symlinks: false
+        symlinks: false,
+        fallback: {
+            'stream': require.resolve('stream-browserify')
+        }
     },
     module: {
         rules: [{
             test: /\.jsx?$/,
-            loader: 'babel-loader',
+            loader: 'esbuild-loader',
+            options: {
+                loader: 'jsx',
+                target: 'es2015'
+            },
             include: [
                 path.resolve(__dirname, 'src'),
                 /node_modules[\\/]scratch-[^\\/]+[\\/]src/,
                 /node_modules[\\/]pify/,
                 /node_modules[\\/]@vernier[\\/]godirect/
-            ],
-            options: {
-                // Explicitly disable babelrc so we don't catch various config
-                // in much lower dependencies.
-                babelrc: false,
-                plugins: [
-                    '@babel/plugin-syntax-dynamic-import',
-                    '@babel/plugin-transform-async-to-generator',
-                    '@babel/plugin-proposal-object-rest-spread',
-                    ['react-intl', {
-                        messagesDir: './translations/messages/'
-                    }]],
-                presets: [
-                    ['@babel/preset-env', {"targets": {"browsers": ["last 3 versions", "Safari >= 8", "iOS >= 8"]}}], 
-                    '@babel/preset-react'
-                ]
-            }
+            ]
         },
         {
             test: /\.css$/,
@@ -95,96 +82,38 @@ const base = {
     },
     optimization: {
         minimizer: [
-            new UglifyJsPlugin({
-                include: /\.min\.js$/
+            process.env.NODE_ENV !== 'production' && new ESBuildMinifyPlugin({
+                target: 'es2015' // Syntax to compile to (see options below for possible values)
             })
-        ]
+        ].filter(v => !!v)
     },
-    plugins: []
+    plugins: [
+        new ESBuildPlugin(),
+        process.env.NODE_ENV === 'production' && new CompressionPlugin()
+    ].filter(v => !!v)
 };
-
-if (!process.env.CI) {
-    base.plugins.push(new webpack.ProgressPlugin());
-}
-
-function getPlugins() {
-    const res = base.plugins.concat([
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': '"' + process.env.NODE_ENV + '"',
-            'process.env.DEBUG': Boolean(process.env.DEBUG),
-            'process.env.GA_ID': '"' + (process.env.GA_ID || 'UA-000000-01') + '"'
-        }),
-        new HtmlWebpackPlugin({
-            chunks: ['lib.min', 'gui'],
-            template: 'src/playground/index.ejs',
-            title: 'ClipCC 3.0 GUI',
-            enablePWA: ENABLE_PWA,
-            sentryConfig: process.env.SENTRY_CONFIG ? '"' + process.env.SENTRY_CONFIG + '"' : null
-        }),
-        new HtmlWebpackPlugin({
-            chunks: ['lib.min', 'blocksonly'],
-            template: 'src/playground/index.ejs',
-            filename: 'blocks-only.html',
-            title: 'ClipCC 3.0 GUI: Blocks Only Example'
-        }),
-        new HtmlWebpackPlugin({
-            chunks: ['lib.min', 'compatibilitytesting'],
-            template: 'src/playground/index.ejs',
-            filename: 'compatibility-testing.html',
-            title: 'ClipCC 3.0 GUI: Compatibility Testing'
-        }),
-        new HtmlWebpackPlugin({
-            chunks: ['lib.min', 'player'],
-            template: 'src/playground/index.ejs',
-            filename: 'player.html',
-            title: 'ClipCC 3.0 GUI: Player Example'
-        }),
-        new CopyWebpackPlugin([{
-            from: 'static',
-            to: 'static',
-            ignore: ['sw.js', 'manifest.json']
-        }]),
-        new CopyWebpackPlugin([{
-            from: 'node_modules/clipcc-block/media',
-            to: 'static/blocks-media'
-        }]),
-        new CopyWebpackPlugin([{
-            from: 'extensions/**',
-            to: 'static',
-            context: 'src/examples'
-        }]),
-        new CopyWebpackPlugin([{
-            from: 'extension-worker.{js,js.map}',
-            context: 'node_modules/clipcc-vm/dist/web'
-        }])
-    ]);
-    if (ENABLE_PWA) {
-        res = res.concat([
-            new ServiceWorkerWebpackPlugin({
-                entry: path.resolve(__dirname, 'static/sw.js')
-            }),
-            new CopyWebpackPlugin([{
-                from: 'static/sw.js',
-                to: 'sw.js',
-            }]),
-            new CopyWebpackPlugin([{
-                from: 'static/manifest.json',
-                to: 'manifest.json',
-            }])
-        ]);
-    }
-    return res;
-}
 
 module.exports = [
     // to run editor examples
     defaultsDeep({}, base, {
         entry: {
             'lib.min': ['react', 'react-dom'],
-            'gui': './src/playground/index.jsx',
-            'blocksonly': './src/playground/blocks-only.jsx',
-            'compatibilitytesting': './src/playground/compatibility-testing.jsx',
-            'player': './src/playground/player.jsx'
+            'gui': {
+                import: './src/playground/index.jsx',
+                dependOn: ['lib.min']
+            },
+            'blocksonly': {
+                import: './src/playground/blocks-only.jsx',
+                dependOn: ['lib.min']
+            },
+            'compatibilitytesting': {
+                import: './src/playground/compatibility-testing.jsx',
+                dependOn: ['lib.min']
+            },
+            'player':  {
+                import: './src/playground/player.jsx',
+                dependOn: ['lib.min']
+            },
         },
         output: {
             path: path.resolve(__dirname, 'build'),
@@ -210,11 +139,63 @@ module.exports = [
                 chunks: 'all',
                 name: 'lib.min'
             },
+            /*
             runtimeChunk: {
                 name: 'lib.min'
             }
+            */
         },
-        plugins: getPlugins()
+        plugins: base.plugins.concat([
+            new webpack.DefinePlugin({
+                'process.env.NODE_ENV': '"' + process.env.NODE_ENV + '"',
+                'process.env.DEBUG': Boolean(process.env.DEBUG),
+                'process.env.GA_ID': '"' + (process.env.GA_ID || 'UA-000000-01') + '"'
+            }),
+            new HtmlWebpackPlugin({
+                chunks: ['gui'],
+                template: 'src/playground/index.ejs',
+                title: 'ClipCC 3.0 GUI',
+                sentryConfig: process.env.SENTRY_CONFIG ? '"' + process.env.SENTRY_CONFIG + '"' : null
+            }),
+            new HtmlWebpackPlugin({
+                chunks: ['blocksonly'],
+                template: 'src/playground/index.ejs',
+                filename: 'blocks-only.html',
+                title: 'ClipCC 3.0 GUI: Blocks Only Example'
+            }),
+            new HtmlWebpackPlugin({
+                chunks: ['compatibilitytesting'],
+                template: 'src/playground/index.ejs',
+                filename: 'compatibility-testing.html',
+                title: 'ClipCC 3.0 GUI: Compatibility Testing'
+            }),
+            new HtmlWebpackPlugin({
+                chunks: ['player'],
+                template: 'src/playground/index.ejs',
+                filename: 'player.html',
+                title: 'ClipCC 3.0 GUI: Player Example'
+            }),
+            new CopyWebpackPlugin({
+                patterns: [{
+                    from: 'static/favicon.ico',
+                    to: 'static/favicon.ico'
+                }, {
+                    from: 'static',
+                    to: '.',
+                    filter: s => !(/\.ico$/.test(s))
+                }, {
+                    from: 'node_modules/clipcc-block/media',
+                    to: 'static/blocks-media'
+                }, {
+                    from: 'extensions/**',
+                    to: 'static',
+                    context: 'src/examples'
+                }, {
+                    from: 'extension-worker.{js,js.map}',
+                    context: 'node_modules/clipcc-vm/dist/web'
+                }]
+            })
+        ])
     })
 ].concat(
     process.env.NODE_ENV === 'production' || process.env.BUILD_MODE === 'dist' ? (
@@ -246,20 +227,18 @@ module.exports = [
                 ])
             },
             plugins: base.plugins.concat([
-                new CopyWebpackPlugin([{
-                    from: 'node_modules/clipcc-block/media',
-                    to: 'static/blocks-media'
-                }]),
-                new CopyWebpackPlugin([{
-                    from: 'extension-worker.{js,js.map}',
-                    context: 'node_modules/clipcc-vm/dist/web'
-                }]),
-                // Include library JSON files for scratch-desktop to use for downloading
-                new CopyWebpackPlugin([{
-                    from: 'src/lib/libraries/*.json',
-                    to: 'libraries',
-                    flatten: true
-                }])
+                new CopyWebpackPlugin({
+                    patterns: [{
+                        from: 'node_modules/clipcc-block/media',
+                        to: 'static/blocks-media'
+                    }, {
+                        from: 'extension-worker.{js,js.map}',
+                        context: 'node_modules/clipcc-vm/dist/web'
+                    }, {
+                        from: 'src/lib/libraries/*.json',
+                        to: 'libraries/[name].[ext]'
+                    }]
+                })
             ])
         })) : []
 );
