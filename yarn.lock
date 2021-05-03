@@ -2713,11 +2713,6 @@ commander@~2.1.0:
   resolved "https://r.cnpmjs.org/commander/download/commander-2.1.0.tgz#d121bbae860d9992a3d517ba96f56588e47c6781"
   integrity sha1-0SG7roYNmZKj1Re6lvVliOR8Z4E=
 
-commander@~2.13.0:
-  version "2.13.0"
-  resolved "https://r.cnpmjs.org/commander/download/commander-2.13.0.tgz#6964bca67685df7c1f1430c584f07d7597885b9c"
-  integrity sha1-aWS8pnaF33wfFDDFhPB9dZeIW5w=
-
 commander@~2.19.0:
   version "2.19.0"
   resolved "https://r.cnpmjs.org/commander/download/commander-2.19.0.tgz#f6198aa84e5b83c46054b94ddedbfed5ee9ff12a"
@@ -8962,7 +8957,7 @@ scheduler@^0.19.1:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
 
-schema-utils@^0.4.0, schema-utils@^0.4.5:
+schema-utils@^0.4.0:
   version "0.4.7"
   resolved "https://r.cnpmjs.org/schema-utils/download/schema-utils-0.4.7.tgz#ba74f597d2be2ea880131746ee17d0a093c68187"
   integrity sha1-unT1l9K+LqiAExdG7hfQoJPGgYc=
@@ -9143,7 +9138,7 @@ send@0.17.1:
     range-parser "~1.2.1"
     statuses "~1.5.0"
 
-serialize-javascript@^1.4.0:
+serialize-javascript@^1.4.0, serialize-javascript@^1.7.0:
   version "1.9.1"
   resolved "https://r.cnpmjs.org/serialize-javascript/download/serialize-javascript-1.9.1.tgz#cfc200aef77b600c47da9bb8149c943e798c2fdb"
   integrity sha1-z8IArvd7YAxH2pu4FJyUPnmML9s=
@@ -10077,14 +10072,6 @@ ua-parser-js@^0.7.18:
   resolved "https://r.cnpmjs.org/ua-parser-js/download/ua-parser-js-0.7.22.tgz#960df60a5f911ea8f1c818f3747b99c6e177eae3"
   integrity sha1-lg32Cl+RHqjxyBjzdHuZxuF36uM=
 
-uglify-es@^3.3.4:
-  version "3.3.9"
-  resolved "https://r.cnpmjs.org/uglify-es/download/uglify-es-3.3.9.tgz#0c1c4f0700bed8dbc124cdb304d2592ca203e677"
-  integrity sha1-DBxPBwC+2NvBJM2zBNJZLKID5nc=
-  dependencies:
-    commander "~2.13.0"
-    source-map "~0.6.1"
-
 uglify-js@3.4.x:
   version "3.4.10"
   resolved "https://r.cnpmjs.org/uglify-js/download/uglify-js-3.4.10.tgz#9ad9563d8eb3acdfb8d38597d2af1d815f6a755f"
@@ -10098,19 +10085,25 @@ uglify-js@^3.1.4:
   resolved "https://r.cnpmjs.org/uglify-js/download/uglify-js-3.11.6.tgz#144b50d3e05eadd3ad4dd047c60ca541a8cd4e9c"
   integrity sha1-FEtQ0+BerdOtTdBHxgylQajNTpw=
 
-uglifyjs-webpack-plugin@^1.2.5:
-  version "1.3.0"
-  resolved "https://r.cnpmjs.org/uglifyjs-webpack-plugin/download/uglifyjs-webpack-plugin-1.3.0.tgz#75f548160858163a08643e086d5fefe18a5d67de"
-  integrity sha1-dfVIFghYFjoIZD4IbV/v4YpdZ94=
+uglify-js@^3.6.0:
+  version "3.12.5"
+  resolved "https://registry.npm.taobao.org/uglify-js/download/uglify-js-3.12.5.tgz#83241496087c640efe9dfc934832e71725aba008"
+  integrity sha1-gyQUlgh8ZA7+nfyTSDLnFyWroAg=
+
+uglifyjs-webpack-plugin@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.npm.taobao.org/uglifyjs-webpack-plugin/download/uglifyjs-webpack-plugin-2.2.0.tgz#e75bc80e7f1937f725954c9b4c5a1e967ea9d0d7"
+  integrity sha1-51vIDn8ZN/cllUybTFoeln6p0Nc=
   dependencies:
-    cacache "^10.0.4"
-    find-cache-dir "^1.0.0"
-    schema-utils "^0.4.5"
-    serialize-javascript "^1.4.0"
+    cacache "^12.0.2"
+    find-cache-dir "^2.1.0"
+    is-wsl "^1.1.0"
+    schema-utils "^1.0.0"
+    serialize-javascript "^1.7.0"
     source-map "^0.6.1"
-    uglify-es "^3.3.4"
-    webpack-sources "^1.1.0"
-    worker-farm "^1.5.2"
+    uglify-js "^3.6.0"
+    webpack-sources "^1.4.0"
+    worker-farm "^1.7.0"
 
 ultron@~1.1.0:
   version "1.1.1"
@@ -10464,7 +10457,7 @@ webpack-log@^2.0.0:
     ansi-colors "^3.0.0"
     uuid "^3.3.2"
 
-webpack-sources@^1.0.1, webpack-sources@^1.1.0, webpack-sources@^1.4.0, webpack-sources@^1.4.1:
+webpack-sources@^1.0.1, webpack-sources@^1.4.0, webpack-sources@^1.4.1:
   version "1.4.3"
   resolved "https://r.cnpmjs.org/webpack-sources/download/webpack-sources-1.4.3.tgz#eedd8ec0b928fbf1cbfe994e22d2d890f330a933"
   integrity sha1-7t2OwLko+/HL/plOItLYkPMwqTM=
@@ -10571,7 +10564,7 @@ wordwrap@^1.0.0:
   resolved "https://r.cnpmjs.org/wordwrap/download/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
   integrity sha1-J1hIEIkUVqQXHI0CJkQa3pDLyus=
 
-worker-farm@^1.3.1, worker-farm@^1.5.2, worker-farm@^1.7.0:
+worker-farm@^1.3.1, worker-farm@^1.7.0:
   version "1.7.0"
   resolved "https://r.cnpmjs.org/worker-farm/download/worker-farm-1.7.0.tgz#26a94c5391bbca926152002f69b84a4bf772e5a8"
   integrity sha1-JqlMU5G7ypJhUgAvabhKS/dy5ag=
