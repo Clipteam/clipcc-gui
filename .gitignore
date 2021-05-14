@@ -4,6 +4,7 @@
 # NPM
 /node_modules
 npm-*
+yarn-error.log
 
 # Testing
 /.nyc_output
