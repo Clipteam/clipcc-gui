@@ -18,3 +18,5 @@ yarn-error.log
 # Generated translation files
 /translations
 /locale
+
+/src/lib/app-info.js
