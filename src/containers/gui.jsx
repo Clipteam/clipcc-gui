@@ -92,6 +92,12 @@ class GUI extends React.Component {
             onVmInit,
             projectHost,
             projectId,
+            onLoadingFinished,
+            onLoadingStarted,
+            requestProjectUpload,
+            onReceivedProjectTitle,
+            loadingState,
+            onRef,
             /* eslint-enable no-unused-vars */
             children,
             fetchingProject,
