@@ -2611,7 +2611,7 @@ clipcc-vm@3.0.0-7:
     format-message "6.2.1"
     htmlparser2 "3.10.0"
     http "^0.0.1-security"
-    immutable "3.8.2"
+    immutable "3.8.1"
     jszip "^3.1.5"
     minilog "3.1.0"
     nets "3.2.0"
@@ -5329,11 +5329,6 @@ immediate@~3.0.5:
   version "3.0.6"
   resolved "https://r.cnpmjs.org/immediate/download/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
   integrity sha1-nbHb0Pr43m++D13V5Wu2BigN5ps=
-
-immutable@3.8.1:
-  version "3.8.1"
-  resolved "https://r.cnpmjs.org/immutable/download/immutable-3.8.1.tgz#200807f11ab0f72710ea485542de088075f68cd2"
-  integrity sha1-IAgH8Rqw9ycQ6khVQt4IgHX2jNI=
 
 immutable@3.8.2:
   version "3.8.2"

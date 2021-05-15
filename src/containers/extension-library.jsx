@@ -105,7 +105,7 @@ class ExtensionLibrary extends React.PureComponent {
     handleUploadExtension () {
         const input = document.createElement('input');
         input.setAttribute('type', 'file');
-        input.setAttribute('accept', '.js,.ccx');
+        input.setAttribute('accept', '.js,.ccx,.scx');
         input.onchange = event => {
             const files = event.target.files;
             for (const file of files) {
@@ -202,6 +202,11 @@ class ExtensionLibrary extends React.PureComponent {
                         };
                         this.props.initExtension(extensionInfo);
                     };
+                    break;
+                }
+                case 'scx': {
+                    const url = URL.createObjectURL(file);
+                    this.props.vm.extensionManager.loadExtensionURL(url);
                     break;
                 }
                 default: {
