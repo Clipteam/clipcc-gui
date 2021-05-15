@@ -7,6 +7,7 @@
 </div>
 
 #### ClipCC is a powerful scratch-project editor based on clipcc-gui which was created by MIT. And it migrates a lot of function from ClipCC 1.x. 
+#### ClipCC's official qq group:959825608
 
 ## Links
 ### [clipcc-l10n](https://github.com/Clipteam/clipcc-l10n)
@@ -26,7 +27,7 @@ If you want to edit/play yourself:
 ```bash
 git clone https://github.com/Clipteam/clipcc-gui.git
 cd clipcc-gui
-yarn install
+yarn
 ```
 
 ## Getting started

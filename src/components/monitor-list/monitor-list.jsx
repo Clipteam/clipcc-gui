@@ -49,7 +49,8 @@ const MonitorList = props => (
 
 MonitorList.propTypes = {
     draggable: PropTypes.bool.isRequired,
-    monitors: PropTypes.instanceOf(OrderedMap),
+    //monitors: PropTypes.instanceOf(OrderedMap),
+    monitors: PropTypes.objectOf(OrderedMap), // I don't know why it can't be the same instance of OrderedMap (in the same immutable version).
     onMonitorChange: PropTypes.func.isRequired,
     stageSize: PropTypes.shape({
         width: PropTypes.number,
