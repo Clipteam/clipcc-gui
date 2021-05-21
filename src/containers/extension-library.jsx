@@ -78,7 +78,6 @@ class ExtensionLibrary extends React.PureComponent {
     }
     handleItemChange (item, status) {
         const extensionId = item.extensionId;
-        console.log('item change', extensionId, status);
         if (status) {
             if (this.props.extension[extensionId].extensionAPI) {
                 if (this.props.extension[extensionId].instance.init) {
@@ -91,6 +90,7 @@ class ExtensionLibrary extends React.PureComponent {
                 }
             }
             this.props.setExtensionEnable(extensionId);
+            this.props.vm.registerExtension(extensionId);
         } else {
             if (this.props.extension[extensionId].extensionAPI) {
                 if (this.props.extension[extensionId].instance.uninit) {
@@ -100,6 +100,7 @@ class ExtensionLibrary extends React.PureComponent {
             else {
             }
             this.props.setExtensionDisable(extensionId);
+            this.props.vm.unregisterExtension(extensionId);
         }
     }
     handleUploadExtension () {
