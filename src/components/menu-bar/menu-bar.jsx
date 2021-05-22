@@ -32,7 +32,8 @@ import MenuBarHOC from '../../containers/menu-bar-hoc.jsx';
 import {
     openTipsLibrary,
     openSettingsModal,
-    openAboutModal
+    openAboutModal,
+    openExtensionModal
 } from '../../reducers/modals';
 import {setPlayer} from '../../reducers/mode';
 import {
@@ -176,6 +177,7 @@ class MenuBar extends React.Component {
             'handleClickShare',
             'handleClickSettings',
             'handleClickAbout',
+            'handleClickExtension',
             'handleKeyPress',
             'handleLanguageMouseUp',
             'handleRestoreOption',
@@ -243,6 +245,10 @@ class MenuBar extends React.Component {
     }
     handleClickAbout () {
         this.props.onOpenAbout();
+        this.props.onRequestCloseOther();
+    }
+    handleClickExtension () {
+        this.props.onOpenExtension();
         this.props.onRequestCloseOther();
     }
     handleRestoreOption (restoreFun) {
@@ -393,6 +399,13 @@ class MenuBar extends React.Component {
                 defaultMessage="About"
                 description="Menu bar item for showing about message"
                 id="gui.menuBar.about"
+            />
+        );
+        const extensionMessage = (
+            <FormattedMessage
+                defaultMessage="Extension"
+                description="Menu bar item for setting extensions"
+                id="gui.menuBar.extension"
             />
         );
         const remixButton = (
@@ -584,6 +597,12 @@ class MenuBar extends React.Component {
                                     onClick={this.handleClickSettings}
                                 >
                                     {settingsMessage}
+                                </MenuItem>
+                                <MenuItem
+                                    isRtl={this.props.isRtl}
+                                    onClick={this.handleClickExtension}
+                                >
+                                    {extensionMessage}
                                 </MenuItem>
                                 <MenuSection>
                                     <MenuItem
@@ -878,6 +897,7 @@ MenuBar.propTypes = {
     onClickSaveAsCopy: PropTypes.func,
     onOpenSettings: PropTypes.func,
     onOpenAbout: PropTypes.func,
+    onOpenExtension: PropTypes.func,
     onLogOut: PropTypes.func,
     onOpenRegistration: PropTypes.func,
     // onOpenTipLibrary: PropTypes.func,
@@ -940,6 +960,7 @@ const mapDispatchToProps = dispatch => ({
     onOpenTipLibrary: () => dispatch(openTipsLibrary()),
     onOpenSettings: () => dispatch(openSettingsModal()),
     onOpenAbout: () => dispatch(openAboutModal()),
+    onOpenExtension: () => dispatch(openExtensionModal()),
     onClickAccount: () => dispatch(openAccountMenu()),
     onRequestCloseAccount: () => dispatch(closeAccountMenu()),
     onClickFile: () => dispatch(openFileMenu()),
