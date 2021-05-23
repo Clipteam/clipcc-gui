@@ -14,7 +14,7 @@ import extensionLibraryContent from '../lib/libraries/extensions/index.jsx';
 import LibraryComponent from '../components/library/library.jsx';
 import extensionIcon from '../components/action-menu/icon--sprite.svg';
 
-import uploadImageURL from '../lib/libraries/extensions/upload/upload.svg';
+import uploadImageURL from '../lib/libraries/extensions/upload/upload.png';
 
 import {
     initExtension,
