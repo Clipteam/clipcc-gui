@@ -21,6 +21,9 @@ import {
 import {
     closeFileMenu
 } from '../reducers/menus';
+import {
+    enableExtension
+} from '../reducers/extension';
 
 const messages = defineMessages({
     loadError: {
@@ -50,7 +53,8 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                 'handleStartSelectingFileUpload',
                 'handleChange',
                 'onload',
-                'removeFileObjects'
+                'removeFileObjects',
+                'handleExtensionCallback'
             ]);
         }
         componentDidUpdate (prevProps) {
@@ -60,6 +64,22 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         }
         componentWillUnmount () {
             this.removeFileObjects();
+        }
+        handleExtensionCallback (extensions) {
+            for (const extensionId of extensions) {
+                if (this.props.extension[extensionId].extensionAPI) {
+                    if (this.props.extension[extensionId].instance.init) {
+                        this.props.extension[extensionId].instance.init();
+                    }
+                }
+                else {
+                    if (!this.props.vm.extensionManager.isExtensionLoaded(extensionId)) {
+                        this.props.vm.extensionManager.loadExtensionURL(extensionId);
+                    }
+                }
+                this.props.setExtensionEnable(extensionId);
+                this.props.vm.registerExtension(extensionId);
+            }
         }
         // step 1: this is where the upload process begins
         handleStartSelectingFileUpload () {
@@ -149,7 +169,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                 this.props.onLoadingStarted();
                 const filename = this.fileToUpload && this.fileToUpload.name;
                 let loadingSuccess = false;
-                this.props.vm.loadProject(this.fileReader.result)
+                this.props.vm.loadProject(this.fileReader.result, this.handleExtensionCallback)
                     .then(() => {
                         if (filename) {
                             const uploadedProjectTitle = this.getProjectTitleFromFilename(filename);
@@ -224,7 +244,20 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         userOwnsProject: PropTypes.bool,
         vm: PropTypes.shape({
             loadProject: PropTypes.func
-        })
+        }),
+        extension: PropTypes.shape({
+            extensionId: PropTypes.string,
+            iconURL: PropTypes.string,
+            insetIconURL: PropTypes.string,
+            author: PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.arrayOf(PropTypes.string)
+            ]),
+            name: PropTypes.string,
+            description: PropTypes.string,
+            requirement: PropTypes.arrayOf(PropTypes.string),
+            enabled: PropTypes.bool
+        }),
     };
     const mapStateToProps = (state, ownProps) => {
         const loadingState = state.scratchGui.projectState.loadingState;
@@ -236,7 +269,8 @@ const SBFileUploaderHOC = function (WrappedComponent) {
             projectChanged: state.scratchGui.projectChanged,
             userOwnsProject: ownProps.authorUsername && user &&
                 (ownProps.authorUsername === user.username),
-            vm: state.scratchGui.vm
+            vm: state.scratchGui.vm,
+            extension: state.scratchGui.extension.extension
         };
     };
     const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -255,7 +289,8 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         // step 4: transition the project state so we're ready to handle the new
         // project data. When this is done, the project state transition will be
         // noticed by componentDidUpdate()
-        requestProjectUpload: loadingState => dispatch(requestProjectUpload(loadingState))
+        requestProjectUpload: loadingState => dispatch(requestProjectUpload(loadingState)),
+        setExtensionEnable: id => dispatch(enableExtension(id))
     });
     // Allow incoming props to override redux-provided props. Used to mock in tests.
     const mergeProps = (stateProps, dispatchProps, ownProps) => Object.assign(
