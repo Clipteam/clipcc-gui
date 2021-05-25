@@ -67,6 +67,9 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         }
         handleExtensionCallback (extensions) {
             for (const extensionId of extensions) {
+                if (!this.props.extension[extensionId]) {
+                    throw `Extension ${extensionId} not found`;
+                }
                 if (this.props.extension[extensionId].extensionAPI) {
                     if (this.props.extension[extensionId].instance.init) {
                         this.props.extension[extensionId].instance.init();
@@ -179,7 +182,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                     })
                     .catch(error => {
                         log.warn(error);
-                        alert(this.props.intl.formatMessage(messages.loadError)); // eslint-disable-line no-alert
+                        alert(this.props.intl.formatMessage(messages.loadError) + '\n' + error); // eslint-disable-line no-alert
                     })
                     .then(() => {
                         this.props.onLoadingFinished(this.props.loadingState, loadingSuccess);
