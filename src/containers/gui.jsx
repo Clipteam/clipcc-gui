@@ -102,6 +102,7 @@ class GUI extends React.Component {
             onReceivedProjectTitle,
             loadingState,
             onRef,
+            onLoadBuiltinExtension,
             /* eslint-enable no-unused-vars */
             children,
             fetchingProject,

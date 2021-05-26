@@ -217,6 +217,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                 projectChanged,
                 requestProjectUpload: requestProjectUploadProp,
                 userOwnsProject,
+                setExtensionEnable,
                 /* eslint-enable no-unused-vars */
                 ...componentProps
             } = this.props;
