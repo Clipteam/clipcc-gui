@@ -70,6 +70,9 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                 if (!this.props.extension[extensionId]) {
                     throw `Extension ${extensionId} not found`;
                 }
+                if (this.props.extension[extensionId].enabled) {
+                    continue;
+                }
                 if (this.props.extension[extensionId].extensionAPI) {
                     if (this.props.extension[extensionId].instance.init) {
                         this.props.extension[extensionId].instance.init();
