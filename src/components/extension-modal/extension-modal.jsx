@@ -48,36 +48,41 @@ class ExtensionModal extends React.PureComponent {
                 className={styles.modalContent}
                 contentLabel={this.props.intl.formatMessage(messages.extensionModalTitle)}
                 onRequestClose={this.props.onRequestClose}
+                id="extensionModal"
             >
                 <Box className={styles.body}>
                     <table>
-                        <tr>
-                            <th><FormattedMessage {...messages.extensionId} /></th>
-                            <th><FormattedMessage {...messages.required} /></th>
-                            <th></th>
-                        </tr>
-                        {Object.values(this.props.extension).map(ext => (
+                        <thead>
                             <tr>
-                                <td>
-                                    <img src={ext.insetIconURL} className={styles.icon} />
-                                    <span className={styles.extensionId}>{ext.extensionId}</span>
-                                </td>
-                                <td>
-                                    <Switch
-                                        onChange={this.handleSwitchChange}
-                                        default={ext.enabled}
-                                    />
-                                </td>
-                                <td>
-                                    <button
-                                        className={styles.uploadButton}
-                                        //onClick={this.props.onOk}
-                                    >
-                                        <FormattedMessage {...messages.upload} />
-                                    </button>
-                                </td>
+                                <th><FormattedMessage {...messages.extensionId} /></th>
+                                <th><FormattedMessage {...messages.required} /></th>
+                                <th></th>
                             </tr>
-                        ))}
+                        </thead>
+                        <tbody>
+                            {Object.values(this.props.extension).map(ext => (
+                                <tr key={ext.extensionId}>
+                                    <td>
+                                        <img src={ext.insetIconURL} className={styles.icon} />
+                                        <span className={styles.extensionId}>{ext.extensionId}</span>
+                                    </td>
+                                    <td>
+                                        <Switch
+                                            onChange={this.handleSwitchChange}
+                                            default={ext.enabled}
+                                        />
+                                    </td>
+                                    <td>
+                                        <button
+                                            className={styles.uploadButton}
+                                            //onClick={this.props.onOk}
+                                        >
+                                            <FormattedMessage {...messages.upload} />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
                     </table>
                 </Box>
             </Modal>
