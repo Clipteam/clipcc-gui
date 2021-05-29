@@ -7,6 +7,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+const PnpWebpackPlugin = require('pnp-webpack-plugin');
 
 // PostCss
 const autoprefixer = require('autoprefixer');
@@ -33,12 +34,13 @@ const base = {
         chunkFilename: 'chunks/[name].js'
     },
     resolve: {
-        symlinks: false
+        symlinks: false,
+        plugins: [ PnpWebpackPlugin ]
     },
     module: {
         rules: [{
             test: /\.jsx?$/,
-            loader: 'babel-loader',
+            loader: require.resolve('babel-loader'),
             include: [
                 path.resolve(__dirname, 'src'),
                 /node_modules[\\/]scratch-[^\\/]+[\\/]src/,
@@ -65,9 +67,9 @@ const base = {
         {
             test: /\.css$/,
             use: [{
-                loader: 'style-loader'
+                loader: require.resolve('style-loader')
             }, {
-                loader: 'css-loader',
+                loader: require.resolve('css-loader'),
                 options: {
                     modules: true,
                     importLoaders: 1,
@@ -75,7 +77,7 @@ const base = {
                     camelCase: true
                 }
             }, {
-                loader: 'postcss-loader',
+                loader: require.resolve('postcss-loader'),
                 options: {
                     ident: 'postcss',
                     plugins: function () {
@@ -206,7 +208,7 @@ module.exports = [
                 name: 'lib.min'
             }
         },
-        plugins: getPlugins()
+        plugins: base.plugins.concat(getPlugins())
     })
 ].concat(
     process.env.NODE_ENV === 'production' || process.env.BUILD_MODE === 'dist' ? (
@@ -229,7 +231,7 @@ module.exports = [
                 rules: base.module.rules.concat([
                     {
                         test: /\.(svg|png|wav|gif|jpg)$/,
-                        loader: 'file-loader',
+                        loader: require.resolve('file-loader'),
                         options: {
                             outputPath: 'static/assets/',
                             publicPath: `${STATIC_PATH}/assets/`
