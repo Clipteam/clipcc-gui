@@ -1,6 +1,7 @@
 const defaultsDeep = require('lodash.defaultsdeep');
 const path = require('path');
 const webpack = require('webpack');
+const pnpapi = require('pnpapi');
 
 // Plugins
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -18,6 +19,12 @@ const STATIC_PATH = process.env.STATIC_PATH || '/static';
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const ENABLE_PWA = process.env.ENABLE_PWA;
 const ENABLE_HTTPS = process.env.ENABLE_HTTPS;
+
+const packageInfo = {};
+
+console.log(pnpapi.getAllLocators().filter(value => value.name.includes('clipcc')).map(value => {
+    packageInfo[value.name] = pnpapi.getPackageInformation(value);
+}));
 
 const base = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
@@ -37,16 +44,24 @@ const base = {
         symlinks: false,
         plugins: [ PnpWebpackPlugin ]
     },
+    resolveLoader: {
+      plugins: [
+        PnpWebpackPlugin.moduleLoader(module),
+      ],
+    },
     module: {
         rules: [{
             test: /\.jsx?$/,
             loader: require.resolve('babel-loader'),
-            include: [
+            /*include: [
                 path.resolve(__dirname, 'src'),
-                /node_modules[\\/]scratch-[^\\/]+[\\/]src/,
-                /node_modules[\\/]pify/,
-                /node_modules[\\/]@vernier[\\/]godirect/
-            ],
+                path.join(require.resolve('scratch-paint'), 'src'),
+                //path.join(require.resolve('scratch-render'), 'src'),
+                //path.join(require.resolve('scratch-audio'), 'src'),
+                ///node_modules[\\/]scratch-[^\\/]+[\\/]src/,
+                ///node_modules[\\/]pify/,
+                ///node_modules[\\/]@vernier[\\/]godirect/
+            ],*/
             options: {
                 // Explicitly disable babelrc so we don't catch various config
                 // in much lower dependencies.
@@ -56,7 +71,7 @@ const base = {
                     '@babel/plugin-transform-async-to-generator',
                     '@babel/plugin-proposal-object-rest-spread',
                     ['react-intl', {
-                        messagesDir: './translations/messages/'
+                        //messagesDir: './translations/messages/'
                     }]],
                 presets: [
                     ['@babel/preset-env', {"targets": {"browsers": ["last 3 versions", "Safari >= 8", "iOS >= 8"]}}], 
@@ -143,7 +158,7 @@ function getPlugins() {
             ignore: ['sw.js', 'manifest.json']
         }]),
         new CopyWebpackPlugin([{
-            from: 'node_modules/clipcc-block/media',
+            from: path.join(packageInfo['clipcc-block'].packageLocation, 'media'),
             to: 'static/blocks-media'
         }]),
         new CopyWebpackPlugin([{
@@ -153,7 +168,7 @@ function getPlugins() {
         }]),
         new CopyWebpackPlugin([{
             from: 'extension-worker.{js,js.map}',
-            context: 'node_modules/clipcc-vm/dist/web'
+            context: path.join(packageInfo['clipcc-vm'].packageLocation, 'dist/web'),
         }])
     ]);
     if (ENABLE_PWA) {
@@ -192,7 +207,7 @@ module.exports = [
             rules: base.module.rules.concat([
                 {
                     test: /\.(svg|png|wav|gif|jpg)$/,
-                    loader: 'file-loader',
+                    loader: require.resolve('file-loader'),
                     options: {
                         outputPath: 'static/assets/'
                     }
@@ -241,12 +256,12 @@ module.exports = [
             },
             plugins: base.plugins.concat([
                 new CopyWebpackPlugin([{
-                    from: 'node_modules/clipcc-block/media',
+                    from: path.join(require.resolve('clipcc-block'), 'media'),
                     to: 'static/blocks-media'
                 }]),
                 new CopyWebpackPlugin([{
                     from: 'extension-worker.{js,js.map}',
-                    context: 'node_modules/clipcc-vm/dist/web'
+                    context: path.join(require.resolve('clipcc-vm'), 'dist/web')
                 }]),
                 // Include library JSON files for scratch-desktop to use for downloading
                 new CopyWebpackPlugin([{

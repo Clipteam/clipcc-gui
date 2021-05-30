@@ -2453,15 +2453,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^0.19.2":
-  version: 0.19.2
-  resolution: "axios@npm:0.19.2"
-  dependencies:
-    follow-redirects: 1.5.10
-  checksum: dcace11a0a25fdf9b3b97fc9d011d23dd9c67cc13d91778080482ddddbbfe731f7410a090b11aa0bbbdf83686c5911ccb4289fd3683b7488c1b0c4d3c882380c
-  languageName: node
-  linkType: hard
-
 "axios@npm:^0.21.1":
   version: 0.21.1
   resolution: "axios@npm:0.21.1"
@@ -3680,9 +3671,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clipcc-block@npm:3.0.0-7":
-  version: 3.0.0-7
-  resolution: "clipcc-block@npm:3.0.0-7"
+"clipcc-block@portal:../clipcc-block::locator=clipcc-gui%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "clipcc-block@portal:../clipcc-block::locator=clipcc-gui%40workspace%3A."
   dependencies:
     exports-loader: 0.6.3
     google-closure-compiler-js: ^20200112.0.0
@@ -3701,9 +3692,8 @@ __metadata:
       optional: true
     google-closure-compiler-windows:
       optional: true
-  checksum: 5f65e2d260c89660b92a4c6cf1686231c505d6a69a874852ff7200fe6de620c051bc18e02fe59af2816bbe3b851d055afb74b6445d0ad18aafb166fd100a2517
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "clipcc-gui@workspace:.":
   version: 0.0.0-use.local
@@ -3777,6 +3767,7 @@ __metadata:
     react-draggable: 3.0.5
     react-ga: 2.5.3
     react-intl: 2.9.0
+    react-intl-redux: ^2.2.0
     react-modal: 3.9.1
     react-popover: 0.5.10
     react-redux: 5.0.7
@@ -3794,6 +3785,7 @@ __metadata:
     scratch-audio: 0.1.0-prerelease.20200528195344
     scratch-paint: 0.2.0-prerelease.20210407203313
     scratch-render: 0.1.0-prerelease.20210325231800
+    scratch-render-fonts: ^1.0.0-prerelease.20210401210003
     scratch-storage: 1.3.4
     scratch-svg-renderer: 0.2.0-prerelease.20210408171934
     selenium-webdriver: 3.6.0
@@ -3828,14 +3820,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clipcc-vm@npm:3.0.0-7":
-  version: 3.0.0-7
-  resolution: "clipcc-vm@npm:3.0.0-7"
+"clipcc-vm@portal:../clipcc-vm::locator=clipcc-gui%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "clipcc-vm@portal:../clipcc-vm::locator=clipcc-gui%40workspace%3A."
   dependencies:
     "@vernier/godirect": 1.5.0
     arraybuffer-loader: ^1.0.6
     atob: 2.1.2
-    axios: ^0.19.2
+    axios: ^0.21.1
     btoa: 1.2.1
     canvas-toBlob: 1.0.0
     decode-html: 2.0.0
@@ -3843,19 +3835,19 @@ __metadata:
     format-message: 6.2.1
     htmlparser2: 3.10.0
     http: ^0.0.1-security
-    immutable: 3.8.1
+    immutable: 3.8.2
     jszip: ^3.1.5
     minilog: 3.1.0
-    nets: 3.2.0
     scratch-parser: 5.0.0
     scratch-sb1-converter: 0.2.7
     scratch-translate-extension-languages: 0.0.20191118205314
     socket.io-client: 2.0.4
     text-encoding: 0.7.0
     worker-loader: ^1.1.1
-  checksum: ba48f0d577268a727ee0d31fd43204b0546278e927d8af20aca819bdea615c65c53e1c5c26dc0d6838f4ccf5254717b2adb7a5d74d3c2657d077074068d81fd1
+  peerDependencies:
+    scratch-svg-renderer: ^0.2.0-prerelease
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "cliui@npm:^3.2.0":
   version: 3.2.0
@@ -4503,21 +4495,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:=3.1.0, debug@npm:~3.1.0":
-  version: 3.1.0
-  resolution: "debug@npm:3.1.0"
-  dependencies:
-    ms: 2.0.0
-  checksum: 0b52718ab957254a5b3ca07fc34543bc778f358620c206a08452251eb7fc193c3ea3505072acbf4350219c14e2d71ceb7bdaa0d3370aa630b50da790458d08b3
-  languageName: node
-  linkType: hard
-
 "debug@npm:^3.1.0, debug@npm:^3.1.1, debug@npm:^3.2.5":
   version: 3.2.7
   resolution: "debug@npm:3.2.7"
   dependencies:
     ms: ^2.1.1
   checksum: b3d8c5940799914d30314b7c3304a43305fd0715581a919dacb8b3176d024a782062368405b47491516d2091d6462d4d11f2f4974a405048094f8bfebfa3071c
+  languageName: node
+  linkType: hard
+
+"debug@npm:~3.1.0":
+  version: 3.1.0
+  resolution: "debug@npm:3.1.0"
+  dependencies:
+    ms: 2.0.0
+  checksum: 0b52718ab957254a5b3ca07fc34543bc778f358620c206a08452251eb7fc193c3ea3505072acbf4350219c14e2d71ceb7bdaa0d3370aa630b50da790458d08b3
   languageName: node
   linkType: hard
 
@@ -6299,15 +6291,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:1.5.10":
-  version: 1.5.10
-  resolution: "follow-redirects@npm:1.5.10"
-  dependencies:
-    debug: =3.1.0
-  checksum: 0edc4b74e37e7b88ee716188a8f2a790238877c1d954f00c7b78d560f3bef40061c130536d13bee8e47b4e8e71edf1175a2de2729e51ab8206e4646b2370e484
-  languageName: node
-  linkType: hard
-
 "follow-redirects@npm:^1.0.0":
   version: 1.13.0
   resolution: "follow-redirects@npm:1.13.0"
@@ -7476,6 +7459,21 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"ify-loader@npm:*":
+  version: 1.1.0
+  resolution: "ify-loader@npm:1.1.0::__archiveUrl=https%3A%2F%2Fr.cnpmjs.org%2Fify-loader%2Fdownload%2Fify-loader-1.1.0.tgz"
+  dependencies:
+    bl: ^1.0.0
+    findup: ^0.1.5
+    from2-array: 0.0.4
+    map-limit: 0.0.1
+    multipipe: ^0.3.0
+    read-package-json: ^2.0.2
+    resolve: ^1.1.6
+  checksum: c3b8da02fc4ab9162604964d6b0ac7a418ba238e0036833dda3132981f31a9ec4f2f32ee21a5ef46b1f34c76a9745eea06c6a20502cd75b3e90d281a50ba5cda
+  languageName: node
+  linkType: hard
+
 "ify-loader@npm:1.0.4":
   version: 1.0.4
   resolution: "ify-loader@npm:1.0.4"
@@ -7516,13 +7514,6 @@ fsevents@~2.1.2:
   version: 3.0.6
   resolution: "immediate@npm:3.0.6"
   checksum: f9b3486477555997657f70318cc8d3416159f208bec4cca3ff3442fd266bc23f50f0c9bd8547e1371a6b5e82b821ec9a7044a4f7b944798b25aa3cc6d5e63e62
-  languageName: node
-  linkType: hard
-
-"immutable@npm:3.8.1":
-  version: 3.8.1
-  resolution: "immutable@npm:3.8.1"
-  checksum: a37e6d980da48b17ab5540a0fd7b286de20183382319fb818e244f0a309f712bdef332182d9d301186ca4677b6d818ed64b62ffad2945cf96c82bca4c2c3600b
   languageName: node
   linkType: hard
 
@@ -9175,6 +9166,17 @@ fsevents@~2.1.2:
   version: 2.4.0
   resolution: "loader-runner@npm:2.4.0"
   checksum: e27eebbca5347a03f6b1d1bce5b2736a4984fb742f872c0a4d68e62de10f7637613e79a464d3bcd77c246d9c70fcac112bb4a3123010eb527e8b203a614647db
+  languageName: node
+  linkType: hard
+
+"loader-utils@npm:*":
+  version: 2.0.0
+  resolution: "loader-utils@npm:2.0.0::__archiveUrl=https%3A%2F%2Fr.cnpmjs.org%2Floader-utils%2Fdownload%2Floader-utils-2.0.0.tgz"
+  dependencies:
+    big.js: ^5.2.2
+    emojis-list: ^3.0.0
+    json5: ^2.1.2
+  checksum: 6856423131b50b6f5f259da36f498cfd7fc3c3f8bb17777cf87fdd9159e797d4ba4288d9a96415fd8da62c2906960e88f74711dee72d03a9003bddcd0d364a51
   languageName: node
   linkType: hard
 
@@ -11694,6 +11696,18 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"react-intl-redux@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "react-intl-redux@npm:2.2.0::__archiveUrl=https%3A%2F%2Fr.cnpmjs.org%2Freact-intl-redux%2Fdownload%2Freact-intl-redux-2.2.0.tgz"
+  dependencies:
+    prop-types: ^15.7.2
+  peerDependencies:
+    react-intl: ^2.2.2 || ^3.0.0
+    react-redux: ^5.0.1 || ^6.0.0 || ^7.0.0
+  checksum: eece9837c7b97581961732168b2e286e771ad4104bdde94caf3ce61ef51d8daa64b4365d4353901029a0cfa91c411a5149ff8bf0a89ac94eebce93982e1cb0f4
+  languageName: node
+  linkType: hard
+
 "react-intl@npm:2.9.0":
   version: 2.9.0
   resolution: "react-intl@npm:2.9.0"
@@ -12670,6 +12684,15 @@ resolve@^1.14.2:
   dependencies:
     base64-loader: 1.0.0
   checksum: 29f9c602ab31764134d04a19f6939823e1022e5f767ef45078c3dad6b69a69bef58c07b850a492037c7a3799aa4a67245fac8b7390d43dfb29c0527b7e0019f2
+  languageName: node
+  linkType: hard
+
+"scratch-render-fonts@npm:^1.0.0-prerelease.20210401210003":
+  version: 1.0.0-prerelease.20210401210003
+  resolution: "scratch-render-fonts@npm:1.0.0-prerelease.20210401210003::__archiveUrl=https%3A%2F%2Fr.cnpmjs.org%2Fscratch-render-fonts%2Fdownload%2Fscratch-render-fonts-1.0.0-prerelease.20210401210003.tgz"
+  dependencies:
+    base64-loader: 1.0.0
+  checksum: 955ea97da1c7fca0d092f04fe76d8cf7088fec4e58a9f9c642af12d2933e7ccf8d42e42171f981443feeac9fd71b6f236032b61bd95918dba1bb0cf799003bd3
   languageName: node
   linkType: hard
 
