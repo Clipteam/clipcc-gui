@@ -41,6 +41,7 @@ class LibraryComponent extends React.Component {
             'handlePlayingEnd',
             'handleSelect',
             'handleTagClick',
+            'handleSwitchChange',
             'setFilteredDataRef'
         ]);
         this.state = {
@@ -64,7 +65,7 @@ class LibraryComponent extends React.Component {
         }
     }
     handleSelect (id) {
-        this.handleClose();
+        if (this.props.closeAfterSelect) this.handleClose();
         this.props.onItemSelected(this.getFilteredData()[id]);
     }
     handleClose () {
@@ -126,6 +127,9 @@ class LibraryComponent extends React.Component {
     }
     handleFilterClear () {
         this.setState({filterQuery: ''});
+    }
+    handleSwitchChange (id, status) {
+        this.props.onItemSwitchChange(this.getFilteredData()[id], status);
     }
     getFilteredData () {
         if (this.state.selectedTag === 'all') {
@@ -227,9 +231,12 @@ class LibraryComponent extends React.Component {
                             key={typeof dataItem.name === 'string' ? dataItem.name : dataItem.rawURL}
                             name={dataItem.name}
                             showPlayButton={this.props.showPlayButton}
+                            switchable={dataItem.switchable}
+                            enabled={dataItem.enabled}
                             onMouseEnter={this.handleMouseEnter}
                             onMouseLeave={this.handleMouseLeave}
                             onSelect={this.handleSelect}
+                            onSwitchChange={this.handleSwitchChange}
                         />
                     )) : (
                         <div className={styles.spinnerWrapper}>
@@ -261,11 +268,13 @@ LibraryComponent.propTypes = {
         /* eslint-enable react/no-unused-prop-types, lines-around-comment */
     ),
     filterable: PropTypes.bool,
+    closeAfterSelect: PropTypes.bool,
     id: PropTypes.string.isRequired,
     intl: intlShape.isRequired,
     onItemMouseEnter: PropTypes.func,
     onItemMouseLeave: PropTypes.func,
     onItemSelected: PropTypes.func,
+    onItemSwitchChange: PropTypes.func,
     onRequestClose: PropTypes.func,
     setStopHandler: PropTypes.func,
     showPlayButton: PropTypes.bool,
@@ -275,6 +284,7 @@ LibraryComponent.propTypes = {
 
 LibraryComponent.defaultProps = {
     filterable: true,
+    closeAfterSelect: true,
     showPlayButton: false
 };
 

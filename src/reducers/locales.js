@@ -7,6 +7,7 @@ addLocaleData(localeData);
 
 const UPDATE_LOCALES = 'clipcc-gui/locales/UPDATE_LOCALES';
 const SELECT_LOCALE = 'clipcc-gui/locales/SELECT_LOCALE';
+const ADD_LOCALE = 'clipcc-gui/locales/ADD_LOCALE';
 
 const initialState = {
     isRtl: false,
@@ -32,6 +33,16 @@ const reducer = function (state, action) {
             messagesByLocale: action.messagesByLocale,
             messages: action.messagesByLocale[state.locale]
         });
+    case ADD_LOCALE:
+        let newState = Object.assign({}, state);
+        for (const locale in action.messagesByLocale) {
+            newState.messagesByLocale[locale] = Object.assign(
+                newState.messagesByLocale[locale],
+                action.messagesByLocale[locale]
+            );
+        }
+        newState.messages = newState.messagesByLocale[state.locale]
+        return newState;
     default:
         return state;
     }
@@ -50,6 +61,14 @@ const setLocales = function (localesMessages) {
         messagesByLocale: localesMessages
     };
 };
+
+const addLocales = function (localesMessages) {
+    return {
+        type: ADD_LOCALE,
+        messagesByLocale: localesMessages
+    }
+}
+
 const initLocale = function (currentState, locale) {
     if (currentState.messagesByLocale.hasOwnProperty(locale)) {
         return Object.assign(
@@ -71,5 +90,6 @@ export {
     initialState as localesInitialState,
     initLocale,
     selectLocale,
-    setLocales
+    setLocales,
+    addLocales
 };

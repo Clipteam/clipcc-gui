@@ -26,6 +26,8 @@ import toolboxReducer, {toolboxInitialState} from './toolbox';
 import vmReducer, {vmInitialState} from './vm';
 import vmStatusReducer, {vmStatusInitialState} from './vm-status';
 import settingsReducer, {settingsInitialState} from './settings';
+import extensionReducer, {extensionInitialState} from './extension';
+
 import workspaceMetricsReducer, {workspaceMetricsInitialState} from './workspace-metrics';
 import throttle from 'redux-throttle';
 
@@ -61,6 +63,7 @@ const guiInitialState = {
     vm: vmInitialState,
     vmStatus: vmStatusInitialState,
     settings: settingsInitialState,
+    extension: extensionInitialState,
     workspaceMetrics: workspaceMetricsInitialState
 };
 
@@ -161,6 +164,7 @@ const guiReducer = combineReducers({
     vm: vmReducer,
     vmStatus: vmStatusReducer,
     settings: settingsReducer,
+    extension: extensionReducer,
     workspaceMetrics: workspaceMetricsReducer
 });
 
