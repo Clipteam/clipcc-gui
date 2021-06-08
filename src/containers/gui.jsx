@@ -48,6 +48,7 @@ import ProjectSaverHOC from '../lib/project-saver-hoc.jsx';
 import QueryParserHOC from '../lib/query-parser-hoc.jsx';
 import storage from '../lib/storage';
 import vmListenerHOC from '../lib/vm-listener-hoc.jsx';
+import blocks from '../lib/blocks.js';
 import vmManagerHOC from '../lib/vm-manager-hoc.jsx';
 import cloudManagerHOC from '../lib/cloud-manager-hoc.jsx';
 import {
@@ -64,7 +65,7 @@ class GUI extends React.Component {
         setIsScratchDesktop(this.props.isScratchDesktop);
         this.props.onStorageInit(storage);
         this.props.onVmInit(this.props.vm);
-        initExtensionAPI(this.props.vm);
+        initExtensionAPI(this, this.props.vm, blocks(this.props.vm));
         this.props.onLoadBuiltinExtension();
     }
     componentDidUpdate (prevProps) {

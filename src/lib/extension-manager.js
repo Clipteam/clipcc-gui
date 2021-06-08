@@ -64,6 +64,8 @@ import JSONInsetImage from './libraries/extensions/JSON/clipcc.json-small.svg';
 import ClipCCDefaultImage from './libraries/extensions/clipcc/CCUnknownExtension.jpg';
 import ClipCCDefaultInsetImage from './libraries/extensions/clipcc/CCUnknownExtension.svg';
 
+import ScratchBlocks from 'clipcc-block';
+
 const builtinExtensions = [
     {
         extensionId: 'music',
@@ -194,8 +196,14 @@ const loadBuiltinExtension = dispatch => {
     }
 };
 
-const initExtensionAPI = vm => {
-    ClipCCExtension.API.registExtensionAPI(vm.extensionAPI);
+const initExtensionAPI = (gui, vm, blocks) => {
+    let apiInstance = {
+        "gui": gui,
+        "vm": vm.extensionAPI,
+        "blocks": blocks
+    }
+    console.log(apiInstance);
+    ClipCCExtension.API.registExtensionAPI(apiInstance);//迟早换成gui.extensionAPI
 };
 
 export {
