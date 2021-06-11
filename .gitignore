@@ -20,3 +20,5 @@ yarn-error.log
 /locale
 
 /src/lib/app-info.js
+
+.vscode

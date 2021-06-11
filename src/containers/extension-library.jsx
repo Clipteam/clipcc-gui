@@ -223,17 +223,7 @@ class ExtensionLibrary extends React.PureComponent {
             ...extension,
             rawURL: extension.iconURL || extensionIcon,
             featured: true,
-            switchable: true,
-            name: (
-                <FormattedMessage
-                    id={extension.name}
-                />
-            ),
-            description: (
-                <FormattedMessage
-                    id={extension.description}
-                />
-            )
+            switchable: true
         }));
         extensionLibraryThumbnailData.push({
             name: (

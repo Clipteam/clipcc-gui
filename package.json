@@ -17,7 +17,8 @@
     "test:unit": "jest test[\\\\/]unit",
     "test:smoke": "jest --runInBand test[\\\\/]smoke",
     "watch": "webpack --colors --watch",
-    "genmeta": "node gen-meta.js"
+    "genmeta": "node gen-meta.js",
+    "build:dist": "STATIC_PATH=static BUILD_MODE=dist NODE_ENV=production yarn run build"
   },
   "author": "Clip Team",
   "license": "AGPL-3.0",
