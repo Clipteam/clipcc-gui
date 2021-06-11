@@ -66,6 +66,8 @@ class GUI extends React.Component {
         setIsScratchDesktop(this.props.isScratchDesktop);
         this.props.onStorageInit(storage);
         this.props.onVmInit(this.props.vm);
+        this.extensionAPI = new extensionAPI(this);
+        //console.log(this.extensionAPI, extensionAPI);
         initExtensionAPI(this, this.props.vm, blocks(this.props.vm));
         this.props.onLoadBuiltinExtension();
     }
@@ -150,7 +152,6 @@ GUI.propTypes = {
     projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     telemetryModalVisible: PropTypes.bool,
     vm: PropTypes.instanceOf(VM).isRequired,
-    extensionAPI: PropTypes.instanceOf(extensionAPI)
 };
 
 GUI.defaultProps = {
@@ -160,7 +161,6 @@ GUI.defaultProps = {
     onUpdateProjectId: () => {},
     onRef: () => {},
     onVmInit: (/* vm */) => {},
-    extensionAPI: new extensionAPI(this)
 };
 
 const mapStateToProps = state => {

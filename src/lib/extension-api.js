@@ -14,4 +14,4 @@ class ExtensionAPI {
     }
 }
 
-export {ExtensionAPI};
+export default ExtensionAPI;

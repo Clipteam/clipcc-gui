@@ -198,7 +198,7 @@ const loadBuiltinExtension = dispatch => {
 
 const initExtensionAPI = (gui, vm, blocks) => {
     let apiInstance = {
-        "gui": gui,
+        "gui": gui.extensionAPI,
         "vm": vm.extensionAPI,
         "blocks": blocks
     }
