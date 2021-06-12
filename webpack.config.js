@@ -103,7 +103,7 @@ if (!process.env.CI) {
     base.plugins.push(new webpack.ProgressPlugin());
 }
 else {
-    config.stats = 'minimal';
+    base.stats = 'minimal';
 }
 
 function getPlugins() {
