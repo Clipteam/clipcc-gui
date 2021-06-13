@@ -4,7 +4,7 @@
   "description": "GraphicaL User Interface for Clip CC",
   "main": "./dist/clipcc-gui.js",
   "scripts": {
-    "build": "yarn run genmeta && yarn run clean && webpack --progress --colors --bail",
+    "build": "yarn run genmeta && yarn run clean && webpack --no-progress --colors --bail",
     "clean": "rimraf ./build && mkdirp build && rimraf ./dist && mkdirp dist",
     "deploy": "touch build/.nojekyll && gh-pages -t -d build -m \"Build for $(git log --pretty=format:%H -n1)\"",
     "prune": "./prune-gh-pages.sh",

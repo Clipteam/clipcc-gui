@@ -2,7 +2,7 @@
 <img src="https://clipsrc.blestudio.com/clip-logo-with-text.png"/>
 
 # clipcc-gui
-![](https://img.shields.io/travis/clipteam/clipcc-gui.svg?style=flat-square)
+![](https://img.shields.io/travis/com/clipteam/clipcc-gui.svg?style=flat-square)
 
 </div>
 

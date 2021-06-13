@@ -106,6 +106,9 @@ const base = {
 if (!process.env.CI) {
     base.plugins.push(new webpack.ProgressPlugin());
 }
+else {
+    base.stats = 'minimal';
+}
 
 function getPlugins() {
     const res = base.plugins.concat([
