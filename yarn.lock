@@ -5415,6 +5415,11 @@ immediate@~3.0.5:
   resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
   integrity sha1-nbHb0Pr43m++D13V5Wu2BigN5ps=
 
+immutable@3.8.1:
+  version "3.8.1"
+  resolved "https://r.cnpmjs.org/immutable/download/immutable-3.8.1.tgz#200807f11ab0f72710ea485542de088075f68cd2"
+  integrity sha1-IAgH8Rqw9ycQ6khVQt4IgHX2jNI=
+
 immutable@3.8.2:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
@@ -9313,10 +9318,10 @@ scratch-svg-renderer@0.2.0-prerelease.20210317184701:
     scratch-render-fonts "1.0.0-prerelease.20200507182347"
     transformation-matrix "1.15.0"
 
-scratch-svg-renderer@^0.2.0-prerelease.20210511195415:
+scratch-svg-renderer@0.2.0-prerelease.20210511195415:
   version "0.2.0-prerelease.20210511195415"
-  resolved "https://registry.yarnpkg.com/scratch-svg-renderer/-/scratch-svg-renderer-0.2.0-prerelease.20210511195415.tgz#ddbce2292bab08e430b9f39de94f0cda09789c59"
-  integrity sha512-zeT93lfMeJNWhj8cLfNeDWTZT/fDS2Fnz6btCJpvE5AAyel+8VE1Y9hBb1OJ+ap8vjA1O31TnDApIylRmA/g5w==
+  resolved "https://r.cnpmjs.org/scratch-svg-renderer/download/scratch-svg-renderer-0.2.0-prerelease.20210511195415.tgz#ddbce2292bab08e430b9f39de94f0cda09789c59"
+  integrity sha1-3bziKSurCOQwufOd6U8M2gl4nFk=
   dependencies:
     base64-js "1.2.1"
     base64-loader "1.0.0"

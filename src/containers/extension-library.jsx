@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import VM from 'clipcc-vm';
 import {connect} from 'react-redux';
-import {defineMessages, injectIntl, intlShape, FormattedMessage} from 'react-intl';
+import {defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import JSZip from 'jszip';
 import mime from 'mime-types';
 import vm from 'vm';
@@ -223,7 +223,9 @@ class ExtensionLibrary extends React.PureComponent {
             ...extension,
             rawURL: extension.iconURL || extensionIcon,
             featured: true,
-            switchable: true
+            switchable: true,
+            name: (<FormattedMessage id={extension.name}/>),
+            description: (<FormattedMessage id={extension.description}/>)
         }));
         extensionLibraryThumbnailData.push({
             name: (
