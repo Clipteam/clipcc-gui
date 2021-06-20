@@ -36,7 +36,7 @@
     "base64-loader": "1.0.0",
     "bowser": "1.9.4",
     "classnames": "2.2.6",
-    "clipcc-block": "3.0.9",
+    "clipcc-block": "3.0.10",
     "clipcc-l10n": "3.0.3",
     "clipcc-vm": "3.0.9",
     "computed-style-to-inline-style": "3.0.0",
