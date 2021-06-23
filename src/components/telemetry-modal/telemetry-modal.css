@@ -11,6 +11,7 @@ $ui-gray: hsla(0, 0%, 95%, 1);
 
 .modal-overlay {
     position: fixed;
+    display: flex;
     top: 0;
     left: 0;
     right: 0;
@@ -20,7 +21,7 @@ $ui-gray: hsla(0, 0%, 95%, 1);
 }
 
 .modal-content {
-    margin: 100px auto;
+    margin: auto auto;
     outline: none;
     border: .25rem solid $ui-white-transparent;
     padding: 0;
