@@ -5,6 +5,7 @@
 
 .modal-overlay {
     position: fixed;
+    display: flex;
     top: 0;
     left: 0;
     right: 0;
@@ -14,7 +15,7 @@
 }
 
 .modal-content {
-    margin: 100px auto;
+    margin: auto auto;
     outline: none;
     border: .25rem solid $ui-white-transparent;
     padding: 0;
