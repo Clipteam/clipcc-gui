@@ -160,10 +160,10 @@ function getPlugins() {
     if (ENABLE_PWA) {
         res = res.concat([
             new ServiceWorkerWebpackPlugin({
-                entry: path.resolve(__dirname, 'static/sw.js')
+                entry: path.resolve(__dirname, 'static/sw.build.js')
             }),
             new CopyWebpackPlugin([{
-                from: 'static/sw.js',
+                from: 'static/sw.build.js',
                 to: 'sw.js',
             }]),
             new CopyWebpackPlugin([{
