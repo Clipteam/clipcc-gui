@@ -107,7 +107,7 @@ else {
 }
 
 function getPlugins() {
-    const res = base.plugins.concat([
+    let res = base.plugins.concat([
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': '"' + process.env.NODE_ENV + '"',
             'process.env.DEBUG': Boolean(process.env.DEBUG),
