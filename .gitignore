@@ -22,3 +22,4 @@ yarn-error.log
 /src/lib/app-info.js
 
 .vscode
+static/sw.build.js

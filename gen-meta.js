@@ -23,3 +23,11 @@ export {
 `;
 
 fs.writeFileSync(path.join(__dirname, 'src/lib/app-info.js'), code);
+
+const ENABLE_PWA = process.env.ENABLE_PWA;
+
+if (ENABLE_PWA) {
+    let data = fs.readFileSync(path.join(__dirname, 'static/sw.js'), { encoding: 'utf-8' });
+    data = data.replace('gen@appVer', compileId);
+    fs.writeFileSync(path.join(__dirname, 'static/sw.build.js'), data);
+}
