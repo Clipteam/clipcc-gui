@@ -227,7 +227,7 @@ class ExtensionLibrary extends React.PureComponent {
             name: (<FormattedMessage id={extension.name}/>),
             description: (<FormattedMessage id={extension.description}/>)
         }));
-        extensionLibraryThumbnailData.push({
+        /*extensionLibraryThumbnailData.push({
             name: (
                 <FormattedMessage
                     defaultMessage="Upload from file"
@@ -245,11 +245,10 @@ class ExtensionLibrary extends React.PureComponent {
             upload: true,
             featured: true,
             switchable: false
-        });
+        });*/
         return (
             <LibraryComponent
                 data={extensionLibraryThumbnailData}
-                filterable={false}
                 id="extensionLibrary"
                 title={this.props.intl.formatMessage(messages.extensionManagement)}
                 visible={this.props.visible}
@@ -257,6 +256,8 @@ class ExtensionLibrary extends React.PureComponent {
                 onItemSelected={this.handleItemSelect}
                 onItemSwitchChange={this.handleItemChange}
                 onRequestClose={this.props.onRequestClose}
+                upload={true}
+                onUpload={this.handleUploadExtension}
             />
         );
     }

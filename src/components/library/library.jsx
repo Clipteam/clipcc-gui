@@ -8,6 +8,7 @@ import LibraryItem from '../../containers/library-item.jsx';
 import Modal from '../../containers/modal.jsx';
 import Divider from '../divider/divider.jsx';
 import Filter from '../filter/filter.jsx';
+import Button from '../button/button.jsx';
 import TagButton from '../../containers/tag-button.jsx';
 import Spinner from '../spinner/spinner.jsx';
 
@@ -23,6 +24,11 @@ const messages = defineMessages({
         id: 'gui.library.allTag',
         defaultMessage: 'All',
         description: 'Label for library tag to revert to all items after filtering by tag.'
+    },
+    uploadButton: {
+        id: 'gui.library.uploadButton',
+        defaultMessage: 'Upload',
+        description: 'Label for extension library button to upload an extension.'
     }
 });
 
@@ -204,6 +210,17 @@ class LibraryComponent extends React.Component {
                                 ))}
                             </div>
                         }
+                        {(this.props.filterable || this.props.tags) && this.props.upload && (
+                            <Divider className={classNames(styles.filterBarItem, styles.divider)} />
+                        )}
+                        {this.props.upload &&
+                            <Button
+                                className={styles.uploadButton}
+                                onClick={this.props.onUpload}
+                            >
+                                {this.props.intl.formatMessage(messages.uploadButton)}
+                            </Button>
+                        }
                     </div>
                 )}
                 <div
@@ -268,6 +285,7 @@ LibraryComponent.propTypes = {
         /* eslint-enable react/no-unused-prop-types, lines-around-comment */
     ),
     filterable: PropTypes.bool,
+    upload: PropTypes.bool,
     closeAfterSelect: PropTypes.bool,
     id: PropTypes.string.isRequired,
     intl: intlShape.isRequired,
@@ -276,6 +294,7 @@ LibraryComponent.propTypes = {
     onItemSelected: PropTypes.func,
     onItemSwitchChange: PropTypes.func,
     onRequestClose: PropTypes.func,
+    onUpload: PropTypes.func,
     setStopHandler: PropTypes.func,
     showPlayButton: PropTypes.bool,
     tags: PropTypes.arrayOf(PropTypes.shape(TagButton.propTypes)),
@@ -284,6 +303,7 @@ LibraryComponent.propTypes = {
 
 LibraryComponent.defaultProps = {
     filterable: true,
+    upload: false,
     closeAfterSelect: true,
     showPlayButton: false
 };
