@@ -61,6 +61,7 @@ const SettingsModal = ({
         className={styles.modalContent}
         contentLabel={intl.formatMessage(messages.title)}
         onRequestClose={onRequestClose}
+        id="settingsModal"
     >
         <Box className={styles.body}>
             <LayoutSetting />

@@ -32,6 +32,7 @@ import ConnectionModal from '../../containers/connection-modal.jsx';
 import TelemetryModal from '../telemetry-modal/telemetry-modal.jsx';
 import SettingsModal from '../settings-modal/settings-modal.jsx';
 import AboutModal from '../about-modal/about-modal.jsx';
+import ExtensionModal from '../extension-modal/extension-modal.jsx';
 
 import layout, {STAGE_SIZE_MODES} from '../../lib/layout-constants';
 import {resolveStageSize} from '../../lib/screen-utils';
@@ -83,6 +84,7 @@ const GUIComponent = props => {
         costumeLibraryVisible,
         costumesTabVisible,
         enableCommunity,
+        extensionModalVisible,
         intl,
         isCreating,
         isFullScreen,
@@ -111,6 +113,7 @@ const GUIComponent = props => {
         onRequestCloseTelemetryModal,
         onRequestCloseSettingsModal,
         onRequestCloseAboutModal,
+        onRequestCloseExtensionModal,
         onSeeCommunity,
         onShare,
         onShowPrivacyPolicy,
@@ -349,6 +352,11 @@ const GUIComponent = props => {
                         onRequestClose={onRequestCloseAboutModal}
                     />
                 ) : null}
+                {extensionModalVisible ? (
+                    <ExtensionModal
+                        onRequestClose={onRequestCloseExtensionModal}
+                    />
+                ) : null}
 
                 <MenuBar
                     accountNavOpen={accountNavOpen}
@@ -419,6 +427,7 @@ GUIComponent.propTypes = {
     costumeLibraryVisible: PropTypes.bool,
     costumesTabVisible: PropTypes.bool,
     enableCommunity: PropTypes.bool,
+    extensionModalVisible : PropTypes.bool,
     intl: intlShape.isRequired,
     isCreating: PropTypes.bool,
     isFullScreen: PropTypes.bool,
@@ -441,6 +450,7 @@ GUIComponent.propTypes = {
     onRequestCloseTelemetryModal: PropTypes.func,
     onRequestCloseSettingsModal: PropTypes.func,
     onRequestCloseAboutModal: PropTypes.func,
+    onRequestCloseExtensionModal: PropTypes.func,
     onSeeCommunity: PropTypes.func,
     onShare: PropTypes.func,
     onShowPrivacyPolicy: PropTypes.func,

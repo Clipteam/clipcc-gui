@@ -4,6 +4,7 @@ import React from 'react';
 
 import Box from '../box/box.jsx';
 import PlayButton from '../../containers/play-button.jsx';
+import Switch from '../settings-modal/switch.jsx';
 import styles from './library-item.css';
 import classNames from 'classnames';
 
@@ -46,6 +47,14 @@ class LibraryItemComponent extends React.PureComponent {
                         <img
                             className={styles.libraryItemInsetImage}
                             src={this.props.insetIconURL}
+                        />
+                    </div>
+                ) : null}
+                {this.props.switchable ? (
+                    <div className={styles.libraryItemSwitch}>
+                        <Switch
+                            onChange={this.props.onSwitchChange}
+                            default={this.props.enabled}
                         />
                     </div>
                 ) : null}
@@ -149,6 +158,9 @@ class LibraryItemComponent extends React.PureComponent {
 
 
 LibraryItemComponent.propTypes = {
+    switchable: PropTypes.bool,
+    enabled: PropTypes.bool,
+    onSwitchChange: PropTypes.func,
     bluetoothRequired: PropTypes.bool,
     collaborator: PropTypes.string,
     description: PropTypes.oneOfType([

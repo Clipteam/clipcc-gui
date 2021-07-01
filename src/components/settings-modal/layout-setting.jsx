@@ -87,7 +87,7 @@ const LayoutSetting = props => (
 
 LayoutSetting.propTypes = {
     intl: intlShape.isRequired,
-    layoutStyle: PropTypes.bool.isRequired,
+    layoutStyle: PropTypes.string.isRequired,
     onClickScratch2Style: PropTypes.func.isRequired,
     onClickScratch3Style: PropTypes.func.isRequired
 };

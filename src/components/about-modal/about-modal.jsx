@@ -39,6 +39,7 @@ const AboutModal = ({
         className={styles.modalContent}
         contentLabel={intl.formatMessage(messages.aboutModalTitle)}
         onRequestClose={onRequestClose}
+        id="aboutModal"
     >
         <Box className={styles.body}>
             <img

@@ -24,6 +24,7 @@ const ModalComponent = props => (
         onRequestClose={props.onRequestClose}
     >
         <Box
+            className={styles.box}
             dir={props.isRtl ? 'rtl' : 'ltr'}
             direction="column"
             grow={1}

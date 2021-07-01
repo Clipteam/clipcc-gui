@@ -2,20 +2,43 @@ import bindAll from 'lodash.bindall';
 import PropTypes from 'prop-types';
 import React from 'react';
 import VM from 'clipcc-vm';
-import {defineMessages, injectIntl, intlShape, FormattedMessage} from 'react-intl';
+import {connect} from 'react-redux';
+import {defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import JSZip from 'jszip';
+import mime from 'mime-types';
+import vm from 'vm';
+import ClipCCExtension from 'clipcc-extension';
 
 import extensionLibraryContent from '../lib/libraries/extensions/index.jsx';
 
 import LibraryComponent from '../components/library/library.jsx';
 import extensionIcon from '../components/action-menu/icon--sprite.svg';
 
-import uploadImageURL from '../lib/libraries/extensions/upload/upload.svg';
+import uploadImageURL from '../lib/libraries/extensions/upload/upload.png';
+
+import {
+    initExtension,
+    enableExtension,
+    disableExtension
+} from '../reducers/extension';
+import {
+    addLocales
+} from '../reducers/locales';
+
+import { loadExtensionFromFile } from '../lib/extension-manager.js';
+
+global.ClipCCExtension = ClipCCExtension;
 
 const messages = defineMessages({
     extensionTitle: {
         defaultMessage: 'Choose an Extension',
         description: 'Heading for the extension library',
         id: 'gui.extensionLibrary.chooseAnExtension'
+    },
+    extensionManagement: {
+        defaultMessage: 'Extension Management',
+        description: 'Heading for the extension library',
+        id: 'gui.extensionLibrary.extensionManagement'
     },
     extensionUrl: {
         defaultMessage: 'Enter the URL of the extension',
@@ -28,82 +51,95 @@ class ExtensionLibrary extends React.PureComponent {
     constructor (props) {
         super(props);
         bindAll(this, [
-            'handleItemSelect'
+            'handleUploadExtension',
+            'handleItemChange'
         ]);
     }
-    handleItemSelect (item) {
-        const id = item.extensionId;
-        let url = item.extensionURL ? item.extensionURL : id;
-        if ('upload' in item) {
-            const fileInput = document.createElement('input');
-            fileInput.setAttribute('type', 'file');
-            fileInput.setAttribute('accept', '.js');
-            fileInput.onchange = e => {
-                const file = e.target.files[0];
-                url = URL.createObjectURL(file);
-                if (this.props.vm.extensionManager.isExtensionLoaded(url)) {
-                    this.props.onCategorySelected(id);
-                } else {
-                    this.props.vm.extensionManager.loadExtensionURL(url).then(() => {
-                        this.props.onCategorySelected(id);
-                    });
+    handleItemChange (item, status) {
+        const extensionId = item.extensionId;
+        if (status) {
+            if (this.props.extension[extensionId].extensionAPI) {
+                if (this.props.extension[extensionId].instance.init) {
+                    this.props.extension[extensionId].instance.init();
                 }
-            };
-            fileInput.click();
+            }
+            else {
+                if (!this.props.vm.extensionManager.isExtensionLoaded(extensionId)) {
+                    this.props.vm.extensionManager.loadExtensionURL(extensionId);
+                }
+            }
+            this.props.setExtensionEnable(extensionId);
+            this.props.vm.registerExtension(extensionId);
         } else {
-            if (!item.disabled && !id) {
-                // eslint-disable-next-line no-alert
-                url = prompt(this.props.intl.formatMessage(messages.extensionUrl));
-            }
-            if (id && !item.disabled) {
-                if (this.props.vm.extensionManager.isExtensionLoaded(url)) {
-                    this.props.onCategorySelected(id);
-                } else {
-                    this.props.vm.extensionManager.loadExtensionURL(url).then(() => {
-                        this.props.onCategorySelected(id);
-                    });
+            if (this.props.extension[extensionId].extensionAPI) {
+                if (this.props.extension[extensionId].instance.uninit) {
+                    this.props.extension[extensionId].instance.uninit();
                 }
             }
+            else {
+            }
+            this.props.setExtensionDisable(extensionId);
+            this.props.vm.unregisterExtension(extensionId);
         }
     }
+    handleUploadExtension () {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', '.js,.ccx,.scx');
+        input.onchange = event => {
+            const files = event.target.files;
+            for (const file of files) {
+                const fileName = file.name;
+                const fileExt = fileName.substring(fileName.lastIndexOf('.') + 1);
+                
+                const url = URL.createObjectURL(file);
+                const reader = new FileReader();
+                reader.readAsArrayBuffer(file, 'utf8');
+                reader.onload = async () => {
+                    this.props.loadExtensionFromFile(reader.result, fileExt);
+                };
+            }
+        };
+        input.click();
+    }
     render () {
-        const extensionLibraryThumbnailData = extensionLibraryContent.map(extension => ({
+        const extensionLibraryThumbnailData = Object.values(this.props.extension).map(extension => ({
+            ...extension,
             rawURL: extension.iconURL || extensionIcon,
-            ...extension
+            featured: true,
+            switchable: true,
+            name: (<FormattedMessage id={extension.name}/>),
+            description: (<FormattedMessage id={extension.description}/>)
         }));
-        extensionLibraryThumbnailData.push({
-            name: (
-                <FormattedMessage
-                    defaultMessage="Upload from file"
-                    id="gui.extension.upload"
-                />
-            ),
-            description: (
-                <FormattedMessage
-                    defaultMessage="Upload your own extension from disk."
-                    id="gui.extension.upload.description"
-                />
-            ),
-            rawURL: uploadImageURL,
-            extensionId: 'upload',
-            upload: true,
-            featured: true
-        });
         return (
             <LibraryComponent
                 data={extensionLibraryThumbnailData}
-                filterable={false}
                 id="extensionLibrary"
-                title={this.props.intl.formatMessage(messages.extensionTitle)}
+                title={this.props.intl.formatMessage(messages.extensionManagement)}
                 visible={this.props.visible}
-                onItemSelected={this.handleItemSelect}
+                closeAfterSelect={false}
+                onItemSwitchChange={this.handleItemChange}
                 onRequestClose={this.props.onRequestClose}
+                upload={true}
+                onUpload={this.handleUploadExtension}
             />
         );
     }
 }
 
 ExtensionLibrary.propTypes = {
+    extension: PropTypes.shape({
+        extensionId: PropTypes.string,
+        iconURL: PropTypes.string,
+        insetIconURL: PropTypes.string,
+        author: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.arrayOf(PropTypes.string)
+        ]),
+        name: PropTypes.string,
+        description: PropTypes.string,
+        requirement: PropTypes.arrayOf(PropTypes.string)
+    }),
     intl: intlShape.isRequired,
     onCategorySelected: PropTypes.func,
     onRequestClose: PropTypes.func,
@@ -111,4 +147,19 @@ ExtensionLibrary.propTypes = {
     vm: PropTypes.instanceOf(VM).isRequired // eslint-disable-line react/no-unused-prop-types
 };
 
-export default injectIntl(ExtensionLibrary);
+const mapStateToProps = state => ({
+    extension: state.scratchGui.extension.extension
+});
+
+const mapDispatchToProps = dispatch => ({
+    initExtension: data => dispatch(initExtension(data)),
+    setExtensionEnable: id => dispatch(enableExtension(id)),
+    setExtensionDisable: id => dispatch(disableExtension(id)),
+    addLocales: msgs => dispatch(addLocales(msgs)),
+    loadExtensionFromFile: (file, type) => loadExtensionFromFile(dispatch, file, type)
+});
+
+export default injectIntl(connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ExtensionLibrary));
