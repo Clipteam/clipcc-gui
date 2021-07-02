@@ -5,7 +5,8 @@ import {
     disableExtension
 } from '../reducers/extension';
 import {
-    addLocales
+    addLocales,
+    updateLocale
 } from '../reducers/locales';
 
 import JSZip from 'jszip';
@@ -260,7 +261,14 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
                 locale[result[0]] = JSON.parse(await zipData.files[fileName].async('text'));
             }
         }
-        dispatch(addLocales(locale));
+        if (info['default_language'] && locale.hasOwnProperty(info['default_language'])) { // default language param
+            locale['default'] = locale[info['default_language']];
+        }
+        else {
+            locale['default'] = locale['en'];
+        }
+        dispatch(addLocales({default: locale['default']}));
+        dispatch(updateLocale());
 
         const extensionInfo = {
             extensionId: info.id,

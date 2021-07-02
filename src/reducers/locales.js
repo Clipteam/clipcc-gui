@@ -1,19 +1,28 @@
 import {addLocaleData} from 'react-intl';
+import {cloneDeep} from 'lodash';
 
 import {localeData, isRtl} from 'clipcc-l10n';
 import editorMessages from 'clipcc-l10n/dist/editor-msgs';
 
 addLocaleData(localeData);
 
-const UPDATE_LOCALES = 'clipcc-gui/locales/UPDATE_LOCALES';
+const UPDATE_LOCALE = 'clipcc-gui/locales/UPDATE_LOCALE';
 const SELECT_LOCALE = 'clipcc-gui/locales/SELECT_LOCALE';
 const ADD_LOCALE = 'clipcc-gui/locales/ADD_LOCALE';
+
+const DEFAULT_LANGUAGE = 'default';
 
 const initialState = {
     isRtl: false,
     locale: 'en',
-    messagesByLocale: editorMessages,
-    messages: editorMessages.en
+    messagesByLocale: {
+        [DEFAULT_LANGUAGE]: cloneDeep(editorMessages.en),
+        ...editorMessages
+    },
+    messages: Object.assign({},
+        editorMessages[DEFAULT_LANGUAGE], 
+        editorMessages.en
+    )
 };
 
 const reducer = function (state, action) {
@@ -23,16 +32,17 @@ const reducer = function (state, action) {
         return Object.assign({}, state, {
             isRtl: isRtl(action.locale),
             locale: action.locale,
-            messagesByLocale: state.messagesByLocale,
-            messages: state.messagesByLocale[action.locale]
+            msgRef: Object.assign({},
+                state.messagesByLocale[DEFAULT_LANGUAGE], 
+                state.messagesByLocale[action.locale]
+            )
         });
-    case UPDATE_LOCALES:
-        return Object.assign({}, state, {
-            isRtl: state.isRtl,
-            locale: state.locale,
-            messagesByLocale: action.messagesByLocale,
-            messages: action.messagesByLocale[state.locale]
-        });
+    case UPDATE_LOCALE:
+        Object.assign(state.messages,
+            state.messagesByLocale[DEFAULT_LANGUAGE],
+            state.messagesByLocale[state.locale]
+        );
+        return state;
     case ADD_LOCALE:
         let newState = Object.assign({}, state);
         for (const locale in action.messagesByLocale) {
@@ -41,7 +51,6 @@ const reducer = function (state, action) {
                 action.messagesByLocale[locale]
             );
         }
-        newState.messages = newState.messagesByLocale[state.locale]
         return newState;
     default:
         return state;
@@ -55,10 +64,9 @@ const selectLocale = function (locale) {
     };
 };
 
-const setLocales = function (localesMessages) {
+const updateLocale = function () {
     return {
-        type: UPDATE_LOCALES,
-        messagesByLocale: localesMessages
+        type: UPDATE_LOCALE
     };
 };
 
@@ -90,6 +98,6 @@ export {
     initialState as localesInitialState,
     initLocale,
     selectLocale,
-    setLocales,
+    updateLocale,
     addLocales
 };
