@@ -119,10 +119,13 @@
 
 .featured-image-container {
     position: relative;
+    min-height: 183px;
+    max-height: 184px;
 }
 
 .featured-image {
     width: 100%;
+    display: block;
 }
 
 .featured-text {
