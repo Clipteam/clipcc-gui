@@ -6,7 +6,7 @@ import sparrow_smile from '!raw-loader!./c6b1479621329fac5f2f8321678cc8d9.svg';
 import sparrow_ww from '!raw-loader!./ade067a9d36b483c33c3660fe4be5f39.svg';
 import sparrow_angry from '!raw-loader!./6ef589152edc575109df924e625cc434.svg';
 import sparrow_unhappy from '!raw-loader!./bd3a66cf64c3b49faa05ca0533fefc7e.svg';
-import tropical_birds from '!raw-loader!./18e5a88512296cd96417449496bd8711.wav';
+import tropical_birds from '!arraybuffer-loader!./18e5a88512296cd96417449496bd8711.wav';
 
 /* eslint-enable import/no-unresolved */
 
