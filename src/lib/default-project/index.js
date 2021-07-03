@@ -55,7 +55,7 @@ const defaultProject = translator => {
         id: '18e5a88512296cd96417449496bd8711',
         assetType: 'Sound',
         dataFormat: 'WAV',
-        data: encoder.encode(tropical_birds)
+        data: new Uint8Array(tropical_birds)
     }];
 };
 
