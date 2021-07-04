@@ -145,28 +145,6 @@ export default [
     {
         name: (
             <FormattedMessage
-                defaultMessage="Libra"
-                description="Libra Redlist Plugin"
-                id="gui.extension.redlist.name"
-            />
-        ),
-        collaborator: 'SCPO & Libra',
-        extensionId: 'libra',
-        iconURL: libraImage,
-        insetIconURL: libraInsetImage,
-        description: (
-            <FormattedMessage
-                defaultMessage="Libra Redlist Plugin"
-                description="Libra Redlist Plugin"
-                id="gui.extension.redlist.description"
-            />
-        ),
-        featured: true,
-        internetConnectionRequired: true
-    },
-    {
-        name: (
-            <FormattedMessage
                 defaultMessage="Video Sensing"
                 description="Name for the 'Video Sensing' extension"
                 id="gui.extension.videosensing.name"
