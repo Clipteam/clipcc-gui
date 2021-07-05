@@ -611,9 +611,7 @@ class MenuBar extends React.Component {
                     </div>
                     */}
 
-                    {this.props.isStandalone ? null : (
-                        <>
-                            <Divider className={classNames(styles.divider)} />
+<Divider className={classNames(styles.divider)} />
                             {this.props.canEditTitle ? (
                                 <div className={classNames(styles.menuBarItem, styles.growable)}>
                                     <MenuBarItemTooltip
@@ -634,6 +632,9 @@ class MenuBar extends React.Component {
                                     username={this.props.authorUsername}
                                 />
                             ) : null)}
+
+                    {this.props.isStandalone ? null : (
+                        <>
                             <div className={classNames(styles.menuBarItem)}>
                                 {this.props.canShare ? (
                                     (this.props.isShowingProject || this.props.isUpdating) && (
