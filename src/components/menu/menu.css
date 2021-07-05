@@ -30,6 +30,7 @@
     font-size: .75rem;
     margin: 0;
     font-weight: bold;
+    transition: 0.25s ease-out; /* @todo: standardize with var */
 }
 
 .menu-item.active,
