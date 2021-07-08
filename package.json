@@ -39,7 +39,7 @@
     "classnames": "2.2.6",
     "clipcc-block": "3.0.10",
     "clipcc-l10n": "3.0.4",
-    "clipcc-vm": "3.0.9",
+    "clipcc-vm": "3.0.10",
     "computed-style-to-inline-style": "3.0.0",
     "copy-webpack-plugin": "^4.5.1",
     "core-js": "2.5.7",
