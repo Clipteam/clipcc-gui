@@ -55,6 +55,9 @@ import HTTPIOInsetImage from './HTTPIO/clipcc.httpio-small.svg';
 import JSONImage from './JSON/JSON.png';
 import JSONInsetImage from './JSON/ccjson-small.svg';
 
+import ClipBlocksImage from './clipblocks/clipblocks.jpg';
+import ClipBlocksInsetImage from './clipblocks/clipblocks-small.svg';
+
 import ClipCCDefaultImage from './clipcc/CCUnknownExtension.jpg';
 import ClipCCDefaultInsetImage from './clipcc/CCUnknownExtension.svg';
 
@@ -98,6 +101,27 @@ export default [
             />
         ),
         featured: true
+    },
+    {
+        name: (
+            <FormattedMessage
+                defaultMessage="ClipBlocks(Legacy)"
+                description="name of clipcc blocks"
+                id="gui.extension.clipblocks.name"
+            />
+        ),
+        collaborator: 'Clipteam',
+        extensionId: 'clipblocks',
+        iconURL: ClipBlocksImage,
+        insetIconURL: ClipBlocksInsetImage,
+        description: (
+            <FormattedMessage
+                defaultMessage="ClipCC 1.x blocks now on 3.0."
+                description="Clip Blocks"
+                id="gui.extension.clipblocks.description"
+            />
+        ),
+        featured: true,
     },
     {
         name: (
