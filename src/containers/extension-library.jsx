@@ -57,27 +57,27 @@ class ExtensionLibrary extends React.PureComponent {
     }
     handleItemChange (item, status) {
         const extensionId = item.extensionId;
+        
         if (status) {
-            if (this.props.extension[extensionId].extensionAPI) {
-                if (this.props.extension[extensionId].instance.init) {
-                    this.props.extension[extensionId].instance.init();
-                }
+            console.log(ClipCCExtension.extensionManager.getInfo(extensionId));
+            if (ClipCCExtension.extensionManager.getInfo(extensionId).api) {
+                ClipCCExtension.extensionManager.getInstance(extensionId).onInit();
             }
             else {
                 if (!this.props.vm.extensionManager.isExtensionLoaded(extensionId)) {
                     this.props.vm.extensionManager.loadExtensionURL(extensionId);
                 }
             }
+            ClipCCExtension.extensionManager.setLoadStatus(extensionId, true);
             this.props.setExtensionEnable(extensionId);
             this.props.vm.registerExtension(extensionId);
         } else {
-            if (this.props.extension[extensionId].extensionAPI) {
-                if (this.props.extension[extensionId].instance.uninit) {
-                    this.props.extension[extensionId].instance.uninit();
-                }
+            if (ClipCCExtension.extensionManager.exist(extensionId).api) {
+                ClipCCExtension.extensionManager.getInstance(extensionId).onUninit();
             }
             else {
             }
+            ClipCCExtension.extensionManager.setLoadStatus(extensionId, false);
             this.props.setExtensionDisable(extensionId);
             this.props.vm.unregisterExtension(extensionId);
         }

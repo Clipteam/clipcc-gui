@@ -1,8 +1,9 @@
 import VM from 'clipcc-vm';
 import storage from '../lib/storage';
+import Extension from 'clipcc-extension';
 
 const SET_VM = 'clipcc-gui/vm/SET_VM';
-const defaultVM = new VM();
+const defaultVM = new VM(Extension.extensionManager);
 defaultVM.attachStorage(storage);
 const initialState = defaultVM;
 

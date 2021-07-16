@@ -200,15 +200,16 @@ const builtinExtensions = [
 
 const loadBuiltinExtension = dispatch => {
     for (const ext of builtinExtensions) {
+        ClipCCExtension.extensionManager.addInstance(ext.extensionId, ext, new ClipCCExtension.Extension());
         dispatch(initExtension(ext));
     }
 };
 
 const initExtensionAPI = (gui, vm, blocks) => {
     let apiInstance = {
-        "gui": gui.extensionAPI,
-        "vm": vm.extensionAPI,
-        "blocks": blocks
+        gui: gui.extensionAPI,
+        vm: vm.extensionAPI,
+        blocks: blocks
     }
     console.log(apiInstance);
     ClipCCExtension.API.registExtensionAPI(apiInstance);//迟早换成gui.extensionAPI
@@ -239,6 +240,7 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
                     {type: mime.lookup(info.inset_icon)}
                 ));
             }
+            info.api = 1;
         } else {
             throw 'Cannot find \'info.json\' in ccx extension.';
         }
@@ -279,8 +281,10 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
             author: info.author,
             requirement: info.requirement,
             instance: instance,
-            extensionAPI: true
+            api: info.api
         };
+        console.log(ClipCCExtension, ClipCCExtension.extensionManager);
+        ClipCCExtension.extensionManager.addInstance(info.id, info, instance);
         dispatch(initExtension(extensionInfo));
         break;
     }
@@ -298,8 +302,17 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
             description: 'External Extension',
             requirement: [],
             instance: apiInstance,
-            extensionAPI: true
+            api: 1
         };
+        
+        ClipCCExtension.extensionManager.addInstance(info.id, {
+            id: info.id,
+            icon: info.blockIconURL,
+            inset_icon: info.blockIconURL,
+            author: info.author,
+            requirement: info.requirement,
+            api: 1
+        }, instance);
         dispatch(initExtension(extensionInfo));
         break;
     }

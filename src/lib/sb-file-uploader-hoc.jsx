@@ -53,8 +53,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                 'handleStartSelectingFileUpload',
                 'handleChange',
                 'onload',
-                'removeFileObjects',
-                'handleExtensionCallback'
+                'removeFileObjects'
             ]);
         }
         componentDidUpdate (prevProps) {
@@ -64,28 +63,6 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         }
         componentWillUnmount () {
             this.removeFileObjects();
-        }
-        handleExtensionCallback (extensions) {
-            for (const extensionId of extensions) {
-                if (!this.props.extension[extensionId]) {
-                    throw `Extension ${extensionId} not found`;
-                }
-                if (this.props.extension[extensionId].enabled) {
-                    continue;
-                }
-                if (this.props.extension[extensionId].extensionAPI) {
-                    if (this.props.extension[extensionId].instance.init) {
-                        this.props.extension[extensionId].instance.init();
-                    }
-                }
-                else {
-                    if (!this.props.vm.extensionManager.isExtensionLoaded(extensionId)) {
-                        this.props.vm.extensionManager.loadExtensionURL(extensionId);
-                    }
-                }
-                this.props.setExtensionEnable(extensionId);
-                this.props.vm.registerExtension(extensionId);
-            }
         }
         // step 1: this is where the upload process begins
         handleStartSelectingFileUpload () {
@@ -175,7 +152,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                 this.props.onLoadingStarted();
                 const filename = this.fileToUpload && this.fileToUpload.name;
                 let loadingSuccess = false;
-                this.props.vm.loadProject(this.fileReader.result, this.handleExtensionCallback)
+                this.props.vm.loadProject(this.fileReader.result)
                     .then(() => {
                         if (filename) {
                             const uploadedProjectTitle = this.getProjectTitleFromFilename(filename);
