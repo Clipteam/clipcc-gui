@@ -200,7 +200,14 @@ const builtinExtensions = [
 
 const loadBuiltinExtension = dispatch => {
     for (const ext of builtinExtensions) {
-        ClipCCExtension.extensionManager.addInstance(ext.extensionId, ext, new ClipCCExtension.Extension());
+        ClipCCExtension.extensionManager.addInstance(ext.extensionId, {
+            id: ext.extensionId,
+            icon: ext.iconURL,
+            inset_icon: ext.insetIconURL,
+            author: ext.author,
+            requirement: ext.requirement,
+            api: 0
+        }, new ClipCCExtension.Extension());
         dispatch(initExtension(ext));
     }
 };
