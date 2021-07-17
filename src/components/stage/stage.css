@@ -68,6 +68,7 @@
 
 .stage-wrapper {
     position: relative;
+    transition: 0.25s ease-out;
 }
 
 .stage-wrapper-overlay {
@@ -90,7 +91,7 @@
     margin: auto;
     border: $stage-full-screen-border-width solid rgb(126, 133, 151);
     padding: 0;
-    border-radius: $space;
+    border-radius: 0;
 
     overflow: hidden;
     display: flex;
