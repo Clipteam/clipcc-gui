@@ -93,6 +93,8 @@ const StageComponent = props => {
                         className={styles.stageBottomWrapper}
                         style={{
                             width: stageDimensions.width,
+                            left: '50%',
+                            marginLeft: stageDimensions.width * -0.5,
                             height: stageDimensions.height
                         }}
                     >
