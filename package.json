@@ -1,6 +1,6 @@
 {
   "name": "clipcc-gui",
-  "version": "3.0.13",
+  "version": "3.0.14",
   "description": "GraphicaL User Interface for Clip CC",
   "main": "./dist/clipcc-gui.js",
   "scripts": {
@@ -37,9 +37,9 @@
     "base64-loader": "1.0.0",
     "bowser": "1.9.4",
     "classnames": "2.2.6",
-    "clipcc-block": "3.0.10",
-    "clipcc-l10n": "3.0.4",
-    "clipcc-vm": "3.0.10",
+    "clipcc-block": "3.0.11",
+    "clipcc-l10n": "3.0.5",
+    "clipcc-vm": "3.0.11",
     "computed-style-to-inline-style": "3.0.0",
     "copy-webpack-plugin": "^4.5.1",
     "core-js": "2.5.7",
