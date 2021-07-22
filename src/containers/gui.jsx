@@ -22,11 +22,28 @@ import {
     closeCostumeLibrary,
     closeBackdropLibrary,
     closeTelemetryModal,
-    openExtensionLibrary
+    openExtensionLibrary,
+    closeSettingsModal,
+    closeAboutModal,
+    openLoadingProject,
+    closeLoadingProject
+} from '../reducers/modals';
+
+import {
+    LoadingStates,
+    getIsLoadingUpload,
+    getIsShowingWithoutId,
+    onLoadedProject,
+    requestProjectUpload
+} from '../reducers/project-state';
+import {setProjectTitle} from '../reducers/project-title';
+
+import {
 } from '../reducers/modals';
 
 import FontLoaderHOC from '../lib/font-loader-hoc.jsx';
 import LocalizationHOC from '../lib/localization-hoc.jsx';
+import SBFileUploaderHOC from '../lib/sb-file-uploader-hoc.jsx';
 import ProjectFetcherHOC from '../lib/project-fetcher-hoc.jsx';
 import TitledHOC from '../lib/titled-hoc.jsx';
 import ProjectSaverHOC from '../lib/project-saver-hoc.jsx';
@@ -41,6 +58,7 @@ import {setIsScratchDesktop} from '../lib/isScratchDesktop.js';
 
 class GUI extends React.Component {
     componentDidMount () {
+        this.props.onRef(this);
         setIsScratchDesktop(this.props.isScratchDesktop);
         this.props.onStorageInit(storage);
         this.props.onVmInit(this.props.vm);
@@ -74,6 +92,12 @@ class GUI extends React.Component {
             onVmInit,
             projectHost,
             projectId,
+            onLoadingFinished,
+            onLoadingStarted,
+            requestProjectUpload,
+            onReceivedProjectTitle,
+            loadingState,
+            onRef,
             /* eslint-enable no-unused-vars */
             children,
             fetchingProject,
@@ -101,9 +125,14 @@ GUI.propTypes = {
     intl: intlShape,
     isError: PropTypes.bool,
     isLoading: PropTypes.bool,
+    loadingState: PropTypes.oneOf(LoadingStates),
     isScratchDesktop: PropTypes.bool,
     isShowingProject: PropTypes.bool,
     loadingStateVisible: PropTypes.bool,
+    onRef: PropTypes.func,
+    onLoadingStarted: PropTypes.func,
+    onLoadingFinished: PropTypes.func,
+    requestProjectUpload: PropTypes.func,
     onProjectLoaded: PropTypes.func,
     onSeeCommunity: PropTypes.func,
     onStorageInit: PropTypes.func,
@@ -120,6 +149,7 @@ GUI.defaultProps = {
     onStorageInit: storageInstance => storageInstance.addOfficialScratchWebStores(),
     onProjectLoaded: () => {},
     onUpdateProjectId: () => {},
+    onRef: () => {},
     onVmInit: (/* vm */) => {}
 };
 
@@ -140,6 +170,7 @@ const mapStateToProps = state => {
         isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
         isRtl: state.locales.isRtl,
         isShowingProject: getIsShowingProject(loadingState),
+        loadingState: loadingState,
         loadingStateVisible: state.scratchGui.modals.loadingProject,
         projectId: state.scratchGui.projectState.projectId,
         soundsTabVisible: state.scratchGui.editorTab.activeTabIndex === SOUNDS_TAB_INDEX,
@@ -149,6 +180,9 @@ const mapStateToProps = state => {
         ),
         telemetryModalVisible: state.scratchGui.modals.telemetryModal,
         tipsLibraryVisible: state.scratchGui.modals.tipsLibrary,
+        settingsVisible: state.scratchGui.modals.settings,
+        aboutModalVisible: state.scratchGui.modals.about,
+        layoutStyle: state.scratchGui.settings.layoutStyle,
         vm: state.scratchGui.vm
     };
 };
@@ -160,7 +194,16 @@ const mapDispatchToProps = dispatch => ({
     onActivateSoundsTab: () => dispatch(activateTab(SOUNDS_TAB_INDEX)),
     onRequestCloseBackdropLibrary: () => dispatch(closeBackdropLibrary()),
     onRequestCloseCostumeLibrary: () => dispatch(closeCostumeLibrary()),
-    onRequestCloseTelemetryModal: () => dispatch(closeTelemetryModal())
+    onRequestCloseTelemetryModal: () => dispatch(closeTelemetryModal()),
+    onRequestCloseSettingsModal: () => dispatch(closeSettingsModal()),
+    onRequestCloseAboutModal: () => dispatch(closeAboutModal()),
+    onLoadingFinished: (loadingState, success) => {
+        dispatch(onLoadedProject(loadingState, false, success));
+        dispatch(closeLoadingProject());
+    },
+    requestProjectUpload: loadingState => dispatch(requestProjectUpload(loadingState)),
+    onLoadingStarted: () => dispatch(openLoadingProject()),
+    onReceivedProjectTitle: title => dispatch(setProjectTitle(title))
 });
 
 const ConnectedGUI = injectIntl(connect(
@@ -181,6 +224,7 @@ const WrappedGui = compose(
     ProjectSaverHOC,
     vmListenerHOC,
     vmManagerHOC,
+    SBFileUploaderHOC,
     cloudManagerHOC
 )(ConnectedGUI);
 

@@ -1,0 +1,46 @@
+@import "../../css/colors.css";
+@import "../../css/units.css";
+
+.switch {
+    cursor: pointer;
+    border-color: $motion-tertiary;
+    padding: $space;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: 1px;
+    background-color: $ui-white;
+    color: $motion-primary;
+    text-align: center;
+    transition: 0.25s ease-out; /* @todo: standardize with var */
+}
+
+.switch img {
+    image-rendering: crisp-edges;
+    filter: invert(50%) sepia(41%) saturate(1318%) hue-rotate(188deg) brightness(103%) contrast(101%);
+}
+
+.switch.active img {
+    filter: none;
+
+}
+
+.switch.active {
+    background-color: $motion-primary;
+    color: $ui-white;
+}
+
+.switch-left {
+    border-color: $motion-tertiary;
+    border-style: solid;
+    border-radius: $form-radius 0 0 $form-radius;
+}
+
+.switch-center {
+    border-color: $motion-tertiary;
+    border-right-style: solid;
+}
+
+.switch-right {
+    border-right-style: solid;
+    border-radius: 0 $form-radius $form-radius 0;
+}

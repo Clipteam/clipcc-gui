@@ -13,7 +13,7 @@
     border-width: 1px;
     border-style: solid;
     border-color: $ui-black-transparent;
-    border-radius: 2rem;
+    border-radius: 0.75rem;
 
     outline: none;
     cursor: text;

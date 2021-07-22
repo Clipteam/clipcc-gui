@@ -44,18 +44,17 @@ const TargetPane = ({
     stage,
     stageSize,
     sprites,
+    layoutStyle,
     vm,
     ...componentProps
 }) => (
     <div
-        className={styles.targetPane}
+        className={[styles.targetPane, layoutStyle === 'scratch2' ? styles.scratch2 : ''].join(' ')}
         {...componentProps}
     >
-
         <SpriteSelectorComponent
-            editingTarget={editingTarget}
             hoveredTarget={hoveredTarget}
-            raised={raiseSprites}
+            editingTarget={editingTarget}
             selectedId={editingTarget}
             spriteFileInput={fileInputRef}
             sprites={sprites}
@@ -77,8 +76,9 @@ const TargetPane = ({
             onSelectSprite={onSelectSprite}
             onSpriteUpload={onSpriteUpload}
             onSurpriseSpriteClick={onSurpriseSpriteClick}
+            layoutStyle={layoutStyle}
         />
-        <div className={styles.stageSelectorWrapper}>
+        <div className={[styles.stageSelectorWrapper, layoutStyle === 'scratch2' ? styles.scratch2 : ''].join(' ')}>
             {stage.id && <StageSelector
                 asset={
                     stage.costume &&
@@ -104,6 +104,8 @@ const TargetPane = ({
 
 const spriteShape = PropTypes.shape({
     costume: PropTypes.shape({
+        // asset is defined in scratch-storage's Asset.js
+        asset: PropTypes.object, // eslint-disable-line react/forbid-prop-types
         url: PropTypes.string,
         name: PropTypes.string.isRequired,
         // The following are optional because costumes uploaded from disk
@@ -112,6 +114,7 @@ const spriteShape = PropTypes.shape({
         rotationCenterX: PropTypes.number,
         rotationCenterY: PropTypes.number
     }),
+    costumeCount: PropTypes.number,
     direction: PropTypes.number,
     id: PropTypes.string,
     name: PropTypes.string,
@@ -124,6 +127,7 @@ const spriteShape = PropTypes.shape({
 
 TargetPane.propTypes = {
     editingTarget: PropTypes.string,
+    layoutStyle: PropTypes.string,
     extensionLibraryVisible: PropTypes.bool,
     fileInputRef: PropTypes.func,
     hoveredTarget: PropTypes.shape({
@@ -156,6 +160,10 @@ TargetPane.propTypes = {
     stage: spriteShape,
     stageSize: PropTypes.oneOf(Object.keys(STAGE_DISPLAY_SIZES)).isRequired,
     vm: PropTypes.instanceOf(VM)
+};
+
+TargetPane.defaultProps = {
+    layoutStyle: 'scratch3'
 };
 
 export default TargetPane;

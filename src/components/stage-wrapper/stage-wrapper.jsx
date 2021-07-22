@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import classNames from 'classnames';
 import VM from 'clipcc-vm';
 
 import Box from '../box/box.jsx';
@@ -16,17 +17,22 @@ const StageWrapperComponent = function (props) {
         isRtl,
         isRendererSupported,
         loading,
+        layoutStyle,
         stageSize,
         vm
     } = props;
 
     return (
         <Box
-            className={styles.stageWrapper}
+            className={classNames(
+                styles.stageWrapper,
+                {[styles.fullScreen]: isFullScreen}
+            )}
             dir={isRtl ? 'rtl' : 'ltr'}
         >
             <Box className={styles.stageMenuWrapper}>
                 <StageHeader
+                    layoutStyle={layoutStyle}
                     stageSize={stageSize}
                     vm={vm}
                 />
@@ -35,6 +41,8 @@ const StageWrapperComponent = function (props) {
                 {
                     isRendererSupported ?
                         <Stage
+                            layoutStyle={layoutStyle}
+                            isFullScreen={isFullScreen}
                             stageSize={stageSize}
                             vm={vm}
                         /> :
@@ -53,6 +61,7 @@ StageWrapperComponent.propTypes = {
     isRendererSupported: PropTypes.bool.isRequired,
     isRtl: PropTypes.bool.isRequired,
     loading: PropTypes.bool,
+    layoutStyle: PropTypes.string,
     stageSize: PropTypes.oneOf(Object.keys(STAGE_DISPLAY_SIZES)).isRequired,
     vm: PropTypes.instanceOf(VM).isRequired
 };

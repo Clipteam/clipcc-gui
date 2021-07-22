@@ -15,6 +15,10 @@
     z-index: $z-index-stage-header;
 }
 
+.scratch2 {
+    flex-direction: row-reverse;
+}
+
 .stage-menu-wrapper {
     display: flex;
     margin: auto;
@@ -40,12 +44,8 @@
     display: flex;
 }
 
-[dir="ltr"] .stage-size-toggle-group {
-    margin-right: .2rem;
-}
-
-[dir="rtl"] .stage-size-toggle-group {
-    margin-left: .2rem;
+.stage-size-toggle-group {
+    margin: 0 .2rem;
 }
 
 .stage-button {
@@ -93,4 +93,13 @@
 
 .stage-button-toggled-off {
     filter: saturate(0);
+}
+
+.dark {
+    background-color: #35363A;
+}
+
+.dark.stage-button {
+    filter: invert();
+    background-color: #CAC9C5;
 }

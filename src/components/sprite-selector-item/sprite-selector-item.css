@@ -20,12 +20,14 @@
     cursor: pointer;
 
     user-select: none;
+    transition: 0.25s ease-out; /* @todo: standardize with var */
 }
 
 .sprite-selector-item.is-selected {
     box-shadow: 0px 0px 0px 4px $motion-transparent;
     border: 2px solid $motion-primary;
     background: $ui-white;
+    transition: 0.25s ease-out; /* @todo: standardize with var */
 }
 
 .sprite-selector-item:hover {

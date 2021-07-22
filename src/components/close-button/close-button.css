@@ -13,11 +13,18 @@
     user-select: none;
     cursor: pointer;
     transition: all 0.15s ease-out;
+    
+    outline: none;
 }
 
 .close-button.large:hover {
     transform: scale(1.1, 1.1);
     box-shadow: 0 0 0 4px $ui-black-transparent;
+}
+
+.close-button.large:active {
+    transform: scale(0.98, 0.98);
+    box-shadow: 0 0 0 0 $ui-black-transparent;
 }
 
 .close-button.large.orange:hover {

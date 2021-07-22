@@ -75,6 +75,7 @@
     align-items: center;
     white-space: nowrap;
     height: $menu-bar-height;
+    transition: 0.25s ease-out; /* @todo: standardize with var */
 }
 
 .menu-bar-item.hoverable {
@@ -217,4 +218,10 @@
 
 .mystuff > a {
   background-image: url("/images/mystuff.png");
+}
+
+.about-icon {
+    height: 1.25rem;
+    margin: 0.5rem;
+    vertical-align: middle;
 }

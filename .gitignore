@@ -4,6 +4,7 @@
 # NPM
 /node_modules
 npm-*
+yarn-error.log
 
 # Testing
 /.nyc_output
@@ -17,3 +18,8 @@ npm-*
 # Generated translation files
 /translations
 /locale
+
+/src/lib/app-info.js
+
+.vscode
+static/sw.build.js

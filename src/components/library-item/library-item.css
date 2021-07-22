@@ -2,6 +2,7 @@
 @import "../../css/units.css";
 
 .library-item {
+    transition: 0.25s ease-out; /* @todo: standardize with var */
     display: flex;
     flex-direction: column;
     align-items: center;

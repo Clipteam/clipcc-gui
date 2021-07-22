@@ -376,4 +376,3 @@ describe('CloudManagerHOC', () => {
         expect(requestCloseConnection).toHaveBeenCalledTimes(1);
     });
 });
-

@@ -1,0 +1,15 @@
+@import "../../css/colors.css";
+@import "../../css/units.css";
+
+.modal-content {
+    width: 600px;
+}
+
+.body {
+    background: $ui-white;
+    padding: 1.5rem 2.25rem;
+}
+
+.body > * {
+    margin: $space 0;
+}

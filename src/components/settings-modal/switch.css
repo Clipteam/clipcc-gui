@@ -1,0 +1,49 @@
+@import "../../css/colors.css";
+@import "../../css/units.css";
+
+$true-color: rgb(73, 219, 44);
+$false-color: rgb(255, 68, 68);
+$border-width: 1px;
+$width: 3rem;
+$height: 1.5rem;
+
+$slider-width: calc($height - 4 * $border-width);
+$slider-height: $slider-width;
+
+.switch.true {
+    background-color: $true-color;
+}
+
+.switch.false {
+    background-color: $ui-white;
+}
+
+.switch {
+    width: $width;
+    height: $height;
+    border-radius: $height;
+    border: solid $ui-black-transparent $border-width;
+    display: inline-block;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.slider.true {
+    /* background-color: $true-color; */
+    transform: translateX(calc($width - $height));
+}
+
+.slider.false {
+    /* background-color: $false-color; */
+    transform: translateX(0rem);
+}
+
+.slider {
+    width: $slider-width;
+    min-height: $slider-height;
+    border-radius: $slider-height;
+    margin: calc(($height - $slider-height) / 2 - $border-width);
+    transition: all 0.3s;
+    border: solid $ui-black-transparent $border-width;
+    background-color: $ui-white;
+}

@@ -3,13 +3,18 @@
 @import "../../css/z-index.css";
 
 .modal-overlay {
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     z-index: $z-index-modal;
+    backdrop-filter: blur(4px);
     background-color: $ui-modal-overlay;
+    animation-name: flash;
+    animation-duration: 0.75s;
+    animation-fill-mode: forwards; /* Leave at 0 opacity after animation */
 }
 
 .modal-content * {
@@ -17,7 +22,7 @@
 }
 
 .modal-content {
-    margin: 100px auto;
+    margin: auto auto;
     outline: none;
     border: 4px solid $ui-white-transparent;
     padding: 0;

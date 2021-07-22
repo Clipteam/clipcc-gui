@@ -42,6 +42,7 @@ const messages = defineMessages({
 
 const SpriteSelectorComponent = function (props) {
     const {
+        layoutStyle,
         editingTarget,
         hoveredTarget,
         intl,
@@ -77,7 +78,7 @@ const SpriteSelectorComponent = function (props) {
     }
     return (
         <Box
-            className={styles.spriteSelector}
+            className={[styles.spriteSelector, layoutStyle === 'scratch2' ? styles.scratch2 : ''].join(' ')}
             {...componentProps}
         >
 
@@ -120,7 +121,7 @@ const SpriteSelectorComponent = function (props) {
                         title: intl.formatMessage(messages.addSpriteFromFile),
                         img: fileUploadIcon,
                         onClick: onFileUploadClick,
-                        fileAccept: '.svg, .png, .jpg, .jpeg, .sprite2, .sprite3, .gif',
+                        fileAccept: '.svg, .png, .bmp, .jpg, .jpeg, .sprite2, .sprite3, .gif',
                         fileChange: onSpriteUpload,
                         fileInput: spriteFileInput,
                         fileMultiple: true
@@ -147,6 +148,7 @@ const SpriteSelectorComponent = function (props) {
 };
 
 SpriteSelectorComponent.propTypes = {
+    layoutStyle: PropTypes.string,
     editingTarget: PropTypes.string,
     hoveredTarget: PropTypes.shape({
         hoveredSprite: PropTypes.string,

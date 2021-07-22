@@ -24,6 +24,7 @@ const START_UPDATING_BEFORE_CREATING_COPY = 'clipcc-gui/project-state/START_UPDA
 const START_UPDATING_BEFORE_CREATING_NEW = 'clipcc-gui/project-state/START_UPDATING_BEFORE_CREATING_NEW';
 
 const defaultProjectId = '0'; // hardcoded id of default project
+const externalProjectId = '-1'; // hardcoded id of external project (Passed by file)
 
 const LoadingState = keyMirror({
     NOT_LOADED: null,
@@ -246,6 +247,12 @@ const reducer = function (state, action) {
             }
         } else { // allow any other states to transition to fetching project
             // if setting the default project id, specifically fetch that project
+            if (action.projectId === externalProjectId) {
+                return Object.assign({}, state, {
+                    loadingState: LoadingState.LOADING_VM_FILE_UPLOAD,
+                    projectId: externalProjectId
+                });
+            }
             if (action.projectId === defaultProjectId || action.projectId === null) {
                 return Object.assign({}, state, {
                     loadingState: LoadingState.FETCHING_NEW_DEFAULT,
