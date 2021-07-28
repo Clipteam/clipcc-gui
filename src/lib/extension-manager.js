@@ -276,7 +276,7 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
         else {
             locale['default'] = locale['en'];
         }
-        dispatch(addLocales({default: locale['default']}));
+        dispatch(addLocales(locale));
         dispatch(updateLocale());
 
         const extensionInfo = {

@@ -32,7 +32,7 @@ const reducer = function (state, action) {
         return Object.assign({}, state, {
             isRtl: isRtl(action.locale),
             locale: action.locale,
-            msgRef: Object.assign({},
+            messages: Object.assign({},
                 state.messagesByLocale[DEFAULT_LANGUAGE], 
                 state.messagesByLocale[action.locale]
             )
@@ -46,7 +46,7 @@ const reducer = function (state, action) {
     case ADD_LOCALE:
         let newState = Object.assign({}, state);
         for (const locale in action.messagesByLocale) {
-            newState.messagesByLocale[locale] = Object.assign(
+            newState.messagesByLocale[locale] = Object.assign({},
                 newState.messagesByLocale[locale],
                 action.messagesByLocale[locale]
             );
