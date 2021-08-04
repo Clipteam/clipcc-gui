@@ -126,7 +126,6 @@ const GUIComponent = props => {
         settingsVisible,
         tipsLibraryVisible,
         layoutStyle,
-        fps,
         vm,
         ...componentProps
     } = omit(props, 'dispatch');

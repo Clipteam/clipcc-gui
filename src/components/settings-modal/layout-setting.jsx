@@ -13,6 +13,10 @@ import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import {updateSetting, getSetting} from '../../reducers/settings';
 import styles from './layout-setting.css';
 
+// import sc1styleImg from './layout-style-sc1.png'; Just kidding :P
+import sc2styleImg from './layout-style-sc2.png';
+import sc3styleImg from './layout-style-sc3.png';
+
 const messages = defineMessages({
     label: {
         defaultMessage: 'Layout Style',
@@ -57,6 +61,10 @@ const LayoutSetting = props => (
                 )}
                 onClick={props.onClickScratch2Style}
             >
+                <img
+                    draggable={false}
+                    src={sc2styleImg}
+                />
                 <div>{props.intl.formatMessage(messages.scratch2)}</div>
             </span>
             <span
@@ -67,6 +75,10 @@ const LayoutSetting = props => (
                 )}
                 onClick={props.onClickScratch3Style}
             >
+                <img
+                    draggable={false}
+                    src={sc3styleImg}
+                />
                 <div>{props.intl.formatMessage(messages.scratch3)}</div>
             </span>
         </Box>
