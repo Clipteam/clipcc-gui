@@ -58,7 +58,7 @@ class ExtensionLibrary extends React.PureComponent {
     handleItemChange (item, status) {
         const extensionId = item.extensionId;
         
-        if (status) {
+        /*if (status) {
             console.log(ClipCCExtension.extensionManager.getInfo(extensionId));
             if (ClipCCExtension.extensionManager.getInfo(extensionId).api) {
                 ClipCCExtension.extensionManager.getInstance(extensionId).onInit();
@@ -80,6 +80,19 @@ class ExtensionLibrary extends React.PureComponent {
             ClipCCExtension.extensionManager.setLoadStatus(extensionId, false);
             this.props.setExtensionDisable(extensionId);
             this.props.vm.unregisterExtension(extensionId);
+        }*/
+
+        if (status) { // load
+            const loadOrder = ClipCCExtension.extensionManager.getExtensionLoadOrder([extensionId]);
+            console.log(loadOrder);
+            ClipCCExtension.extensionManager.loadExtensionsWithMode(loadOrder, this.props.vm.extensionManager.loadExtensionURL);
+            this.props.setExtensionEnable(extensionId);
+        }
+        else { // unload
+            const unloadOrder = ClipCCExtension.extensionManager.getExtensionUnloadOrder([extensionId]);
+            console.log(unloadOrder);
+            ClipCCExtension.extensionManager.unloadExtensions(unloadOrder);
+            this.props.setExtensionDisable(extensionId);
         }
     }
     handleUploadExtension () {
