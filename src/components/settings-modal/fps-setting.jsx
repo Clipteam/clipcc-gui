@@ -59,7 +59,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onChangeFPS: fps => {
         dispatch(updateSetting('fps', fps));
-        console.log(ownProps);
     }
 });
 
