@@ -48,48 +48,56 @@ class ExtensionLibrary extends React.PureComponent {
     constructor (props) {
         super(props);
         bindAll(this, [
+            'componentDidMount',
+            'handleRequestClose',
             'handleUploadExtension',
             'handleItemChange'
         ]);
+        this.willLoad = [];
+        this.willUnload = [];
+    }
+    componentDidMount () {
+        this.willLoad = [];
+        this.willUnload = [];
+        console.log('clear');
+    }
+    handleRequestClose () {
+        console.log('load', this.willLoad);
+        console.log('unload', this.willUnload);
+        const loadOrder = ClipCCExtension.extensionManager.getExtensionLoadOrder(this.willLoad);
+        console.log('order', loadOrder);
+        ClipCCExtension.extensionManager.loadExtensionsWithMode(loadOrder, extension => this.props.vm.extensionManager.loadExtensionURL(extension));
+        for (const extension of loadOrder) {
+            this.props.setExtensionEnable(extension.id);
+        }
+        const unloadOrder = ClipCCExtension.extensionManager.getExtensionUnloadOrder(this.willUnload);
+        ClipCCExtension.extensionManager.unloadExtensions(unloadOrder);
+        for (const extension of unloadOrder) {
+            this.props.setExtensionDisable(extension);
+        }
+        this.props.onRequestClose();
     }
     handleItemChange (item, status) {
-        const extensionId = item.extensionId;
-        
-        /*if (status) {
-            console.log(ClipCCExtension.extensionManager.getInfo(extensionId));
-            if (ClipCCExtension.extensionManager.getInfo(extensionId).api) {
-                ClipCCExtension.extensionManager.getInstance(extensionId).onInit();
-            }
-            else {
-                if (!this.props.vm.extensionManager.isExtensionLoaded(extensionId)) {
-                    this.props.vm.extensionManager.loadExtensionURL(extensionId);
-                }
-            }
-            ClipCCExtension.extensionManager.setLoadStatus(extensionId, true);
-            this.props.setExtensionEnable(extensionId);
-            this.props.vm.registerExtension(extensionId);
-        } else {
-            if (ClipCCExtension.extensionManager.exist(extensionId).api) {
-                ClipCCExtension.extensionManager.getInstance(extensionId).onUninit();
-            }
-            else {
-            }
-            ClipCCExtension.extensionManager.setLoadStatus(extensionId, false);
-            this.props.setExtensionDisable(extensionId);
-            this.props.vm.unregisterExtension(extensionId);
-        }*/
-
+        const extension = item.extensionId;
         if (status) { // load
-            const loadOrder = ClipCCExtension.extensionManager.getExtensionLoadOrder([extensionId]);
-            console.log(loadOrder);
-            ClipCCExtension.extensionManager.loadExtensionsWithMode(loadOrder, this.props.vm.extensionManager.loadExtensionURL);
-            this.props.setExtensionEnable(extensionId);
+            let index = this.willLoad.indexOf(extension);
+            if (index === -1) {
+                this.willLoad.push(extension);
+            }
+            index = this.willUnload.indexOf(extension);
+            if (index !== -1) {
+                this.willUnload.splice(index, 1);
+            }
         }
         else { // unload
-            const unloadOrder = ClipCCExtension.extensionManager.getExtensionUnloadOrder([extensionId]);
-            console.log(unloadOrder);
-            ClipCCExtension.extensionManager.unloadExtensions(unloadOrder);
-            this.props.setExtensionDisable(extensionId);
+            let index = this.willLoad.indexOf(extension);
+            if (index !== -1) {
+                this.willLoad.splice(index, 1);
+            }
+            index = this.willUnload.indexOf(extension);
+            if (index === -1) {
+                this.willUnload.push(extension);
+            }
         }
     }
     handleUploadExtension () {
@@ -129,7 +137,7 @@ class ExtensionLibrary extends React.PureComponent {
                 visible={this.props.visible}
                 closeAfterSelect={false}
                 onItemSwitchChange={this.handleItemChange}
-                onRequestClose={this.props.onRequestClose}
+                onRequestClose={this.handleRequestClose}
                 upload={true}
                 onUpload={this.handleUploadExtension}
             />
