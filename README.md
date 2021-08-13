@@ -84,7 +84,7 @@ See [jest cli docs](https://facebook.github.io/jest/docs/en/cli.html#content) fo
 
 ### Running tests
 
-*NOTE: If you're a windows user, please run these scripts in Windows `cmd.exe`  instead of Git Bash/MINGW64.*
+*NOTE: If you're a Windows user, please run these scripts in Windows `cmd.exe`  instead of Git Bash/MINGW64.*
 
 Before running any test, make sure you have run `yarn install` from this (clipcc-gui) repository's top level.
 
@@ -115,7 +115,7 @@ $(yarn bin)/jest --runInBand test/unit/components/button.test.jsx
 
 #### Running integration tests
 
-Integration tests use a headless browser to manipulate the actual html and javascript that the repo
+Integration tests use a headless browser to manipulate the actual HTML and javascript that the repo
 produces. You will not see this activity (though you can hear it when sounds are played!).
 
 Note that integration tests require you to first create a build that can be loaded in a browser:
@@ -163,7 +163,7 @@ Further reading: [Stack Overflow](https://stackoverflow.com/questions/36725181/n
 
 ### Resolving dependencies
 
-When installing for the first time, you can get warnings which need to be resolved:
+When installing for the first time, you can get warnings that need to be resolved:
 
 ```
 npm WARN eslint-config-scratch@5.0.0 requires a peer of babel-eslint@^8.0.1 but none was installed.
@@ -178,7 +178,7 @@ You can check which versions are available:
 yarn view react-intl-redux@0.* version
 ```
 
-You will neet do install the required version:
+You will need to install the required version:
 
 ```
 yarn install  --no-optional --save-dev react-intl-redux@^0.7
@@ -248,7 +248,7 @@ These are names for the action which causes a state change. Some examples are:
 
 ### How transitions relate to loading states
 
-As this diagram of the project state machine shows, various transition actions can move us from one loading state to another:
+Like this diagram of the project state machine shows, various transition actions can move us from one loading state to another:
 
 ![Project state diagram](docs/project_state_diagram.svg)
 
@@ -258,7 +258,7 @@ _Note: for clarity, the diagram above excludes states and transitions relating t
 
 Here's an example of how states transition.
 
-Suppose a user clicks on a project, and the page starts to load with url https://scratch.mit.edu/projects/123456 .
+Suppose a user clicks on a project, and the page starts to load with URL https://scratch.mit.edu/projects/123456 .
 
 Here's what will happen in the project state machine:
 
