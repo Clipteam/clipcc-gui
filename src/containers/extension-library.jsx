@@ -4,9 +4,6 @@ import React from 'react';
 import VM from 'clipcc-vm';
 import {connect} from 'react-redux';
 import {defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import JSZip from 'jszip';
-import mime from 'mime-types';
-import vm from 'vm';
 import ClipCCExtension from 'clipcc-extension';
 
 import extensionLibraryContent from '../lib/libraries/extensions/index.jsx';

@@ -77,6 +77,7 @@ const base = {
                     modules: true,
                     importLoaders: 1,
                     localIdentName: '[name]_[local]_[hash:base64:5]',
+                    //localIdentName: '[path][name]_[local]',
                     camelCase: true
                 }
             }, {
