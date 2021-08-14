@@ -143,7 +143,7 @@ const closeAboutModal = function () {
 };
 const closeExtensionModal = function() {
     return closeModal(MODAL_EXTENSION_MODAL);
-}
+};
 export {
     reducer as default,
     initialState as modalsInitialState,

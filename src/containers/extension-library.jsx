@@ -10,6 +10,7 @@ import extensionLibraryContent from '../lib/libraries/extensions/index.jsx';
 
 import LibraryComponent from '../components/library/library.jsx';
 import extensionIcon from '../components/action-menu/icon--sprite.svg';
+import MessageBoxModal from '../components/message-box-modal/message-box-modal.jsx';
 
 import uploadImageURL from '../lib/libraries/extensions/upload/upload.png';
 
@@ -51,15 +52,19 @@ class ExtensionLibrary extends React.PureComponent {
             'componentDidMount',
             'handleRequestClose',
             'handleUploadExtension',
-            'handleItemChange'
+            'handleItemChange',
+            'handleMsgboxConfirm',
+            'handleMsgboxCancel',
+            'handleMsgboxClose'
         ]);
         this.willLoad = [];
         this.willUnload = [];
+        this.showModal = false;
     }
     componentDidMount () {
         this.willLoad = [];
         this.willUnload = [];
-        console.log('clear');
+        this.showModal = false;
     }
     handleRequestClose () {
         console.log('load', this.willLoad);
@@ -75,7 +80,9 @@ class ExtensionLibrary extends React.PureComponent {
         for (const extension of unloadOrder) {
             this.props.setExtensionDisable(extension);
         }
-        this.props.onRequestClose();
+        //this.props.onRequestClose();
+        this.showModal = true;
+        this.forceUpdate();
     }
     handleItemChange (item, status) {
         const extension = item.extensionId;
@@ -120,6 +127,15 @@ class ExtensionLibrary extends React.PureComponent {
         };
         input.click();
     }
+    handleMsgboxConfirm () {
+        console.log('confirm!!');
+    }
+    handleMsgboxCancel () {
+        console.log('cancel!!');
+    }
+    handleMsgboxClose () {
+        console.log('close!!');
+    }
     render () {
         const extensionLibraryThumbnailData = Object.values(this.props.extension).map(extension => ({
             ...extension,
@@ -130,17 +146,32 @@ class ExtensionLibrary extends React.PureComponent {
             description: (<FormattedMessage id={extension.description}/>)
         }));
         return (
-            <LibraryComponent
-                data={extensionLibraryThumbnailData}
-                id="extensionLibrary"
-                title={this.props.intl.formatMessage(messages.extensionManagement)}
-                visible={this.props.visible}
-                closeAfterSelect={false}
-                onItemSwitchChange={this.handleItemChange}
-                onRequestClose={this.handleRequestClose}
-                upload={true}
-                onUpload={this.handleUploadExtension}
-            />
+            <React.Fragment>
+                <LibraryComponent
+                    data={extensionLibraryThumbnailData}
+                    id="extensionLibrary"
+                    title={this.props.intl.formatMessage(messages.extensionManagement)}
+                    visible={this.props.visible}
+                    closeAfterSelect={false}
+                    onItemSwitchChange={this.handleItemChange}
+                    onRequestClose={this.handleRequestClose}
+                    upload={true}
+                    onUpload={this.handleUploadExtension}
+                />
+                {this.showModal ? (
+                    <MessageBoxModal
+                        intl={this.props.intl}
+                        title="THIS IS A TITLE"
+                        mode="confirm_cancel"
+                        onRequestClose={this.handleMsgboxClose}
+                        onConfirm={this.handleMsgboxConfirm}
+                        onCancel={this.handleMsgboxCancel}
+                    >
+                        <p>MAYBE THIS IS THE CONTENT OF THE MSGBOX MODAL.</p>
+                        <strong>I HOPE IT CAN WORK CORRECTLY.</strong>
+                    </MessageBoxModal>
+                ) : null}
+            </React.Fragment>
         );
     }
 }
