@@ -100,8 +100,13 @@ class ExtensionLibrary extends React.PureComponent {
         this.unloadOrder = ClipCCExtension.extensionManager.getExtensionUnloadOrder(this.willUnload);
         this.willLoadDependency = this.loadOrder.filter(v => !this.willLoad.includes(v.id));
         this.willUnloadDependency = this.unloadOrder.filter(v => !this.willUnload.includes(v));
-        this.showModal = true;
-        this.forceUpdate();
+        if (this.loadOrder.length || this.unloadOrder.length) {
+            this.showModal = true;
+            this.forceUpdate();
+        }
+        else {
+            this.props.onRequestClose();
+        }
     }
     handleItemChange (item, status) {
         const extension = item.extensionId;
