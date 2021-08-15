@@ -1,9 +1,5 @@
 <div align="center">
-<img src="https://clipsrc.blestudio.com/clip-logo-with-text.png"/>
-
 # clipcc-gui
-![](https://img.shields.io/travis/com/clipteam/clipcc-gui.svg?style=flat-square)
-
 </div>
 
 #### ClipCC is a powerful scratch-project editor based on clipcc-gui which was created by MIT. And it migrates a lot of function from ClipCC 1.x. 
