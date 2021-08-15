@@ -111,22 +111,20 @@ class ExtensionLibrary extends React.PureComponent {
     handleItemChange (item, status) {
         const extension = item.extensionId;
         if (status) { // load
-            let index = this.willLoad.indexOf(extension);
-            if (index === -1) {
-                this.willLoad.push(extension);
-            }
-            index = this.willUnload.indexOf(extension);
+            const index = this.willUnload.indexOf(extension);
             if (index !== -1) {
                 this.willUnload.splice(index, 1);
             }
+            else {
+                this.willLoad.push(extension);
+            }
         }
         else { // unload
-            let index = this.willLoad.indexOf(extension);
+            const index = this.willLoad.indexOf(extension);
             if (index !== -1) {
                 this.willLoad.splice(index, 1);
             }
-            index = this.willUnload.indexOf(extension);
-            if (index === -1) {
+            else {
                 this.willUnload.push(extension);
             }
         }

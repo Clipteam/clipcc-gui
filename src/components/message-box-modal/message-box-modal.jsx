@@ -21,8 +21,8 @@ const messages = defineMessages({
     },
     giveup: {
         id: 'gui.messageBoxModal.giveup',
-        defaultMessage: 'Giveup',
-        description: 'Button giveup'
+        defaultMessage: 'Give Up',
+        description: 'Button give up'
     }
 });
 
