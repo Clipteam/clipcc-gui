@@ -18,6 +18,11 @@ const messages = defineMessages({
         id: 'gui.messageBoxModal.cancel',
         defaultMessage: 'Cancel',
         description: 'Button cancel',
+    },
+    giveup: {
+        id: 'gui.messageBoxModal.giveup',
+        defaultMessage: 'Giveup',
+        description: 'Button giveup'
     }
 });
 
@@ -66,6 +71,14 @@ class MessageBoxModal extends React.PureComponent {
                             {this.props.mode.includes('cancel') ? (
                                 <input
                                     type="button"
+                                    value={this.props.intl.formatMessage(messages.giveup)}
+                                    //className={styles.button}
+                                    onClick={this.props.onGiveup}
+                                />
+                            ) : null}
+                            {this.props.mode.includes('cancel') ? (
+                                <input
+                                    type="button"
                                     value={this.props.intl.formatMessage(messages.cancel)}
                                     //className={styles.button}
                                     onClick={this.props.onCancel}
@@ -88,7 +101,8 @@ MessageBoxModal.propTypes = {
     headerImage: PropTypes.string,
     onRequestClose: PropTypes.func,
     onConfirm: PropTypes.func,
-    onCancel: PropTypes.func
+    onCancel: PropTypes.func,
+    onGiveup: PropTypes.func
 };
 
 export default injectIntl(MessageBoxModal);

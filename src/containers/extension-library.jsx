@@ -42,6 +42,31 @@ const messages = defineMessages({
         defaultMessage: 'Enter the URL of the extension',
         description: 'Prompt for unoffical extension url',
         id: 'gui.extensionLibrary.extensionUrl'
+    },
+    confirmTitle: {
+        defaultMessage: 'Confirm to Add Extensions',
+        description: 'Heading for the confirm modal',
+        id: 'gui.extensionLibrary.confirmTitle'
+    },
+    confirmContent1: {
+        defaultMessage: 'The following extensions will be added:',
+        description: 'Content for the confirm modal',
+        id: 'gui.extensionLibrary.confirmContent1'
+    },
+    confirmContent2: {
+        defaultMessage: 'The following dependencies will be added:',
+        description: 'Content for the confirm modal',
+        id: 'gui.extensionLibrary.confirmContent2'
+    },
+    confirmContent3: {
+        defaultMessage: 'The following extensions will be removed:',
+        description: 'Content for the confirm modal',
+        id: 'gui.extensionLibrary.confirmContent3'
+    },
+    confirmContent4: {
+        defaultMessage: 'The following dependencies will be removed:',
+        description: 'Content for the confirm modal',
+        id: 'gui.extensionLibrary.confirmContent4'
     }
 });
 
@@ -55,10 +80,14 @@ class ExtensionLibrary extends React.PureComponent {
             'handleItemChange',
             'handleMsgboxConfirm',
             'handleMsgboxCancel',
-            'handleMsgboxClose'
+            'handleMsgboxGiveup'
         ]);
         this.willLoad = [];
         this.willUnload = [];
+        this.willLoadDependency = [];
+        this.willUnloadDependency = [];
+        this.loadOrder = [];
+        this.unloadOrder = [];
         this.showModal = false;
     }
     componentDidMount () {
@@ -67,20 +96,10 @@ class ExtensionLibrary extends React.PureComponent {
         this.showModal = false;
     }
     handleRequestClose () {
-        console.log('load', this.willLoad);
-        console.log('unload', this.willUnload);
-        const loadOrder = ClipCCExtension.extensionManager.getExtensionLoadOrder(this.willLoad);
-        console.log('order', loadOrder);
-        ClipCCExtension.extensionManager.loadExtensionsWithMode(loadOrder, extension => this.props.vm.extensionManager.loadExtensionURL(extension));
-        for (const extension of loadOrder) {
-            this.props.setExtensionEnable(extension.id);
-        }
-        const unloadOrder = ClipCCExtension.extensionManager.getExtensionUnloadOrder(this.willUnload);
-        ClipCCExtension.extensionManager.unloadExtensions(unloadOrder);
-        for (const extension of unloadOrder) {
-            this.props.setExtensionDisable(extension);
-        }
-        //this.props.onRequestClose();
+        this.loadOrder = ClipCCExtension.extensionManager.getExtensionLoadOrder(this.willLoad);;
+        this.unloadOrder = ClipCCExtension.extensionManager.getExtensionUnloadOrder(this.willUnload);
+        this.willLoadDependency = this.loadOrder.filter(v => !this.willLoad.includes(v.id));
+        this.willUnloadDependency = this.unloadOrder.filter(v => !this.willUnload.includes(v));
         this.showModal = true;
         this.forceUpdate();
     }
@@ -128,13 +147,22 @@ class ExtensionLibrary extends React.PureComponent {
         input.click();
     }
     handleMsgboxConfirm () {
-        console.log('confirm!!');
+        ClipCCExtension.extensionManager.loadExtensionsWithMode(this.loadOrder, extension => this.props.vm.extensionManager.loadExtensionURL(extension));
+        for (const extension of this.loadOrder) {
+            this.props.setExtensionEnable(extension.id);
+        }
+        ClipCCExtension.extensionManager.unloadExtensions(this.unloadOrder);
+        for (const extension of this.unloadOrder) {
+            this.props.setExtensionDisable(extension);
+        }
+        this.props.onRequestClose();
     }
     handleMsgboxCancel () {
-        console.log('cancel!!');
+        this.showModal = false;
+        this.forceUpdate();
     }
-    handleMsgboxClose () {
-        console.log('close!!');
+    handleMsgboxGiveup () {
+        this.props.onRequestClose();
     }
     render () {
         const extensionLibraryThumbnailData = Object.values(this.props.extension).map(extension => ({
@@ -145,8 +173,9 @@ class ExtensionLibrary extends React.PureComponent {
             name: (<FormattedMessage id={extension.name}/>),
             description: (<FormattedMessage id={extension.description}/>)
         }));
+        console.log(this.willLoad);
         return (
-            <React.Fragment>
+            <>
                 <LibraryComponent
                     data={extensionLibraryThumbnailData}
                     id="extensionLibrary"
@@ -161,17 +190,31 @@ class ExtensionLibrary extends React.PureComponent {
                 {this.showModal ? (
                     <MessageBoxModal
                         intl={this.props.intl}
-                        title="THIS IS A TITLE"
-                        mode="confirm_cancel"
-                        onRequestClose={this.handleMsgboxClose}
+                        title={this.props.intl.formatMessage(messages.confirmTitle)}
+                        mode="confirm_cancel_giveup"
                         onConfirm={this.handleMsgboxConfirm}
+                        onGiveup={this.handleMsgboxGiveup}
                         onCancel={this.handleMsgboxCancel}
                     >
-                        <p>MAYBE THIS IS THE CONTENT OF THE MSGBOX MODAL.</p>
-                        <strong>I HOPE IT CAN WORK CORRECTLY.</strong>
+                        {this.willLoad.length ? (<>
+                            <p>{this.props.intl.formatMessage(messages.confirmContent1)}</p>
+                            <p>{this.willLoad.join(' ')}</p>
+                        </>) : null}
+                        {this.willLoadDependency.length ? (<>
+                            <p>{this.props.intl.formatMessage(messages.confirmContent2)}</p>
+                            <p>{this.willLoadDependency.join(' ')}</p>
+                        </>) : null}
+                        {this.willUnload.length ? (<>
+                            <p>{this.props.intl.formatMessage(messages.confirmContent3)}</p>
+                            <p>{this.willUnload.join(' ')}</p>
+                        </>) : null}
+                        {this.willUnloadDependency.length ? (<>
+                            <p>{this.props.intl.formatMessage(messages.confirmContent4)}</p>
+                            <p>{this.willUnloadDependency.join(' ')}</p>
+                        </>) : null}
                     </MessageBoxModal>
                 ) : null}
-            </React.Fragment>
+            </>
         );
     }
 }
