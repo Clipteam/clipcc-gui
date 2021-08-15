@@ -98,7 +98,7 @@ class ExtensionLibrary extends React.PureComponent {
     handleRequestClose () {
         this.loadOrder = ClipCCExtension.extensionManager.getExtensionLoadOrder(this.willLoad);;
         this.unloadOrder = ClipCCExtension.extensionManager.getExtensionUnloadOrder(this.willUnload);
-        this.willLoadDependency = this.loadOrder.filter(v => !this.willLoad.includes(v.id));
+        this.willLoadDependency = this.loadOrder.filter(v => !this.willLoad.includes(v.id)).map(v => v.id);
         this.willUnloadDependency = this.unloadOrder.filter(v => !this.willUnload.includes(v));
         if (this.loadOrder.length || this.unloadOrder.length) {
             this.showModal = true;
@@ -202,20 +202,36 @@ class ExtensionLibrary extends React.PureComponent {
                         onCancel={this.handleMsgboxCancel}
                     >
                         {this.willLoad.length ? (<>
-                            <p>{this.props.intl.formatMessage(messages.confirmContent1)}</p>
-                            <p>{this.willLoad.join(' ')}</p>
+                            <p style={{margin: 0}}>
+                                {this.props.intl.formatMessage(messages.confirmContent1)}
+                            </p>
+                            <p style={{margin: 0, paddingLeft: '2em'}}>
+                                {this.willLoad.join(' ')}
+                            </p>
                         </>) : null}
                         {this.willLoadDependency.length ? (<>
-                            <p>{this.props.intl.formatMessage(messages.confirmContent2)}</p>
-                            <p>{this.willLoadDependency.join(' ')}</p>
+                            <p style={{margin: 0}}>
+                                {this.props.intl.formatMessage(messages.confirmContent2)}
+                            </p>
+                            <p style={{margin: 0, paddingLeft: '2em'}}>
+                                {this.willLoadDependency.join(' ')}
+                            </p>
                         </>) : null}
                         {this.willUnload.length ? (<>
-                            <p>{this.props.intl.formatMessage(messages.confirmContent3)}</p>
-                            <p>{this.willUnload.join(' ')}</p>
+                            <p style={{margin: 0}}>
+                                {this.props.intl.formatMessage(messages.confirmContent3)}
+                            </p>
+                            <p style={{margin: 0, paddingLeft: '2em'}}>
+                                {this.willUnload.join(' ')}
+                            </p>
                         </>) : null}
                         {this.willUnloadDependency.length ? (<>
-                            <p>{this.props.intl.formatMessage(messages.confirmContent4)}</p>
-                            <p>{this.willUnloadDependency.join(' ')}</p>
+                            <p style={{margin: 0}}>
+                                {this.props.intl.formatMessage(messages.confirmContent4)}
+                            </p>
+                            <p style={{margin: 0, paddingLeft: '2em'}}>
+                                {this.willUnloadDependency.join(' ')}
+                            </p>
                         </>) : null}
                     </MessageBoxModal>
                 ) : null}
