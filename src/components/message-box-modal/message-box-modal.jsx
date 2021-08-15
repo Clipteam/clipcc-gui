@@ -54,12 +54,12 @@ class MessageBoxModal extends React.PureComponent {
                     </div>
                     <div className={styles.body}>
                         {this.props.children}
-                        <div className={styles.buttonGroup}>
+                        <div className={styles.buttonRow}>
                             {this.props.mode.includes('confirm') ? (
                                 <input
                                     type="button"
                                     value={this.props.intl.formatMessage(messages.confirm)}
-                                    className={styles.button}
+                                    className={styles.okButton}
                                     onClick={this.props.onConfirm}
                                 />
                             ) : null}
@@ -67,7 +67,7 @@ class MessageBoxModal extends React.PureComponent {
                                 <input
                                     type="button"
                                     value={this.props.intl.formatMessage(messages.cancel)}
-                                    className={styles.button}
+                                    //className={styles.button}
                                     onClick={this.props.onCancel}
                                 />
                             ) : null}

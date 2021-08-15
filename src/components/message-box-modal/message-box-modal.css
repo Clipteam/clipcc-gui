@@ -7,19 +7,33 @@
     padding: 1.5rem 2.25rem;
 }
 
-.button {
-    border: 1px solid $motion-primary;
-    border-radius: 0.25rem;
-    padding: 0.5rem 1.5rem;
-    color: white;
-    background: $motion-primary;
-    font-weight: bold;
-    font-size: .875rem;
-    cursor: pointer;
+.button-row {
+    margin-top: 1rem;
+    font-weight: bolder;
+    text-align: right;
 }
 
-.button-group {
+.button-row input {
+    border: 1px solid $ui-black-transparent;
+    border-radius: 0.25rem;
+    padding: 0.75rem 1rem;
+    background: white;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
 
+.button-row input.ok-button {
+    background: $motion-primary;
+    border: $motion-primary;
+    color: white;
+}
+
+[dir="ltr"] .button-row input + input {
+    margin-left: 0.5rem;
+}
+
+[dir="rtl"] .button-row input + input {
+    margin-right: 0.5rem;
 }
 
 .modal-overlay {
