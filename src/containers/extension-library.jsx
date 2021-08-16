@@ -133,6 +133,7 @@ class ExtensionLibrary extends React.PureComponent {
         const input = document.createElement('input');
         input.setAttribute('type', 'file');
         input.setAttribute('accept', '.js,.ccx,.scx');
+        input.setAttribute('multiple', true);
         input.onchange = event => {
             const files = event.target.files;
             for (const file of files) {
