@@ -101,21 +101,12 @@ const builtinExtensions = [
         requirement: ['internet']
     },
     {
-        extensionId: 'clipcc.json',
+        extensionId: 'ccjson',
         iconURL: JSONImage,
         insetIconURL: JSONInsetImage,
         author: 'Clip Team',
-        name: 'gui.extension.clipcc.json.name',
-        description: 'gui.extension.clipcc.json.description'
-    },
-    {
-        extensionId: 'libra',
-        iconURL: libraImage,
-        insetIconURL: libraInsetImage,
-        author: 'SCPO',
-        name: 'gui.extension.redlist.name',
-        description: 'gui.extension.redlist.description',
-        requirement: ['internet']
+        name: 'gui.extension.ccjson.name',
+        description: 'gui.extension.ccjson.description'
     },
     {
         extensionId: 'videoSensing',
