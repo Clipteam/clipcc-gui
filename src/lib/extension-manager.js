@@ -72,8 +72,6 @@ import JSONInsetImage from './libraries/extensions/JSON/clipcc.json-small.svg';
 import ClipCCDefaultImage from './libraries/extensions/clipcc/CCUnknownExtension.jpg';
 import ClipCCDefaultInsetImage from './libraries/extensions/clipcc/CCUnknownExtension.svg';
 
-import ScratchBlocks from 'clipcc-block';
-
 const builtinExtensions = [
     {
         extensionId: 'music',
@@ -134,6 +132,7 @@ const builtinExtensions = [
         description: 'gui.extension.translate.description',
         requirement: ['internet']
     },
+    /*
     {
         extensionId: 'makeymakey',
         iconURL: makeymakeyIconURL,
@@ -187,6 +186,7 @@ const builtinExtensions = [
         description: 'gui.extension.gdxfor.description',
         requirement: ['internet', 'bluetooth']
     }
+    */
 ];
 
 const loadBuiltinExtension = dispatch => {
