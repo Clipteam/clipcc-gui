@@ -177,7 +177,6 @@ class ExtensionLibrary extends React.PureComponent {
             name: (<FormattedMessage id={extension.name}/>),
             description: (<FormattedMessage id={extension.description}/>)
         }));
-        console.log(this.willLoad);
         return (
             <>
                 <LibraryComponent

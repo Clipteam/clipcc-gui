@@ -210,7 +210,7 @@ const initExtensionAPI = (gui, vm, blocks) => {
         blocks: blocks
     }
     console.log(apiInstance);
-    ClipCCExtension.API.registExtensionAPI(apiInstance);//迟早换成gui.extensionAPI
+    ClipCCExtension.api.registExtensionAPI(apiInstance);//迟早换成gui.extensionAPI
 };
 
 const loadExtensionFromFile = async (dispatch, file, type) => {
@@ -246,8 +246,10 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
         // Load extension class
         if ('main.js' in zipData.files) {
             const script = new vm.Script(await zipData.files['main.js'].async('text'));
-            const Extension = script.runInThisContext();
-            instance = new Extension();
+            const context = vm.createContext({ module: { exports: {} }, ClipCCExtension, console });
+            script.runInContext(context);
+            const ExtensionPrototype = context.module.exports;
+            instance = new ExtensionPrototype();
         } else {
             throw 'Cannot find \'main.js\' in ccx extension';
         }
