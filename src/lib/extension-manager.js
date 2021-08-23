@@ -67,7 +67,7 @@ import HTTPIOImage from './libraries/extensions/HTTPIO/HTTPIO.png';
 import HTTPIOInsetImage from './libraries/extensions/HTTPIO/clipcc.httpio-small.svg';
 
 import JSONImage from './libraries/extensions/JSON/JSON.png';
-import JSONInsetImage from './libraries/extensions/JSON/clipcc.json-small.svg';
+import JSONInsetImage from './libraries/extensions/JSON/ccjson-small.svg';
 
 import ClipCCDefaultImage from './libraries/extensions/clipcc/CCUnknownExtension.jpg';
 import ClipCCDefaultInsetImage from './libraries/extensions/clipcc/CCUnknownExtension.svg';
