@@ -75,6 +75,7 @@
     align-items: center;
     white-space: nowrap;
     height: $menu-bar-height;
+    transition: 0.25s ease-out; /* @todo: standardize with var */
 }
 
 .menu-bar-item.hoverable {

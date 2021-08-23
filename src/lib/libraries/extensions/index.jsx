@@ -53,7 +53,7 @@ import HTTPIOImage from './HTTPIO/HTTPIO.png';
 import HTTPIOInsetImage from './HTTPIO/clipcc.httpio-small.svg';
 
 import JSONImage from './JSON/JSON.png';
-import JSONInsetImage from './JSON/clipcc.json-small.svg';
+import JSONInsetImage from './JSON/ccjson-small.svg';
 
 import ClipCCDefaultImage from './clipcc/CCUnknownExtension.jpg';
 import ClipCCDefaultInsetImage from './clipcc/CCUnknownExtension.svg';
@@ -126,43 +126,21 @@ export default [
             <FormattedMessage
                 defaultMessage="JSON"
                 description="Name for the 'JSON' extension"
-                id="gui.extension.clipcc.json.name"
+                id="gui.extension.ccjson.name"
             />
         ),
         collaborator: 'Clipteam',
-        extensionId: 'clipcc.json',
+        extensionId: 'ccjson',
         iconURL: JSONImage,
         insetIconURL: JSONInsetImage,
         description: (
             <FormattedMessage
                 defaultMessage="Useful JSON extension."
                 description="Description for the 'JSON' extension"
-                id="gui.extension.clipcc.json.description"
+                id="gui.extension.ccjson.description"
             />
         ),
         featured: true
-    },
-    {
-        name: (
-            <FormattedMessage
-                defaultMessage="Libra"
-                description="Libra Redlist Plugin"
-                id="gui.extension.redlist.name"
-            />
-        ),
-        collaborator: 'SCPO & Libra',
-        extensionId: 'libra',
-        iconURL: libraImage,
-        insetIconURL: libraInsetImage,
-        description: (
-            <FormattedMessage
-                defaultMessage="Libra Redlist Plugin"
-                description="Libra Redlist Plugin"
-                id="gui.extension.redlist.description"
-            />
-        ),
-        featured: true,
-        internetConnectionRequired: true
     },
     {
         name: (

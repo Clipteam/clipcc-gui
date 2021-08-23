@@ -12,6 +12,9 @@
     z-index: $z-index-modal;
     backdrop-filter: blur(4px);
     background-color: $ui-modal-overlay;
+    animation-name: flash;
+    animation-duration: 0.75s;
+    animation-fill-mode: forwards; /* Leave at 0 opacity after animation */
 }
 
 .modal-content * {

@@ -11,6 +11,7 @@
     background-color: $ui-white;
     color: $motion-primary;
     text-align: center;
+    transition: 0.25s ease-out; /* @todo: standardize with var */
 }
 
 .switch img {

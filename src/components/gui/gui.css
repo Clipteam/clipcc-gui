@@ -93,6 +93,7 @@
 
     user-select: none;
     white-space: nowrap;
+    transition: 0.25s ease-out; /* @todo: standardize with var */
 }
 
 [dir="ltr"] .tab {

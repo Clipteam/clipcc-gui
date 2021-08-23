@@ -17,6 +17,7 @@ import {connect} from 'react-redux';
 import {updateSetting, getSetting} from '../../reducers/settings';
 
 import LayoutSetting from './layout-setting.jsx';
+import FPSSetting from './fps-setting.jsx';
 
 const messages = defineMessages({
     title: {
@@ -64,6 +65,7 @@ const SettingsModal = ({
         id="settingsModal"
     >
         <Box className={styles.body}>
+            <FPSSetting />
             <LayoutSetting />
         </Box>
     </Modal>

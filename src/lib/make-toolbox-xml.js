@@ -550,6 +550,7 @@ const sensing = function (isInitialSetup, isStage) {
         <block type="sensing_username"/>
         ${blockSeparator}
         <block type="sensing_operatingsystem"/>
+        <block type="sensing_clipcc_version"/>
         <block type="sensing_isturbomode"/>
         <block type="sensing_turnonturbomode"/>
         <block type="sensing_turnoffturbomode"/>
