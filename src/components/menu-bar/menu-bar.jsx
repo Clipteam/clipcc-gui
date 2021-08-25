@@ -68,9 +68,12 @@ import {
     loginMenuOpen
 } from '../../reducers/menus';
 
+import {updateSetting, getSetting} from '../../reducers/settings';
+
 import collectMetadata from '../../lib/collect-metadata';
 
 import styles from './menu-bar.css';
+import darkStyles from './menu-bar-dark.css';
 
 // import helpIcon from '../../lib/assets/icon--tutorials.svg';
 import mystuffIcon from './icon--mystuff.png';
@@ -414,7 +417,7 @@ class MenuBar extends React.Component {
             <Box
                 className={classNames(
                     this.props.className,
-                    styles.menuBar
+                    this.props.darkMode === 'dark' ? darkStyles.menuBar : styles.menuBar,
                 )}
             >
                 <div className={styles.mainMenu}>
@@ -904,12 +907,14 @@ MenuBar.propTypes = {
     userOwnsProject: PropTypes.bool,
     username: PropTypes.string,
     isStandalone: PropTypes.bool,
+    darkMode: PropTypes.string,
     vm: PropTypes.instanceOf(VM).isRequired
 };
 
 MenuBar.defaultProps = {
     logo: scratchLogo,
-    onShare: () => {}
+    onShare: () => {},
+    darkMode: 'light'
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -932,6 +937,7 @@ const mapStateToProps = (state, ownProps) => {
         username: user ? user.username : null,
         userOwnsProject: ownProps.authorUsername && user &&
             (ownProps.authorUsername === user.username),
+        darkMode: getSetting(state, 'darkMode'),
         vm: state.scratchGui.vm
     };
 };
