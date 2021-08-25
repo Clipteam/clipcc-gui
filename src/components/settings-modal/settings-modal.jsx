@@ -18,17 +18,13 @@ import {updateSetting, getSetting} from '../../reducers/settings';
 
 import LayoutSetting from './layout-setting.jsx';
 import FPSSetting from './fps-setting.jsx';
+import DarkModeSetting from './darkmode-setting.jsx';
 
 const messages = defineMessages({
     title: {
         defaultMessage: 'Settings',
         description: 'Settings Modal Title',
         id: 'gui.settingsModal.title'
-    },
-    darkFullscreenStage: {
-        defaultMessage: 'Dark fullscreen stage',
-        description: 'Setting of making stage dark when fullscreen.',
-        id: 'gui.settingsModal.darkFullscreenStage'
     }
 });
 
@@ -67,6 +63,7 @@ const SettingsModal = ({
         <Box className={styles.body}>
             <FPSSetting />
             <LayoutSetting />
+            <DarkModeSetting />
         </Box>
     </Modal>
 );

@@ -1,7 +1,7 @@
 /**
  * @fileoverview
- * 设置窗口中的布局选项组件
- * @author SteveXMH
+ * 设置窗口中的FPS组件
+ * @author SinanGentoo
  */
 
 import React from 'react';

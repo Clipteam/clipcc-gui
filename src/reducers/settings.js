@@ -2,7 +2,8 @@ const SETTING_UPDATE = 'clipcc-gui/settings/SETTING_UPDATE';
 
 const initialState = {
     layoutStyle: 'scratch3',
-    fps: 60
+    darkMode: 'light',
+    fps: 60,
 };
 
 for (const k in initialState) {

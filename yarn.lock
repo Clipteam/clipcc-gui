@@ -2894,10 +2894,10 @@ cli-width@^2.0.0:
   resolved "https://r.cnpmjs.org/cli-width/download/cli-width-2.2.1.tgz#b0433d0b4e9c847ef18868a4ef16fd5fc8271c48"
   integrity sha1-sEM9C06chH7xiGik7xb9X8gnHEg=
 
-clipcc-block@3.0.13:
-  version "3.0.13"
-  resolved "https://registry.yarnpkg.com/clipcc-block/-/clipcc-block-3.0.13.tgz#a31ee55822a070e6b5f5314e53b5baee7fe7ebb6"
-  integrity sha512-Fil3Y1Mw6xhKsr6cL+fgolGND9O7M268DBCGJdI9A9JNRw2v1w6BgRiGO08cJFJQpJClNJq9pGd0AdzO2OKWEA==
+clipcc-block@3.0.14:
+  version "3.0.14"
+  resolved "https://registry.yarnpkg.com/clipcc-block/-/clipcc-block-3.0.14.tgz#7a28ecdbdd8deb302fb49f20070a8b257a206b0e"
+  integrity sha512-xbI9+Rxpn+S7ZmiYAj2Hf8u3eBLDO+IRRUGHzZQAoSeBuGoUXYyjJZWQAJKl4smeqUAMRA6xQMSDdSApu/A44Q==
   dependencies:
     exports-loader "0.6.3"
     imports-loader "0.6.5"
@@ -2920,10 +2920,10 @@ clipcc-l10n@3.0.3:
     form-data "^4.0.0"
     poeditor-api "^1.0.0"
 
-clipcc-l10n@3.0.7:
-  version "3.0.7"
-  resolved "https://registry.yarnpkg.com/clipcc-l10n/-/clipcc-l10n-3.0.7.tgz#b368093f893632f59c7361f5b4732ed01db9891f"
-  integrity sha512-4Z+d61iZ1EVS6fjg7yQMiGPjXsjVd2N5zPBSpLeWVPddsrCD7gYUmem0FI4cbnsJZNQrJPMWdp8kMwmfZSCnyQ==
+clipcc-l10n@3.0.8:
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/clipcc-l10n/-/clipcc-l10n-3.0.8.tgz#4c136909c21dad76fb1ce9937e37374f983fe6c9"
+  integrity sha512-QsDi8nG2BZ+RgG5Eym4b7Ba3yMKL4x5U4tGYjI05S5F71IBtF+lfhZ6Zxhhbyg0gg7WN7B2rNG1BTU6ChH8YQA==
   dependencies:
     "@babel/cli" "^7.1.2"
     "@babel/core" "^7.1.2"
@@ -2931,10 +2931,10 @@ clipcc-l10n@3.0.7:
     form-data "^4.0.0"
     poeditor-api "^1.0.0"
 
-clipcc-vm@3.0.11:
-  version "3.0.11"
-  resolved "https://registry.yarnpkg.com/clipcc-vm/-/clipcc-vm-3.0.11.tgz#7b0369712e1143bd656378fcd0069613a9a6f34a"
-  integrity sha512-lxeU1/vm2j52rPzOMgi3yc4F7J45uatu5XVxYF2F3iaUmzZYlX95sOik3fTvsbzCys7qpinnh5r22xfo/o72tg==
+clipcc-vm@3.0.13:
+  version "3.0.13"
+  resolved "https://registry.yarnpkg.com/clipcc-vm/-/clipcc-vm-3.0.13.tgz#0c9a087204619d6abf8931391a0b76c863574bfc"
+  integrity sha512-qj+wiWT75P1xI/wLXmDJ9kOWnH3RYIpElcNpCGvZY3G+lmB6eMeHY3UQEglY198VWKadpMD/KsAiKZjQK0dqlQ==
   dependencies:
     "@vernier/godirect" "1.5.0"
     arraybuffer-loader "^1.0.6"
