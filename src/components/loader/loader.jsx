@@ -2,7 +2,9 @@ import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import classNames from 'classnames';
 import styles from './loader.css';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import {getSetting} from '../../reducers/settings';
 
 import topBlock from './top-block.svg';
 import middleBlock from './middle-block.svg';
@@ -149,7 +151,8 @@ class LoaderComponent extends React.Component {
         return (
             <div
                 className={classNames(styles.background, {
-                    [styles.fullscreen]: this.props.isFullScreen
+                    [styles.fullscreen]: this.props.isFullScreen,
+                    [styles.dark]: this.props.darkMode === 'dark'
                 })}
             >
                 <div className={styles.container}>
@@ -193,6 +196,7 @@ class LoaderComponent extends React.Component {
 
 LoaderComponent.propTypes = {
     isFullScreen: PropTypes.bool,
+    darkMode: PropTypes.string,
     messageId: PropTypes.string
 };
 LoaderComponent.defaultProps = {
@@ -200,4 +204,10 @@ LoaderComponent.defaultProps = {
     messageId: 'gui.loader.headline'
 };
 
-export default LoaderComponent;
+const mapStateToProps = state => ({
+    darkMode: getSetting(state, 'darkMode')
+});
+
+export default connect(
+    mapStateToProps
+)(LoaderComponent);

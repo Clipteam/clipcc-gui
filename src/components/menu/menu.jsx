@@ -1,11 +1,15 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {connect} from 'react-redux';
+import {getSetting} from '../../reducers/settings';
+
 
 import styles from './menu.css';
 
-const MenuComponent = ({
+const Menu = ({
     className = '',
+    darkMode,
     children,
     componentRef,
     place = 'right'
@@ -16,7 +20,8 @@ const MenuComponent = ({
             className,
             {
                 [styles.left]: place === 'left',
-                [styles.right]: place === 'right'
+                [styles.right]: place === 'right',
+                [styles.darkMenu]: darkMode === 'dark'
             }
         )}
         ref={componentRef}
@@ -25,10 +30,11 @@ const MenuComponent = ({
     </ul>
 );
 
-MenuComponent.propTypes = {
+Menu.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     componentRef: PropTypes.func,
+    darkMode: PropTypes.string,
     place: PropTypes.oneOf(['left', 'right'])
 };
 
@@ -76,6 +82,14 @@ const MenuSection = ({children}) => (
 MenuSection.propTypes = {
     children: PropTypes.node
 };
+
+const mapStateToProps = state => ({
+    darkMode: getSetting(state, 'darkMode')
+});
+
+const MenuComponent = connect(
+    mapStateToProps
+)(Menu);
 
 export {
     MenuComponent as default,

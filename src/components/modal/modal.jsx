@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactModal from 'react-modal';
 import {FormattedMessage} from 'react-intl';
+import {connect} from 'react-redux';
+import {getSetting} from '../../reducers/settings';
 
 import Box from '../box/box.jsx';
 import Button from '../button/button.jsx';
@@ -20,7 +22,9 @@ const ModalComponent = props => (
             [styles.fullScreen]: props.fullScreen
         })}
         contentLabel={props.contentLabel}
-        overlayClassName={styles.modalOverlay}
+        overlayClassName={classNames(styles.modalOverlay, {
+            [styles.darkModal]: props.darkMode === 'dark'
+        })}
         onRequestClose={props.onRequestClose}
     >
         <Box
@@ -28,7 +32,11 @@ const ModalComponent = props => (
             direction="column"
             grow={1}
         >
-            <div className={classNames(styles.header, props.headerClassName)}>
+            <div
+                className={classNames(styles.header, props.headerClassName, {
+                    [styles.darkHeader]: props.darkMode === 'dark'
+                })}
+            >
                 {props.onHelp ? (
                     <div
                         className={classNames(
@@ -101,6 +109,7 @@ ModalComponent.propTypes = {
         PropTypes.string,
         PropTypes.object
     ]).isRequired,
+    darkMode: PropTypes.string,
     fullScreen: PropTypes.bool,
     headerClassName: PropTypes.string,
     headerImage: PropTypes.string,
@@ -109,4 +118,10 @@ ModalComponent.propTypes = {
     onRequestClose: PropTypes.func
 };
 
-export default ModalComponent;
+const mapStateToProps = state => ({
+    darkMode: getSetting(state, 'darkMode')
+});
+
+export default connect(
+    mapStateToProps
+)(ModalComponent);

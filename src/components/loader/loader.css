@@ -18,6 +18,10 @@
     color: white;
 }
 
+.dark {
+    background-color: $ui-modal-overlay-dark;
+}
+
 .fullscreen {
     /* Break out of the layout using position: fixed to cover the whole screen */
     position: fixed;

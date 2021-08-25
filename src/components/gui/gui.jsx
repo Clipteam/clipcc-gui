@@ -35,6 +35,7 @@ import AboutModal from '../about-modal/about-modal.jsx';
 
 import layout, {STAGE_SIZE_MODES} from '../../lib/layout-constants';
 import {resolveStageSize} from '../../lib/screen-utils';
+import {getSetting} from '../../reducers/settings';
 
 import styles from './gui.css';
 import addExtensionIcon from './icon--extensions.svg';
@@ -82,6 +83,7 @@ const GUIComponent = props => {
         connectionModalVisible,
         costumeLibraryVisible,
         costumesTabVisible,
+        darkMode,
         enableCommunity,
         intl,
         isCreating,
@@ -372,7 +374,13 @@ const GUIComponent = props => {
                     onStartSelectingFileUpload={onStartSelectingFileUpload}
                     onToggleLoginOpen={onToggleLoginOpen}
                 />
-                <Box className={styles.bodyWrapper}>
+                <Box
+                    className={
+                        classNames(styles.bodyWrapper, {
+                            [styles.darkWrapper]: darkMode
+                        }
+                        )}
+                >
                     <Box className={styles.flexWrapper}>
                         {layoutStyle === 'scratch2' ? guiContent.reverse() : guiContent}
                     </Box>
@@ -406,6 +414,7 @@ GUIComponent.propTypes = {
     canUseCloud: PropTypes.bool,
     cardsVisible: PropTypes.bool,
     children: PropTypes.node,
+    darkMode: PropTypes.string,
     costumeLibraryVisible: PropTypes.bool,
     costumesTabVisible: PropTypes.bool,
     enableCommunity: PropTypes.bool,
@@ -475,7 +484,8 @@ GUIComponent.defaultProps = {
 
 const mapStateToProps = state => ({
     // This is the button's mode, as opposed to the actual current state
-    stageSizeMode: state.scratchGui.stageSize.stageSize
+    stageSizeMode: state.scratchGui.stageSize.stageSize,
+    darkMode: getSetting(state, 'darkMode')
 });
 
 export default injectIntl(connect(

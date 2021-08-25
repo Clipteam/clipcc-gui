@@ -11,6 +11,10 @@
     background-color: $ui-primary;
 }
 
+.dark-wrapper {
+    background-color: $ui-primary-dark;
+}
+
 .body-wrapper * {
     box-sizing: border-box;
 }
