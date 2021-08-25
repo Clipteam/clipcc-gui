@@ -73,7 +73,6 @@ import {updateSetting, getSetting} from '../../reducers/settings';
 import collectMetadata from '../../lib/collect-metadata';
 
 import styles from './menu-bar.css';
-import darkStyles from './menu-bar-dark.css';
 
 // import helpIcon from '../../lib/assets/icon--tutorials.svg';
 import mystuffIcon from './icon--mystuff.png';
@@ -417,12 +416,13 @@ class MenuBar extends React.Component {
             <Box
                 className={classNames(
                     this.props.className,
-                    this.props.darkMode === 'dark' ? darkStyles.menuBar : styles.menuBar,
+                    styles.menuBar,
+                    {[styles.darkMenuBar]: this.props.darkMode === 'dark'}
                 )}
             >
                 <div className={styles.mainMenu}>
                     <div className={styles.fileGroup}>
-                        <div className={classNames(styles.menuBarItem)}>
+                        <div className={classNames(styles.menuBarItem, {[styles.darkMenuBarItem]: this.props.darkMode === 'dark' })}>
                             <img
                                 alt="ClipCC"
                                 className={classNames(styles.scratchLogo, {
@@ -434,7 +434,7 @@ class MenuBar extends React.Component {
                             />
                         </div>
                         {(this.props.canChangeLanguage) && (<div
-                            className={classNames(styles.menuBarItem, styles.hoverable, styles.languageMenu)}
+                            className={classNames(styles.menuBarItem, styles.hoverable, styles.languageMenu, { [styles.darkMenuBarItem]: this.props.darkMode === 'dark' })}
                         >
                             <div>
                                 <img
@@ -450,7 +450,7 @@ class MenuBar extends React.Component {
                         </div>)}
                         {(this.props.canManageFiles) && (
                             <div
-                                className={classNames(styles.menuBarItem, styles.hoverable, {
+                                className={classNames(styles.menuBarItem, { [styles.darkMenuBarItem]: this.props.darkMode === 'dark' }, styles.hoverable, {
                                     [styles.active]: this.props.fileMenuOpen
                                 })}
                                 onMouseUp={this.props.onClickFile}
@@ -516,7 +516,7 @@ class MenuBar extends React.Component {
                             </div>
                         )}
                         <div
-                            className={classNames(styles.menuBarItem, styles.hoverable, {
+                            className={classNames(styles.menuBarItem, { [styles.darkMenuBarItem]: this.props.darkMode === 'dark' },styles.hoverable, {
                                 [styles.active]: this.props.editMenuOpen
                             })}
                             onMouseUp={this.props.onClickEdit}
@@ -564,7 +564,7 @@ class MenuBar extends React.Component {
                             </MenuBarMenu>
                         </div>
                         <div
-                            className={classNames(styles.menuBarItem, styles.hoverable, {
+                            className={classNames(styles.menuBarItem, { [styles.darkMenuBarItem]: this.props.darkMode === 'dark' },styles.hoverable, {
                                 [styles.active]: this.props.otherMenuOpen
                             })}
                             onMouseUp={this.props.onClickOther}

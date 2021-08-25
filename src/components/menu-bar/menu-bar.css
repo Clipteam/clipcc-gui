@@ -31,6 +31,10 @@
     color: $ui-white;
 }
 
+.dark-menu-bar {
+    background-color: $motion-primary-dark;
+}
+
 .main-menu {
     display: flex;
     flex-direction: row;
@@ -85,6 +89,11 @@
 .menu-bar-item.active,
 .menu-bar-item.hoverable:hover {
     background-color: $ui-black-transparent;
+}
+
+.dark-menu-bar-item.active,
+.dark-menu-bar-item.hoverable:hover {
+    background-color: $ui-white-transparent;
 }
 
 .menu-bar-item.growable {
