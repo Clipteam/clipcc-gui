@@ -43,7 +43,11 @@ const LayoutSetting = props => (
         alignItems="center"
         style={{display: 'flex'}}
     >
-        <strong>{props.intl.formatMessage(messages.label)}</strong>
+        <strong className={classNames(
+            { [styles.darkText]: props.darkMode === 'dark' }
+        )}>
+            {props.intl.formatMessage(messages.label)}
+        </strong>
         <Box
             alignContent="center"
             alignItems="center"
@@ -53,6 +57,7 @@ const LayoutSetting = props => (
                 className={classNames(
                     styles.switchLeft,
                     styles.switch,
+                    {[styles.darkSwitch]: props.darkMode === 'dark'},
                     props.layoutStyle === 'scratch2' ? styles.active : null
                 )}
                 onClick={props.onClickScratch2Style}
@@ -63,6 +68,7 @@ const LayoutSetting = props => (
                 className={classNames(
                     styles.switchRight,
                     styles.switch,
+                    { [styles.darkSwitch]: props.darkMode === 'dark' },
                     props.layoutStyle === 'scratch3' ? styles.active : ''
                 )}
                 onClick={props.onClickScratch3Style}
@@ -76,12 +82,14 @@ const LayoutSetting = props => (
 LayoutSetting.propTypes = {
     intl: intlShape.isRequired,
     layoutStyle: PropTypes.string.isRequired,
+    darkMode: PropTypes.string.isRequired,
     onClickScratch2Style: PropTypes.func.isRequired,
     onClickScratch3Style: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-    layoutStyle: getSetting(state, 'layoutStyle')
+    layoutStyle: getSetting(state, 'layoutStyle'),
+    darkMode: getSetting(state, 'darkMode')
 });
 
 const mapDispatchToProps = dispatch => ({

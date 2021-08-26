@@ -14,6 +14,11 @@
     transition: 0.25s ease-out; /* @todo: standardize with var */
 }
 
+.dark-switch {
+    background-color: $ui-primary-dark;
+    color: $ui-white;
+}
+
 .switch img {
     image-rendering: crisp-edges;
     filter: invert(50%) sepia(41%) saturate(1318%) hue-rotate(188deg) brightness(103%) contrast(101%);
@@ -29,11 +34,16 @@
     color: $ui-white;
 }
 
+.dark-text {
+    color: $ui-white;
+}
+
 .switch-left {
     border-color: $motion-tertiary;
     border-style: solid;
     border-radius: $form-radius 0 0 $form-radius;
 }
+
 
 .switch-center {
     border-color: $motion-tertiary;

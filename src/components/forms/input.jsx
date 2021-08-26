@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 
 import styles from './input.css';
 
-const Input = props => {
+import { getSetting } from '../../reducers/settings';
+
+const ReactInput = props => {
     const {small, ...componentProps} = props;
     return (
         <input
@@ -13,20 +16,31 @@ const Input = props => {
                 styles.inputForm,
                 props.className,
                 {
-                    [styles.inputSmall]: small
+                    [styles.inputSmall]: small,
+                    [styles.darkInputForm]: props.darkMode === 'dark'
                 }
             )}
         />
     );
 };
 
-Input.propTypes = {
+ReactInput.propTypes = {
     className: PropTypes.string,
-    small: PropTypes.bool
+    small: PropTypes.bool,
+    darkMode: PropTypes.string
 };
 
-Input.defaultProps = {
-    small: false
+ReactInput.defaultProps = {
+    small: false,
+    darkMode: 'light'
 };
+
+const mapStateToProps = state => ({
+    darkMode: getSetting(state, 'darkMode')
+});
+
+const Input = connect(
+    mapStateToProps
+)(ReactInput);
 
 export default Input;

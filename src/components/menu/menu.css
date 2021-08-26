@@ -42,6 +42,11 @@
     background-color: $ui-black-transparent;
 }
 
+.dark-menu-item.active,
+.dark-menu-item:hover {
+    background-color: $ui-white-transparent;
+}
+
 .menu-item.hoverable {
     cursor: pointer;
 }

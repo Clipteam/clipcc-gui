@@ -11,10 +11,10 @@ import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import Modal from '../../containers/modal.jsx';
 import styles from './settings-modal.css';
 // eslint-disable-next-line no-unused-vars
-import Switch from './switch.jsx';
+import classNames from 'classnames';
 import {connect} from 'react-redux';
 // eslint-disable-next-line no-unused-vars
-import {updateSetting, getSetting} from '../../reducers/settings';
+import {getSetting} from '../../reducers/settings';
 
 import LayoutSetting from './layout-setting.jsx';
 import FPSSetting from './fps-setting.jsx';
@@ -52,7 +52,8 @@ Setting.propTypes = {
 
 const SettingsModal = ({
     intl,
-    onRequestClose
+    onRequestClose,
+    darkMode
 }) => (
     <Modal
         className={styles.modalContent}
@@ -60,7 +61,9 @@ const SettingsModal = ({
         onRequestClose={onRequestClose}
         id="settingsModal"
     >
-        <Box className={styles.body}>
+        <Box className={classNames(styles.body, {
+            [styles.darkBody]: darkMode === 'dark'
+        })}>
             <FPSSetting />
             <LayoutSetting />
             <DarkModeSetting />
@@ -71,12 +74,13 @@ const SettingsModal = ({
 
 SettingsModal.propTypes = {
     intl: intlShape.isRequired,
-    onRequestClose: PropTypes.func.isRequired
+    onRequestClose: PropTypes.func.isRequired,
+    darkMode: PropTypes.string,
 };
 
 // eslint-disable-next-line no-unused-vars
 const mapStateToProps = state => ({
-    // darkFullscreenStage: getSetting(state, 'darkFullscreenStage')
+    darkMode: getSetting(state, 'darkMode'),
 });
 
 // eslint-disable-next-line no-unused-vars

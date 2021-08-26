@@ -38,7 +38,11 @@ const darkModeSetting = props => (
         alignItems="center"
         style={{display: 'flex'}}
     >
-        <strong>{props.intl.formatMessage(messages.label)}</strong>
+        <strong className={classNames(
+            { [styles.darkText]: props.darkMode === 'dark' }
+        )}>
+            {props.intl.formatMessage(messages.label)}
+        </strong>
         <Box
             alignContent="center"
             alignItems="center"
@@ -48,6 +52,7 @@ const darkModeSetting = props => (
                 className={classNames(
                     styles.switchLeft,
                     styles.switch,
+                    {[styles.darkSwitch]: props.darkMode === 'dark' },
                     props.darkMode === 'dark' ? styles.active : null
                 )}
                 onClick={props.onClickDark}
@@ -58,6 +63,7 @@ const darkModeSetting = props => (
                 className={classNames(
                     styles.switchRight,
                     styles.switch,
+                    {[styles.darkSwitch]: props.darkMode === 'dark' },
                     props.darkMode === 'light' ? styles.active : null
                 )}
                 onClick={props.onClickLight}

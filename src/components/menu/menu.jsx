@@ -39,16 +39,18 @@ Menu.propTypes = {
 };
 
 
-const MenuItem = ({
+const Item = ({
     children,
     className,
+    darkMode,
     onClick
 }) => (
     <li
         className={classNames(
             styles.menuItem,
             styles.hoverable,
-            className
+            className,
+            {[styles.darkMenuItem]: darkMode === 'dark'}
         )}
         onClick={onClick}
     >
@@ -56,10 +58,11 @@ const MenuItem = ({
     </li>
 );
 
-MenuItem.propTypes = {
+Item.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    darkMode: PropTypes.string,
 };
 
 
@@ -90,6 +93,10 @@ const mapStateToProps = state => ({
 const MenuComponent = connect(
     mapStateToProps
 )(Menu);
+
+const MenuItem = connect(
+    mapStateToProps
+)(Item);
 
 export {
     MenuComponent as default,

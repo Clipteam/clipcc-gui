@@ -31,6 +31,10 @@
     min-width: 0;
 }
 
+.dark-input-from {
+    color: $ui-tertiary-dark;
+}
+
 .input-form:hover {
     border-color: $motion-primary;
 }
