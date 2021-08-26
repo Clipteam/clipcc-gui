@@ -377,7 +377,7 @@ const GUIComponent = props => {
                 <Box
                     className={
                         classNames(styles.bodyWrapper, {
-                            [styles.darkWrapper]: darkMode
+                            [styles.darkWrapper]: darkMode === 'dark'
                         }
                         )}
                 >
