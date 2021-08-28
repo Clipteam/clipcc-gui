@@ -91,8 +91,8 @@
     background-color: $ui-black-transparent;
 }
 
-.dark-menu-bar-item.active,
-.dark-menu-bar-item.hoverable:hover {
+[theme='dark'] .menu-bar-item.active,
+[theme='dark'] .menu-bar-item.hoverable:hover {
     background-color: $ui-white-transparent;
 }
 

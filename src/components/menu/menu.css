@@ -42,8 +42,8 @@
     background-color: $ui-black-transparent;
 }
 
-.dark-menu-item.active,
-.dark-menu-item:hover {
+[theme='dark'] .menu-item.active,
+[theme='dark'] .menu-item:hover {
     background-color: $ui-white-transparent;
 }
 
