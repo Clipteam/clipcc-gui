@@ -11,6 +11,11 @@
     border-bottom: 1px solid $ui-black-transparent;
 }
 
+[theme='dark'] .sprite-info {
+    background-color: $ui-primary-dark;
+    color :white;
+}
+
 .row {
     display: flex;
     justify-content: space-between;

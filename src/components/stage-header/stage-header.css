@@ -15,6 +15,10 @@
     z-index: $z-index-stage-header;
 }
 
+[theme='dark'] .stage-header-wrapper-overlay {
+    background-color: rgb(83, 83, 83);
+}
+
 .scratch2 {
     flex-direction: row-reverse;
 }

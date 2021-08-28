@@ -22,7 +22,6 @@
 
 [theme='dark'] .sprite-selector {
     background-color: $ui-tertiary-dark;
-    border-color: $ui-white-transparent;
 }
 
 .sprite-wrapper {

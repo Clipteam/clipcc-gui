@@ -23,6 +23,11 @@ $header-height: calc($stage-menu-height - 2px);
     transition: all 0.25s ease;
 }
 
+[theme='dark'] .stage-selector {
+    background-color: $ui-primary-dark;
+    color: $ui-white;
+}
+
 .stage-selector.is-selected {
     border-top-left-radius: .625rem;
     border-top-right-radius: .625rem;
@@ -49,6 +54,11 @@ $header-height: calc($stage-menu-height - 2px);
     transition: background-color 0.25s ease;
 }
 
+[theme='dark'] .header {
+    background-color: $ui-primary-dark;
+    color: white;
+}
+
 .header-title {
     font-size: 0.625rem;
     font-weight: bold;
@@ -57,6 +67,10 @@ $header-height: calc($stage-menu-height - 2px);
     /* @todo: make this a mixin for all UI text labels */
     user-select: none;
     transition: color 0.25s ease;
+}
+
+[theme='dark'] .header-title {
+    color:white ;
 }
 
 .stage-selector.is-selected .header {
@@ -74,12 +88,20 @@ $header-height: calc($stage-menu-height - 2px);
     user-select: none;
 }
 
+[theme='dark'] .count {
+    color: white;
+}
+
 .label {
     margin: 0.75rem 0 0.25rem;
     font-size: 0.6rem;
     color: $text-primary;
     user-select: none;
     text-align: center;
+}
+
+[theme='dark'] .label {
+    color: white;
 }
 
 .costume-canvas {
