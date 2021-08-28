@@ -19,10 +19,10 @@ const messages = defineMessages({
         description: 'Label of ClipCC dark mode',
         id: 'gui.settingsModal.darkmode.label'
     },
-    auto: {
-        defaultMessage: 'Auto',
-        description: 'Label of auto',
-        id: 'gui.settingsModal.darkmode.auto'
+    system: {
+        defaultMessage: 'System',
+        description: 'Label of system',
+        id: 'gui.settingsModal.darkmode.system'
     },
     dark: {
         defaultMessage: 'Dark',
@@ -43,9 +43,7 @@ const darkModeSetting = props => (
         alignItems="center"
         style={{display: 'flex'}}
     >
-        <strong className={classNames(
-            { [styles.darkText]: props.darkMode === 'dark' }
-        )}>
+        <strong>
             {props.intl.formatMessage(messages.label)}
         </strong>
         <Box
@@ -57,15 +55,16 @@ const darkModeSetting = props => (
                 className={classNames(
                     styles.switchLeft,
                     styles.switch,
-                    props.darkMode === 'auto' ? styles.active : null
+                    props.darkMode === 'system' ? styles.active : null
                 )}
-                onClick={props.onClickAuto}
+                onClick={props.onClickSystem}
             >
-                <div>{props.intl.formatMessage(messages.auto)}</div>
+                <div>{props.intl.formatMessage(messages.system)}</div>
             </span>
             <span
                 className={classNames(
                     styles.switch,
+                    styles.switchCenter,
                     props.darkMode === 'dark' ? styles.active : null
                 )}
                 onClick={props.onClickDark}
@@ -76,7 +75,6 @@ const darkModeSetting = props => (
                 className={classNames(
                     styles.switchRight,
                     styles.switch,
-                    {[styles.darkSwitch]: props.darkMode === 'dark' },
                     props.darkMode === 'light' ? styles.active : null
                 )}
                 onClick={props.onClickLight}
@@ -90,7 +88,7 @@ const darkModeSetting = props => (
 darkModeSetting.propTypes = {
     intl: intlShape.isRequired,
     darkMode: PropTypes.string.isRequired,
-    onClickAuto: PropTypes.func.isRequired,
+    onClickSystem: PropTypes.func.isRequired,
     onClickLight: PropTypes.func.isRequired,
     onClickDark: PropTypes.func.isRequired
 };
@@ -100,7 +98,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onClickAuto: () => dispatch(updateSetting('darkMode', 'auto')),
+    onClickSystem: () => dispatch(updateSetting('darkMode', 'system')),
     onClickDark: () => dispatch(updateSetting('darkMode', 'dark')),
     onClickLight: () => dispatch(updateSetting('darkMode', 'light'))
 });

@@ -159,7 +159,7 @@ GUI.defaultProps = {
 const mapStateToProps = state => {
     const loadingState = state.scratchGui.projectState.loadingState;
     let darkMode = getSetting(state, 'darkMode');
-    if (darkMode === 'auto') {
+    if (darkMode === 'system') {
         if (matchMedia('(prefers-color-scheme: dark)').matches) {
             darkMode = 'dark';
         } else {

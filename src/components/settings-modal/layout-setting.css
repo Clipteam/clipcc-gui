@@ -14,7 +14,7 @@
     transition: 0.25s ease-out; /* @todo: standardize with var */
 }
 
-.dark-switch {
+[theme='dark'] .switch {
     background-color: $ui-primary-dark;
     color: $ui-white;
 }
