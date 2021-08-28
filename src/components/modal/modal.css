@@ -17,7 +17,7 @@
     animation-fill-mode: forwards; /* Leave at 0 opacity after animation */
 }
 
-.dark-modal {
+[theme='dark'] .modal-overlay {
     background-color: $ui-modal-overlay-dark;
 }
 
@@ -83,7 +83,7 @@ $sides: 20rem;
     font-weight: normal;
 }
 
-.dark-header {
+[theme='dark'] .header {
     background-color: $motion-primary-dark;
 }
 

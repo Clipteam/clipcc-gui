@@ -19,6 +19,11 @@ const messages = defineMessages({
         description: 'Label of ClipCC dark mode',
         id: 'gui.settingsModal.darkmode.label'
     },
+    auto: {
+        defaultMessage: 'Auto',
+        description: 'Label of auto',
+        id: 'gui.settingsModal.darkmode.auto'
+    },
     dark: {
         defaultMessage: 'Dark',
         description: 'Label of dark',
@@ -52,7 +57,15 @@ const darkModeSetting = props => (
                 className={classNames(
                     styles.switchLeft,
                     styles.switch,
-                    {[styles.darkSwitch]: props.darkMode === 'dark' },
+                    props.darkMode === 'auto' ? styles.active : null
+                )}
+                onClick={props.onClickAuto}
+            >
+                <div>{props.intl.formatMessage(messages.auto)}</div>
+            </span>
+            <span
+                className={classNames(
+                    styles.switch,
                     props.darkMode === 'dark' ? styles.active : null
                 )}
                 onClick={props.onClickDark}
@@ -77,6 +90,7 @@ const darkModeSetting = props => (
 darkModeSetting.propTypes = {
     intl: intlShape.isRequired,
     darkMode: PropTypes.string.isRequired,
+    onClickAuto: PropTypes.func.isRequired,
     onClickLight: PropTypes.func.isRequired,
     onClickDark: PropTypes.func.isRequired
 };
@@ -86,6 +100,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    onClickAuto: () => dispatch(updateSetting('darkMode', 'auto')),
     onClickDark: () => dispatch(updateSetting('darkMode', 'dark')),
     onClickLight: () => dispatch(updateSetting('darkMode', 'light'))
 });

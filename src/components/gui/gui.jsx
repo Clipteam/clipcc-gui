@@ -35,7 +35,6 @@ import AboutModal from '../about-modal/about-modal.jsx';
 
 import layout, {STAGE_SIZE_MODES} from '../../lib/layout-constants';
 import {resolveStageSize} from '../../lib/screen-utils';
-import {getSetting} from '../../reducers/settings';
 
 import styles from './gui.css';
 import addExtensionIcon from './icon--extensions.svg';
@@ -83,7 +82,6 @@ const GUIComponent = props => {
         connectionModalVisible,
         costumeLibraryVisible,
         costumesTabVisible,
-        darkMode,
         enableCommunity,
         intl,
         isCreating,
@@ -374,13 +372,7 @@ const GUIComponent = props => {
                     onStartSelectingFileUpload={onStartSelectingFileUpload}
                     onToggleLoginOpen={onToggleLoginOpen}
                 />
-                <Box
-                    className={
-                        classNames(styles.bodyWrapper, {
-                            [styles.darkWrapper]: darkMode === 'dark'
-                        }
-                        )}
-                >
+                <Box className={styles.bodyWrapper}>
                     <Box className={styles.flexWrapper}>
                         {layoutStyle === 'scratch2' ? guiContent.reverse() : guiContent}
                     </Box>
@@ -484,8 +476,7 @@ GUIComponent.defaultProps = {
 
 const mapStateToProps = state => ({
     // This is the button's mode, as opposed to the actual current state
-    stageSizeMode: state.scratchGui.stageSize.stageSize,
-    darkMode: getSetting(state, 'darkMode')
+    stageSizeMode: state.scratchGui.stageSize.stageSize
 });
 
 export default injectIntl(connect(

@@ -18,7 +18,7 @@
     color: white;
 }
 
-.dark {
+[theme='dark'] .background {
     background-color: $ui-modal-overlay-dark;
 }
 

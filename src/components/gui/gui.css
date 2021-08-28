@@ -11,7 +11,7 @@
     background-color: $ui-primary;
 }
 
-.dark-wrapper {
+[theme='dark'] .body-wrapper {
     background-color: $ui-primary-dark;
 }
 

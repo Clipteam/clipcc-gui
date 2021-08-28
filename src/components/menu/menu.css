@@ -14,7 +14,7 @@
     box-shadow: 0 8px 8px 0 $ui-black-transparent;
 }
 
-.dark-menu {
+[theme='dark'] .menu {
     background-color: $motion-primary-dark;
 }
 

@@ -151,8 +151,7 @@ class LoaderComponent extends React.Component {
         return (
             <div
                 className={classNames(styles.background, {
-                    [styles.fullscreen]: this.props.isFullScreen,
-                    [styles.dark]: this.props.darkMode === 'dark'
+                    [styles.fullscreen]: this.props.isFullScreen
                 })}
             >
                 <div className={styles.container}>
@@ -196,7 +195,6 @@ class LoaderComponent extends React.Component {
 
 LoaderComponent.propTypes = {
     isFullScreen: PropTypes.bool,
-    darkMode: PropTypes.string,
     messageId: PropTypes.string
 };
 LoaderComponent.defaultProps = {
@@ -204,10 +202,5 @@ LoaderComponent.defaultProps = {
     messageId: 'gui.loader.headline'
 };
 
-const mapStateToProps = state => ({
-    darkMode: getSetting(state, 'darkMode')
-});
 
-export default connect(
-    mapStateToProps
-)(LoaderComponent);
+export default LoaderComponent;

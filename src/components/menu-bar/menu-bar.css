@@ -31,7 +31,7 @@
     color: $ui-white;
 }
 
-.dark-menu-bar {
+[theme='dark'] .menu-bar {
     background-color: $motion-primary-dark;
 }
 
