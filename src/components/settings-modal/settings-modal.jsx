@@ -52,8 +52,7 @@ Setting.propTypes = {
 
 const SettingsModal = ({
     intl,
-    onRequestClose,
-    darkMode
+    onRequestClose
 }) => (
     <Modal
         className={styles.modalContent}
@@ -61,9 +60,7 @@ const SettingsModal = ({
         onRequestClose={onRequestClose}
         id="settingsModal"
     >
-        <Box className={classNames(styles.body, {
-            [styles.darkBody]: darkMode === 'dark'
-        })}>
+        <Box className={classNames(styles.body)}>
             <FPSSetting />
             <LayoutSetting />
             <DarkModeSetting />
@@ -74,13 +71,12 @@ const SettingsModal = ({
 
 SettingsModal.propTypes = {
     intl: intlShape.isRequired,
-    onRequestClose: PropTypes.func.isRequired,
-    darkMode: PropTypes.string,
+    onRequestClose: PropTypes.func.isRequired
 };
 
 // eslint-disable-next-line no-unused-vars
 const mapStateToProps = state => ({
-    darkMode: getSetting(state, 'darkMode'),
+
 });
 
 // eslint-disable-next-line no-unused-vars

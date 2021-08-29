@@ -2,9 +2,7 @@ import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import classNames from 'classnames';
 import styles from './loader.css';
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {getSetting} from '../../reducers/settings';
 
 import topBlock from './top-block.svg';
 import middleBlock from './middle-block.svg';

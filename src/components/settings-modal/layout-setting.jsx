@@ -67,7 +67,6 @@ const LayoutSetting = props => (
                 className={classNames(
                     styles.switchRight,
                     styles.switch,
-                    { [styles.darkSwitch]: props.darkMode === 'dark' },
                     props.layoutStyle === 'scratch3' ? styles.active : ''
                 )}
                 onClick={props.onClickScratch3Style}
@@ -81,14 +80,12 @@ const LayoutSetting = props => (
 LayoutSetting.propTypes = {
     intl: intlShape.isRequired,
     layoutStyle: PropTypes.string.isRequired,
-    darkMode: PropTypes.string.isRequired,
     onClickScratch2Style: PropTypes.func.isRequired,
     onClickScratch3Style: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-    layoutStyle: getSetting(state, 'layoutStyle'),
-    darkMode: getSetting(state, 'darkMode')
+    layoutStyle: getSetting(state, 'layoutStyle')
 });
 
 const mapDispatchToProps = dispatch => ({
