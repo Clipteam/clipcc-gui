@@ -15,6 +15,10 @@
     height: calc(100% - $library-header-height);
 }
 
+[theme='dark'] .library-scroll-grid {
+    background-color: $ui-primary-dark;
+}
+
 .library-scroll-grid.withFilterBar {
     height: calc(100% - $library-header-height - $library-filter-bar-height - 2rem);
 }

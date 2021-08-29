@@ -9,6 +9,7 @@ import textInputIcon from './icon--text-input.svg';
 import labelIcon from './icon--label.svg';
 
 import styles from './custom-procedures.css';
+import classNames from 'classnames';
 
 const messages = defineMessages({
     myblockModalTitle: {
@@ -99,7 +100,10 @@ const CustomProcedures = props => (
                     </div>
                 </div>
             </div>
-            <div className={styles.checkboxRow}>
+            <div className={classNames(
+                styles.checkboxRow,
+                styles.optionTitle
+            )}>
                 <label>
                     <input
                         checked={props.warp}
