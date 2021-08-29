@@ -44,7 +44,7 @@ const LayoutSetting = props => (
         style={{display: 'flex'}}
     >
         <strong className={classNames(
-            { [styles.darkText]: props.darkMode === 'dark' }
+            styles.text
         )}>
             {props.intl.formatMessage(messages.label)}
         </strong>
@@ -57,7 +57,6 @@ const LayoutSetting = props => (
                 className={classNames(
                     styles.switchLeft,
                     styles.switch,
-                    {[styles.darkSwitch]: props.darkMode === 'dark'},
                     props.layoutStyle === 'scratch2' ? styles.active : null
                 )}
                 onClick={props.onClickScratch2Style}

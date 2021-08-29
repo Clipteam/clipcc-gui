@@ -33,7 +33,7 @@ const FPSSetting = props => (
         style={{display: 'flex'}}
     >
         <strong className={classNames(
-            { [styles.darkText]: props.darkMode === 'dark' }
+            styles.text
         )}>
             {props.intl.formatMessage(messages.label)}
         </strong>
@@ -55,13 +55,11 @@ const FPSSetting = props => (
 FPSSetting.propTypes = {
     intl: intlShape.isRequired,
     fps: PropTypes.number.isRequired,
-    darkMode: PropTypes.string.isRequired,
     onChangeFPS: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-    fps: getSetting(state, "fps"),
-    darkMode: getSetting(state, 'darkMode')
+    fps: getSetting(state, 'fps')
 });
 
 const mapDispatchToProps = dispatch => ({

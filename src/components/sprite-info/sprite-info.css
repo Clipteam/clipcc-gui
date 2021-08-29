@@ -57,6 +57,10 @@
     height: 100%;
 }
 
+[theme='dark'] .icon {
+    filter: brightness(1000%);
+}
+
 /* @todo: refactor radio divs to input */
 .radio-wrapper {
     white-space: nowrap; /* make sure visibilty buttons don't wrap */

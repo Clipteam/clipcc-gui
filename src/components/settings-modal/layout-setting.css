@@ -34,7 +34,7 @@
     color: $ui-white;
 }
 
-.dark-text {
+[theme='dark'] .text {
     color: $ui-white;
 }
 
