@@ -34,6 +34,10 @@
     font-size: .875rem;
 }
 
+[theme='dark'] .filter-bar {
+    background-color: $ui-tertiary-dark;
+}
+
 .filter-bar-item {
     margin-right: .75rem;
 }

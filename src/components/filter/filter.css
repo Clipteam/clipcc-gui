@@ -16,7 +16,7 @@
 }
 
 [theme='dark'] .filter {
-    background-color: $ui-tertiary-dark;
+    background-color: $ui-primary-dark;
 }
 
 .filter-icon {
