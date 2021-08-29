@@ -16,7 +16,7 @@
 }
 
 [theme='dark'] .stage-header-wrapper-overlay {
-    background-color: rgb(83, 83, 83);
+    background-color: rgb(0,0,0);
 }
 
 .scratch2 {
@@ -64,6 +64,10 @@
     cursor: pointer;
 }
 
+[theme='dark'] .stage-button {
+    background: $drop-highlight-dark;
+}
+
 .stage-button-icon {
     width: 100%;
     height: 100%;
@@ -99,11 +103,6 @@
     filter: saturate(0);
 }
 
-.dark {
-    background-color: #35363A;
-}
-
-.dark.stage-button {
-    filter: invert();
-    background-color: #CAC9C5;
+[theme='dark'] .stage-button-icon {
+    filter: brightness(1000%);
 }

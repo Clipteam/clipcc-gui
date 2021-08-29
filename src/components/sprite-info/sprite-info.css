@@ -12,7 +12,7 @@
 }
 
 [theme='dark'] .sprite-info {
-    background-color: $ui-primary-dark;
+    background-color: $drop-highlight-dark;
     color :white;
 }
 
