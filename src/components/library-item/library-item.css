@@ -24,6 +24,11 @@
     cursor: pointer;
 }
 
+[theme='dark'] .library-item {
+    background-color: $drop-highlight-dark;
+    color: white;
+}
+
 .library-item-extension {
     align-self: stretch;
 }
@@ -156,6 +161,10 @@
     opacity: 0.75;
 }
 
+[theme='dark'] .featured-extension-metadata {
+    color: white;
+}
+
 [dir="ltr"] .featured-extension-metadata {
     text-align: left;
 }
@@ -168,6 +177,10 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+}
+
+[theme='dark'] .featured-extension-requirement {
+    filter: brightness(1000%);
 }
 
 .featured-extension-collaboration {
