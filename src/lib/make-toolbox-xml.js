@@ -809,6 +809,23 @@ const operators = function (isInitialSetup) {
                     </shadow>
                 </value>
             </block>
+            <block type="operator_indexof">
+                <value name="POS">
+                    <shadow type="math_number">
+                        <field name="NUM"></field>
+                    </shadow>
+                </value>
+                <value name="STRING">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+                <value name="SUBSTRING">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
             <block type="operator_letter_of">
                 <value name="LETTER">
                     <shadow type="math_whole_number">
