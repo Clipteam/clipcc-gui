@@ -135,6 +135,10 @@ $hover-scale: 1.25;
     transition: 0.2s;
 }
 
+[theme='dark'] .trim-handle img {
+    filter: brightness(1000%);
+}
+
 .top-trim-handle {
     top: calc(-$trim-handle-height + $trim-handle-border);
 }

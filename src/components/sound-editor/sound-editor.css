@@ -84,6 +84,10 @@ $border-radius: 0.25rem;
     margin: 0px;
 }
 
+[theme='dark'] .button {
+    background-color: $ui-primary-dark;
+}
+
 .button > img {
     flex-grow: 1;
     max-width: 100%;
@@ -123,6 +127,10 @@ $border-radius: 0.25rem;
 
 }
 
+[theme='dark'] .trim-button {
+    color: white;
+}
+
 [dir="ltr"] .trim-button {
     margin-left: 1rem;
 }
@@ -143,6 +151,10 @@ $border-radius: 0.25rem;
     padding: 0.25rem 0;
 }
 
+[theme='dark'] .effect-button {
+    color: white;
+}
+
 .effect-button + .effect-button {
     margin: 0;
 }
@@ -159,6 +171,10 @@ $border-radius: 0.25rem;
     font-size: 0.625rem;
     user-select: none;
     padding: 0.25rem 0;
+}
+
+[theme='dark'] .tool-button {
+    color: white
 }
 
 .tool-button + .tool-button {

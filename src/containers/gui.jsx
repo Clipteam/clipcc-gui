@@ -17,6 +17,7 @@ import {
     COSTUMES_TAB_INDEX,
     SOUNDS_TAB_INDEX
 } from '../reducers/editor-tab';
+import {getSetting} from '../reducers/settings';
 
 import {
     closeCostumeLibrary,
@@ -74,6 +75,7 @@ class GUI extends React.Component {
         }
     }
     render () {
+        document.body.setAttribute('theme', this.props.darkMode);
         if (this.props.isError) {
             throw new Error(
                 `Error in Scratch GUI [location=${window.location}]: ${this.props.error}`);
@@ -120,6 +122,7 @@ GUI.propTypes = {
     assetHost: PropTypes.string,
     children: PropTypes.node,
     cloudHost: PropTypes.string,
+    darkMode: PropTypes.string,
     error: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
     fetchingProject: PropTypes.bool,
     intl: intlShape,
@@ -155,6 +158,15 @@ GUI.defaultProps = {
 
 const mapStateToProps = state => {
     const loadingState = state.scratchGui.projectState.loadingState;
+    let darkMode = getSetting(state, 'darkMode');
+    if (darkMode === 'system') {
+        if (matchMedia('(prefers-color-scheme: dark)').matches) {
+            darkMode = 'dark';
+        } else {
+            darkMode = 'light';
+        }
+
+    }
     return {
         activeTabIndex: state.scratchGui.editorTab.activeTabIndex,
         alertsVisible: state.scratchGui.alerts.visible,
@@ -164,6 +176,7 @@ const mapStateToProps = state => {
         connectionModalVisible: state.scratchGui.modals.connectionModal,
         costumeLibraryVisible: state.scratchGui.modals.costumeLibrary,
         costumesTabVisible: state.scratchGui.editorTab.activeTabIndex === COSTUMES_TAB_INDEX,
+        darkMode: darkMode,
         error: state.scratchGui.projectState.error,
         isError: getIsError(loadingState),
         isFullScreen: state.scratchGui.mode.isFullScreen,

@@ -17,6 +17,10 @@
     animation-fill-mode: forwards; /* Leave at 0 opacity after animation */
 }
 
+[theme='dark'] .modal-overlay {
+    background-color: $ui-modal-overlay-dark;
+}
+
 .modal-content * {
     box-sizing: border-box;
 }
@@ -77,6 +81,10 @@ $sides: 20rem;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 1rem;
     font-weight: normal;
+}
+
+[theme='dark'] .header {
+    background-color: $motion-primary-dark;
 }
 
 .header-item {

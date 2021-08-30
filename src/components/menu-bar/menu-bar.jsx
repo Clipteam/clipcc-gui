@@ -68,6 +68,7 @@ import {
     loginMenuOpen
 } from '../../reducers/menus';
 
+
 import collectMetadata from '../../lib/collect-metadata';
 
 import styles from './menu-bar.css';
@@ -414,7 +415,7 @@ class MenuBar extends React.Component {
             <Box
                 className={classNames(
                     this.props.className,
-                    styles.menuBar
+                    styles.menuBar,
                 )}
             >
                 <div className={styles.mainMenu}>

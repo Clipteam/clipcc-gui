@@ -43,7 +43,11 @@ const LayoutSetting = props => (
         alignItems="center"
         style={{display: 'flex'}}
     >
-        <strong>{props.intl.formatMessage(messages.label)}</strong>
+        <strong className={classNames(
+            styles.text
+        )}>
+            {props.intl.formatMessage(messages.label)}
+        </strong>
         <Box
             alignContent="center"
             alignItems="center"

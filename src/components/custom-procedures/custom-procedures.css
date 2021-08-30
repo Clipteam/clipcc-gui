@@ -11,6 +11,10 @@
     padding: 1.5rem 2.25rem;
 }
 
+[theme='dark'] .body {
+    background-color: $ui-primary-dark;
+}
+
 .body input[type="checkbox"],
 .body input[type="radio"] {
     margin: 3px;
@@ -34,6 +38,10 @@
     background-color: $ui-primary;
 }
 
+[theme='dark'] .workspace :global(.blocklySvg) {
+    background-color: $drop-highlight-dark;
+}
+
 /* Row of "card" buttons for modifying custom procedures */
 .options-row {
     display: flex;
@@ -52,6 +60,11 @@
     flex-basis: 100px;
 }
 
+[theme='dark'] .option-card {
+    background-color: $drop-highlight-dark;
+    color: white;
+}
+
 .option-card:hover {
     border: 2px solid $motion-primary;
     box-shadow: 0px 0px 0px 4px $motion-transparent;
@@ -68,6 +81,10 @@
 
 .option-title {
     font-weight: bold;
+}
+
+[theme='dark'] .option-title {
+    color: white;
 }
 
 /* "Run without screen refresh" row */
@@ -89,6 +106,11 @@
     background: white;
     font-weight: bold;
     font-size: 0.85rem;
+}
+
+[theme='dark'] .button-row button {
+    background-color: $ui-tertiary-dark;
+    color: white;
 }
 
 .button-row button.ok-button {

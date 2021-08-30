@@ -11,24 +11,20 @@ import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import Modal from '../../containers/modal.jsx';
 import styles from './settings-modal.css';
 // eslint-disable-next-line no-unused-vars
-import Switch from './switch.jsx';
+import classNames from 'classnames';
 import {connect} from 'react-redux';
 // eslint-disable-next-line no-unused-vars
-import {updateSetting, getSetting} from '../../reducers/settings';
+import {getSetting} from '../../reducers/settings';
 
 import LayoutSetting from './layout-setting.jsx';
 import FPSSetting from './fps-setting.jsx';
+import DarkModeSetting from './darkmode-setting.jsx';
 
 const messages = defineMessages({
     title: {
         defaultMessage: 'Settings',
         description: 'Settings Modal Title',
         id: 'gui.settingsModal.title'
-    },
-    darkFullscreenStage: {
-        defaultMessage: 'Dark fullscreen stage',
-        description: 'Setting of making stage dark when fullscreen.',
-        id: 'gui.settingsModal.darkFullscreenStage'
     }
 });
 
@@ -64,9 +60,10 @@ const SettingsModal = ({
         onRequestClose={onRequestClose}
         id="settingsModal"
     >
-        <Box className={styles.body}>
+        <Box className={classNames(styles.body)}>
             <FPSSetting />
             <LayoutSetting />
+            <DarkModeSetting />
         </Box>
     </Modal>
 );
@@ -79,7 +76,7 @@ SettingsModal.propTypes = {
 
 // eslint-disable-next-line no-unused-vars
 const mapStateToProps = state => ({
-    // darkFullscreenStage: getSetting(state, 'darkFullscreenStage')
+
 });
 
 // eslint-disable-next-line no-unused-vars
