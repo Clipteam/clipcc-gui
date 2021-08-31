@@ -4,7 +4,7 @@ import React from 'react';
 import VM from 'clipcc-vm';
 import {connect} from 'react-redux';
 import {defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import ClipCCExtension from 'clipcc-extension';
+import ClipCCExtension, { error } from 'clipcc-extension';
 
 import extensionLibraryContent from '../lib/libraries/extensions/index.jsx';
 
@@ -96,16 +96,36 @@ class ExtensionLibrary extends React.PureComponent {
         this.showModal = false;
     }
     handleRequestClose () {
-        this.loadOrder = ClipCCExtension.extensionManager.getExtensionLoadOrder(this.willLoad);;
-        this.unloadOrder = ClipCCExtension.extensionManager.getExtensionUnloadOrder(this.willUnload);
-        this.willLoadDependency = this.loadOrder.filter(v => !this.willLoad.includes(v.id)).map(v => v.id);
-        this.willUnloadDependency = this.unloadOrder.filter(v => !this.willUnload.includes(v));
-        if (this.loadOrder.length || this.unloadOrder.length) {
-            this.showModal = true;
-            this.forceUpdate();
+        try {
+            this.loadOrder = ClipCCExtension.extensionManager.getExtensionLoadOrder(this.willLoad);;
+            this.unloadOrder = ClipCCExtension.extensionManager.getExtensionUnloadOrder(this.willUnload);
+            this.willLoadDependency = this.loadOrder.filter(v => !this.willLoad.includes(v.id)).map(v => v.id);
+            this.willUnloadDependency = this.unloadOrder.filter(v => !this.willUnload.includes(v));
+            if (this.loadOrder.length || this.unloadOrder.length) {
+                this.showModal = true;
+                this.forceUpdate();
+            }
+            else {
+                this.props.onRequestClose();
+            }
         }
-        else {
-            this.props.onRequestClose();
+        catch (err) {
+            if (err.code === undefined) {
+                throw err;
+            }
+            switch (err.code) {
+            case error.ERROR_UNAVAILABLE_EXTENSION: {
+                console.error('unavaliable extension', err);
+                break;
+            }
+            case error.ERROR_CIRCULAR_REQUIREMENT: {
+                console.error('circular requirement', err);
+                break;
+            }
+            default: {
+                throw err;
+            }
+            }
         }
     }
     handleItemChange (item, status) {
