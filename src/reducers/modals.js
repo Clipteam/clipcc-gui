@@ -13,6 +13,7 @@ const MODAL_CONNECTION = 'connectionModal';
 const MODAL_TIPS_LIBRARY = 'tipsLibrary';
 const MODAL_SETTINGS_MODAL = 'settings';
 const MODAL_ABOUT_MODAL = 'about';
+const MODAL_CONTRIBUTOR_MODAL = 'contributor';
 
 const initialState = {
     [MODAL_BACKDROP_LIBRARY]: false,
@@ -26,7 +27,8 @@ const initialState = {
     [MODAL_CONNECTION]: false,
     [MODAL_TIPS_LIBRARY]: false,
     [MODAL_SETTINGS_MODAL]: false,
-    [MODAL_ABOUT_MODAL]: false
+    [MODAL_ABOUT_MODAL]: false,
+    [MODAL_CONTRIBUTOR_MODAL]: false
 };
 
 const reducer = function (state, action) {
@@ -92,6 +94,9 @@ const openSettingsModal = function () {
 const openAboutModal = function () {
     return openModal(MODAL_ABOUT_MODAL);
 };
+const openContributorModal = function () {
+    return openModal(MODAL_CONTRIBUTOR_MODAL);
+};
 const closeBackdropLibrary = function () {
     return closeModal(MODAL_BACKDROP_LIBRARY);
 };
@@ -128,6 +133,9 @@ const closeSettingsModal = function () {
 const closeAboutModal = function () {
     return closeModal(MODAL_ABOUT_MODAL);
 };
+const closeContributorModal = function () {
+    return closeModal(MODAL_CONTRIBUTOR_MODAL);
+};
 export {
     reducer as default,
     initialState as modalsInitialState,
@@ -143,6 +151,7 @@ export {
     openConnectionModal,
     openSettingsModal,
     openAboutModal,
+    openContributorModal,
     closeBackdropLibrary,
     closeCostumeLibrary,
     closeExtensionLibrary,
@@ -154,5 +163,6 @@ export {
     closeTipsLibrary,
     closeConnectionModal,
     closeSettingsModal,
-    closeAboutModal
+    closeAboutModal,
+    closeContributorModal
 };
