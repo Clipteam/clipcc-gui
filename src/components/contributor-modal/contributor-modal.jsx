@@ -25,7 +25,7 @@ const ContributorModal = ({
         id="aboutModal"
     >
         <Box className={styles.body}>
-            <p>
+            <div className={styles.scrollable}>
                 <strong>{contributorList.tips}</strong>
                 <p>{contributorList.sinangentoo}<br /></p>
                 <p>{contributorList.alexcui}<br /></p>
@@ -52,7 +52,7 @@ const ContributorModal = ({
                 <p>{contributorList.afadian}<br /></p>
                 <p>{contributorList.august}<br /></p>
                 <p>{contributorList.you}<br /></p>
-            </p>
+            </div>
         </Box>
     </Modal>
 );

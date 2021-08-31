@@ -2,12 +2,18 @@
 @import "../../css/units.css";
 
 .modal-content {
-    width: 450px;
+    width: 600px;
 }
 
 .body {
     background: $ui-white;
     padding: 1.5rem 2.25rem;
+}
+
+.scrollable {
+    width: 550px;
+    height: 500px;
+    overflow: auto;
 }
 
 [theme='dark'] .body {
