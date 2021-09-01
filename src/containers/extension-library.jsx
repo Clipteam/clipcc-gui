@@ -67,6 +67,21 @@ const messages = defineMessages({
         defaultMessage: 'The following dependencies will be removed:',
         description: 'Content for the confirm modal',
         id: 'gui.extensionLibrary.confirmContent4'
+    },
+    errorUnavaliable: {
+        defaultMessage: 'The following extensions are not found:',
+        description: 'Content for the error modal',
+        id: 'gui.extensionLibrary.errorUnavaliable'
+    },
+    errorCircular: {
+        defaultMessage: 'Circular requirements.',
+        description: 'Content for the error modal',
+        id: 'gui.extensionLibrary.errorCircular'
+    },
+    requireStack: {
+        defaultMessage: 'Require stack:',
+        description: 'Label for require stack',
+        id: 'gui.extensionLibrary.requireStack'
     }
 });
 
@@ -88,12 +103,14 @@ class ExtensionLibrary extends React.PureComponent {
         this.willUnloadDependency = [];
         this.loadOrder = [];
         this.unloadOrder = [];
-        this.showModal = false;
+        this.showModal = 0;
+        this.error = 0;
     }
     componentDidMount () {
         this.willLoad = [];
         this.willUnload = [];
-        this.showModal = false;
+        this.showModal = 0;
+        this.error = 0;
     }
     handleRequestClose () {
         try {
@@ -102,7 +119,7 @@ class ExtensionLibrary extends React.PureComponent {
             this.willLoadDependency = this.loadOrder.filter(v => !this.willLoad.includes(v.id)).map(v => v.id);
             this.willUnloadDependency = this.unloadOrder.filter(v => !this.willUnload.includes(v));
             if (this.loadOrder.length || this.unloadOrder.length) {
-                this.showModal = true;
+                this.showModal = 1;
                 this.forceUpdate();
             }
             else {
@@ -114,12 +131,12 @@ class ExtensionLibrary extends React.PureComponent {
                 throw err;
             }
             switch (err.code) {
-            case error.ERROR_UNAVAILABLE_EXTENSION: {
-                console.error('unavaliable extension', err);
-                break;
-            }
+            case error.ERROR_UNAVAILABLE_EXTENSION:
             case error.ERROR_CIRCULAR_REQUIREMENT: {
-                console.error('circular requirement', err);
+                console.error('error', err);
+                this.error = err;
+                this.showModal = 2;
+                this.forceUpdate();
                 break;
             }
             default: {
@@ -182,7 +199,7 @@ class ExtensionLibrary extends React.PureComponent {
         this.props.onRequestClose();
     }
     handleMsgboxCancel () {
-        this.showModal = false;
+        this.showModal = 0;
         this.forceUpdate();
     }
     handleMsgboxGiveup () {
@@ -210,7 +227,7 @@ class ExtensionLibrary extends React.PureComponent {
                     upload={true}
                     onUpload={this.handleUploadExtension}
                 />
-                {this.showModal ? (
+                {this.showModal === 1 ? (
                     <MessageBoxModal
                         intl={this.props.intl}
                         title={this.props.intl.formatMessage(messages.confirmTitle)}
@@ -251,6 +268,51 @@ class ExtensionLibrary extends React.PureComponent {
                                 {this.willUnloadDependency.join(' ')}
                             </p>
                         </>) : null}
+                    </MessageBoxModal>
+                ) : null}
+                {this.showModal === 2 ? (
+                    <MessageBoxModal
+                        intl={this.props.intl}
+                        title={this.props.intl.formatMessage(messages.confirmTitle)}
+                        mode="cancel_giveup"
+                        onGiveup={this.handleMsgboxGiveup}
+                        onCancel={this.handleMsgboxCancel}
+                    >
+                        {this.error.code === error.ERROR_UNAVAILABLE_EXTENSION ? (
+                            <>
+                                <p style={{margin: 0}}>
+                                    {this.props.intl.formatMessage(messages.errorUnavaliable)}
+                                </p>
+                                {this.error.extension.map(v => (
+                                    <p style={{margin: 0, paddingLeft: '2em'}}>
+                                        {`${v.id}: ${v.version}`}
+                                    </p>
+                                ))}
+                                <p style={{margin: 0}}>
+                                    {this.props.intl.formatMessage(messages.requireStack)}
+                                </p>
+                                {this.error.requireStack.map(v => (
+                                    <p style={{margin: 0, paddingLeft: '2em'}}>
+                                        {`${v.id}: ${v.version}`}
+                                    </p>
+                                ))}
+                            </>
+                        ) : null}
+                        {this.error.code === error.ERROR_CIRCULAR_REQUIREMENT ? (
+                            <>
+                                <p style={{margin: 0}}>
+                                    {this.props.intl.formatMessage(messages.errorCircular)}
+                                </p>
+                                <p style={{margin: 0}}>
+                                    {this.props.intl.formatMessage(messages.requireStack)}
+                                </p>
+                                {this.error.requireStack.map(v => (
+                                    <p style={{margin: 0, paddingLeft: '2em'}}>
+                                        {`${v.id}: ${v.version}`}
+                                    </p>
+                                ))}
+                            </>
+                        ) : null}
                     </MessageBoxModal>
                 ) : null}
             </>
