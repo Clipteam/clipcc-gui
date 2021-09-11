@@ -25,6 +25,16 @@ const messages = defineMessages({
         defaultMessage: 'Settings',
         description: 'Settings Modal Title',
         id: 'gui.settingsModal.title'
+    },
+    appearance: {
+        defaultMessage: 'Appearance',
+        description: 'Label of Appearance',
+        id: 'gui.settingsModal.appearance'
+    },
+    player: {
+        defaultMessage: 'Player',
+        description: 'Label of Player',
+        id: 'gui.settingsModal.player'
     }
 });
 
@@ -60,10 +70,25 @@ const SettingsModal = ({
         onRequestClose={onRequestClose}
         id="settingsModal"
     >
-        <Box className={classNames(styles.body)}>
-            <FPSSetting />
-            <LayoutSetting />
-            <DarkModeSetting />
+        <Box
+            className={classNames(styles.body)}
+            justifyContent="space-between"
+        >
+            <strong>{intl.formatMessage(messages.appearance)}</strong>
+            <Box
+                className={classNames(styles.settingGrid)}
+                justifyContent="space-between"
+            >
+                <LayoutSetting />
+                <DarkModeSetting />
+            </Box>
+            <strong>{intl.formatMessage(messages.player)}</strong>
+            <Box
+                className={classNames(styles.settingGrid)}
+                justifyContent="space-between"
+            >
+                <FPSSetting />
+            </Box>
         </Box>
     </Modal>
 );
