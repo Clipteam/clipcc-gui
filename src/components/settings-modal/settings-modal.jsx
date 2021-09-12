@@ -19,6 +19,7 @@ import {getSetting} from '../../reducers/settings';
 import LayoutSetting from './layout-setting.jsx';
 import FPSSetting from './fps-setting.jsx';
 import DarkModeSetting from './darkmode-setting.jsx';
+import BlurSetting from './blur-setting.jsx'
 
 const messages = defineMessages({
     title: {
@@ -81,6 +82,7 @@ const SettingsModal = ({
             >
                 <LayoutSetting />
                 <DarkModeSetting />
+                <BlurSetting />
             </Box>
             <strong>{intl.formatMessage(messages.player)}</strong>
             <Box
