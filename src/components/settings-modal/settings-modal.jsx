@@ -46,7 +46,7 @@ const Setting = props => (
         alignItems="center"
         style={{display: 'flex'}}
     >
-        <strong>{props.intl.formatMessage(props.message)}</strong>
+        <h3>{props.intl.formatMessage(props.message)}</h3>
         {props.children}
     </Box>
 );
