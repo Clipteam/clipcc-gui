@@ -77,6 +77,7 @@ class GUI extends React.Component {
     }
     render () {
         document.body.setAttribute('theme', this.props.darkMode);
+        document.body.setAttribute('effect', this.props.blur);
         if (this.props.isError) {
             throw new Error(
                 `Error in Scratch GUI [location=${window.location}]: ${this.props.error}`);
@@ -121,6 +122,7 @@ class GUI extends React.Component {
 
 GUI.propTypes = {
     assetHost: PropTypes.string,
+    blur: PropTypes.string,
     children: PropTypes.node,
     cloudHost: PropTypes.string,
     darkMode: PropTypes.string,
@@ -166,13 +168,15 @@ const mapStateToProps = state => {
         } else {
             darkMode = 'light';
         }
-
     }
+    let blur = getSetting(state, 'blur');
+    if (blur === 'on') blur = 'blur';
     return {
         activeTabIndex: state.scratchGui.editorTab.activeTabIndex,
         alertsVisible: state.scratchGui.alerts.visible,
         backdropLibraryVisible: state.scratchGui.modals.backdropLibrary,
         blocksTabVisible: state.scratchGui.editorTab.activeTabIndex === BLOCKS_TAB_INDEX,
+        blur: blur,
         cardsVisible: state.scratchGui.cards.visible,
         connectionModalVisible: state.scratchGui.modals.connectionModal,
         costumeLibraryVisible: state.scratchGui.modals.costumeLibrary,

@@ -69,6 +69,10 @@
     overflow: hidden;
 }
 
+[effect='blur'] .tag-wrapper {
+	backdrop-filter: blur(4px);
+}
+
 .spinner-wrapper {
     width: 100%;
     height: 100%;
