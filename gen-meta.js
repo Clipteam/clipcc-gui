@@ -10,7 +10,7 @@ const appName = 'ClipCC';
 
 const appVersion = '3.0.2';
 const appVersionSimple = '3.0';
-const appVersionFull = '3.0.1-b${compileId}';
+const appVersionFull = '3.0.2-b${compileId}';
 const compileTime = '${time.toISOString()}'
 
 export {
