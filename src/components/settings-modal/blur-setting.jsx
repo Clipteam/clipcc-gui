@@ -1,7 +1,7 @@
 /**
  * @fileoverview
- * 设置窗口中的布局选项组件
- * @author SteveXMH
+ * 设置窗口中的模糊选项组件
+ * @author SinanGentoo
  */
 
 import React from 'react';
@@ -15,28 +15,23 @@ import styles from './layout-setting.css';
 
 const messages = defineMessages({
     label: {
-        defaultMessage: 'Layout Style',
-        description: 'Label of ClipCC layout',
-        id: 'gui.settingsModal.layout.label'
+        defaultMessage: 'Blur Effect',
+        description: 'Label of Blur Effect',
+        id: 'gui.settingsModal.blur.label'
     },
-    scratch1: {
-        defaultMessage: 'Scratch 1.4 Style',
-        description: 'Label of ClipCC layout',
-        id: 'gui.settingsModal.layout.scratch1'
+    enabled: {
+        defaultMessage: 'Enabled',
+        description: 'Label of Enabled',
+        id: 'gui.settingsModal.blur.enabled'
     },
-    scratch2: {
-        defaultMessage: 'Scratch 2.0 Style',
-        description: 'Label of ClipCC layout',
-        id: 'gui.settingsModal.layout.scratch2'
-    },
-    scratch3: {
-        defaultMessage: 'Scratch 3.0 Style',
-        description: 'Label of ClipCC layout',
-        id: 'gui.settingsModal.layout.scratch3'
+    disabled: {
+        defaultMessage: 'Disabled',
+        description: 'Label of Disabled',
+        id: 'gui.settingsModal.blur.disabled'
     }
 });
 
-const LayoutSetting = props => (
+const BlurSetting = props => (
     <Box
         justifyContent="space-between"
         alignContent="center"
@@ -57,43 +52,43 @@ const LayoutSetting = props => (
                 className={classNames(
                     styles.switchLeft,
                     styles.switch,
-                    props.layoutStyle === 'scratch2' ? styles.active : null
+                    props.blur === 'on' ? styles.active : null
                 )}
-                onClick={props.onClickScratch2Style}
+                onClick={props.onEnable}
             >
-                <div>{props.intl.formatMessage(messages.scratch2)}</div>
+                <div>{props.intl.formatMessage(messages.enabled)}</div>
             </span>
             <span
                 className={classNames(
                     styles.switchRight,
                     styles.switch,
-                    props.layoutStyle === 'scratch3' ? styles.active : ''
+                    props.blur === 'off' ? styles.active : ''
                 )}
-                onClick={props.onClickScratch3Style}
+                onClick={props.onDisable}
             >
-                <div>{props.intl.formatMessage(messages.scratch3)}</div>
+                <div>{props.intl.formatMessage(messages.disabled)}</div>
             </span>
         </Box>
     </Box>
 );
 
-LayoutSetting.propTypes = {
+BlurSetting.propTypes = {
     intl: intlShape.isRequired,
     layoutStyle: PropTypes.string.isRequired,
-    onClickScratch2Style: PropTypes.func.isRequired,
-    onClickScratch3Style: PropTypes.func.isRequired
+    onEnable: PropTypes.func.isRequired,
+    onDisable: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-    layoutStyle: getSetting(state, 'layoutStyle')
+    blur: getSetting(state, 'blur')
 });
 
 const mapDispatchToProps = dispatch => ({
-    onClickScratch2Style: () => dispatch(updateSetting('layoutStyle', 'scratch2')),
-    onClickScratch3Style: () => dispatch(updateSetting('layoutStyle', 'scratch3'))
+    onEnable: () => dispatch(updateSetting('blur', 'on')),
+    onDisable: () => dispatch(updateSetting('blur', 'off'))
 });
 
 export default injectIntl(connect(
     mapStateToProps,
     mapDispatchToProps
-)(LayoutSetting));
+)(BlurSetting));

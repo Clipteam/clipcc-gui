@@ -19,12 +19,23 @@ import {getSetting} from '../../reducers/settings';
 import LayoutSetting from './layout-setting.jsx';
 import FPSSetting from './fps-setting.jsx';
 import DarkModeSetting from './darkmode-setting.jsx';
+import BlurSetting from './blur-setting.jsx'
 
 const messages = defineMessages({
     title: {
         defaultMessage: 'Settings',
         description: 'Settings Modal Title',
         id: 'gui.settingsModal.title'
+    },
+    appearance: {
+        defaultMessage: 'Appearance',
+        description: 'Label of Appearance',
+        id: 'gui.settingsModal.appearance'
+    },
+    player: {
+        defaultMessage: 'Player',
+        description: 'Label of Player',
+        id: 'gui.settingsModal.player'
     }
 });
 
@@ -35,7 +46,7 @@ const Setting = props => (
         alignItems="center"
         style={{display: 'flex'}}
     >
-        <strong>{props.intl.formatMessage(props.message)}</strong>
+        <h3>{props.intl.formatMessage(props.message)}</h3>
         {props.children}
     </Box>
 );
@@ -60,10 +71,26 @@ const SettingsModal = ({
         onRequestClose={onRequestClose}
         id="settingsModal"
     >
-        <Box className={classNames(styles.body)}>
-            <FPSSetting />
-            <LayoutSetting />
-            <DarkModeSetting />
+        <Box
+            className={classNames(styles.body)}
+            justifyContent="space-between"
+        >
+            <strong>{intl.formatMessage(messages.appearance)}</strong>
+            <Box
+                className={classNames(styles.settingGrid)}
+                justifyContent="space-between"
+            >
+                <LayoutSetting />
+                <DarkModeSetting />
+                <BlurSetting />
+            </Box>
+            <strong>{intl.formatMessage(messages.player)}</strong>
+            <Box
+                className={classNames(styles.settingGrid)}
+                justifyContent="space-between"
+            >
+                <FPSSetting />
+            </Box>
         </Box>
     </Modal>
 );

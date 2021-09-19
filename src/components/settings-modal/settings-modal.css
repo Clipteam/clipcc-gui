@@ -10,10 +10,8 @@
     padding: 1.5rem 2.25rem;
 }
 
+
 [theme='dark'] .body {
     background: $ui-primary-dark;
 }
 
-.body > * {
-    margin: $space 0;
-}
