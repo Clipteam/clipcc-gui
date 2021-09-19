@@ -13,5 +13,6 @@
 
 [theme='dark'] .body {
     background: $ui-primary-dark;
+    color: white;
 }
 
