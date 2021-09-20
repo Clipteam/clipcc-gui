@@ -20,6 +20,7 @@ import LayoutSetting from './layout-setting.jsx';
 import FPSSetting from './fps-setting.jsx';
 import DarkModeSetting from './darkmode-setting.jsx';
 import BlurSetting from './blur-setting.jsx'
+import CompilerSetting from './compiler-setting.jsx';
 
 const messages = defineMessages({
     title: {
@@ -89,6 +90,7 @@ const SettingsModal = ({
                 className={classNames(styles.settingGrid)}
                 justifyContent="space-between"
             >
+                <CompilerSetting />
                 <FPSSetting />
             </Box>
         </Box>
