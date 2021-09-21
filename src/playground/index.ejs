@@ -38,7 +38,33 @@
         style="z-index:-100;left:0;top:0;position:absolute;display:flex;justify-content:center;align-items:center;width:100%;height:100%;">
 
         <style scoped>
-            @-webkit-keyframes animate-clip-stroke {}
+            @-webkit-keyframes animate-clip-stroke {
+                0% {
+                    stroke-dashoffset: 367.1521911621094px;
+                    stroke-dasharray: 367.1521911621094px;
+                    stroke-width: 0;
+                }
+
+                5% {
+                    stroke-width: 6.4;
+                }
+
+                25% {
+                    stroke-dashoffset: 0;
+                    stroke-dasharray: 367.1521911621094px;
+                }
+
+                75% {
+                    stroke-dashoffset: 0;
+                    stroke-dasharray: 367.1521911621094px;
+                }
+
+                100% {
+                    stroke-dashoffset: -367.1521911621094px;
+                    stroke-dasharray: 367.1521911621094px;
+                    stroke-width: 6.4;
+                }
+            }
 
             @keyframes animate-clip-stroke {
                 0% {
@@ -249,12 +275,12 @@
                 xmlns="http://www.w3.org/2000/svg">
                 <path id="preloader-icon-clip"
                     d="M58.3431 49.955L37.9785 70.3196C23.2707 85.0274 41.3726 103.129 56.0804 88.4216L96.8097 47.6922C114.912 29.5903 87.7588 2.43739 69.6568 20.5393L28.9275 61.2687C1.77464 88.4215 37.9785 124.625 65.1314 97.4725L85.496 77.1079"
-                    stroke="#036CEC" stroke-linecap="round" stroke-linejoin="round" class="preloader-icon-clip"></path>
+                    stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" class="preloader-icon-clip"></path>
             </svg>
             <div id="block-animation" class="block-animation">
-                <img data-src="/static/top-block.svg" class="top-block" />
-                <img data-src="/static/middle-block.svg" class="middle-block" />
-                <img data-src="/static/bottom-block.svg" class="bottom-block" />
+                <img data-src="static/top-block.svg" class="top-block" />
+                <img data-src="static/middle-block.svg" class="middle-block" />
+                <img data-src="static/bottom-block.svg" class="bottom-block" />
             </div>
         </div>
         <script>
@@ -283,14 +309,12 @@
                 case "dark":
                     p.style.backgroundColor = "rgb(51, 51, 51)";
                     p.style.color = "white";
-                    c.setAttribute("stroke", "#FFFFFF")
                     break;
                 case "system":
                 default:
                     if (matchMedia("(prefers-color-scheme: dark)").matches) {
                         p.style.backgroundColor = "rgb(51, 51, 51)";
                         p.style.color = "white";
-                        c.setAttribute("stroke", "#FFFFFF")
                     } else {
                         p.style.backgroundColor = "rgb(229, 240, 255)";
                     }
