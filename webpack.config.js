@@ -123,6 +123,7 @@ function getPlugins() {
             chunks: ['lib.min', 'gui'],
             template: 'src/playground/index.ejs',
             title: 'ClipCC 3.0 GUI',
+            scriptLoading: 'defer',
             enablePWA: ENABLE_PWA,
             sentryConfig: process.env.SENTRY_CONFIG ? '"' + process.env.SENTRY_CONFIG + '"' : null
         }),
