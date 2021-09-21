@@ -4,9 +4,9 @@
 
 </div>
 
-#### ClipCC is a powerful scratch-project editor based on scratch-gui which was created by MIT. And it migrates a lot of function from ClipCC 1.x. 
-#### ClipCC's official qq group:959825608
-
+# The original scratch project is open source under the BSD-3 Clause License
+#### ClipCC is a powerful scratch-project editor based on scratch-gui which was  created by MIT. And it migrates a lot of  function from ClipCC 1.x. ClipCC's 
+#### official qq group:959825608
 ## Links
 ### [clipcc-l10n](https://github.com/Clipteam/clipcc-l10n)
 
