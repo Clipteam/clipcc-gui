@@ -31,6 +31,103 @@
 </head>
 
 <body>
+    <!-- Preloader -->
+    <div id="preloader"
+        style="left:0;top:0;position:absolute;display:flex;justify-content:center;align-items:center;width:100%;height:100%;">
+        
+        <style scoped>
+            @-webkit-keyframes animate-clip-stroke {
+                0% {
+                    stroke-dashoffset: 367.1521911621094px;
+                    stroke-dasharray: 367.1521911621094px;
+                }
+
+                100% {
+                    stroke-dashoffset: 0;
+                    stroke-dasharray: 367.1521911621094px;
+                }
+            }
+
+            @keyframes animate-clip-stroke {
+                0% {
+                    stroke-dashoffset: 367.1521911621094px;
+                    stroke-dasharray: 367.1521911621094px;
+                }
+
+                100% {
+                    stroke-dashoffset: 0;
+                    stroke-dasharray: 367.1521911621094px;
+                }
+            }
+
+            .preloader-icon-clip {
+                -webkit-animation: animate-clip-stroke 1.25s cubic-bezier(0.77, 0, 0.175, 1) 0s both;
+                animation: animate-clip-stroke 1.25s cubic-bezier(0.77, 0, 0.175, 1) 0s both;
+            }
+
+            @-webkit-keyframes animate-clip-text {
+                0% {
+                    opacity: 0%;
+                }
+
+                100% {
+                    opacity: 100%;
+                }
+            }
+
+            @keyframes animate-clip-text {
+                0% {
+                    opacity: 0%;
+                }
+
+                100% {
+                    opacity: 100%;
+                }
+            }
+
+            .preloader-text {
+                text-align: center;
+                -webkit-animation: animate-clip-text 1s linear 2s both;
+                animation: animate-clip-text 1s linear 2s both;
+            }
+        </style>
+        <div>
+            <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    id="preloader-icon-clip"
+                    d="M58.3431 49.955L37.9785 70.3196C23.2707 85.0274 41.3726 103.129 56.0804 88.4216L96.8097 47.6922C114.912 29.5903 87.7588 2.43739 69.6568 20.5393L28.9275 61.2687C1.77464 88.4215 37.9785 124.625 65.1314 97.4725L85.496 77.1079"
+                    stroke="#036CEC" stroke-width="6.4" stroke-linecap="round" stroke-linejoin="round"
+                    class="preloader-icon-clip"></path>
+            </svg>
+            <div class="preloader-text">
+                Loading
+            </div>
+        </div>
+        <script>
+            var p = document.getElementById("preloader");
+            var c = document.getElementById("preloader-icon-clip")
+            var darkMode = localStorage.getItem("darkMode");
+            switch (darkMode) {
+                case "system":
+                    if (matchMedia("(prefers-color-scheme: dark)").matches) {
+                        p.style.backgroundColor = "rgb(51, 51, 51)";
+                        p.style.color = "white";
+                        c.setAttribute("stroke", "#FFFFFF")
+                    } else {
+                        p.style.backgroundColor = "rgb(229, 240, 255)";
+                    }
+                    break;
+                case "light":
+                    p.style.backgroundColor = "rgb(229, 240, 255)";
+                    break;
+                case "dark":
+                    p.style.backgroundColor = "rgb(51, 51, 51)";
+                    p.style.color = "white";
+                    c.setAttribute("stroke", "#FFFFFF")
+                    break;
+            }
+        </script>
+    </div>
 </body>
 
 </html>
