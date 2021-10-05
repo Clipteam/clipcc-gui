@@ -509,17 +509,29 @@ class MenuBar extends React.Component {
                                         >
                                             {this.props.intl.formatMessage(sharedMessages.loadFromComputerTitle)}
                                         </MenuItem>
-                                        <SB3Downloader>{(className, downloadProjectCallback) => (
-                                            <MenuItem
-                                                className={className}
-                                                onClick={this.getSaveToComputerHandler(downloadProjectCallback)}
-                                            >
-                                                <FormattedMessage
-                                                    defaultMessage="Save to your computer"
-                                                    description="Menu bar item for downloading a project to your computer" // eslint-disable-line max-len
-                                                    id="gui.menuBar.downloadToComputer"
-                                                />
-                                            </MenuItem>
+                                        <SB3Downloader>{(className, {cc3, sb3}) => (
+                                            <>
+                                                <MenuItem
+                                                    className={className}
+                                                    onClick={this.getSaveToComputerHandler(cc3)}
+                                                >
+                                                    <FormattedMessage
+                                                        defaultMessage="Save .cc3 file to your computer"
+                                                        description="Menu bar item for downloading a project to your computer" // eslint-disable-line max-len
+                                                        id="gui.menuBar.downloadToComputer.cc3"
+                                                    />
+                                                </MenuItem>
+                                                <MenuItem
+                                                    className={className}
+                                                    onClick={this.getSaveToComputerHandler(sb3)}
+                                                >
+                                                    <FormattedMessage
+                                                        defaultMessage="Save .sb3 file to your computer"
+                                                        description="Menu bar item for downloading a project to your computer" // eslint-disable-line max-len
+                                                        id="gui.menuBar.downloadToComputer.sb3"
+                                                    />
+                                                </MenuItem>
+                                            </>
                                         )}</SB3Downloader>
                                     </MenuSection>
                                 </MenuBarMenu>

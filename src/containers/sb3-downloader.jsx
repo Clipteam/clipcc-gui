@@ -22,10 +22,19 @@ class SB3Downloader extends React.Component {
     constructor (props) {
         super(props);
         bindAll(this, [
-            'downloadProject'
+            'downloadCc3Project',
+            'downloadSb3Project'
         ]);
     }
-    downloadProject () {
+    downloadCc3Project () {
+        this.props.saveProjectCc3().then(content => {
+            if (this.props.onSaveFinished) {
+                this.props.onSaveFinished();
+            }
+            downloadBlob(this.props.projectFilename, content);
+        });
+    }
+    downloadSb3Project () {
         this.props.saveProjectSb3().then(content => {
             if (this.props.onSaveFinished) {
                 this.props.onSaveFinished();
@@ -39,7 +48,10 @@ class SB3Downloader extends React.Component {
         } = this.props;
         return children(
             this.props.className,
-            this.downloadProject
+            {
+                cc3: this.downloadCc3Project,
+                sb3: this.downloadSb3Project
+            }
         );
     }
 }
@@ -49,7 +61,8 @@ const getProjectFilename = (curTitle, defaultTitle) => {
     if (!filenameTitle || filenameTitle.length === 0) {
         filenameTitle = defaultTitle;
     }
-    return `${filenameTitle.substring(0, 100)}.sb3`;
+    // cc: download .cc3 file
+    return `${filenameTitle.substring(0, 100)}.cc3`;
 };
 
 SB3Downloader.propTypes = {
@@ -57,6 +70,7 @@ SB3Downloader.propTypes = {
     className: PropTypes.string,
     onSaveFinished: PropTypes.func,
     projectFilename: PropTypes.string,
+    saveProjectCc3: PropTypes.func,
     saveProjectSb3: PropTypes.func
 };
 SB3Downloader.defaultProps = {
@@ -64,6 +78,7 @@ SB3Downloader.defaultProps = {
 };
 
 const mapStateToProps = state => ({
+    saveProjectCc3: state.scratchGui.vm.saveProjectCc3.bind(state.scratchGui.vm),
     saveProjectSb3: state.scratchGui.vm.saveProjectSb3.bind(state.scratchGui.vm),
     projectFilename: getProjectFilename(state.scratchGui.projectTitle, projectTitleInitialState)
 });
