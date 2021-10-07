@@ -6,6 +6,8 @@ import {connect} from 'react-redux';
 import VM from 'clipcc-vm';
 import AudioEngine from 'scratch-audio';
 
+import {updateSetting, getSetting} from '../../reducers/settings';
+
 import {setProjectUnchanged} from '../reducers/project-changed';
 import {
     LoadingStates,
@@ -32,8 +34,10 @@ const vmManagerHOC = function (WrappedComponent) {
                 this.audioEngine = new AudioEngine();
                 this.props.vm.attachAudioEngine(this.audioEngine);
                 this.props.vm.setCompatibilityMode(true);
+                this.props.vm.runtime.setFramerate(this.props.frameRate);
                 this.props.vm.initialized = true;
                 this.props.vm.setLocale(this.props.locale, this.props.messages);
+                console.log(this.props.vm); //DEBUG
             }
             if (!this.props.isPlayerOnly && !this.props.isStarted) {
                 this.props.vm.start();
@@ -131,7 +135,8 @@ const vmManagerHOC = function (WrappedComponent) {
             projectId: state.scratchGui.projectState.projectId,
             loadingState: loadingState,
             isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
-            isStarted: state.scratchGui.vmStatus.started
+            isStarted: state.scratchGui.vmStatus.started,
+            frameRate: getSetting(state, 'fps')
         };
     };
 
