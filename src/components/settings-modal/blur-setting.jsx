@@ -74,7 +74,7 @@ const BlurSetting = props => (
 
 BlurSetting.propTypes = {
     intl: intlShape.isRequired,
-    layoutStyle: PropTypes.string.isRequired,
+    blur: PropTypes.string.isRequired,
     onEnable: PropTypes.func.isRequired,
     onDisable: PropTypes.func.isRequired
 };

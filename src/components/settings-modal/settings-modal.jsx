@@ -63,7 +63,8 @@ Setting.propTypes = {
 
 const SettingsModal = ({
     intl,
-    onRequestClose
+    onRequestClose,
+    setFramerate
 }) => (
     <Modal
         className={styles.modalContent}
@@ -89,7 +90,9 @@ const SettingsModal = ({
                 className={classNames(styles.settingGrid)}
                 justifyContent="space-between"
             >
-                <FPSSetting />
+                <FPSSetting
+                    setFramerate={setFramerate}
+                />
             </Box>
         </Box>
     </Modal>

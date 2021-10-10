@@ -10,12 +10,12 @@ import {connect} from 'react-redux';
 import Box from '../box/box.jsx';
 import Input from '../forms/input.jsx';
 import classNames from 'classnames';
-import BufferedInputHOC from '../forms/buffered-input-hoc.jsx';
+import ExtraInputHOC from '../forms/extra-input-hoc.jsx';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import {updateSetting, getSetting} from '../../reducers/settings';
 import styles from './layout-setting.css';
 
-const BufferedInput = BufferedInputHOC(Input);
+const ExtraInput = ExtraInputHOC(Input);
 
 const messages = defineMessages({
     label: {
@@ -42,11 +42,12 @@ const FPSSetting = props => (
             alignItems="center"
             style={{display: 'flex'}}
         >
-            <BufferedInput
+            <ExtraInput
                 tabIndex="1"
                 type="number"
                 value={props.fps}
                 onSubmit={props.onChangeFPS}
+                extra={props.setFramerate}
             />
         </Box>
     </Box>
@@ -55,7 +56,6 @@ const FPSSetting = props => (
 FPSSetting.propTypes = {
     intl: intlShape.isRequired,
     fps: PropTypes.number.isRequired,
-    onChangeFPS: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

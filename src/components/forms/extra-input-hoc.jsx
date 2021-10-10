@@ -8,7 +8,7 @@ import React from 'react';
  * @returns {React.Component} Buffered input that calls onSubmit on blur and <enter>
  */
 export default function (Input) {
-    class BufferedInput extends React.Component {
+    class ExtraInput extends React.Component {
         constructor (props) {
             super(props);
             bindAll(this, [
@@ -30,7 +30,7 @@ export default function (Input) {
             const isNumeric = typeof this.props.value === 'number';
             const validatesNumeric = isNumeric ? !isNaN(this.state.value) : true;
             if (this.state.value !== null && validatesNumeric) {
-            	if (this.props.bindSetting) this.props.extra(isNumeric ? Number(this.state.value) : this.state.value);
+            	this.props.extra(isNumeric ? Number(this.state.value) : this.state.value);
                 this.props.onSubmit(isNumeric ? Number(this.state.value) : this.state.value);
             }
             this.setState({value: null});
@@ -42,7 +42,7 @@ export default function (Input) {
             const bufferedValue = this.state.value === null ? this.props.value : this.state.value;
             return (
                 <Input
-                    {...this.props}
+                    type={this.props.type}
                     value={bufferedValue}
                     onBlur={this.handleFlush}
                     onChange={this.handleChange}
@@ -52,11 +52,12 @@ export default function (Input) {
         }
     }
 
-    BufferedInput.propTypes = {
+    ExtraInput.propTypes = {
         onSubmit: PropTypes.func.isRequired,
-        extra: PropTypes.func,
+        type: PropTypes.string.isRequired,
+        extra: PropTypes.func.isRequired,
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     };
 
-    return BufferedInput;
+    return ExtraInput;
 }
