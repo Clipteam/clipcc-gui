@@ -63,7 +63,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onChangeFPS: compression => {
+    onChangeCompression: compression => {
         dispatch(updateSetting('compression', compression));
     }
 });

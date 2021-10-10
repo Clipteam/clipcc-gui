@@ -35,7 +35,7 @@ const vmManagerHOC = function (WrappedComponent) {
                 this.props.vm.attachAudioEngine(this.audioEngine);
                 this.props.vm.setCompatibilityMode(true);
                 this.props.vm.runtime.setFramerate(parseInt(this.props.fps));
-                this.props.vm.setCompression(parseInt(this.props.compression));
+                this.props.vm.setCompressionLevel(parseInt(this.props.compression));
                 this.props.vm.initialized = true;
                 this.props.vm.setLocale(this.props.locale, this.props.messages);
                 console.log(this.props.vm); //DEBUG
