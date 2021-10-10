@@ -19,11 +19,10 @@ class Settings extends React.Component {
     
 	setFramerate (framerate) {
 		this.props.vm.runtime.setFramerate(framerate);
-		console.log(this.props.vm.runtime); //DEBUG
 	}
 	
 	setCompression (level) {
-		//todo
+		this.props.vm.setCompressionLevel(level);
 	}
 	
     render () {

@@ -35,6 +35,7 @@ const vmManagerHOC = function (WrappedComponent) {
                 this.props.vm.attachAudioEngine(this.audioEngine);
                 this.props.vm.setCompatibilityMode(true);
                 this.props.vm.runtime.setFramerate(parseInt(this.props.fps));
+                this.props.vm.setCompression(parseInt(this.props.compression));
                 this.props.vm.initialized = true;
                 this.props.vm.setLocale(this.props.locale, this.props.messages);
                 console.log(this.props.vm); //DEBUG
@@ -122,6 +123,7 @@ const vmManagerHOC = function (WrappedComponent) {
         projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         username: PropTypes.string,
         fps: PropTypes.string,
+        compression: PropTypes.string,
         vm: PropTypes.instanceOf(VM).isRequired
     };
 
@@ -137,7 +139,8 @@ const vmManagerHOC = function (WrappedComponent) {
             loadingState: loadingState,
             isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
             isStarted: state.scratchGui.vmStatus.started,
-            fps: getSetting(state, 'fps')
+            fps: getSetting(state, 'fps'),
+            compression: getSetting(state, 'compression')
         };
     };
 
