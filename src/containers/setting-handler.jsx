@@ -12,7 +12,8 @@ class Settings extends React.Component {
 	constructor (props) {
         super(props);
         bindAll(this, [
-            'setFramerate'
+            'setFramerate',
+            'setCompression'
         ]);
     }
     
@@ -21,11 +22,16 @@ class Settings extends React.Component {
 		console.log(this.props.vm.runtime); //DEBUG
 	}
 	
+	setCompression (level) {
+		//todo
+	}
+	
     render () {
         return (
             <SettingsComponent
                 {...this.props}
                 setFramerate={this.setFramerate}
+                setCompression={this.setCompression}
             >
                 {this.props.children}
             </SettingsComponent>

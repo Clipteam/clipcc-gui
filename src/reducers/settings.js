@@ -4,7 +4,9 @@ const initialState = {
     layoutStyle: 'scratch3',
     darkMode: 'system',
     fps: 60,
-    blur: 'on'
+    blur: 'on',
+    compatibility: 'donotload',
+    compression: 6
 };
 
 for (const k in initialState) {

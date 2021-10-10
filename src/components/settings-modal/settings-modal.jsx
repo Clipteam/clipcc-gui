@@ -20,6 +20,8 @@ import LayoutSetting from './layout-setting.jsx';
 import FPSSetting from './fps-setting.jsx';
 import DarkModeSetting from './darkmode-setting.jsx';
 import BlurSetting from './blur-setting.jsx'
+import CompatibilitySetting from './compatibility-setting.jsx';
+import CompressionSetting from './compression-setting.jsx';
 
 const messages = defineMessages({
     title: {
@@ -36,6 +38,11 @@ const messages = defineMessages({
         defaultMessage: 'Player',
         description: 'Label of Player',
         id: 'gui.settingsModal.player'
+    },
+    project: {
+        defaultMessage: 'Project',
+        description: 'Label of project',
+        id: 'gui.settingsModal.project'
     }
 });
 
@@ -64,7 +71,8 @@ Setting.propTypes = {
 const SettingsModal = ({
     intl,
     onRequestClose,
-    setFramerate
+    setFramerate,
+    setCompression
 }) => (
     <Modal
         className={styles.modalContent}
@@ -92,6 +100,16 @@ const SettingsModal = ({
             >
                 <FPSSetting
                     setFramerate={setFramerate}
+                />
+            </Box>
+            <strong>{intl.formatMessage(messages.project)}</strong>
+            <Box
+                className={classNames(styles.settingGrid)}
+                justifyContent="space-between"
+            >
+                <CompatibilitySetting />
+                <CompressionSetting
+                    setCompression={setCompression}
                 />
             </Box>
         </Box>
