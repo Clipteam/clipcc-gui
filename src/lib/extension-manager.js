@@ -197,7 +197,8 @@ const loadBuiltinExtension = dispatch => {
             inset_icon: ext.insetIconURL,
             author: ext.author,
             requirement: ext.requirement,
-            api: 0
+            api: 0,
+            version: '1.0.0'
         }, new ClipCCExtension.Extension());
         dispatch(initExtension(ext));
     }
