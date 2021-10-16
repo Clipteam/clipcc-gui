@@ -161,6 +161,9 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                         loadingSuccess = true;
                     })
                     .catch(error => {
+                        if (error.code === 0x90 /* ERROR_UNAVAILABLE_EXTENSION */) {
+                            error = `Unavailable extension:\n${error.extension.map(v => `  ${v.id}@${v.version}`).join('\n')}`;
+                        }
                         log.warn(error);
                         alert(this.props.intl.formatMessage(messages.loadError) + '\n' + error); // eslint-disable-line no-alert
                     })
@@ -197,7 +200,6 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                 projectChanged,
                 requestProjectUpload: requestProjectUploadProp,
                 userOwnsProject,
-                setExtensionEnable,
                 /* eslint-enable no-unused-vars */
                 ...componentProps
             } = this.props;
