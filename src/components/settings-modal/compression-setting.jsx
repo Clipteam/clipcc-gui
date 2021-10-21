@@ -10,12 +10,12 @@ import {connect} from 'react-redux';
 import Box from '../box/box.jsx';
 import Input from '../forms/input.jsx';
 import classNames from 'classnames';
-import ExtraInputHOC from '../forms/extra-input-hoc.jsx';
+import BufferedInputHOC from '../forms/buffered-input-hoc.jsx';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import {updateSetting, getSetting} from '../../reducers/settings';
 import styles from './layout-setting.css';
 
-const ExtraInput = ExtraInputHOC(Input);
+const BufferedInput = BufferedInputHOC(Input);
 
 const messages = defineMessages({
     label: {
@@ -42,12 +42,14 @@ const CompressionSetting = props => (
             alignItems="center"
             style={{display: 'flex'}}
         >
-            <ExtraInput
+            <BufferedInput
                 tabIndex="1"
                 type="number"
                 value={props.compression}
-                onSubmit={props.onChangeCompression}
-                extra={props.setCompression}
+                onSubmit={value => {
+                	props.onChangeCompression(value);
+                	props.setCompression(value);
+                }}
             />
         </Box>
     </Box>
