@@ -79,19 +79,6 @@ const CompatibilitySetting = props => (
             >
                 <div>{props.intl.formatMessage(messages.convert)}</div>
             </span>
-            <span
-                className={classNames(
-                    styles.switchRight,
-                    styles.switch,
-                    props.compatibility === 'delete' ? styles.active : null
-                )}
-                onClick={() => {
-                	props.onClickDelete();
-                	props.setDeserializeOption('delete');
-                }}
-            >
-                <div>{props.intl.formatMessage(messages.delete)}</div>
-            </span>
         </Box>
     </Box>
 );
