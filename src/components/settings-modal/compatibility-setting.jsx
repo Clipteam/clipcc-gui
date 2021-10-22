@@ -59,7 +59,10 @@ const CompatibilitySetting = props => (
                     styles.switch,
                     props.compatibility === 'donotload' ? styles.active : null
                 )}
-                onClick={props.onClickDoNotLoad}
+                onClick={() => {
+                	props.onClickDoNotLoad();
+                	props.setDeserializeOption('donotload');
+                }}
             >
                 <div>{props.intl.formatMessage(messages.donotload)}</div>
             </span>
@@ -67,9 +70,12 @@ const CompatibilitySetting = props => (
                 className={classNames(
                     styles.switch,
                     styles.switchCenter,
-                    props.compatibility === 'convert' ? styles.active : null
+                    props.compatibility === 'replace' ? styles.active : null
                 )}
-                onClick={props.onClickConvert}
+                onClick={() => {
+                	props.onClickReplace();
+                	props.setDeserializeOption('replace');
+                }}
             >
                 <div>{props.intl.formatMessage(messages.convert)}</div>
             </span>
@@ -79,7 +85,10 @@ const CompatibilitySetting = props => (
                     styles.switch,
                     props.compatibility === 'delete' ? styles.active : null
                 )}
-                onClick={props.onClickDelete}
+                onClick={() => {
+                	props.onClickDelete();
+                	props.setDeserializeOption('delete');
+                }}
             >
                 <div>{props.intl.formatMessage(messages.delete)}</div>
             </span>
@@ -91,7 +100,7 @@ CompatibilitySetting.propTypes = {
     intl: intlShape.isRequired,
     compatibility: PropTypes.string.isRequired,
     onClickDoNotLoad: PropTypes.func.isRequired,
-    onClickConvert: PropTypes.func.isRequired,
+    onClickReplace: PropTypes.func.isRequired,
     onClickDelete: PropTypes.func.isRequired
 };
 
@@ -101,7 +110,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onClickDoNotLoad: () => dispatch(updateSetting('compatibility', 'donotload')),
-    onClickConvert: () => dispatch(updateSetting('compatibility', 'convert')),
+    onClickConvert: () => dispatch(updateSetting('compatibility', 'replace')),
     onClickDelete: () => dispatch(updateSetting('compatibility', 'delete'))
 });
 

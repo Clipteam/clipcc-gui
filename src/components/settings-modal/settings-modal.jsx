@@ -72,7 +72,8 @@ const SettingsModal = ({
     intl,
     onRequestClose,
     setFramerate,
-    setCompression
+    setCompression,
+    setDeserializeOption
 }) => (
     <Modal
         className={styles.modalContent}
@@ -107,7 +108,9 @@ const SettingsModal = ({
                 className={classNames(styles.settingGrid)}
                 justifyContent="space-between"
             >
-                <CompatibilitySetting />
+                <CompatibilitySetting
+                    setDeserializeOption={setDeserializeOption}
+                />
                 <CompressionSetting
                     setCompression={setCompression}
                 />

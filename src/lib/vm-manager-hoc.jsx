@@ -36,6 +36,7 @@ const vmManagerHOC = function (WrappedComponent) {
                 this.props.vm.setCompatibilityMode(true);
                 this.props.vm.runtime.setFramerate(parseInt(this.props.fps));
                 this.props.vm.setCompressionLevel(parseInt(this.props.compression));
+                this.props.vm.setDeserializeOption(this.props.compatibility);
                 this.props.vm.initialized = true;
                 this.props.vm.setLocale(this.props.locale, this.props.messages);
                 console.log(this.props.vm); //DEBUG
@@ -124,6 +125,7 @@ const vmManagerHOC = function (WrappedComponent) {
         username: PropTypes.string,
         fps: PropTypes.string,
         compression: PropTypes.string,
+        compatibility: PropTypes.string,
         vm: PropTypes.instanceOf(VM).isRequired
     };
 
@@ -140,7 +142,8 @@ const vmManagerHOC = function (WrappedComponent) {
             isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
             isStarted: state.scratchGui.vmStatus.started,
             fps: getSetting(state, 'fps'),
-            compression: getSetting(state, 'compression')
+            compression: getSetting(state, 'compression'),
+            compatibility: getSetting(state, 'compatibility')
         };
     };
 
