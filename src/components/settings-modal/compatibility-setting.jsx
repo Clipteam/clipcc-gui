@@ -110,7 +110,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onClickDoNotLoad: () => dispatch(updateSetting('compatibility', 'donotload')),
-    onClickConvert: () => dispatch(updateSetting('compatibility', 'replace')),
+    onClickReplace: () => dispatch(updateSetting('compatibility', 'replace')),
     onClickDelete: () => dispatch(updateSetting('compatibility', 'delete'))
 });
 
