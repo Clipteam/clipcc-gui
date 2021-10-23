@@ -69,7 +69,7 @@ const CompatibilitySetting = props => (
             <span
                 className={classNames(
                     styles.switch,
-                    styles.switchCenter,
+                    styles.switchRight,
                     props.compatibility === 'replace' ? styles.active : null
                 )}
                 onClick={() => {
