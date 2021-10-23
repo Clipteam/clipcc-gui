@@ -85,8 +85,10 @@ const initLocale = function (currentState, locale) {
             {
                 isRtl: isRtl(locale),
                 locale: locale,
-                messagesByLocale: currentState.messagesByLocale,
-                messages: currentState.messagesByLocale[locale]
+                messages: Object.assign({},
+                    currentState.messagesByLocale[DEFAULT_LANGUAGE],
+                    currentState.messagesByLocale[locale]
+                )
             }
         );
     }
