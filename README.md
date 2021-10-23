@@ -2,7 +2,7 @@
 
 <img src="https://github.com/Clipteam/clipcc-site/raw/master/src/assets/logo-text.svg" alt="logo" width="300"/>
 
-![](https://img.shields.io/badge/license-AGPL-blue) ![](https://img.shields.io/badge/version-3.0.2-brightgreen) ![](https://img.shields.io/badge/QQ group-959825608-orange)
+![](https://img.shields.io/badge/license-AGPL-blue) ![](https://img.shields.io/badge/version-3.0.2-brightgreen) ![[](点https://jq.qq.com/?_wv=1027&k=F6uqowW5)](https://img.shields.io/badge/QQ-959825608-orange)
 ---
 </div>
 
