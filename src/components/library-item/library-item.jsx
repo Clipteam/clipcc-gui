@@ -8,9 +8,6 @@ import Switch from '../settings-modal/switch.jsx';
 import styles from './library-item.css';
 import classNames from 'classnames';
 
-import bluetoothIconURL from './bluetooth.svg';
-import internetConnectionIconURL from './internet-connection.svg';
-
 /* eslint-disable react/prefer-stateless-function */
 class LibraryItemComponent extends React.PureComponent {
     render () {
@@ -67,51 +64,36 @@ class LibraryItemComponent extends React.PureComponent {
                     <br />
                     <span className={styles.featuredDescription}>{this.props.description}</span>
                 </div>
-                {this.props.bluetoothRequired || this.props.internetConnectionRequired || this.props.collaborator ? (
-                    <div className={styles.featuredExtensionMetadata}>
-                        <div className={styles.featuredExtensionRequirement}>
-                            {this.props.bluetoothRequired || this.props.internetConnectionRequired ? (
-                                <div>
-                                    <div>
-                                        <FormattedMessage
-                                            defaultMessage="Requires"
-                                            description="Label for extension hardware requirements"
-                                            id="gui.extensionLibrary.requires"
-                                        />
-                                    </div>
-                                    <div
-                                        className={styles.featuredExtensionMetadataDetail}
-                                    >
-                                        {this.props.bluetoothRequired ? (
-                                            <img src={bluetoothIconURL} />
-                                        ) : null}
-                                        {this.props.internetConnectionRequired ? (
-                                            <img src={internetConnectionIconURL} />
-                                        ) : null}
-                                    </div>
-                                </div>
-                            ) : null}
-                        </div>
-                        <div className={styles.featuredExtensionCollaboration}>
-                            {this.props.collaborator ? (
-                                <div>
-                                    <div>
-                                        <FormattedMessage
-                                            defaultMessage="Collaboration with"
-                                            description="Label for extension collaboration"
-                                            id="gui.extensionLibrary.collaboration"
-                                        />
-                                    </div>
-                                    <div
-                                        className={styles.featuredExtensionMetadataDetail}
-                                    >
-                                        {this.props.collaborator}
-                                    </div>
-                                </div>
-                            ) : null}
+                <div className={styles.featuredExtensionMetadata}>
+                    <div className={styles.featuredExtensionItem}>
+                        <div>
+                            <div>
+                                <FormattedMessage
+                                    defaultMessage="Version"
+                                    description="Label for extension version"
+                                    id="gui.extensionLibrary.version"
+                                />
+                            </div>
+                            <div className={styles.featuredExtensionMetadataDetail}>
+                                {this.props.version || '-'}
+                            </div>
                         </div>
                     </div>
-                ) : null}
+                    <div className={styles.featuredExtensionItem}>
+                        <div>
+                            <div>
+                                <FormattedMessage
+                                    defaultMessage="Author"
+                                    description="Label for extension author"
+                                    id="gui.extensionLibrary.author"
+                                />
+                            </div>
+                            <div className={styles.featuredExtensionMetadataDetail}>
+                                {Array.isArray(this.props.author) ? this.props.author.join(', ') : this.props.author}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         ) : (
             <Box
@@ -161,8 +143,10 @@ LibraryItemComponent.propTypes = {
     switchable: PropTypes.bool,
     enabled: PropTypes.bool,
     onSwitchChange: PropTypes.func,
-    bluetoothRequired: PropTypes.bool,
-    collaborator: PropTypes.string,
+    author: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string)
+    ]),
     description: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.node
@@ -173,7 +157,6 @@ LibraryItemComponent.propTypes = {
     hidden: PropTypes.bool,
     iconURL: PropTypes.string,
     insetIconURL: PropTypes.string,
-    internetConnectionRequired: PropTypes.bool,
     isPlaying: PropTypes.bool,
     name: PropTypes.oneOfType([
         PropTypes.string,
@@ -187,7 +170,8 @@ LibraryItemComponent.propTypes = {
     onMouseLeave: PropTypes.func.isRequired,
     onPlay: PropTypes.func.isRequired,
     onStop: PropTypes.func.isRequired,
-    showPlayButton: PropTypes.bool
+    showPlayButton: PropTypes.bool,
+    version: PropTypes.bool
 };
 
 LibraryItemComponent.defaultProps = {

@@ -210,7 +210,6 @@ const initExtensionAPI = (gui, vm, blocks) => {
         vm: vm.extensionAPI,
         blocks: blocks
     }
-    console.log(apiInstance);
     ClipCCExtension.api.registExtensionAPI(apiInstance);//迟早换成gui.extensionAPI
 };
 
@@ -225,8 +224,6 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
         if ('info.json' in zipData.files) {
             const content = await zipData.files['info.json'].async('text');
             info = JSON.parse(content);
-            console.log(info);
-            console.log(zipData);
             if (info.icon) {
                 info.icon = URL.createObjectURL(new Blob(
                     [await zipData.files[info.icon].async('arraybuffer')],
@@ -260,7 +257,6 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
         for (const fileName in zipData.files) {
             const result = fileName.match(/(?<=locales[\\/])[0-9A-Za-z_\-]*(?=.json)/);
             if (result) {
-                console.log(result[0]);
                 locale[result[0]] = JSON.parse(await zipData.files[fileName].async('text'));
             }
         }
@@ -282,9 +278,9 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
             author: info.author,
             requirement: info.requirement,
             instance: instance,
-            api: info.api
+            api: info.api,
+            version: info.version
         };
-        console.log(ClipCCExtension, ClipCCExtension.extensionManager);
         ClipCCExtension.extensionManager.addInstance(info.id, info, instance);
         dispatch(initExtension(extensionInfo));
         break;

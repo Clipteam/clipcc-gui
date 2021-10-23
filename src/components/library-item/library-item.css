@@ -174,13 +174,7 @@
     text-align: right;
 }
 
-.featured-extension-requirement {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.featured-extension-collaboration {
+.featured-extension-item {
     width: 100%;
     display: flex;
     flex-direction: column;
