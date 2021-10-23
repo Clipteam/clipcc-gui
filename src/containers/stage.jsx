@@ -1,7 +1,7 @@
 import bindAll from 'lodash.bindall';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Renderer from 'scratch-render';
+import Renderer from 'clipcc-render';
 import VM from 'clipcc-vm';
 import {connect} from 'react-redux';
 
