@@ -122,6 +122,7 @@
     position: relative;
     min-height: 183px;
     max-height: 184px;
+    overflow: hidden;
 }
 
 .featured-image {
