@@ -1,21 +1,31 @@
 <div align="center">
 
-# clipcc-gui
+<img src="https://github.com/Clipteam/clipcc-site/raw/master/src/assets/logo-text.svg" alt="logo" width="300"/>
 
+![](https://img.shields.io/badge/license-AGPL-blue) ![](https://img.shields.io/badge/version-3.0.2-brightgreen) ![()[https://jq.qq.com/?_wv=1027&k=HCrQYsp2]](https://img.shields.io/badge/QQ group-959825608-orange)
+---
 </div>
 
-# The original scratch project is open source under the BSD-3 Clause License
-#### ClipCC is a powerful scratch-project editor based on scratch-gui which was  created by MIT. And it migrates a lot of  function from ClipCC 1.x. ClipCC's 
-#### official qq group:959825608
-## Links
-### [clipcc-l10n](https://github.com/Clipteam/clipcc-l10n)
+ClipCC is a powerful scratch fork which adds some useful features. And it migrates a lot of features from legacy ClipCC.
 
-### [clipcc-block](https://github.com/Clipteam/clipcc-block)
+# What's this
+![](https://s3.jpg.cm/2021/09/20/IE4N4S.png)
+ClipCC is a powerful scratch fork which adds some useful features such as new extension system, high-quality pen, stage layout and more.
 
-### [clipcc-vm](https://github.com/Clipteam/clipcc-vm)
 
-## Installation
-This requires you to have Git and Node.js installed.
+**Special thanks for Ble Studio!**
+# Useful Links
+### [Online Editor(Stable)](https://codingclip.com/editor/dev)
+### [Online Editor(Canary)](https://codingclip.com/editor/dev/canary)
+### [Offline Editor](https://github.com/Clipteam/clipcc-desktop/releases)
+# What's left to be added
+- New extension system
+- High-quality pen
+- JIT support
+- Global procedure
+- custom stage size
+# Building
+**Please note! Please make sure you have installed Git and Node.js before building.**
 
 In your own node environment/application:
 ```bash
@@ -25,23 +35,18 @@ If you want to edit/play yourself:
 ```bash
 git clone https://github.com/Clipteam/clipcc-gui.git
 cd clipcc-gui
-yarn
+yarn install
 ```
 
-## Getting started
-Running the project requires Node.js to be installed.
-
-## Running
 Open a Command Prompt or Terminal in the repository and run:
 ```bash
 yarn start
 ```
-Then go to [http://localhost:8601/](http://localhost:8601/) - the playground outputs the default GUI component
+Then go to [http://localhost:8601/](http://localhost:8601/) - the playground outputs the default GUI component.
 
 ## Developing alongside other Scratch repositories
 
 ### Getting another repo to point to this code
-
 
 If you wish to develop `clipcc-gui` alongside other scratch repositories that depend on it, you may wish
 to have the other repositories use your local `clipcc-gui` build instead of fetching the current production
@@ -198,42 +203,6 @@ yarn install  --no-optional --save-dev react-responsive@^5.0.0
 ```
 
 Further reading: [Stack Overflow](https://stackoverflow.com/questions/46602286/npm-requires-a-peer-of-but-all-peers-are-in-package-json-and-node-modules)
-
-## Troubleshooting
-
-If you run into npm install errors, try these steps:
-1. run `npm cache clean --force`
-2. Delete the node_modules directory
-3. Delete package-lock.json
-4. run `npm install` again
-
-## Publishing to GitHub Pages
-You can publish the GUI to github.io so that others on the Internet can view it.
-[Read the wiki for a step-by-step guide.](https://github.com/LLK/clipcc-gui/wiki/Publishing-to-GitHub-Pages)
-
-## Want to add more function?
-
-If you want us to add more function in clipcc3, you can add a issue to tell us what kind of function do you like.
-
-## Understanding the project state machine
-
-Since so much code throughout scratch-gui depends on the state of the project, which goes through many different phases of loading, displaying and saving, we created a "finite state machine" to make it clear which state it is in at any moment. This is contained in the file src/reducers/project-state.js .
-
-It can be hard to understand the code in src/reducers/project-state.js . There are several types of data and functions used, which relate to each other:
-
-### Loading states
-
-These include state constant strings like:
-
-* `NOT_LOADED` (the default state),
-* `ERROR`,
-* `FETCHING_WITH_ID`,
-* `LOADING_VM_WITH_ID`,
-* `REMIXING`,
-* `SHOWING_WITH_ID`,
-* `SHOWING_WITHOUT_ID`,
-* etc.
-
 ### Transitions
 
 These are names for the action which causes a state change. Some examples are:
@@ -272,14 +241,16 @@ Here's what will happen in the project state machine:
 
 ## Contact us
 
-You can contact us by sending an email to [clipteam@codingclip.com](mailto:clipteam.codingclip.com). We are looking forward to you feedback.
+You can contact us by sending an email to [sinangentoo@gmail.com](mailto:sinangentoo.gmail.com). We are looking forward to you feedback.
 
 ## Donate
 
-Not now
-
 <div align="center">
+
+![](https://s3.jpg.cm/2021/10/23/IgkIgD.jpg)
 
 #### Copyright © *Clipteam* All rights reserved.
 
 </div>
+
+
