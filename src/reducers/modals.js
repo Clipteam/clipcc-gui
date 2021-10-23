@@ -14,6 +14,7 @@ const MODAL_TIPS_LIBRARY = 'tipsLibrary';
 const MODAL_SETTINGS_MODAL = 'settings';
 const MODAL_ABOUT_MODAL = 'about';
 const MODAL_EXTENSION_MODAL = 'extension';
+const MODAL_ERROR_MODAL = 'error';
 
 const initialState = {
     [MODAL_BACKDROP_LIBRARY]: false,
@@ -28,7 +29,8 @@ const initialState = {
     [MODAL_TIPS_LIBRARY]: false,
     [MODAL_SETTINGS_MODAL]: false,
     [MODAL_ABOUT_MODAL]: false,
-    [MODAL_EXTENSION_MODAL]: false
+    [MODAL_EXTENSION_MODAL]: false,
+    [MODAL_ERROR_MODAL]: false
 };
 
 const reducer = function (state, action) {
@@ -96,7 +98,10 @@ const openAboutModal = function () {
 };
 const openExtensionModal = function () {
     return openModal(MODAL_EXTENSION_MODAL);
-}
+};
+const openErrorModal = function () {
+    return openModal(MODAL_ERROR_MODAL);
+};
 const closeBackdropLibrary = function () {
     return closeModal(MODAL_BACKDROP_LIBRARY);
 };
@@ -133,8 +138,11 @@ const closeSettingsModal = function () {
 const closeAboutModal = function () {
     return closeModal(MODAL_ABOUT_MODAL);
 };
-const closeExtensionModal = function() {
+const closeExtensionModal = function () {
     return closeModal(MODAL_EXTENSION_MODAL);
+};
+const closeErrorModal = function () {
+    return closeModal(MODAL_ERROR_MODAL);
 };
 export {
     reducer as default,

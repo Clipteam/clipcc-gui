@@ -84,6 +84,7 @@ const GUIComponent = props => {
         costumeLibraryVisible,
         costumesTabVisible,
         enableCommunity,
+        errorModalVisible,
         extensionModalVisible,
         intl,
         isCreating,
@@ -315,6 +316,9 @@ const GUIComponent = props => {
                 {alertsVisible ? (
                     <Alerts className={styles.alertsContainer} />
                 ) : null}
+                {errorModalVisible ? (
+                    <ErrorModal />
+                ) : null}
                 {connectionModalVisible ? (
                     <ConnectionModal
                         vm={vm}
@@ -417,6 +421,7 @@ GUIComponent.propTypes = {
     costumeLibraryVisible: PropTypes.bool,
     costumesTabVisible: PropTypes.bool,
     enableCommunity: PropTypes.bool,
+    errorModalVisible: PropTypes.bool,
     extensionModalVisible : PropTypes.bool,
     intl: intlShape.isRequired,
     isCreating: PropTypes.bool,
