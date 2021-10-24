@@ -39,7 +39,6 @@ const vmManagerHOC = function (WrappedComponent) {
                 this.props.vm.setDeserializeOption(this.props.compatibility);
                 this.props.vm.initialized = true;
                 this.props.vm.setLocale(this.props.locale, this.props.messages);
-                console.log(this.props.vm); //DEBUG
             }
             if (!this.props.isPlayerOnly && !this.props.isStarted) {
                 this.props.vm.start();
