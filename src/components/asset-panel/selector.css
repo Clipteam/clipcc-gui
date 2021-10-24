@@ -10,6 +10,10 @@
     background: $ui-tertiary;
 }
 
+[theme='dark'] .wrapper {
+    background-color: $ui-primary-dark;
+}
+
 .new-buttons {
     position: absolute;
     bottom: 0;
@@ -25,7 +29,7 @@
     background: none;
 }
 
-$fade-out-distance: 100px;
+$fade-out-distance: 0px;
 
 .new-buttons:before {
     content: "";

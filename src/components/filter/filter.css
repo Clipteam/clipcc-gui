@@ -15,6 +15,14 @@
     position: relative;
 }
 
+[effect='blur'] .filter {
+    background-color: rgba(255,255,255,1);
+}
+
+[theme='dark'] .filter {
+    background-color: $ui-primary-dark;
+}
+
 .filter-icon {
     position: absolute;
     top: 0;
@@ -114,6 +122,10 @@
     cursor: text;
 }
 
+[theme='dark'] .filter-input {
+    color: white;
+}
+
 [dir="ltr"] .filter-input {
     padding: .625rem 2rem .625rem 3rem;
 }
@@ -127,6 +139,10 @@
     color: $text-primary;
     font-size: 0.875rem;
     letter-spacing: 0.15px;
+}
+
+[theme='dark'] .filter-input::placeholder {
+    color: white;
 }
 
 [dir="ltr"] .filter-input::placeholder {

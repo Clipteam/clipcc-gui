@@ -8,7 +8,7 @@ import MediaQuery from 'react-responsive';
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import tabStyles from 'react-tabs/style/react-tabs.css';
 import VM from 'clipcc-vm';
-import Renderer from 'scratch-render';
+import Renderer from 'clipcc-render';
 
 import Blocks from '../../containers/blocks.jsx';
 import CostumeTab from '../../containers/costume-tab.jsx';
@@ -30,8 +30,9 @@ import Alerts from '../../containers/alerts.jsx';
 import DragLayer from '../../containers/drag-layer.jsx';
 import ConnectionModal from '../../containers/connection-modal.jsx';
 import TelemetryModal from '../telemetry-modal/telemetry-modal.jsx';
-import SettingsModal from '../settings-modal/settings-modal.jsx';
+import SettingsModal from '../../containers/setting-handler.jsx';
 import AboutModal from '../about-modal/about-modal.jsx';
+import ContributorModal from '../contributor-modal/contributor-modal.jsx';
 
 import layout, {STAGE_SIZE_MODES} from '../../lib/layout-constants';
 import {resolveStageSize} from '../../lib/screen-utils';
@@ -82,6 +83,7 @@ const GUIComponent = props => {
         connectionModalVisible,
         costumeLibraryVisible,
         costumesTabVisible,
+        contributorModalVisible,
         enableCommunity,
         intl,
         isCreating,
@@ -111,6 +113,7 @@ const GUIComponent = props => {
         onRequestCloseTelemetryModal,
         onRequestCloseSettingsModal,
         onRequestCloseAboutModal,
+        onRequestCloseContributorModal,
         onSeeCommunity,
         onShare,
         onShowPrivacyPolicy,
@@ -339,6 +342,11 @@ const GUIComponent = props => {
                         onRequestClose={onRequestCloseAboutModal}
                     />
                 ) : null}
+                {contributorModalVisible ? (
+                    <ContributorModal
+                        onRequestClose={onRequestCloseContributorModal}
+                    />
+                ) : null}
 
                 <MenuBar
                     accountNavOpen={accountNavOpen}
@@ -408,6 +416,7 @@ GUIComponent.propTypes = {
     children: PropTypes.node,
     costumeLibraryVisible: PropTypes.bool,
     costumesTabVisible: PropTypes.bool,
+    contributorModalVisible: PropTypes.bool,
     enableCommunity: PropTypes.bool,
     intl: intlShape.isRequired,
     isCreating: PropTypes.bool,
@@ -431,6 +440,7 @@ GUIComponent.propTypes = {
     onRequestCloseTelemetryModal: PropTypes.func,
     onRequestCloseSettingsModal: PropTypes.func,
     onRequestCloseAboutModal: PropTypes.func,
+    onRequestCloseContributorModal: PropTypes.func,
     onSeeCommunity: PropTypes.func,
     onShare: PropTypes.func,
     onShowPrivacyPolicy: PropTypes.func,

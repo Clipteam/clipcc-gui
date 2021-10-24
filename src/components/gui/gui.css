@@ -11,6 +11,10 @@
     background-color: $ui-primary;
 }
 
+[theme='dark'] .body-wrapper {
+    background-color: $ui-primary-dark;
+}
+
 .body-wrapper * {
     box-sizing: border-box;
 }
@@ -96,6 +100,11 @@
     transition: 0.25s ease-out; /* @todo: standardize with var */
 }
 
+[theme='dark'] .tab {
+    background-color: $drop-highlight-dark;
+    color: white;
+}
+
 [dir="ltr"] .tab {
     margin-left: -0.5rem;
 }
@@ -127,11 +136,19 @@
   background-color: $ui-primary;
 }
 
+[theme='dark'] .tab:hover {
+  background-color: $ui-tertiary-dark;
+}
+
 .tab.is-selected {
     height: 90%;
     color: $motion-primary;
     background-color: $ui-white;
     z-index: 4; /* Make sure selected is always above */
+}
+
+[theme='dark'] .tab.is-selected {
+    background-color: $ui-primary-dark;
 }
 
 .tab img {

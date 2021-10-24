@@ -1,6 +1,6 @@
 /**
  * @fileoverview
- * 设置窗口中的FPS组件
+ * 设置窗口中的压缩率修改组件
  * @author SinanGentoo
  */
 
@@ -19,13 +19,13 @@ const BufferedInput = BufferedInputHOC(Input);
 
 const messages = defineMessages({
     label: {
-        defaultMessage: 'FPS',
-        description: 'Label of FPS',
-        id: 'gui.settingsModal.fps.label'
+        defaultMessage: 'Compression level',
+        description: 'Label of Compression',
+        id: 'gui.settingsModal.compression.label'
     }
 });
 
-const FPSSetting = props => (
+const CompressionSetting = props => (
     <Box
         justifyContent="space-between"
         alignContent="center"
@@ -45,32 +45,32 @@ const FPSSetting = props => (
             <BufferedInput
                 tabIndex="1"
                 type="number"
-                value={props.fps}
+                value={props.compression}
                 onSubmit={value => {
-                	props.onChangeFPS(value);
-                	props.setFramerate(value);
-            	}}
+                	props.onChangeCompression(value);
+                	props.setCompression(value);
+                }}
             />
         </Box>
     </Box>
 );
 
-FPSSetting.propTypes = {
+CompressionSetting.propTypes = {
     intl: intlShape.isRequired,
-    fps: PropTypes.number.isRequired,
+    compression: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = state => ({
-    fps: getSetting(state, 'fps')
+    compression: getSetting(state, 'compression')
 });
 
 const mapDispatchToProps = dispatch => ({
-    onChangeFPS: fps => {
-        dispatch(updateSetting('fps', fps));
+    onChangeCompression: compression => {
+        dispatch(updateSetting('compression', compression));
     }
 });
 
 export default injectIntl(connect(
     mapStateToProps,
     mapDispatchToProps
-)(FPSSetting));
+)(CompressionSetting));

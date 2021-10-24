@@ -6,6 +6,8 @@ import {connect} from 'react-redux';
 import VM from 'clipcc-vm';
 import AudioEngine from 'scratch-audio';
 
+import {updateSetting, getSetting} from '../reducers/settings';
+
 import {setProjectUnchanged} from '../reducers/project-changed';
 import {
     LoadingStates,
@@ -32,6 +34,9 @@ const vmManagerHOC = function (WrappedComponent) {
                 this.audioEngine = new AudioEngine();
                 this.props.vm.attachAudioEngine(this.audioEngine);
                 this.props.vm.setCompatibilityMode(true);
+                this.props.vm.runtime.setFramerate(parseInt(this.props.fps));
+                this.props.vm.setCompressionLevel(parseInt(this.props.compression));
+                this.props.vm.setDeserializeOption(this.props.compatibility);
                 this.props.vm.initialized = true;
                 this.props.vm.setLocale(this.props.locale, this.props.messages);
             }
@@ -117,6 +122,9 @@ const vmManagerHOC = function (WrappedComponent) {
         projectData: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
         projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         username: PropTypes.string,
+        fps: PropTypes.string,
+        compression: PropTypes.string,
+        compatibility: PropTypes.string,
         vm: PropTypes.instanceOf(VM).isRequired
     };
 
@@ -131,7 +139,10 @@ const vmManagerHOC = function (WrappedComponent) {
             projectId: state.scratchGui.projectState.projectId,
             loadingState: loadingState,
             isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
-            isStarted: state.scratchGui.vmStatus.started
+            isStarted: state.scratchGui.vmStatus.started,
+            fps: getSetting(state, 'fps'),
+            compression: getSetting(state, 'compression'),
+            compatibility: getSetting(state, 'compatibility')
         };
     };
 

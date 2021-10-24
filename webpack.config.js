@@ -25,7 +25,13 @@ const base = {
         contentBase: path.resolve(__dirname, 'build'),
         host: '0.0.0.0',
         port: process.env.PORT || 8601,
-        https: ENABLE_HTTPS
+        https: ENABLE_HTTPS,
+        proxy: {
+        	'/editor/dev/canary': {
+        		target: 'http://localhost:8601',
+        		pathRewrite: {'^/editor/dev/canary' : ''}
+              }
+        }
     },
     output: {
         library: 'GUI',
@@ -117,6 +123,7 @@ function getPlugins() {
             chunks: ['lib.min', 'gui'],
             template: 'src/playground/index.ejs',
             title: 'ClipCC 3.0 GUI',
+            scriptLoading: 'defer',
             enablePWA: ENABLE_PWA,
             sentryConfig: process.env.SENTRY_CONFIG ? '"' + process.env.SENTRY_CONFIG + '"' : null
         }),

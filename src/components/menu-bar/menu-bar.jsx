@@ -32,7 +32,8 @@ import MenuBarHOC from '../../containers/menu-bar-hoc.jsx';
 import {
     openTipsLibrary,
     openSettingsModal,
-    openAboutModal
+    openAboutModal,
+    openContributorModal
 } from '../../reducers/modals';
 import {setPlayer} from '../../reducers/mode';
 import {
@@ -67,6 +68,7 @@ import {
     closeLoginMenu,
     loginMenuOpen
 } from '../../reducers/menus';
+
 
 import collectMetadata from '../../lib/collect-metadata';
 
@@ -176,6 +178,7 @@ class MenuBar extends React.Component {
             'handleClickShare',
             'handleClickSettings',
             'handleClickAbout',
+            'handleClickContributor',
             'handleKeyPress',
             'handleLanguageMouseUp',
             'handleRestoreOption',
@@ -243,6 +246,11 @@ class MenuBar extends React.Component {
     }
     handleClickAbout () {
         this.props.onOpenAbout();
+        this.props.onRequestCloseOther();
+    }
+
+    handleClickContributor() {
+        this.props.onOpenContributor();
         this.props.onRequestCloseOther();
     }
     handleRestoreOption (restoreFun) {
@@ -395,6 +403,13 @@ class MenuBar extends React.Component {
                 id="gui.menuBar.about"
             />
         );
+        const contributorMessage = (
+            <FormattedMessage
+                defaultMessage="Contributor List"
+                description="Menu bar item for showing contributor list message"
+                id="gui.menuBar.contributor"
+            />
+        );
         const remixButton = (
             <Button
                 className={classNames(
@@ -414,7 +429,7 @@ class MenuBar extends React.Component {
             <Box
                 className={classNames(
                     this.props.className,
-                    styles.menuBar
+                    styles.menuBar,
                 )}
             >
                 <div className={styles.mainMenu}>
@@ -591,6 +606,12 @@ class MenuBar extends React.Component {
                                         onClick={this.handleClickAbout}
                                     >
                                         {aboutMessage}
+                                    </MenuItem>
+                                    <MenuItem
+                                        isRtl={this.props.isRtl}
+                                        onClick={this.handleClickContributor}
+                                    >
+                                        {contributorMessage}
                                     </MenuItem>
                                 </MenuSection>
                             </MenuBarMenu>
@@ -879,6 +900,7 @@ MenuBar.propTypes = {
     onClickSaveAsCopy: PropTypes.func,
     onOpenSettings: PropTypes.func,
     onOpenAbout: PropTypes.func,
+    onOpenContributor: PropTypes.func,
     onLogOut: PropTypes.func,
     onOpenRegistration: PropTypes.func,
     // onOpenTipLibrary: PropTypes.func,
@@ -941,6 +963,7 @@ const mapDispatchToProps = dispatch => ({
     onOpenTipLibrary: () => dispatch(openTipsLibrary()),
     onOpenSettings: () => dispatch(openSettingsModal()),
     onOpenAbout: () => dispatch(openAboutModal()),
+    onOpenContributor: () => dispatch(openContributorModal()),
     onClickAccount: () => dispatch(openAccountMenu()),
     onRequestCloseAccount: () => dispatch(closeAccountMenu()),
     onClickFile: () => dispatch(openFileMenu()),

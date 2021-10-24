@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+
 import styles from './menu.css';
 
 const MenuComponent = ({
@@ -42,7 +43,7 @@ const MenuItem = ({
         className={classNames(
             styles.menuItem,
             styles.hoverable,
-            className
+            className,
         )}
         onClick={onClick}
     >
@@ -53,7 +54,7 @@ const MenuItem = ({
 MenuItem.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
 };
 
 
@@ -76,6 +77,7 @@ const MenuSection = ({children}) => (
 MenuSection.propTypes = {
     children: PropTypes.node
 };
+
 
 export {
     MenuComponent as default,

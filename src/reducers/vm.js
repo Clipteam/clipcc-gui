@@ -1,9 +1,11 @@
 import VM from 'clipcc-vm';
 import storage from '../lib/storage';
+import {appVersion} from '../lib/app-info';
 
 const SET_VM = 'clipcc-gui/vm/SET_VM';
-const defaultVM = new VM();
+const defaultVM = new VM(appVersion);
 defaultVM.attachStorage(storage);
+console.log("ClipCC" + appVersion);
 const initialState = defaultVM;
 
 const reducer = function (state, action) {

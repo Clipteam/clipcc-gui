@@ -50,6 +50,10 @@
     border: $stage-full-screen-border-width solid rgb(126, 133, 151);
 }
 
+[theme='dark'] .stage.full-screen {
+    border-color: black;
+}
+
 .with-color-picker {
     cursor: none;
     z-index: $z-index-stage-with-color-picker;
@@ -83,6 +87,10 @@
     stage and window edges (on left/right/bottom) */
     padding: $stage-full-screen-stage-padding;
     overflow: hidden;
+}
+
+[theme='dark'] .stage-wrapper-overlay {
+    background-color: rgb(0,0,0);
 }
 
 /* wraps only main content of overlay player, not monitors */

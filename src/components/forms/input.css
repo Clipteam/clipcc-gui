@@ -31,6 +31,11 @@
     min-width: 0;
 }
 
+[theme='dark'] .input-form {
+    background-color: $ui-tertiary-dark;
+    color: white;
+}
+
 .input-form:hover {
     border-color: $motion-primary;
 }

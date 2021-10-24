@@ -17,6 +17,7 @@ import {
     COSTUMES_TAB_INDEX,
     SOUNDS_TAB_INDEX
 } from '../reducers/editor-tab';
+import {getSetting} from '../reducers/settings';
 
 import {
     closeCostumeLibrary,
@@ -25,6 +26,7 @@ import {
     openExtensionLibrary,
     closeSettingsModal,
     closeAboutModal,
+    closeContributorModal,
     openLoadingProject,
     closeLoadingProject
 } from '../reducers/modals';
@@ -74,6 +76,8 @@ class GUI extends React.Component {
         }
     }
     render () {
+        document.body.setAttribute('theme', this.props.darkMode);
+        document.body.setAttribute('effect', this.props.blur);
         if (this.props.isError) {
             throw new Error(
                 `Error in Scratch GUI [location=${window.location}]: ${this.props.error}`);
@@ -118,8 +122,10 @@ class GUI extends React.Component {
 
 GUI.propTypes = {
     assetHost: PropTypes.string,
+    blur: PropTypes.string,
     children: PropTypes.node,
     cloudHost: PropTypes.string,
+    darkMode: PropTypes.string,
     error: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
     fetchingProject: PropTypes.bool,
     intl: intlShape,
@@ -155,15 +161,27 @@ GUI.defaultProps = {
 
 const mapStateToProps = state => {
     const loadingState = state.scratchGui.projectState.loadingState;
+    let darkMode = getSetting(state, 'darkMode');
+    if (darkMode === 'system') {
+        if (matchMedia('(prefers-color-scheme: dark)').matches) {
+            darkMode = 'dark';
+        } else {
+            darkMode = 'light';
+        }
+    }
+    let blur = getSetting(state, 'blur');
+    if (blur === 'on') blur = 'blur';
     return {
         activeTabIndex: state.scratchGui.editorTab.activeTabIndex,
         alertsVisible: state.scratchGui.alerts.visible,
         backdropLibraryVisible: state.scratchGui.modals.backdropLibrary,
         blocksTabVisible: state.scratchGui.editorTab.activeTabIndex === BLOCKS_TAB_INDEX,
+        blur: blur,
         cardsVisible: state.scratchGui.cards.visible,
         connectionModalVisible: state.scratchGui.modals.connectionModal,
         costumeLibraryVisible: state.scratchGui.modals.costumeLibrary,
         costumesTabVisible: state.scratchGui.editorTab.activeTabIndex === COSTUMES_TAB_INDEX,
+        darkMode: darkMode,
         error: state.scratchGui.projectState.error,
         isError: getIsError(loadingState),
         isFullScreen: state.scratchGui.mode.isFullScreen,
@@ -182,6 +200,7 @@ const mapStateToProps = state => {
         tipsLibraryVisible: state.scratchGui.modals.tipsLibrary,
         settingsVisible: state.scratchGui.modals.settings,
         aboutModalVisible: state.scratchGui.modals.about,
+        contributorModalVisible: state.scratchGui.modals.contributor,
         layoutStyle: state.scratchGui.settings.layoutStyle,
         vm: state.scratchGui.vm
     };
@@ -197,6 +216,7 @@ const mapDispatchToProps = dispatch => ({
     onRequestCloseTelemetryModal: () => dispatch(closeTelemetryModal()),
     onRequestCloseSettingsModal: () => dispatch(closeSettingsModal()),
     onRequestCloseAboutModal: () => dispatch(closeAboutModal()),
+    onRequestCloseContributorModal: () => dispatch(closeContributorModal()),
     onLoadingFinished: (loadingState, success) => {
         dispatch(onLoadedProject(loadingState, false, success));
         dispatch(closeLoadingProject());

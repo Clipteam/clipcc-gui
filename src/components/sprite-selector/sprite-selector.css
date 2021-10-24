@@ -20,6 +20,10 @@
     border-bottom: 0;
 }
 
+[theme='dark'] .sprite-selector {
+    background-color: $ui-tertiary-dark;
+}
+
 .sprite-wrapper {
     /*
         Our goal is to fit sprites evenly in a row without leftover space.

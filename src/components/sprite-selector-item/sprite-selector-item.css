@@ -23,6 +23,10 @@
     transition: 0.25s ease-out; /* @todo: standardize with var */
 }
 
+[theme='dark'] .sprite-selector-item {
+    color: $ui-white;
+}
+
 .sprite-selector-item.is-selected {
     box-shadow: 0px 0px 0px 4px $motion-transparent;
     border: 2px solid $motion-primary;
@@ -30,9 +34,17 @@
     transition: 0.25s ease-out; /* @todo: standardize with var */
 }
 
+[theme='dark'] .sprite-selector-item.is-selected {
+    background: $ui-primary-dark;
+}
+
 .sprite-selector-item:hover {
     border: 2px solid $motion-primary;
     background: $ui-white;
+}
+
+[theme='dark'] .sprite-selector-item:hover {
+    background: $ui-primary-dark;
 }
 
 .sprite-selector-item:hover .sprite-image, .is-selected .sprite-image {
@@ -71,6 +83,10 @@
     font-size: 0.625rem;
     color: $text-primary;
     user-select: none;
+}
+
+[theme='dark'] .sprite-info {
+    color: $ui-white;
 }
 
 .sprite-name, .sprite-details {
