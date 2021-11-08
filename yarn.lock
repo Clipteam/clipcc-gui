@@ -2931,10 +2931,10 @@ cli-width@^2.0.0:
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.1.tgz#b0433d0b4e9c847ef18868a4ef16fd5fc8271c48"
   integrity sha512-GRMWDxpOB6Dgk2E5Uo+3eEBvtOOlimMmpbFiKuLFnQzYDavtLFY3K5ona41jgN/WdRZtG7utuVSVTL4HbZHGkw==
 
-clipcc-block@3.0.14:
-  version "3.0.14"
-  resolved "https://r.cnpmjs.org/clipcc-block/download/clipcc-block-3.0.14.tgz#7a28ecdbdd8deb302fb49f20070a8b257a206b0e"
-  integrity sha1-eijs292N6zAvtJ8gBwqLJXogaw4=
+clipcc-block@3.0.15:
+  version "3.0.15"
+  resolved "https://r.cnpmjs.org/clipcc-block/download/clipcc-block-3.0.15.tgz#72cbc29e1151e2135cda61bcf79f713d61bcbff9"
+  integrity sha1-csvCnhFR4hNc2mG8959xPWG8v/k=
   dependencies:
     exports-loader "0.6.3"
     imports-loader "0.6.5"
@@ -2946,10 +2946,10 @@ clipcc-block@3.0.14:
     google-closure-compiler-osx "^20200112.0.0"
     google-closure-compiler-windows "^20200112.0.0"
 
-clipcc-extension@0.1.4:
-  version "0.1.4"
-  resolved "https://r.cnpmjs.org/clipcc-extension/download/clipcc-extension-0.1.4.tgz#5c4a63b3605eff7b0061d0b6b701c1ad0532a463"
-  integrity sha1-XEpjs2Be/3sAYdC2twHBrQUypGM=
+clipcc-extension@0.1.6:
+  version "0.1.6"
+  resolved "https://r.cnpmjs.org/clipcc-extension/download/clipcc-extension-0.1.6.tgz#dbfdf0c04ac2d19b6ad14fbb36932ef786e3e41e"
+  integrity sha1-2/3wwErC0Ztq0U+7NpMu94bj5B4=
 
 clipcc-l10n@3.0.3:
   version "3.0.3"
@@ -2962,10 +2962,10 @@ clipcc-l10n@3.0.3:
     form-data "^4.0.0"
     poeditor-api "^1.0.0"
 
-clipcc-l10n@3.0.8:
-  version "3.0.8"
-  resolved "https://r.cnpmjs.org/clipcc-l10n/download/clipcc-l10n-3.0.8.tgz#4c136909c21dad76fb1ce9937e37374f983fe6c9"
-  integrity sha1-TBNpCcIdrXb7HOmTfjc3T5g/5sk=
+clipcc-l10n@3.0.9:
+  version "3.0.9"
+  resolved "https://r.cnpmjs.org/clipcc-l10n/download/clipcc-l10n-3.0.9.tgz#1e5ea6e724b10e5d1d8fe129f8ebd344ca72a29d"
+  integrity sha1-Hl6m5ySxDl0dj+Ep+OvTRMpyop0=
   dependencies:
     "@babel/cli" "^7.1.2"
     "@babel/core" "^7.1.2"
@@ -2973,10 +2973,10 @@ clipcc-l10n@3.0.8:
     form-data "^4.0.0"
     poeditor-api "^1.0.0"
 
-clipcc-vm@3.1.1:
-  version "3.1.1"
-  resolved "https://r.cnpmjs.org/clipcc-vm/download/clipcc-vm-3.1.1.tgz#938b8943c9a3c6d5d2884adb079c00dd9c9d4d92"
-  integrity sha1-k4uJQ8mjxtXSiErbB5wA3ZydTZI=
+clipcc-vm@3.1.2:
+  version "3.1.2"
+  resolved "https://r.cnpmjs.org/clipcc-vm/download/clipcc-vm-3.1.2.tgz#be712d146a54f2798184522008f0d16d1e2de45f"
+  integrity sha1-vnEtFGpU8nmBhFIgCPDRbR4t5F8=
   dependencies:
     "@vernier/godirect" "1.5.0"
     arraybuffer-loader "^1.0.6"

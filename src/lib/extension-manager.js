@@ -208,9 +208,10 @@ const initExtensionAPI = (gui, vm, blocks) => {
     let apiInstance = {
         gui: gui.extensionAPI,
         vm: vm.extensionAPI,
-        blocks: blocks
-    }
-    ClipCCExtension.api.registExtensionAPI(apiInstance);//迟早换成gui.extensionAPI
+        blocks: blocks,
+        document: document
+    };
+    ClipCCExtension.api.registExtensionAPI(apiInstance);
 };
 
 const loadExtensionFromFile = async (dispatch, file, type) => {
@@ -247,8 +248,7 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
             console.log(document);
             const context = vm.createContext({
                 module: {exports: {}},
-                ClipCCExtension,
-                window: { console, document }
+                ClipCCExtension
             });
             script.runInContext(context);
             const ExtensionPrototype = context.module.exports;
