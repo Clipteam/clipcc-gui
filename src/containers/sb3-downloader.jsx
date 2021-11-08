@@ -29,68 +29,53 @@ class SB3Downloader extends React.Component {
             'saveToLastFile'
         ]);
     }
-    downloadProject () {
-        this.props.saveProjectSb3().then(content => {
-            if (this.props.onSaveFinished) {
-                this.props.onSaveFinished();
-            }
-            if (window.showSaveFilePicker) {
-                this.saveFilePicker(this.props.projectFilename, content);
-            } else {
-                downloadBlob(this.props.projectFilename, content);
-            }
-        });
+    async downloadProject () {
+        const content = await this.props.saveProjectSb3();
+        if (this.props.onSaveFinished) {
+            this.props.onSaveFinished();
+        }
+        if (window.showSaveFilePicker) {
+            await this.saveFilePicker(this.props.projectFilename, content);
+        } else {
+            downloadBlob(this.props.projectFilename, content);
+        }
     }
-    saveToLastFile () {
+    async saveToLastFile () {
         const handle = this.props.fileHandle;
         if (handle === null) return;
-        handle.createWritable()
-            .then(writable => {
-                this.props.onShowSavingAlert();
-                this.props.saveProjectSb3()
-                    .then(content => {
-                        writable.write(content)
-                            .then(() => {
-                                this.props.onShowSaveSuccessAlert();
-                                writable.close();
-                            });
-
-                    });
-            })
-            .catch(err => {
-                log.error(err);
-            });
+        const writable = await handle.createWritable();
+        this.props.onShowSavingAlert();
+        const content = await this.props.saveProjectSb3();
+        await writable.write(content);
+        await writable.close();
+        this.props.onShowSaveSuccessAlert();
     }
-    saveFilePicker (fileName, content) {
-        window.showSaveFilePicker(
-            {
-                types: [
-                    {
-                        description: 'Scratch 3 File',
-                        accept: {'application/x.scratch.sb3': ['.sb3']}
-                    }
-                ],
-                suggestedName: fileName,
-                excludeAcceptAllOption: true
-            })
-            .then(fileHandle => {
-                this.props.onShowSavingAlert();
-                fileHandle.createWritable()
-                    .then(writable => {
-                        writable.write(content)
-                            .then(() => {
-                                this.props.onShowSaveSuccessAlert();
-                                this.props.onSetFileSystemHandle(fileHandle);
-                                writable.close();
-                            });
-                    });
-            })
-            .catch(err => {
-                log.error(err);
-                if (err.name === 'SecurityError') {
-                    downloadBlob(fileName, content);
-                }
-            });
+    async saveFilePicker (fileName, content) {
+        try {
+            const fileHandle = await window.showSaveFilePicker(
+                {
+                    types: [
+                        {
+                            description: 'Scratch 3 File',
+                            accept: {'application/x.scratch.sb3': ['.sb3']}
+                        }
+                    ],
+                    suggestedName: fileName,
+                    excludeAcceptAllOption: true
+                });
+            this.props.onShowSavingAlert();
+            const writable = await fileHandle.createWritable();
+            await writable.write(content);
+            this.props.onShowSaveSuccessAlert();
+            this.props.onSetFileSystemHandle(fileHandle);
+            await writable.close();
+            this.props.onShowSaveSuccessAlert();
+        } catch (err) {
+            log.error(err);
+            if (err.name === 'SecurityError') {
+                downloadBlob(fileName, content);
+            }
+        }
     }
     render () {
         const {

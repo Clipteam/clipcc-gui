@@ -76,29 +76,28 @@ const SBFileUploaderHOC = function (WrappedComponent) {
             this.fileReader = new FileReader();
             this.fileReader.onload = this.onload;
             if (window.showOpenFilePicker) {
-                window.showOpenFilePicker({
-                    types: [
-                        {
-                            description: 'Scratch File',
-                            accept: {
-                                'application/x.scratch.sb3': ['.sb', '.sb2', '.sb3', '.cc3']
-                            }
-                        }
-                    ],
-                    multiple: false
-                }).then(([handle]) => {
-                    handle.getFile()
-                        .then(file => {
-                            this.handleChange({
-                                target: {
-                                    files: [file]
+                (async () => {
+                    const [handle] = await window.showOpenFilePicker({
+                        types: [
+                            {
+                                description: 'Scratch File',
+                                accept: {
+                                    'application/x.scratch.sb3': ['.sb', '.sb2', '.sb3', '.cc3']
                                 }
-                            });
-                            if (file.name.endsWith('.sb3')) {
-                                this.props.onSetFileSystemHandle(handle);
                             }
-                        });
-                });
+                        ],
+                        multiple: false
+                    });
+                    const file = await handle.getFile();
+                    this.handleChange({
+                        target: {
+                            files: [file]
+                        }
+                    });
+                    if (file.name.endsWith('.sb3')) {
+                        this.props.onSetFileSystemHandle(handle);
+                    }
+                })();
             } else {
                 // create <input> element and add it to DOM
                 this.inputElement = document.createElement('input');
@@ -186,6 +185,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                     })
                     .catch(error => {
                         log.warn(error);
+                        this.props.onSetFileSystemHandle(null);
                         alert(this.props.intl.formatMessage(messages.loadError)); // eslint-disable-line no-alert
                     })
                     .then(() => {
