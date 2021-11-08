@@ -11,7 +11,8 @@ import {
     getIsLoadingUpload,
     getIsShowingWithoutId,
     onLoadedProject,
-    requestProjectUpload
+    requestProjectUpload,
+    setFileSystemHandle
 } from '../reducers/project-state';
 import {setProjectTitle} from '../reducers/project-title';
 import {
@@ -74,15 +75,41 @@ const SBFileUploaderHOC = function (WrappedComponent) {
             // create fileReader
             this.fileReader = new FileReader();
             this.fileReader.onload = this.onload;
-            // create <input> element and add it to DOM
-            this.inputElement = document.createElement('input');
-            this.inputElement.accept = '.sb,.sb2,.sb3';
-            this.inputElement.style = 'display: none;';
-            this.inputElement.type = 'file';
-            this.inputElement.onchange = this.handleChange; // connects to step 3
-            document.body.appendChild(this.inputElement);
-            // simulate a click to open file chooser dialog
-            this.inputElement.click();
+            if (window.showOpenFilePicker) {
+                window.showOpenFilePicker({
+                    types: [
+                        {
+                            description: 'Scratch File',
+                            accept: {
+                                'application/x.scratch.sb3': ['.sb', '.sb2', '.sb3', '.cc3']
+                            }
+                        }
+                    ],
+                    multiple: false
+                }).then(([handle]) => {
+                    handle.getFile()
+                        .then(file => {
+                            this.handleChange({
+                                target: {
+                                    files: [file]
+                                }
+                            });
+                            if (file.name.endsWith('.sb3')) {
+                                this.props.onSetFileSystemHandle(handle);
+                            }
+                        });
+                });
+            } else {
+                // create <input> element and add it to DOM
+                this.inputElement = document.createElement('input');
+                this.inputElement.accept = '.sb,.sb2,.sb3';
+                this.inputElement.style = 'display: none;';
+                this.inputElement.type = 'file';
+                this.inputElement.onchange = this.handleChange; // connects to step 3
+                document.body.appendChild(this.inputElement);
+                // simulate a click to open file chooser dialog
+                this.inputElement.click();
+            }
         }
         // step 3: user has picked a file using the file chooser dialog.
         // We don't actually load the file here, we only decide whether to do so.
@@ -218,6 +245,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         loadingState: PropTypes.oneOf(LoadingStates),
         onLoadingFinished: PropTypes.func,
         onLoadingStarted: PropTypes.func,
+        onSetFileSystemHandle: PropTypes.func,
         onSetProjectTitle: PropTypes.func,
         projectChanged: PropTypes.bool,
         requestProjectUpload: PropTypes.func,
@@ -252,6 +280,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         // show project loading screen
         onLoadingStarted: () => dispatch(openLoadingProject()),
         onSetProjectTitle: title => dispatch(setProjectTitle(title)),
+        onSetFileSystemHandle: fileHandle => dispatch(setFileSystemHandle(fileHandle)),
         // step 4: transition the project state so we're ready to handle the new
         // project data. When this is done, the project state transition will be
         // noticed by componentDidUpdate()

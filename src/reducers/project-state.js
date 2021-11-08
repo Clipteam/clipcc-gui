@@ -22,6 +22,7 @@ const START_MANUAL_UPDATING = 'clipcc-gui/project-state/START_MANUAL_UPDATING';
 const START_REMIXING = 'clipcc-gui/project-state/START_REMIXING';
 const START_UPDATING_BEFORE_CREATING_COPY = 'clipcc-gui/project-state/START_UPDATING_BEFORE_CREATING_COPY';
 const START_UPDATING_BEFORE_CREATING_NEW = 'clipcc-gui/project-state/START_UPDATING_BEFORE_CREATING_NEW';
+const SET_FILESYSTEM_HANDLE = 'clipcc-gui/project-state/SET_FILESYSTEM_HANDLE';
 
 const defaultProjectId = '0'; // hardcoded id of default project
 const externalProjectId = '-1'; // hardcoded id of external project (Passed by file)
@@ -109,12 +110,12 @@ const initialState = {
     error: null,
     projectData: null,
     projectId: null,
+    fileHandle: null,
     loadingState: LoadingState.NOT_LOADED
 };
 
 const reducer = function (state, action) {
     if (typeof state === 'undefined') state = initialState;
-
     switch (action.type) {
     case DONE_CREATING_NEW:
         // We need to set project id since we just created new project on the server.
@@ -371,6 +372,10 @@ const reducer = function (state, action) {
             });
         }
         return state;
+    case SET_FILESYSTEM_HANDLE:
+        return Object.assign({}, state, {
+            fileHandle: action.fileHandle
+        });
     default:
         return state;
     }
@@ -511,6 +516,11 @@ const remixProject = () => ({
     type: START_REMIXING
 });
 
+const setFileSystemHandle = fileHandle => ({
+    type: SET_FILESYSTEM_HANDLE,
+    fileHandle: fileHandle
+});
+
 export {
     reducer as default,
     initialState as projectStateInitialState,
@@ -544,5 +554,6 @@ export {
     requestNewProject,
     requestProjectUpload,
     saveProjectAsCopy,
-    setProjectId
+    setProjectId,
+    setFileSystemHandle
 };

@@ -22,12 +22,13 @@ import styles from './save-status.css';
 // of the project state, rather than an event.
 const SaveStatus = ({
     alertsList,
+    canSave,
     projectChanged,
     onClickSave
 }) => (
     filterInlineAlerts(alertsList).length > 0 ? (
         <InlineMessages />
-    ) : projectChanged && (
+    ) : projectChanged && canSave && (
         <div
             className={styles.saveNow}
             onClick={onClickSave}
@@ -42,6 +43,7 @@ const SaveStatus = ({
 
 SaveStatus.propTypes = {
     alertsList: PropTypes.arrayOf(PropTypes.object),
+    canSave: PropTypes.bool,
     onClickSave: PropTypes.func,
     projectChanged: PropTypes.bool
 };
