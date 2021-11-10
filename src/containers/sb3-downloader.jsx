@@ -66,7 +66,6 @@ class SB3Downloader extends React.Component {
             this.props.onShowSavingAlert();
             const writable = await fileHandle.createWritable();
             await writable.write(content);
-            this.props.onShowSaveSuccessAlert();
             this.props.onSetFileSystemHandle(fileHandle);
             await writable.close();
             this.props.onShowSaveSuccessAlert();
