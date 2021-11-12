@@ -4,6 +4,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {projectTitleInitialState} from '../reducers/project-title';
 import downloadBlob from '../lib/download-blob';
+import {notScratchDesktop} from '../lib/isScratchDesktop';
 import log from '../lib/log';
 import {showAlertWithTimeout} from '../reducers/alerts';
 import {setFileSystemHandle} from '../reducers/project-state';
@@ -34,7 +35,7 @@ class SB3Downloader extends React.Component {
         if (this.props.onSaveFinished) {
             this.props.onSaveFinished();
         }
-        if (window.showSaveFilePicker) {
+        if (window.showSaveFilePicker && notScratchDesktop()) {
             await this.saveFilePicker(this.props.projectFilename, content);
         } else {
             downloadBlob(this.props.projectFilename, content);
