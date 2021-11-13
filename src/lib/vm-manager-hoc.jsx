@@ -34,9 +34,15 @@ const vmManagerHOC = function (WrappedComponent) {
                 this.audioEngine = new AudioEngine();
                 this.props.vm.attachAudioEngine(this.audioEngine);
                 this.props.vm.setCompatibilityMode(true);
-                this.props.vm.runtime.setFramerate(parseInt(this.props.fps));
-                this.props.vm.setCompressionLevel(parseInt(this.props.compression));
-                this.props.vm.setDeserializeOption(this.props.compatibility);
+                
+                //初始化设置
+                try {
+                    this.props.vm.runtime.setFramerate(parseInt(this.props.fps));
+                    this.props.vm.setCompressionLevel(parseInt(this.props.compression));
+                    this.props.vm.setDeserializeOption(this.props.compatibility);
+                } catch (e) {
+                    console.log('Failed to initialize settings:', e);
+                }
                 this.props.vm.initialized = true;
                 this.props.vm.setLocale(this.props.locale, this.props.messages);
             }
