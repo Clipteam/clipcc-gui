@@ -15,6 +15,7 @@ class CustomProcedures extends React.Component {
             'handleAddTextNumber',
             'handleToggleWarp',
             'handleToggleGlobal',
+            'handleToggleReturn',
             'handleCancel',
             'handleOk',
             'setBlocks'
@@ -22,7 +23,8 @@ class CustomProcedures extends React.Component {
         this.state = {
             rtlOffset: 0,
             warp: false,
-            global: false
+            global: false,
+            return: false
         };
     }
     componentWillUnmount () {
@@ -147,12 +149,20 @@ class CustomProcedures extends React.Component {
             this.setState({global: newGlobal});
         }
     }
+    handleToggleReturn () {
+        if (this.mutationRoot) {
+            const newReturn = !this.mutationRoot.getReturn();
+            this.mutationRoot.setReturn(newReturn);
+            this.setState({return: newReturn});
+        }
+    }
     render () {
         return (
             <CustomProceduresComponent
                 componentRef={this.setBlocks}
                 warp={this.state.warp}
                 global={this.state.global}
+                return={this.state.return}
                 onAddBoolean={this.handleAddBoolean}
                 onAddLabel={this.handleAddLabel}
                 onAddTextNumber={this.handleAddTextNumber}
@@ -160,6 +170,7 @@ class CustomProcedures extends React.Component {
                 onOk={this.handleOk}
                 onToggleWarp={this.handleToggleWarp}
                 onToggleGlobal={this.handleToggleGlobal}
+                onToggleReturn={this.handleToggleReturn}
             />
         );
     }

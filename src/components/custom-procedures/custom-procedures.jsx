@@ -100,10 +100,7 @@ const CustomProcedures = props => (
                     </div>
                 </div>
             </div>
-            <div className={classNames(
-                styles.checkboxRow,
-                styles.optionTitle
-            )}>
+            <div className={classNames(styles.checkboxRow, styles.option)}>
                 <label>
                     <input
                         checked={props.warp}
@@ -127,6 +124,19 @@ const CustomProcedures = props => (
                         defaultMessage="Global procedure"
                         description="Label for checkbox to define a global procedure"
                         id="gui.customProcedures.globalProcedure"
+                    />
+                </label>
+                <br />
+                <label>
+                    <input
+                        checked={props.return}
+                        type="checkbox"
+                        onChange={props.onToggleReturn}
+                    />
+                    <FormattedMessage
+                        defaultMessage="Return value"
+                        description="Label for checkbox to define a procedure with return value"
+                        id="gui.customProcedures.returnValue"
                     />
                 </label>
             </div>
@@ -166,8 +176,10 @@ CustomProcedures.propTypes = {
     onOk: PropTypes.func.isRequired,
     onToggleWarp: PropTypes.func.isRequired,
     onToggleGlobal: PropTypes.func.isRequired,
+    onToggleReturn: PropTypes.func.isRequired,
     warp: PropTypes.bool.isRequired,
-    global: PropTypes.bool.isRequired
+    global: PropTypes.bool.isRequired,
+    return: PropTypes.bool.isRequired
 };
 
 export default injectIntl(CustomProcedures);

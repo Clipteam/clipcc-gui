@@ -83,6 +83,10 @@
     font-weight: bold;
 }
 
+.option {
+    font-weight: normal;
+}
+
 [theme='dark'] .option-title {
     color: white;
 }
