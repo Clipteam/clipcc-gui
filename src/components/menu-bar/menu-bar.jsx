@@ -515,7 +515,7 @@ class MenuBar extends React.Component {
                                         </MenuItem>
                                         <SB3Downloader>{(className, downloadProjectCallback, saveToLastFile) => (
                                             <React.Fragment>
-                                                {window.showSaveFilePicker && this.props.isStandalone && (
+                                                {window.showSaveFilePicker && (
                                                     <MenuItem
                                                         className={classNames(className, {
                                                             [styles.disabled]: this.props.fileHandle === null
