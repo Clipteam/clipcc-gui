@@ -60,8 +60,13 @@ const CompatibilitySetting = props => (
                     props.compatibility === 'donotload' ? styles.active : null
                 )}
                 onClick={() => {
-                	props.onClickDoNotLoad();
-                	props.setDeserializeOption('donotload');
+                    try {
+                        props.setDeserializeOption('donotload');
+                        props.onClickDoNotLoad();
+                    } catch (e) {
+                        alert('Failed to change setting:' + e);
+                        console.error('Failed to change setting:', e);
+                    }
                 }}
             >
                 <div>{props.intl.formatMessage(messages.donotload)}</div>
@@ -73,8 +78,13 @@ const CompatibilitySetting = props => (
                     props.compatibility === 'replace' ? styles.active : null
                 )}
                 onClick={() => {
-                	props.onClickReplace();
-                	props.setDeserializeOption('replace');
+                    try {
+                        props.setDeserializeOption('replace');
+                        props.onClickReplace();
+                    } catch (e) {
+                        alert('Failed to change setting:' + e);
+                        console.error('Failed to change setting:', e);
+                    }
                 }}
             >
                 <div>{props.intl.formatMessage(messages.convert)}</div>
