@@ -22,6 +22,7 @@ import {
 import {
     closeFileMenu
 } from '../reducers/menus';
+import { getSetting } from '../reducers/settings';
 
 const messages = defineMessages({
     loadError: {
@@ -97,6 +98,10 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                     if (file.name.endsWith('.sb3')) {
                         this.props.onSetFileSystemHandle(handle);
                     }
+                    if (this.props.enableAutoSave && await handle.queryPermission({mode: 'readwrite'}) === 'prompt') {
+                        await handle.requestPermission({mode: 'readwrite'});
+                    }
+
                 })();
             } else {
                 // create <input> element and add it to DOM
@@ -238,6 +243,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
     SBFileUploaderComponent.propTypes = {
         canSave: PropTypes.bool,
         cancelFileUpload: PropTypes.func,
+        enableAutoSave: PropTypes.bool,
         closeFileMenu: PropTypes.func,
         intl: intlShape.isRequired,
         isLoadingUpload: PropTypes.bool,
@@ -257,7 +263,9 @@ const SBFileUploaderHOC = function (WrappedComponent) {
     const mapStateToProps = (state, ownProps) => {
         const loadingState = state.scratchGui.projectState.loadingState;
         const user = state.session && state.session.session && state.session.session.user;
+        const enableAutoSave = getSetting(state, 'autosave') === 'on';
         return {
+            enableAutoSave: enableAutoSave,
             isLoadingUpload: getIsLoadingUpload(loadingState),
             isShowingWithoutId: getIsShowingWithoutId(loadingState),
             loadingState: loadingState,

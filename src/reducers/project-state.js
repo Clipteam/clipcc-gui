@@ -267,7 +267,8 @@ const reducer = function (state, action) {
         }
         return state;
     case START_AUTO_UPDATING:
-        if (state.loadingState === LoadingState.SHOWING_WITH_ID) {
+        if (state.loadingState === LoadingState.SHOWING_WITH_ID ||
+            state.loadingState === LoadingState.SHOWING_WITHOUT_ID) {
             return Object.assign({}, state, {
                 loadingState: LoadingState.AUTO_UPDATING
             });
@@ -303,7 +304,8 @@ const reducer = function (state, action) {
         }
         return state;
     case START_MANUAL_UPDATING:
-        if (state.loadingState === LoadingState.SHOWING_WITH_ID) {
+        if ((state.loadingState === LoadingState.SHOWING_WITH_ID ||
+            state.loadingState === LoadingState.SHOWING_WITHOUT_ID)) {
             return Object.assign({}, state, {
                 loadingState: LoadingState.MANUAL_UPDATING
             });

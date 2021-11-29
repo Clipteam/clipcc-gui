@@ -7,6 +7,7 @@ import downloadBlob from '../lib/download-blob';
 import log from '../lib/log';
 import {showAlertWithTimeout} from '../reducers/alerts';
 import {setFileSystemHandle} from '../reducers/project-state';
+import {setProjectUnchanged} from '../reducers/project-changed';
 /**
  * Project saver component passes a downloadProject function to its child.
  * It expects this child to be a function with the signature
@@ -49,6 +50,7 @@ class SB3Downloader extends React.Component {
         await writable.write(content);
         await writable.close();
         this.props.onShowSaveSuccessAlert();
+        this.props.onSetProjectUnchanged();
     }
     async saveFilePicker (fileName, content) {
         try {
@@ -68,6 +70,7 @@ class SB3Downloader extends React.Component {
             await writable.write(content);
             this.props.onSetFileSystemHandle(fileHandle);
             await writable.close();
+            this.props.onSetProjectUnchanged();
             this.props.onShowSaveSuccessAlert();
         } catch (err) {
             log.error(err);
@@ -102,6 +105,7 @@ SB3Downloader.propTypes = {
     fileHandle: PropTypes.func,
     onSaveFinished: PropTypes.func,
     onSetFileSystemHandle: PropTypes.func,
+    onSetProjectUnchanged: PropTypes.func,
     onShowSavingAlert: PropTypes.func,
     onShowSaveSuccessAlert: PropTypes.func,
     projectFilename: PropTypes.string,
@@ -118,6 +122,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    onSetProjectUnchanged: () => dispatch(setProjectUnchanged()),
     onSetFileSystemHandle: fileHandle => dispatch(setFileSystemHandle(fileHandle)),
     onShowSaveSuccessAlert: () => showAlertWithTimeout(dispatch, 'saveSuccess'),
     onShowSavingAlert: () => showAlertWithTimeout(dispatch, 'saving')

@@ -515,7 +515,7 @@ class MenuBar extends React.Component {
                                         </MenuItem>
                                         <SB3Downloader>{(className, downloadProjectCallback, saveToLastFile) => (
                                             <React.Fragment>
-                                                {window.showSaveFilePicker && (
+                                                {window.showSaveFilePicker && this.props.isStandalone && (
                                                     <MenuItem
                                                         className={classNames(className, {
                                                             [styles.disabled]: this.props.fileHandle === null
@@ -733,7 +733,11 @@ class MenuBar extends React.Component {
                 {/* show the proper UI in the account menu, given whether the user is
                 logged in, and whether a session is available to log in with */}
                 <div className={styles.menuBarItem}>
-                    <SaveStatus canSave={this.props.canSave} />
+                    <SaveStatus
+                        canSave={this.props.canSave}
+                        isStandalone={this.props.isStandalone}
+                        fileHandle={this.props.fileHandle}
+                    />
                 </div>
                 {this.props.isStandalone ? null : (
                     <div className={styles.accountInfoGroup}>

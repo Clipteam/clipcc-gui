@@ -31,8 +31,10 @@ import {
     getIsShowingWithId,
     getIsShowingWithoutId,
     getIsUpdating,
-    projectError
+    projectError,
+    getIsShowingProject
 } from '../reducers/project-state';
+import {getSetting} from '../reducers/settings';
 
 /**
  * Higher Order Component to provide behavior for saving projects.
@@ -93,6 +95,11 @@ const ProjectSaverHOC = function (WrappedComponent) {
                 this.props.onRemixing(false);
             }
 
+            if (this.props.autoSaveIntervalSecs !== prevProps.autoSaveIntervalSecs) {
+                this.clearAutoSaveTimeout();
+                this.scheduleAutoSave();
+            }
+
             // see if we should "create" the current project on the server
             //
             // don't try to create or save immediately after trying to create
@@ -138,7 +145,9 @@ const ProjectSaverHOC = function (WrappedComponent) {
             }
         }
         scheduleAutoSave () {
-            if (this.props.isShowingSaveable && this.props.autoSaveTimeoutId === null) {
+            if (this.props.enableAutoSave &&
+                this.props.isShowingSaveable &&
+                this.props.autoSaveTimeoutId === null) {
                 const timeoutId = setTimeout(this.tryToAutoSave,
                     this.props.autoSaveIntervalSecs * 1000);
                 this.props.setAutoSaveTimeoutId(timeoutId);
@@ -153,6 +162,9 @@ const ProjectSaverHOC = function (WrappedComponent) {
             return props.canCreateNew && props.isShowingWithoutId;
         }
         updateProjectToStorage () {
+            if (this.props.isStandalone && !this.props.canSave) {
+                return this.storeProjectLocal();
+            }
             this.props.onShowSavingAlert();
             return this.storeProject(this.props.reduxProjectId)
                 .then(() => {
@@ -260,6 +272,27 @@ const ProjectSaverHOC = function (WrappedComponent) {
                 });
         }
 
+        async storeProjectLocal () {
+            const handle = this.props.fileHandle;
+            if (!handle) return;
+            if (await handle.queryPermission({mode: 'readwrite'}) === 'prompt') {
+                await handle.requestPermission({mode: 'readwrite'});
+            }
+            this.props.onShowSavingAlert();
+            const sb3Blob = await this.props.vm.saveProjectSb3();
+            try {
+                const writable = await handle.createWritable();
+                await writable.write(sb3Blob);
+                await writable.close();
+                this.props.onShowSaveSuccessAlert();
+                this.props.onUpdatedProject(this.props.loadingState);
+                this.props.onSetProjectUnchanged();
+            } catch (e) {
+                this.props.onShowAlert('savingError');
+                this.props.onProjectError(e);
+            }
+        }
+
         /**
          * Store a snapshot of the project once it has been saved/created.
          * Needs to happen _after_ save because the project must have an ID.
@@ -309,9 +342,12 @@ const ProjectSaverHOC = function (WrappedComponent) {
                 /* eslint-disable no-unused-vars */
                 autoSaveTimeoutId,
                 autoSaveIntervalSecs,
+                enableAutoSave,
+                fileHandle,
                 isCreatingCopy,
                 isCreatingNew,
                 projectChanged,
+                isStandalone,
                 isAnyCreatingNewState,
                 isLoading,
                 isManualUpdating,
@@ -348,6 +384,7 @@ const ProjectSaverHOC = function (WrappedComponent) {
             return (
                 <WrappedComponent
                     isCreating={isAnyCreatingNewState}
+                    isStandalone={isStandalone}
                     {...componentProps}
                 />
             );
@@ -359,6 +396,9 @@ const ProjectSaverHOC = function (WrappedComponent) {
         autoSaveTimeoutId: PropTypes.number,
         canCreateNew: PropTypes.bool,
         canSave: PropTypes.bool,
+        enableAutoSave: PropTypes.bool,
+        fileHandle: PropTypes.func,
+        isStandalone: PropTypes.bool,
         isAnyCreatingNewState: PropTypes.bool,
         isCreatingCopy: PropTypes.bool,
         isCreatingNew: PropTypes.bool,
@@ -407,14 +447,20 @@ const ProjectSaverHOC = function (WrappedComponent) {
     const mapStateToProps = (state, ownProps) => {
         const loadingState = state.scratchGui.projectState.loadingState;
         const isShowingWithId = getIsShowingWithId(loadingState);
+        const isShowingProject = getIsShowingProject(loadingState);
+        const enableAutoSave = getSetting(state, 'autosave') === 'on';
         return {
+            autoSaveIntervalSecs: getSetting(state, 'autoSaveSecs'),
             autoSaveTimeoutId: state.scratchGui.timeout.autoSaveTimeoutId,
+            enableAutoSave: enableAutoSave,
+            fileHandle: state.scratchGui.projectState.fileHandle,
             isAnyCreatingNewState: getIsAnyCreatingNewState(loadingState),
             isLoading: getIsLoading(loadingState),
             isCreatingCopy: getIsCreatingCopy(loadingState),
             isCreatingNew: getIsCreatingNew(loadingState),
             isRemixing: getIsRemixing(loadingState),
-            isShowingSaveable: ownProps.canSave && isShowingWithId,
+            isShowingSaveable: (ownProps.canSave && isShowingWithId) ||
+                (enableAutoSave && isShowingProject && ownProps.isStandalone),
             isShowingWithId: isShowingWithId,
             isShowingWithoutId: getIsShowingWithoutId(loadingState),
             isUpdating: getIsUpdating(loadingState),
