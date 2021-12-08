@@ -10,7 +10,47 @@ const messages = defineMessages({
     contributorModalTitle: {
         defaultMessage: 'Contributor list',
         description: 'Title for contributor list modal',
-        id: 'gui.aboutModal.contributorModalTitle'
+        id: 'gui.contributorModal.contributorModalTitle'
+    },
+    majorDeveloper: {
+        defaultMessage: 'Major developer',
+        description: 'label of major developer',
+        id: 'gui.contributorModal.majordeveloper'
+    },
+    developer: {
+        defaultMessage: 'Developer',
+        description: 'label of developer',
+        id: 'gui.contributorModal.developer'
+    },
+    designer: {
+        defaultMessage: 'Designer',
+        description: 'label of designer',
+        id: 'gui.contributorModal.designer'
+    },
+    investor: {
+        defaultMessage: 'Investor',
+        description: 'label of investor',
+        id: 'gui.contributorModal.investor'
+    },
+    translator: {
+        defaultMessage: 'Translator',
+        description: 'label of translator',
+        id: 'gui.contributorModal.translator'
+    },
+    advocates: {
+        defaultMessage: 'Advocates',
+        description: 'label of advocates',
+        id: 'gui.contributorModal.advocates'
+    },
+    donor: {
+        defaultMessage: 'Donor',
+        description: 'label of donor',
+        id: 'gui.contributorModal.donor'
+    },
+    andyou: {
+        defaultMessage: 'And you.',
+        description: 'label of and you',
+        id: 'gui.contributorModal.andyou'
     }
 });
 
@@ -22,36 +62,44 @@ const ContributorModal = ({
         className={styles.modalContent}
         contentLabel={intl.formatMessage(messages.contributorModalTitle)}
         onRequestClose={onRequestClose}
-        id="aboutModal"
+        id="contributorModal"
     >
         <Box className={styles.body}>
             <div className={styles.scrollable}>
-                <strong>{contributorList.tips}</strong>
-                <p>{contributorList.sinangentoo}<br /></p>
-                <p>{contributorList.alexcui}<br /></p>
-                <p>{contributorList.solstice23}<br /></p>
-                <p>{contributorList.bleshi}<br /></p>
-                <p>{contributorList.e4361}<br /></p>
-                <p>{contributorList.sparrowhe}<br /></p>
-                <p>{contributorList.jasonjia}<br /></p>
-                <p>{contributorList.xiaoji4093}<br /></p>
-                <p>{contributorList.hydrostic}<br /></p>
-                <p>{contributorList.zerlight}<br /></p>
-                <p>{contributorList.frank782}<br /></p>
-                <p>{contributorList.stevexmh}<br /></p>
-                <p>{contributorList.jasonxu}<br /></p>
-                <p>{contributorList.lmlanmei}<br /></p>
-                <p>{contributorList.waterblock79}<br /></p>
-                <p>{contributorList.someoneyoung}<br /></p>
-                <p>{contributorList.yuan3old}<br /></p>
-                <p>{contributorList.soilzhu}<br /></p>
-                <p>{contributorList.cyarice}<br /></p>
-                <p>{contributorList.lyricepic}<br /></p>
-                <p>{contributorList.unknown}<br /></p>
-                <p>{contributorList.mbzzw}<br /></p>
-                <p>{contributorList.afadian}<br /></p>
-                <p>{contributorList.august}<br /></p>
-                <p>{contributorList.you}<br /></p>
+                <strong>{intl.formatMessage(messages.majorDeveloper)}</strong>
+                <p>{contributorList.sinangentoo}</p>
+                <p>{contributorList.alexcui}</p>
+                <p>{contributorList.frank782}</p>
+                <p>{contributorList.hydrostic}</p>
+                <strong>{intl.formatMessage(messages.developer)}</strong>
+                <p>{contributorList.stevexmh}</p>
+                <p>{contributorList.jasonxu}</p>
+                <p>{contributorList.solstice23}</p>
+                <p>{contributorList.e4361}</p>
+                <p>{contributorList.waterblock79}</p>
+                <p>{contributorList.sparrowhe}</p>
+                <strong>{intl.formatMessage(messages.designer)}</strong>
+                <p>{contributorList.zerlight}</p>
+                <p>{contributorList.soilzhu}</p>
+                <strong>{intl.formatMessage(messages.advocates)}</strong>
+                <p>{contributorList.someoneyoung}</p>
+                <p>{contributorList.yuan3old}</p>
+                <p>{contributorList.jasonjia}</p>
+                <p>{contributorList.cyarice}</p>
+                <p>{contributorList.xiaoji4093}</p>
+                <strong>{intl.formatMessage(messages.investor)}</strong>
+                <p>{contributorList.bleshi}</p>
+                <p>{contributorList.xiaoji4093}</p>
+                <strong>{intl.formatMessage(messages.translator)}</strong>
+                <p>{contributorList.soilzhu}</p>
+                <p>{contributorList.lmlanmei}</p>
+                <strong>{intl.formatMessage(messages.donor)}</strong>
+                <p>{contributorList.cyarice}</p>
+                <p>{contributorList.lyricepic}</p>
+                <p>{contributorList.unknown}</p>
+                <p>{contributorList.mbzzw}</p>
+                <p>{contributorList.afadian}</p>
+                <strong>{intl.formatMessage(messages.andyou)}</strong>
             </div>
         </Box>
     </Modal>
