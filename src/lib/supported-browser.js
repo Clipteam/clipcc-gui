@@ -1,10 +1,10 @@
 import bowser from 'bowser';
 
 const minVersions = {
-    chrome: '63',
-    msedge: '15',
-    firefox: '57',
-    safari: '11'
+    chrome: '72',
+    msedge: '19',
+    firefox: '70',
+    safari: '12'
 };
 
 /**

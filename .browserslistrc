@@ -1,3 +1,4 @@
-last 3 versions
-Safari >= 8
-iOS >= 8
+Safari >= 12
+iOS >= 12
+chrome >= 72
+firefox >= 70

@@ -63,7 +63,7 @@ const base = {
                         messagesDir: './translations/messages/'
                     }]],
                 presets: [
-                    ['@babel/preset-env', {"targets": {"browsers": ["last 3 versions", "Safari >= 8", "iOS >= 8"]}}], 
+                    ['@babel/preset-env'],
                     '@babel/preset-react'
                 ]
             }

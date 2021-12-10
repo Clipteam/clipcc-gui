@@ -22,6 +22,7 @@ import DarkModeSetting from './darkmode-setting.jsx';
 import BlurSetting from './blur-setting.jsx'
 import CompatibilitySetting from './compatibility-setting.jsx';
 import CompressionSetting from './compression-setting.jsx';
+import AutoSaveSetting from './autosave-settings.jsx';
 
 const messages = defineMessages({
     title: {
@@ -111,6 +112,7 @@ const SettingsModal = ({
                 <CompatibilitySetting
                     setDeserializeOption={setDeserializeOption}
                 />
+                <AutoSaveSetting />
                 <CompressionSetting
                     setCompression={setCompression}
                 />

@@ -11,7 +11,8 @@ import {
     getIsLoadingUpload,
     getIsShowingWithoutId,
     onLoadedProject,
-    requestProjectUpload
+    requestProjectUpload,
+    setFileSystemHandle
 } from '../reducers/project-state';
 import {setProjectTitle} from '../reducers/project-title';
 import {
@@ -21,6 +22,7 @@ import {
 import {
     closeFileMenu
 } from '../reducers/menus';
+import { getSetting } from '../reducers/settings';
 
 const messages = defineMessages({
     loadError: {
@@ -74,15 +76,44 @@ const SBFileUploaderHOC = function (WrappedComponent) {
             // create fileReader
             this.fileReader = new FileReader();
             this.fileReader.onload = this.onload;
-            // create <input> element and add it to DOM
-            this.inputElement = document.createElement('input');
-            this.inputElement.accept = '.sb,.sb2,.sb3';
-            this.inputElement.style = 'display: none;';
-            this.inputElement.type = 'file';
-            this.inputElement.onchange = this.handleChange; // connects to step 3
-            document.body.appendChild(this.inputElement);
-            // simulate a click to open file chooser dialog
-            this.inputElement.click();
+            if (window.showOpenFilePicker) {
+                (async () => {
+                    const [handle] = await window.showOpenFilePicker({
+                        types: [
+                            {
+                                description: 'Scratch File',
+                                accept: {
+                                    'application/x.scratch.sb3': ['.sb', '.sb2', '.sb3', '.cc3']
+                                }
+                            }
+                        ],
+                        multiple: false
+                    });
+                    const file = await handle.getFile();
+                    this.handleChange({
+                        target: {
+                            files: [file]
+                        }
+                    });
+                    if (file.name.endsWith('.sb3')) {
+                        this.props.onSetFileSystemHandle(handle);
+                    }
+                    if (this.props.enableAutoSave && await handle.queryPermission({mode: 'readwrite'}) === 'prompt') {
+                        await handle.requestPermission({mode: 'readwrite'});
+                    }
+
+                })();
+            } else {
+                // create <input> element and add it to DOM
+                this.inputElement = document.createElement('input');
+                this.inputElement.accept = '.sb,.sb2,.sb3';
+                this.inputElement.style = 'display: none;';
+                this.inputElement.type = 'file';
+                this.inputElement.onchange = this.handleChange; // connects to step 3
+                document.body.appendChild(this.inputElement);
+                // simulate a click to open file chooser dialog
+                this.inputElement.click();
+            }
         }
         // step 3: user has picked a file using the file chooser dialog.
         // We don't actually load the file here, we only decide whether to do so.
@@ -159,6 +190,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                     })
                     .catch(error => {
                         log.warn(error);
+                        this.props.onSetFileSystemHandle(null);
                         alert(this.props.intl.formatMessage(messages.loadError)); // eslint-disable-line no-alert
                     })
                     .then(() => {
@@ -211,6 +243,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
     SBFileUploaderComponent.propTypes = {
         canSave: PropTypes.bool,
         cancelFileUpload: PropTypes.func,
+        enableAutoSave: PropTypes.bool,
         closeFileMenu: PropTypes.func,
         intl: intlShape.isRequired,
         isLoadingUpload: PropTypes.bool,
@@ -218,6 +251,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         loadingState: PropTypes.oneOf(LoadingStates),
         onLoadingFinished: PropTypes.func,
         onLoadingStarted: PropTypes.func,
+        onSetFileSystemHandle: PropTypes.func,
         onSetProjectTitle: PropTypes.func,
         projectChanged: PropTypes.bool,
         requestProjectUpload: PropTypes.func,
@@ -229,7 +263,9 @@ const SBFileUploaderHOC = function (WrappedComponent) {
     const mapStateToProps = (state, ownProps) => {
         const loadingState = state.scratchGui.projectState.loadingState;
         const user = state.session && state.session.session && state.session.session.user;
+        const enableAutoSave = getSetting(state, 'autosave') === 'on';
         return {
+            enableAutoSave: enableAutoSave,
             isLoadingUpload: getIsLoadingUpload(loadingState),
             isShowingWithoutId: getIsShowingWithoutId(loadingState),
             loadingState: loadingState,
@@ -252,6 +288,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         // show project loading screen
         onLoadingStarted: () => dispatch(openLoadingProject()),
         onSetProjectTitle: title => dispatch(setProjectTitle(title)),
+        onSetFileSystemHandle: fileHandle => dispatch(setFileSystemHandle(fileHandle)),
         // step 4: transition the project state so we're ready to handle the new
         // project data. When this is done, the project state transition will be
         // noticed by componentDidUpdate()
