@@ -5,7 +5,6 @@ const webpack = require('webpack');
 // Plugins
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 
 // PostCss
@@ -94,13 +93,6 @@ const base = {
                 }
             }]
         }]
-    },
-    optimization: {
-        minimizer: [
-            new UglifyJsPlugin({
-                include: /\.min\.js$/
-            })
-        ]
     },
     plugins: []
 };
