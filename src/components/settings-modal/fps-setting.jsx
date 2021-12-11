@@ -44,6 +44,8 @@ const FPSSetting = props => (
         >
             <BufferedInput
                 tabIndex="1"
+                min="10"
+                max="360"
                 type="number"
                 value={props.fps}
                 onSubmit={value => {
