@@ -10,9 +10,19 @@
     padding: 1.5rem 2.25rem;
 }
 
+[theme='dark'] .body {
+    background: $ui-primary-dark;
+    color: $ui-white;
+}
+
 .body input[type="checkbox"],
 .body input[type="radio"] {
     margin: 3px;
+}
+
+[theme='dark'] .body input {
+    background: $ui-tertiary-dark;
+    color: white;
 }
 
 .label {
@@ -61,6 +71,11 @@
     border: 1px solid $ui-black-transparent;
     font-weight: 600;
     font-size: 0.85rem;
+}
+
+[theme='dark'] .button-row button {
+    background: $ui-tertiary-dark;
+    color: white;
 }
 
 .button-row button.ok-button {
