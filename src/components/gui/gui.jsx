@@ -33,6 +33,7 @@ import TelemetryModal from '../telemetry-modal/telemetry-modal.jsx';
 import SettingsModal from '../settings-modal/settings-modal.jsx';
 import AboutModal from '../about-modal/about-modal.jsx';
 import ExtensionModal from '../extension-modal/extension-modal.jsx';
+import LoadErrorModal from '../../containers/load-error-modal.jsx';
 
 import layout, {STAGE_SIZE_MODES} from '../../lib/layout-constants';
 import {resolveStageSize} from '../../lib/screen-utils';
@@ -84,7 +85,6 @@ const GUIComponent = props => {
         costumeLibraryVisible,
         costumesTabVisible,
         enableCommunity,
-        errorModalVisible,
         extensionModalVisible,
         intl,
         isCreating,
@@ -94,6 +94,7 @@ const GUIComponent = props => {
         isShared,
         isStandalone,
         isTelemetryEnabled,
+        loadErrorModalVisible,
         loading,
         logo,
         renderLogin,
@@ -115,6 +116,7 @@ const GUIComponent = props => {
         onRequestCloseSettingsModal,
         onRequestCloseAboutModal,
         onRequestCloseExtensionModal,
+        onRequestCloseLoadErrorModal,
         onSeeCommunity,
         onShare,
         onShowPrivacyPolicy,
@@ -316,8 +318,10 @@ const GUIComponent = props => {
                 {alertsVisible ? (
                     <Alerts className={styles.alertsContainer} />
                 ) : null}
-                {errorModalVisible ? (
-                    <ErrorModal />
+                {loadErrorModalVisible ? (
+                    <LoadErrorModal
+                        onRequestClose={onRequestCloseLoadErrorModal}
+                    />
                 ) : null}
                 {connectionModalVisible ? (
                     <ConnectionModal
@@ -421,7 +425,6 @@ GUIComponent.propTypes = {
     costumeLibraryVisible: PropTypes.bool,
     costumesTabVisible: PropTypes.bool,
     enableCommunity: PropTypes.bool,
-    errorModalVisible: PropTypes.bool,
     extensionModalVisible : PropTypes.bool,
     intl: intlShape.isRequired,
     isCreating: PropTypes.bool,
@@ -429,6 +432,7 @@ GUIComponent.propTypes = {
     isPlayerOnly: PropTypes.bool,
     isRtl: PropTypes.bool,
     isShared: PropTypes.bool,
+    loadErrorModalVisible: PropTypes.bool,
     loading: PropTypes.bool,
     logo: PropTypes.string,
     onActivateCostumesTab: PropTypes.func,
@@ -446,6 +450,7 @@ GUIComponent.propTypes = {
     onRequestCloseSettingsModal: PropTypes.func,
     onRequestCloseAboutModal: PropTypes.func,
     onRequestCloseExtensionModal: PropTypes.func,
+    onRequestCloseLoadErrorModal: PropTypes.func,
     onSeeCommunity: PropTypes.func,
     onShare: PropTypes.func,
     onShowPrivacyPolicy: PropTypes.func,

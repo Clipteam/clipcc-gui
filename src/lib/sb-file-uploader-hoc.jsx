@@ -16,7 +16,8 @@ import {
 import {setProjectTitle} from '../reducers/project-title';
 import {
     openLoadingProject,
-    closeLoadingProject
+    closeLoadingProject,
+    openLoadErrorModal
 } from '../reducers/modals';
 import {
     closeFileMenu
@@ -24,6 +25,9 @@ import {
 import {
     enableExtension
 } from '../reducers/extension';
+import {
+    setLoadError
+} from '../reducers/load-error';
 
 const messages = defineMessages({
     loadError: {
@@ -161,11 +165,15 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                         loadingSuccess = true;
                     })
                     .catch(error => {
+                        let errorDetail;
                         if (error.code === 0x90 /* ERROR_UNAVAILABLE_EXTENSION */) {
-                            error = `Unavailable extension:\n${error.extension.map(v => `  ${v.id}@${v.version}`).join('\n')}`;
+                            this.props.showLoadErrorModal({
+                                errorId: 'unavailableExtension',
+                                missingExtensions: error.extension
+                            });
+                            errorDetail = `Unavailable extension:\n${error.extension.map(v => `  ${v.id}@${v.version}`).join('\n')}`;
                         }
-                        log.warn(error);
-                        alert(this.props.intl.formatMessage(messages.loadError) + '\n' + error); // eslint-disable-line no-alert
+                        log.error(errorDetail);
                     })
                     .then(() => {
                         this.props.onLoadingFinished(this.props.loadingState, loadingSuccess);
@@ -276,7 +284,11 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         // project data. When this is done, the project state transition will be
         // noticed by componentDidUpdate()
         requestProjectUpload: loadingState => dispatch(requestProjectUpload(loadingState)),
-        setExtensionEnable: id => dispatch(enableExtension(id))
+        setExtensionEnable: id => dispatch(enableExtension(id)),
+        showLoadErrorModal: data => {
+            dispatch(setLoadError(data));
+            dispatch(openLoadErrorModal());
+        }
     });
     // Allow incoming props to override redux-provided props. Used to mock in tests.
     const mergeProps = (stateProps, dispatchProps, ownProps) => Object.assign(

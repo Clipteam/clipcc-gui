@@ -27,6 +27,7 @@ import vmReducer, {vmInitialState} from './vm';
 import vmStatusReducer, {vmStatusInitialState} from './vm-status';
 import settingsReducer, {settingsInitialState} from './settings';
 import extensionReducer, {extensionInitialState} from './extension';
+import loadErrorReducer, {loadErrorInitialState} from './load-error';
 
 import workspaceMetricsReducer, {workspaceMetricsInitialState} from './workspace-metrics';
 import throttle from 'redux-throttle';
@@ -64,7 +65,8 @@ const guiInitialState = {
     vmStatus: vmStatusInitialState,
     settings: settingsInitialState,
     extension: extensionInitialState,
-    workspaceMetrics: workspaceMetricsInitialState
+    workspaceMetrics: workspaceMetricsInitialState,
+    loadError: loadErrorInitialState
 };
 
 const initPlayer = function (currentState) {
@@ -165,7 +167,8 @@ const guiReducer = combineReducers({
     vmStatus: vmStatusReducer,
     settings: settingsReducer,
     extension: extensionReducer,
-    workspaceMetrics: workspaceMetricsReducer
+    workspaceMetrics: workspaceMetricsReducer,
+    loadError: loadErrorReducer
 });
 
 export {

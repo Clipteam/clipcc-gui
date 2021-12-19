@@ -1,25 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, injectIntl, intlShape, FormattedMessage} from 'react-intl';
 import ReactModal from 'react-modal';
 
 import Box from '../box/box.jsx';
 
-import styles from './error-box-modal.css';
+import styles from './load-error-modal.css';
 
 const messages = defineMessages({
     confirm: {
-        id: 'gui.errorBoxModal.confirm',
+        id: 'gui.loadErrorModal.confirm',
         defaultMessage: 'Confirm',
         description: 'Button confirm'
+    },
+    title: {
+        id: 'gui..loadErrorModal.title',
+        defaultMessage: 'Load Error',
+        description: 'Title of LoadErrorModal'
+    },
+    unavailableExtension: {
+        id: 'gui.loadError.unavailableExtension',
+        defaultMessage: 'Unavailable Extension',
+        description: 'Load Error: Unavailable Extension'
     }
 });
 
-class ErrorBoxModal extends React.PureComponent {
-    constructor (props) {
-        super(props);
-    }
+/* eslint-disable react/prefer-stateless-function */
+class LoadErrorModal extends React.PureComponent {
     render () {
         return (
             <ReactModal
@@ -44,11 +52,16 @@ class ErrorBoxModal extends React.PureComponent {
                                     src={this.props.headerImage}
                                 />
                             ) : null}
-                            {this.props.title}
+                            {this.props.intl.formatMessage(messages.title)}
                         </div>
                     </div>
                     <div className={styles.body}>
-                        {this.props.children}
+                        <p>{this.props.intl.formatMessage(messages[this.props.data.errorId])}</p>
+                        {this.props.data.missingExtensions.length > 0 ?
+                            this.props.data.missingExtensions.map(v => <p>
+                                {`${v.id}@${v.version}`}
+                            </p>)
+                        : null}
                         <div className={styles.buttonRow}>
                             <input
                                 type="button"
@@ -63,15 +76,21 @@ class ErrorBoxModal extends React.PureComponent {
         );
     }
 }
+/* eslint-enable react/prefer-stateless-function */
 
-ErrorBoxModal.propTypes = {
-    children: PropTypes.node,
+LoadErrorModal.propTypes = {
     intl: intlShape.isRequired,
     isRtl: PropTypes.bool,
-    title: PropTypes.string,
-    mode: PropTypes.string,
+    data: PropTypes.shape({
+        errorId: PropTypes.string,
+        detail: PropTypes.string,
+        missingExtensions: PropTypes.arrayOf(PropTypes.shape({
+            id: PropTypes.string,
+            version: PropTypes.string
+        }))
+    }),
     headerImage: PropTypes.string,
     onRequestClose: PropTypes.func
 };
 
-export default injectIntl(ErrorBoxModal);
+export default injectIntl(LoadErrorModal);
