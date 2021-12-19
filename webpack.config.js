@@ -6,6 +6,7 @@ const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 
 // PostCss
 const autoprefixer = require('autoprefixer');
@@ -93,6 +94,13 @@ const base = {
                 }
             }]
         }]
+    },
+    optimization: {
+        minimizer: [
+            new TerserPlugin({
+                include: /\.min\.js$/
+            })
+        ],
     },
     plugins: []
 };
