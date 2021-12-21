@@ -356,7 +356,7 @@ class Blocks extends React.Component {
         }
     }
     onWorkspaceUpdate (data) {
-        console.log(this.props.vm.editingTarget.id, data);
+        // console.log(this.props.vm.editingTarget, data);
         // When we change sprites, update the toolbox to have the new sprite's blocks
         const toolboxXML = this.getToolboxXML();
         if (toolboxXML) {
@@ -370,14 +370,16 @@ class Blocks extends React.Component {
         // Remove and reattach the workspace listener (but allow flyout events)
         this.workspace.removeChangeListener(this.props.vm.blockListener);
         try {
-            const id = this.props.vm.editingTarget.id;
-            if (this.workspace.hasCache(id)) {
-                this.workspace.switchToCache(id);
+            const target = this.props.vm.editingTarget;
+            if (this.workspace.hasCache(target.id) && !target.deprecatedCache) {
+                this.workspace.switchToCache(target.id);
             }
             else {
                 const dom = this.ScratchBlocks.Xml.textToDom(data.xml);
-                this.ScratchBlocks.Xml.createWorkspaceCacheAndLoadFromXml(dom, this.workspace, id);
                 // this.ScratchBlocks.Xml.clearWorkspaceAndLoadFromXml(dom, this.workspace);
+                this.ScratchBlocks.Xml.createWorkspaceCacheAndLoadFromXml(dom, this.workspace, target.id);
+                this.props.vm.editingTarget.deprecatedCache = false;
+                // console.log(this.props.vm.editingTarget)
             }
         } catch (error) {
             // The workspace is likely incomplete. What did update should be
