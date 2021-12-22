@@ -1,7 +1,15 @@
 import {defineMessages} from 'react-intl';
 import sharedMessages from '../shared-messages';
 
-let messages = sharedMessages;
+let messages = defineMessages({
+    sparrow: {
+        defaultMessage: 'Sparrow',
+        description: 'Name for the sparrow',
+        id: 'gui.defaultProject.sparrow'
+    }
+});
+
+messages = {...messages, ...sharedMessages};
 
 // use the default message if a translation function is not passed
 const defaultTranslator = msgObj => msgObj.defaultMessage;
@@ -27,7 +35,7 @@ const projectData = translateFunction => {
                     "costumes": [
                         {
                             "assetId": "cd21514d0531fdffb22204e0ec5ed84a",
-                            "name": "背景1",
+                            "name": "backdrop1",
                             "md5ext": "cd21514d0531fdffb22204e0ec5ed84a.svg",
                             "dataFormat": "svg",
                             "rotationCenterX": 240,
@@ -44,7 +52,7 @@ const projectData = translateFunction => {
                 },
                 {
                     "isStage": false,
-                    "name": "Sparrow",
+                    "name": translator(messages.sparrow),
                     "variables": {},
                     "lists": {},
                     "broadcasts": {},
