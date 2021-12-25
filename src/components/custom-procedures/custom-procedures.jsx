@@ -13,7 +13,7 @@ import classNames from 'classnames';
 
 const messages = defineMessages({
     myblockModalTitle: {
-        defaultMessage: 'Make a Block',
+        defaultMessage: 'Define a Function',
         description: 'Title for the modal where you create a custom block.',
         id: 'gui.customProcedures.myblockModalTitle'
     }
@@ -121,7 +121,7 @@ const CustomProcedures = props => (
                         onChange={props.onToggleGlobal}
                     />
                     <FormattedMessage
-                        defaultMessage="Global procedure"
+                        defaultMessage="Global function"
                         description="Label for checkbox to define a global procedure"
                         id="gui.customProcedures.globalProcedure"
                     />
