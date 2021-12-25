@@ -13,7 +13,7 @@ import classNames from 'classnames';
 
 const messages = defineMessages({
     myblockModalTitle: {
-        defaultMessage: 'Make a Block',
+        defaultMessage: 'Define a Function',
         description: 'Title for the modal where you create a custom block.',
         id: 'gui.customProcedures.myblockModalTitle'
     }
@@ -100,10 +100,7 @@ const CustomProcedures = props => (
                     </div>
                 </div>
             </div>
-            <div className={classNames(
-                styles.checkboxRow,
-                styles.optionTitle
-            )}>
+            <div className={classNames(styles.checkboxRow, styles.option)}>
                 <label>
                     <input
                         checked={props.warp}
@@ -114,6 +111,32 @@ const CustomProcedures = props => (
                         defaultMessage="Run without screen refresh"
                         description="Label for checkbox to run without screen refresh"
                         id="gui.customProcedures.runWithoutScreenRefresh"
+                    />
+                </label>
+                <br />
+                <label>
+                    <input
+                        checked={props.global}
+                        type="checkbox"
+                        onChange={props.onToggleGlobal}
+                    />
+                    <FormattedMessage
+                        defaultMessage="Global function"
+                        description="Label for checkbox to define a global procedure"
+                        id="gui.customProcedures.globalFunction"
+                    />
+                </label>
+                <br />
+                <label>
+                    <input
+                        checked={props.return}
+                        type="checkbox"
+                        onChange={props.onToggleReturn}
+                    />
+                    <FormattedMessage
+                        defaultMessage="Custom reporter"
+                        description="Label for checkbox to define a procedure with return value"
+                        id="gui.customProcedures.customReporter"
                     />
                 </label>
             </div>
@@ -152,7 +175,11 @@ CustomProcedures.propTypes = {
     onCancel: PropTypes.func.isRequired,
     onOk: PropTypes.func.isRequired,
     onToggleWarp: PropTypes.func.isRequired,
-    warp: PropTypes.bool.isRequired
+    onToggleGlobal: PropTypes.func.isRequired,
+    onToggleReturn: PropTypes.func.isRequired,
+    warp: PropTypes.bool.isRequired,
+    global: PropTypes.bool.isRequired,
+    return: PropTypes.bool.isRequired
 };
 
 export default injectIntl(CustomProcedures);

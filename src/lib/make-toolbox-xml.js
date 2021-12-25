@@ -906,8 +906,8 @@ const variables = function () {
 const myBlocks = function () {
     return `
     <category
-        name="%{BKY_CATEGORY_MYBLOCKS}"
-        id="myBlocks"
+        name="%{BKY_CATEGORY_FUNCTIONS}"
+        id="functions"
         colour="#FF6680"
         secondaryColour="#FF4D6A"
         custom="PROCEDURE">
