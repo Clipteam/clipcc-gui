@@ -13,8 +13,8 @@ const messages = defineMessages({
         id: 'gui.contributorModal.contributorModalTitle'
     },
     majorDeveloper: {
-        defaultMessage: 'Major developer',
-        description: 'label of major developer',
+        defaultMessage: 'Lead developer',
+        description: 'label of lead developer',
         id: 'gui.contributorModal.majordeveloper'
     },
     developer: {
