@@ -123,7 +123,7 @@ const CustomProcedures = props => (
                     <FormattedMessage
                         defaultMessage="Global function"
                         description="Label for checkbox to define a global procedure"
-                        id="gui.customProcedures.globalProcedure"
+                        id="gui.customProcedures.globalFunction"
                     />
                 </label>
                 <br />
@@ -134,9 +134,9 @@ const CustomProcedures = props => (
                         onChange={props.onToggleReturn}
                     />
                     <FormattedMessage
-                        defaultMessage="Return value"
+                        defaultMessage="Custom reporter"
                         description="Label for checkbox to define a procedure with return value"
-                        id="gui.customProcedures.returnValue"
+                        id="gui.customProcedures.customReporter"
                     />
                 </label>
             </div>
