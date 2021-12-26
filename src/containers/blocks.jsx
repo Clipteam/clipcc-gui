@@ -370,8 +370,10 @@ class Blocks extends React.Component {
         // Remove and reattach the workspace listener (but allow flyout events)
         this.workspace.removeChangeListener(this.props.vm.blockListener);
         try {
-            const target = this.props.vm.editingTarget;
-            if (this.workspace.hasCache(target.id) && !target.deprecatedCache) {
+            const dom = this.ScratchBlocks.Xml.textToDom(data.xml);
+            this.ScratchBlocks.Xml.clearWorkspaceAndLoadFromXml(dom, this.workspace);
+            // TODO: Workspace Cache
+            /* if (this.workspace.hasCache(target.id) && !target.deprecatedCache) {
                 this.workspace.switchToCache(target.id);
             }
             else {
@@ -380,7 +382,7 @@ class Blocks extends React.Component {
                 this.ScratchBlocks.Xml.createWorkspaceCacheAndLoadFromXml(dom, this.workspace, target.id);
                 this.props.vm.editingTarget.deprecatedCache = false;
                 // console.log(this.props.vm.editingTarget)
-            }
+            } */
         } catch (error) {
             // The workspace is likely incomplete. What did update should be
             // functional.
