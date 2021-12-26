@@ -4,7 +4,7 @@ const initialState = {
     layoutStyle: 'scratch3',
     autoSaveSecs: 120,
     darkMode: 'system',
-    fps: 60,
+    fps: 30,
     blur: 'on',
     autosave: 'off',
     compatibility: 'donotload',
