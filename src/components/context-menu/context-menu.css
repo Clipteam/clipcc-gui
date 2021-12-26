@@ -19,6 +19,7 @@
 
 [theme='dark'] .context-menu {
     background-color: $ui-primary-dark;
+    color: white;
 }
 
 .menu-item {

@@ -117,6 +117,10 @@
     color: white;
 }
 
+[theme='dark'] .checkbox-row {
+    color: white;
+}
+
 .button-row button.ok-button {
     background: $motion-primary;
     border: $motion-primary;
