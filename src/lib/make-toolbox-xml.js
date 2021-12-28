@@ -2,6 +2,11 @@ import ScratchBlocks from 'clipcc-block';
 
 const categorySeparator = '<sep gap="36"/>';
 
+const obsoletedBlocks = ScratchBlocks.ScratchMsgs.translate(
+        'OBSOLETED_BLOCKS',
+        'Obsoleted Blocks'
+);
+
 const blockSeparator = '<sep gap="36"/>'; // At default scale, about 28px
 
 /* eslint-disable no-unused-vars */
@@ -424,6 +429,17 @@ const control = function (isInitialSetup, isStage) {
             </block>
             <block type="control_delete_this_clone"/>
         `}
+        <label text="${obsoletedBlocks}"></label>
+        <block type="control_for_each">
+            <value name="VALUE">
+                <shadow type="math_number">
+                    <field name="NUM">10</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="control_get_counter" />
+        <block type="control_incr_counter" />
+        <block type="control_clear_counter" />
         ${categorySeparator}
     </category>
     `;
@@ -554,6 +570,8 @@ const sensing = function (isInitialSetup, isStage) {
         <block type="sensing_isturbomode"/>
         <block type="sensing_turnonturbomode"/>
         <block type="sensing_turnoffturbomode"/>
+        <label text="${obsoletedBlocks}"></label>
+        <block type="sensing_userid" />
         ${categorySeparator}
     </category>
     `;
