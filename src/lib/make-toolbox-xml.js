@@ -2,15 +2,15 @@ import ScratchBlocks from 'clipcc-block';
 
 const categorySeparator = '<sep gap="36"/>';
 
-const obsoletedBlocks = ScratchBlocks.ScratchMsgs.translate(
-        'OBSOLETED_BLOCKS',
-        'Obsoleted Blocks'
-);
-
 const blockSeparator = '<sep gap="36"/>'; // At default scale, about 28px
 
 /* eslint-disable no-unused-vars */
 const motion = function (isInitialSetup, isStage, targetId) {
+    const obsoletedBlocks = ScratchBlocks.ScratchMsgs.translate(
+        'OBSOLETED_BLOCKS',
+        'Obsoleted Blocks'
+    );
+
     const stageSelected = ScratchBlocks.ScratchMsgs.translate(
         'MOTION_STAGE_SELECTED',
         'Stage selected: no motion blocks'
@@ -139,6 +139,25 @@ const motion = function (isInitialSetup, isStage, targetId) {
         <block id="${targetId}_xposition" type="motion_xposition"/>
         <block id="${targetId}_yposition" type="motion_yposition"/>
         <block id="${targetId}_direction" type="motion_direction"/>`}
+        ${blockSeparator}
+        <label text="${obsoletedBlocks}"></label>
+        <block type="motion_scroll_right">
+            <value name="DISTANCE">
+                <shadow id="sety" type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="motion_scroll_up">
+            <value name="DISTANCE">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="motion_align_scene" />
+        <block type="motion_xscroll" />
+        <block type="motion_yscroll" />
         ${categorySeparator}
     </category>
     `;
@@ -159,6 +178,10 @@ const xmlEscape = function (unsafe) {
 const looks = function (isInitialSetup, isStage, targetId, costumeName, backdropName) {
     const hello = ScratchBlocks.ScratchMsgs.translate('LOOKS_HELLO', 'Hello!');
     const hmm = ScratchBlocks.ScratchMsgs.translate('LOOKS_HMM', 'Hmm...');
+    const obsoletedBlocks = ScratchBlocks.ScratchMsgs.translate(
+        'OBSOLETED_BLOCKS',
+        'Obsoleted Blocks'
+    );
     return `
     <category name="%{BKY_CATEGORY_LOOKS}" id="looks" colour="#9966FF" secondaryColour="#774DCB">
         ${isStage ? '' : `
@@ -288,6 +311,16 @@ const looks = function (isInitialSetup, isStage, targetId, costumeName, backdrop
             <block id="backdropnumbername" type="looks_backdropnumbername"/>
             <block id="${targetId}_size" type="looks_size"/>
         `}
+        ${blockSeparator}
+        <label text="${obsoletedBlocks}"></label>
+        <block type="looks_hideallsprites" />
+        <block type="looks_changestretchby">
+            <value name="CHANGE">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>
+        </block>
         ${categorySeparator}
     </category>
     `;
@@ -388,6 +421,10 @@ const events = function (isInitialSetup, isStage) {
 };
 
 const control = function (isInitialSetup, isStage) {
+    const obsoletedBlocks = ScratchBlocks.ScratchMsgs.translate(
+        'OBSOLETED_BLOCKS',
+        'Obsoleted Blocks'
+    );
     return `
     <category name="%{BKY_CATEGORY_CONTROL}" id="control" colour="#FFAB19" secondaryColour="#CF8B17">
         <block type="control_wait">
@@ -430,6 +467,8 @@ const control = function (isInitialSetup, isStage) {
             <block type="control_delete_this_clone"/>
         `}
         <label text="${obsoletedBlocks}"></label>
+        <block type="control_while" />
+        <block type="control_all_at_once" />
         <block type="control_for_each">
             <value name="VALUE">
                 <shadow type="math_number">
@@ -446,6 +485,10 @@ const control = function (isInitialSetup, isStage) {
 };
 
 const sensing = function (isInitialSetup, isStage) {
+    const obsoletedBlocks = ScratchBlocks.ScratchMsgs.translate(
+        'OBSOLETED_BLOCKS',
+        'Obsoleted Blocks'
+    );
     const name = ScratchBlocks.ScratchMsgs.translate('SENSING_ASK_TEXT', 'What\'s your name?');
     return `
     <category name="%{BKY_CATEGORY_SENSING}" id="sensing" colour="#4CBFE6" secondaryColour="#2E8EB8">
@@ -572,6 +615,7 @@ const sensing = function (isInitialSetup, isStage) {
         <block type="sensing_turnoffturbomode"/>
         <label text="${obsoletedBlocks}"></label>
         <block type="sensing_userid" />
+        <block type="sensing_loud" />
         ${categorySeparator}
     </category>
     `;
