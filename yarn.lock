@@ -2853,25 +2853,25 @@ cli-width@^2.0.0:
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.1.tgz#b0433d0b4e9c847ef18868a4ef16fd5fc8271c48"
   integrity sha512-GRMWDxpOB6Dgk2E5Uo+3eEBvtOOlimMmpbFiKuLFnQzYDavtLFY3K5ona41jgN/WdRZtG7utuVSVTL4HbZHGkw==
 
-clipcc-block@3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/clipcc-block/-/clipcc-block-3.1.1.tgz#a8fe62b4fe6107f0f9ea021bdf31a13bd9a02bc3"
-  integrity sha512-5Q0SBtn77fjMPpX3AVfNrn/Ys4UZjj9Y0r5Cm2RamFccHF6KdPgAY3ofGHmMpuko1GohsWTJavfnDst+Lwk8Zw==
+clipcc-block@3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/clipcc-block/-/clipcc-block-3.1.2.tgz#e9937beb064beb49b48774e5f5cb71eb881e781d"
+  integrity sha512-6pe7LCx8f6+SH9rqxpTVy+vrrHZqFVweDvL3STbBiBKhcz80iEkn6ToZvRWdCPYGzjpKWhaqkmalQJHofUKzBA==
   dependencies:
     exports-loader "0.6.3"
     imports-loader "0.6.5"
     mocha "^6.2.2"
-    serialize-javascript "^2.1.2"
+    serialize-javascript "^3.1.0"
   optionalDependencies:
     google-closure-compiler-js "^20200112.0.0"
     google-closure-compiler-linux "^20200112.0.0"
     google-closure-compiler-osx "^20200112.0.0"
     google-closure-compiler-windows "^20200112.0.0"
 
-clipcc-l10n@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/clipcc-l10n/-/clipcc-l10n-3.1.0.tgz#64fab9a9f35cc845b250932f323c6e65772a4d06"
-  integrity sha512-qTdjA+4tYBITrH3hb7MdsBWRLCo7Dw/QmDm/K7sHZtomkOT1mNfxb5HrOYKBpgcjpTKtL7aMGbyyJa17nwOsuA==
+clipcc-l10n@3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/clipcc-l10n/-/clipcc-l10n-3.1.1.tgz#ab594503570da64f4add48e9ce56588980fcb43b"
+  integrity sha512-EWpTkzzki7zcOZx8FinMAMJsGkfrUbOWzdW2KSa01bFod8HP2yAxBddgW3aWCbsT1rcYL6HtKkaOa9r+wRCN7A==
   dependencies:
     "@babel/cli" "^7.1.2"
     "@babel/core" "^7.1.2"
@@ -2894,10 +2894,10 @@ clipcc-render@^3.0.0:
     scratch-svg-renderer "0.2.0-prerelease.20210727023023"
     twgl.js "4.4.0"
 
-clipcc-vm@3.1.3:
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/clipcc-vm/-/clipcc-vm-3.1.3.tgz#50a541bae9961882940cb51f27a6c599eab2e681"
-  integrity sha512-/hlsh9xTU6boEzQVk92pfIdzj7iB6hFShc8KQxMQmocwW1HCRHVF1S4jceN6gsH8BNIv8vMbFgCPZfARebjjdQ==
+clipcc-vm@3.1.4:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/clipcc-vm/-/clipcc-vm-3.1.4.tgz#5a76bb1bc8b1a19a5097540e0fb38de07c131da7"
+  integrity sha512-t1rZX1ogMr1pvztb0YnbNrbwM4D4ZJi9/Vyr+rvO6qLQO3v+TqxNv7mpvnfQBsKyIF3gBCIrR4jRZwTSwpImHA==
   dependencies:
     "@vernier/godirect" "1.5.0"
     arraybuffer-loader "^1.0.6"
@@ -2905,7 +2905,7 @@ clipcc-vm@3.1.3:
     axios "^0.21.1"
     btoa "1.2.1"
     canvas-toBlob "1.0.0"
-    clipcc-l10n "3.1.0"
+    clipcc-l10n "3.1.1"
     decode-html "2.0.0"
     diff-match-patch "1.0.4"
     format-message "6.2.1"
@@ -4732,9 +4732,9 @@ flush-write-stream@^1.0.0:
     readable-stream "^2.3.6"
 
 follow-redirects@^1.0.0, follow-redirects@^1.14.0:
-  version "1.14.6"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.6.tgz#8cfb281bbc035b3c067d6cd975b0f6ade6e855cd"
-  integrity sha512-fhUl5EwSJbbl8AR+uYL2KQDxLkdSjZGR36xy46AO7cOMTrCMON6Sa28FmAnC2tRTDbd/Uuzz3aJBv7EBN7JH8A==
+  version "1.14.7"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.7.tgz#2004c02eb9436eee9a21446a6477debf17e81685"
+  integrity sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==
 
 for-in@^1.0.1, for-in@^1.0.2:
   version "1.0.2"
@@ -9618,10 +9618,12 @@ serialize-javascript@^1.4.0:
   resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-1.9.1.tgz#cfc200aef77b600c47da9bb8149c943e798c2fdb"
   integrity sha512-0Vb/54WJ6k5v8sSWN09S0ora+Hnr+cX40r9F170nT+mSkaxltoE/7R3OrIdBSUv1OoiobH1QoWQbCnAO+e8J1A==
 
-serialize-javascript@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-2.1.2.tgz#ecec53b0e0317bdc95ef76ab7074b7384785fa61"
-  integrity sha512-rs9OggEUF0V4jUSecXazOYsLfu7OGK2qIn3c7IPBiffz32XniEp/TX9Xmc9LQfK2nQ2QKHvZ2oygKUGU0lG4jQ==
+serialize-javascript@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-3.1.0.tgz#8bf3a9170712664ef2561b44b691eafe399214ea"
+  integrity sha512-JIJT1DGiWmIKhzRsG91aS6Ze4sFUrYbltlkg2onR5OrnNM02Kl/hnY/T4FN2omvyeBbQmMJv+K4cPOpGzOTFBg==
+  dependencies:
+    randombytes "^2.1.0"
 
 serialize-javascript@^4.0.0:
   version "4.0.0"
