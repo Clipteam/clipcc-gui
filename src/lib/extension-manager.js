@@ -209,7 +209,8 @@ const initExtensionAPI = (gui, vm, blocks) => {
         gui: gui.extensionAPI,
         vm: vm.extensionAPI,
         blocks: blocks,
-        document: document
+        document: document,
+        window: window
     };
     ClipCCExtension.api.registExtensionAPI(apiInstance);
 };
