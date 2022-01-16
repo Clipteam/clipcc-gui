@@ -162,6 +162,7 @@ class CustomProcedures extends React.Component {
         return (
             <CustomProceduresComponent
                 componentRef={this.setBlocks}
+                isCreate={this.props.isCreate}
                 warp={this.state.warp}
                 global={this.state.global}
                 return={this.state.return}
@@ -180,6 +181,7 @@ class CustomProcedures extends React.Component {
 
 CustomProcedures.propTypes = {
     isRtl: PropTypes.bool,
+    isCreate: PropTypes.bool,
     mutator: PropTypes.instanceOf(Element),
     onRequestClose: PropTypes.func.isRequired,
     options: PropTypes.shape({
@@ -211,6 +213,7 @@ CustomProcedures.defaultProps = {
 
 const mapStateToProps = state => ({
     isRtl: state.locales.isRtl,
+    isCreate: state.scratchGui.customProcedures.create,
     mutator: state.scratchGui.customProcedures.mutator
 });
 

@@ -111,6 +111,7 @@ const CustomProcedures = props => (
                     <Checkbox
                         checked={props.return}
                         onChange={props.onToggleReturn}
+                        disabled={!props.isCreate}
                     >
                         <FormattedMessage
                             defaultMessage="Custom reporter"
@@ -149,6 +150,7 @@ const CustomProcedures = props => (
 CustomProcedures.propTypes = {
     componentRef: PropTypes.func.isRequired,
     intl: intlShape,
+    isCreate: PropTypes.bool.isRequired,
     onAddBoolean: PropTypes.func.isRequired,
     onAddLabel: PropTypes.func.isRequired,
     onAddTextNumber: PropTypes.func.isRequired,

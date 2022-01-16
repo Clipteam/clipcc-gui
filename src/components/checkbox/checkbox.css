@@ -11,6 +11,10 @@
     line-height: 32px;
 }
 
+.disabled {
+    color: darkgrey;
+}
+
 .checkbox {
     margin-right: 0.5rem;
     background-image: url('./check.svg');
@@ -31,4 +35,12 @@
 .checkbox:checked {
     background-color: $motion-primary;
     border-color: $motion-primary;
+}
+
+.checkbox:disabled {
+    border-color: darkgrey;
+}
+
+.checkbox:disabled:checked {
+    background-color: darkgrey;
 }
