@@ -155,6 +155,7 @@ class CustomProcedures extends React.Component {
         if (this.mutationRoot) {
             const newReturn = !this.mutationRoot.getReturn();
             this.mutationRoot.setReturn(newReturn);
+            this.mutationRoot.updateProcedureShape();
             this.setState({return: newReturn});
         }
     }
