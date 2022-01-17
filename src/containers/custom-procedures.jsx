@@ -110,6 +110,7 @@ class CustomProcedures extends React.Component {
         this.setState({warp: this.mutationRoot.getWarp()});
         this.setState({global: this.mutationRoot.getGlobal()});
         this.setState({return: this.mutationRoot.getReturn()});
+        this.mutationRoot.updateProcedureShape();
         // Allow the initial events to run to position this block, then focus.
         setTimeout(() => {
             this.mutationRoot.focusLastEditor_();
