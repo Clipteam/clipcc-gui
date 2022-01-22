@@ -15,9 +15,12 @@
     color: darkgrey;
 }
 
+[theme='dark'] .disabled {
+    color: rgb(213 213 213)!important;
+}
+
 .checkbox {
     margin-right: 0.5rem;
-    background-image: url('./check.svg');
     background-color: $ui-white;
     background-size: 100%;
     background-origin: content-box;
@@ -32,13 +35,22 @@
     transition-duration: .2s;
 }
 
+[theme='dark'] .label{
+    color: white
+}
+
 .checkbox:checked {
+    background-image: url('./check.svg');
     background-color: $motion-primary;
     border-color: $motion-primary;
 }
 
 .checkbox:disabled {
     border-color: darkgrey;
+}
+
+[theme='dark'] .checkbox:disabled {
+    background-color: darkgrey;
 }
 
 .checkbox:disabled:checked {
