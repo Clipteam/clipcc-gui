@@ -10,9 +10,25 @@
     padding: 1.5rem 2.25rem;
 }
 
+[theme='dark'] .body {
+    background: $ui-primary-dark;
+    color: $ui-white;
+}
+
 .logo {
     display: block;
     margin: 0px auto;
     width: 100%;
     max-width: 200px;
+}
+
+.contact {
+    display: flex;
+    justify-content: space-around;
+    padding-left: 5rem;
+    padding-right: 5rem;
+}
+
+[theme='dark'] .logo {
+    filter: invert(100%) brightness(10000%);
 }

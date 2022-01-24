@@ -11,14 +11,13 @@
     padding: 1.5rem 2.25rem;
 }
 
-.body input[type="checkbox"],
-.body input[type="radio"] {
-    margin: 3px;
+[theme='dark'] .body {
+    background-color: $ui-primary-dark;
 }
 
 /* Blocks workspace for custom procedure declaration editor */
 .workspace {
-    min-height: 200px;
+    min-height: 150px;
     position: relative;
 }
 
@@ -34,10 +33,23 @@
     background-color: $ui-primary;
 }
 
-/* Row of "card" buttons for modifying custom procedures */
-.options-row {
+[theme='dark'] .workspace :global(.blocklySvg) {
+    background-color: $drop-highlight-dark;
+}
+
+.options {
     display: flex;
+}
+
+.insert-options {
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    flex: 1;
+}
+
+.function-options {
+    flex: 1;
 }
 
 .option-card {
@@ -45,11 +57,16 @@
     border: 2px solid $ui-black-transparent;
     border-radius: $space;
     padding: calc($space * 2);
-    text-align: center;
+    text-align: left;
     flex-grow: 1;
     cursor: pointer;
     transition: all 0.2s;
-    flex-basis: 100px;
+    display: flex;
+}
+
+[theme='dark'] .option-card {
+    background-color: $drop-highlight-dark;
+    color: white;
 }
 
 .option-card:hover {
@@ -58,16 +75,20 @@
 }
 
 .option-card + .option-card {
-    margin-left: 1rem;
+    margin-top: 0.5rem;
 }
 
 .option-icon {
     height: 48px;
-    margin-bottom: 0.5rem;
 }
 
 .option-title {
-    font-weight: bold;
+    margin-left: 1rem;
+    line-height: 48px;
+}
+
+[theme='dark'] .option-title {
+    color: white;
 }
 
 /* "Run without screen refresh" row */
@@ -89,6 +110,15 @@
     background: white;
     font-weight: bold;
     font-size: 0.85rem;
+}
+
+[theme='dark'] .button-row button {
+    background-color: $ui-tertiary-dark;
+    color: white;
+}
+
+[theme='dark'] .checkbox-row {
+    color: white;
 }
 
 .button-row button.ok-button {

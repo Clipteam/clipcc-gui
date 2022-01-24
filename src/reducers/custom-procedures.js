@@ -5,7 +5,8 @@ const SET_CALLBACK = 'clipcc-gui/custom-procedures/SET_CALLBACK';
 const initialState = {
     active: false,
     mutator: null,
-    callback: null
+    callback: null,
+    create: false
 };
 
 const reducer = function (state, action) {
@@ -15,7 +16,8 @@ const reducer = function (state, action) {
         return Object.assign({}, state, {
             active: true,
             mutator: action.mutator,
-            callback: action.callback
+            callback: action.callback,
+            create: action.create
         });
     case DEACTIVATE_CUSTOM_PROCEDURES:
         // Can be called without a mutator to deactivate without new procedure
@@ -26,7 +28,8 @@ const reducer = function (state, action) {
         return Object.assign({}, state, {
             active: false,
             mutator: null,
-            callback: null
+            callback: null,
+            create: false
         });
     case SET_CALLBACK:
         return Object.assign({}, state, {callback: action.callback});
@@ -40,12 +43,14 @@ const reducer = function (state, action) {
  * @param {!Element} mutator The XML node of the mutator for the procedure.
  * @param {!function(!Element)} callback The function to call when done editing procedure.
  *     Expect the callback to be a function that takes a new XML mutator node.
+ * @param {!boolean} create Create a new procedure or edit an existing one.
  * @returns {object} An action object with type ACTIVATE_CUSTOM_PROCEDURES.
  */
-const activateCustomProcedures = (mutator, callback) => ({
+const activateCustomProcedures = (mutator, callback, create) => ({
     type: ACTIVATE_CUSTOM_PROCEDURES,
     mutator: mutator,
-    callback: callback
+    callback: callback,
+    create: create
 });
 
 /**

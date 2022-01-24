@@ -356,6 +356,7 @@ class Blocks extends React.Component {
         }
     }
     onWorkspaceUpdate (data) {
+        // console.log(this.props.vm.editingTarget, data);
         // When we change sprites, update the toolbox to have the new sprite's blocks
         const toolboxXML = this.getToolboxXML();
         if (toolboxXML) {
@@ -368,9 +369,20 @@ class Blocks extends React.Component {
 
         // Remove and reattach the workspace listener (but allow flyout events)
         this.workspace.removeChangeListener(this.props.vm.blockListener);
-        const dom = this.ScratchBlocks.Xml.textToDom(data.xml);
         try {
+            const dom = this.ScratchBlocks.Xml.textToDom(data.xml);
             this.ScratchBlocks.Xml.clearWorkspaceAndLoadFromXml(dom, this.workspace);
+            // TODO: Workspace Cache
+            /* if (this.workspace.hasCache(target.id) && !target.deprecatedCache) {
+                this.workspace.switchToCache(target.id);
+            }
+            else {
+                const dom = this.ScratchBlocks.Xml.textToDom(data.xml);
+                // this.ScratchBlocks.Xml.clearWorkspaceAndLoadFromXml(dom, this.workspace);
+                this.ScratchBlocks.Xml.createWorkspaceCacheAndLoadFromXml(dom, this.workspace, target.id);
+                this.props.vm.editingTarget.deprecatedCache = false;
+                // console.log(this.props.vm.editingTarget)
+            } */
         } catch (error) {
             // The workspace is likely incomplete. What did update should be
             // functional.
@@ -676,7 +688,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onActivateColorPicker: callback => dispatch(activateColorPicker(callback)),
-    onActivateCustomProcedures: (data, callback) => dispatch(activateCustomProcedures(data, callback)),
+    onActivateCustomProcedures: (data, callback, create) => dispatch(activateCustomProcedures(data, callback, create)),
     onOpenConnectionModal: id => {
         dispatch(setConnectionModalExtensionId(id));
         dispatch(openConnectionModal());

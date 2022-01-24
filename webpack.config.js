@@ -5,9 +5,9 @@ const webpack = require('webpack');
 // Plugins
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 
 // PostCss
 const autoprefixer = require('autoprefixer');
@@ -26,7 +26,13 @@ const base = {
         contentBase: path.resolve(__dirname, 'build'),
         host: '0.0.0.0',
         port: process.env.PORT || 8601,
-        https: ENABLE_HTTPS
+        https: ENABLE_HTTPS,
+        proxy: {
+        	'/editor/dev/canary': {
+        		target: 'http://localhost:8601',
+        		pathRewrite: {'^/editor/dev/canary' : ''}
+              }
+        }
     },
     output: {
         library: 'GUI',
@@ -61,7 +67,7 @@ const base = {
                     '@babel/plugin-transform-runtime'
                 ],
                 presets: [
-                    ['@babel/preset-env', {"targets": {"browsers": ["last 3 versions", "Safari >= 8", "iOS >= 8"]}}], 
+                    ['@babel/preset-env'],
                     '@babel/preset-react'
                 ],
                 sourceType: 'unambiguous'
@@ -97,10 +103,10 @@ const base = {
     },
     optimization: {
         minimizer: [
-            new UglifyJsPlugin({
+            new TerserPlugin({
                 include: /\.min\.js$/
             })
-        ]
+        ],
     },
     plugins: [new HardSourceWebpackPlugin()]
 };
@@ -123,6 +129,7 @@ function getPlugins() {
             chunks: ['lib.min', 'gui'],
             template: 'src/playground/index.ejs',
             title: 'ClipCC 3.0 GUI',
+            scriptLoading: 'defer',
             enablePWA: ENABLE_PWA,
             sentryConfig: process.env.SENTRY_CONFIG ? '"' + process.env.SENTRY_CONFIG + '"' : null
         }),

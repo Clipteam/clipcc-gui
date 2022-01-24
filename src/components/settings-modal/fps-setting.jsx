@@ -1,7 +1,7 @@
 /**
  * @fileoverview
- * 设置窗口中的布局选项组件
- * @author SteveXMH
+ * 设置窗口中的FPS组件
+ * @author SinanGentoo
  */
 
 import React from 'react';
@@ -9,9 +9,11 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Box from '../box/box.jsx';
 import Input from '../forms/input.jsx';
+import classNames from 'classnames';
 import BufferedInputHOC from '../forms/buffered-input-hoc.jsx';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import {updateSetting, getSetting} from '../../reducers/settings';
+import styles from './layout-setting.css';
 
 const BufferedInput = BufferedInputHOC(Input);
 
@@ -30,7 +32,11 @@ const FPSSetting = props => (
         alignItems="center"
         style={{display: 'flex'}}
     >
-        <strong>{props.intl.formatMessage(messages.label)}</strong>
+        <p className={classNames(
+            styles.text
+        )}>
+            {props.intl.formatMessage(messages.label)}
+        </p>
         <Box
             alignContent="center"
             alignItems="center"
@@ -38,9 +44,14 @@ const FPSSetting = props => (
         >
             <BufferedInput
                 tabIndex="1"
+                min="10"
+                max="360"
                 type="number"
                 value={props.fps}
-                onSubmit={props.onChangeFPS}
+                onSubmit={value => {
+                	props.onChangeFPS(value);
+                	props.setFramerate(value);
+            	}}
             />
         </Box>
     </Box>
@@ -49,11 +60,10 @@ const FPSSetting = props => (
 FPSSetting.propTypes = {
     intl: intlShape.isRequired,
     fps: PropTypes.number.isRequired,
-    onChangeFPS: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-    fps: getSetting(state, "fps")
+    fps: getSetting(state, 'fps')
 });
 
 const mapDispatchToProps = dispatch => ({

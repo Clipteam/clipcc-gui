@@ -205,7 +205,8 @@ export default [
         ),
         featured: true,
         internetConnectionRequired: true
-    },
+    }
+    /*
     {
         name: 'Makey Makey',
         extensionId: 'makeymakey',
@@ -373,4 +374,5 @@ export default [
         ),
         helpLink: 'https://scratch.mit.edu/vernier'
     }
+    */
 ];

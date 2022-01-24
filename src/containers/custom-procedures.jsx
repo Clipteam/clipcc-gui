@@ -14,13 +14,17 @@ class CustomProcedures extends React.Component {
             'handleAddBoolean',
             'handleAddTextNumber',
             'handleToggleWarp',
+            'handleToggleGlobal',
+            'handleToggleReturn',
             'handleCancel',
             'handleOk',
             'setBlocks'
         ]);
         this.state = {
             rtlOffset: 0,
-            warp: false
+            warp: false,
+            global: false,
+            return: false
         };
     }
     componentWillUnmount () {
@@ -104,6 +108,9 @@ class CustomProcedures extends React.Component {
         this.mutationRoot.initSvg();
         this.mutationRoot.render();
         this.setState({warp: this.mutationRoot.getWarp()});
+        this.setState({global: this.mutationRoot.getGlobal()});
+        this.setState({return: this.mutationRoot.getReturn()});
+        this.mutationRoot.updateProcedureShape();
         // Allow the initial events to run to position this block, then focus.
         setTimeout(() => {
             this.mutationRoot.focusLastEditor_();
@@ -138,17 +145,37 @@ class CustomProcedures extends React.Component {
             this.setState({warp: newWarp});
         }
     }
+    handleToggleGlobal () {
+        if (this.mutationRoot) {
+            const newGlobal = !this.mutationRoot.getGlobal();
+            this.mutationRoot.setGlobal(newGlobal);
+            this.setState({global: newGlobal});
+        }
+    }
+    handleToggleReturn () {
+        if (this.mutationRoot) {
+            const newReturn = !this.mutationRoot.getReturn();
+            this.mutationRoot.setReturn(newReturn);
+            this.mutationRoot.updateProcedureShape();
+            this.setState({return: newReturn});
+        }
+    }
     render () {
         return (
             <CustomProceduresComponent
                 componentRef={this.setBlocks}
+                isCreate={this.props.isCreate}
                 warp={this.state.warp}
+                global={this.state.global}
+                return={this.state.return}
                 onAddBoolean={this.handleAddBoolean}
                 onAddLabel={this.handleAddLabel}
                 onAddTextNumber={this.handleAddTextNumber}
                 onCancel={this.handleCancel}
                 onOk={this.handleOk}
                 onToggleWarp={this.handleToggleWarp}
+                onToggleGlobal={this.handleToggleGlobal}
+                onToggleReturn={this.handleToggleReturn}
             />
         );
     }
@@ -156,6 +183,7 @@ class CustomProcedures extends React.Component {
 
 CustomProcedures.propTypes = {
     isRtl: PropTypes.bool,
+    isCreate: PropTypes.bool,
     mutator: PropTypes.instanceOf(Element),
     onRequestClose: PropTypes.func.isRequired,
     options: PropTypes.shape({
@@ -187,6 +215,7 @@ CustomProcedures.defaultProps = {
 
 const mapStateToProps = state => ({
     isRtl: state.locales.isRtl,
+    isCreate: state.scratchGui.customProcedures.create,
     mutator: state.scratchGui.customProcedures.mutator
 });
 

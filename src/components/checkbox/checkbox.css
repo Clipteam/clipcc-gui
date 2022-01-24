@@ -1,0 +1,58 @@
+@import '../../css/colors.css';
+
+.label {
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    border-radius: 0.3rem;
+}
+
+.label span {
+    line-height: 32px;
+}
+
+.disabled {
+    color: darkgrey;
+}
+
+[theme='dark'] .disabled {
+    color: rgb(213 213 213)!important;
+}
+
+.checkbox {
+    margin-right: 0.5rem;
+    background-color: $ui-white;
+    background-size: 100%;
+    background-origin: content-box;
+    background-repeat: no-repeat;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1px solid rgb(92, 92, 92);
+    border-radius: 4px;
+    outline: none;
+    padding: 2px;
+    transition-duration: .2s;
+}
+
+[theme='dark'] .label{
+    color: white
+}
+
+.checkbox:checked {
+    background-image: url('./check.svg');
+    background-color: $motion-primary;
+    border-color: $motion-primary;
+}
+
+.checkbox:disabled {
+    border-color: darkgrey;
+}
+
+[theme='dark'] .checkbox:disabled {
+    background-color: darkgrey;
+}
+
+.checkbox:disabled:checked {
+    background-color: darkgrey;
+}

@@ -10,11 +10,18 @@
     right: 0;
     bottom: 0;
     z-index: $z-index-modal;
-    backdrop-filter: blur(4px);
     background-color: $ui-modal-overlay;
     animation-name: flash;
     animation-duration: 0.75s;
     animation-fill-mode: forwards; /* Leave at 0 opacity after animation */
+}
+
+[effect='blur'] .modal-overlay {
+	backdrop-filter: blur(4px);
+}
+
+[theme='dark'] .modal-overlay {
+    background-color: $ui-modal-overlay-dark;
 }
 
 .modal-content * {
@@ -82,6 +89,10 @@ $sides: 20rem;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 1rem;
     font-weight: normal;
+}
+
+[theme='dark'] .header {
+    background-color: $motion-primary-dark;
 }
 
 .header-item {

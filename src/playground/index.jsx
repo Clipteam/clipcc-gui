@@ -1,9 +1,3 @@
-// Polyfills
-import 'es6-object-assign/auto';
-import 'core-js/fn/array/includes';
-import 'core-js/fn/promise/finally';
-import 'intl'; // For Safari 9
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -11,11 +5,21 @@ import analytics from '../lib/analytics';
 import AppStateHOC from '../lib/app-state-hoc.jsx';
 import BrowserModalComponent from '../components/browser-modal/browser-modal.jsx';
 import supportedBrowser from '../lib/supported-browser';
-
+import * as Sentry from '@sentry/react';
+import {Integrations} from '@sentry/tracing';
 import styles from './index.css';
 
 // Register "base" page view
 analytics.pageview('/');
+Sentry.init({
+    dsn: 'https://ed881d9f133e457d8cdca25202200c3f@o1098997.ingest.sentry.io/6123390',
+    integrations: [new Integrations.BrowserTracing()],
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0,
+    release: `clipcc@${require('../../package.json').version}`
+});
 
 const appTarget = document.createElement('div');
 appTarget.className = styles.app;

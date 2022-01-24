@@ -33,7 +33,8 @@ import {
     openTipsLibrary,
     openSettingsModal,
     openAboutModal,
-    openExtensionModal
+    openExtensionModal,
+    openContributorModal
 } from '../../reducers/modals';
 import {setPlayer} from '../../reducers/mode';
 import {
@@ -43,7 +44,8 @@ import {
     manualUpdateProject,
     requestNewProject,
     remixProject,
-    saveProjectAsCopy
+    saveProjectAsCopy,
+    setFileSystemHandle
 } from '../../reducers/project-state';
 import {
     openAboutMenu,
@@ -68,6 +70,7 @@ import {
     closeLoginMenu,
     loginMenuOpen
 } from '../../reducers/menus';
+
 
 import collectMetadata from '../../lib/collect-metadata';
 
@@ -178,6 +181,7 @@ class MenuBar extends React.Component {
             'handleClickSettings',
             'handleClickAbout',
             'handleClickExtension',
+            'handleClickContributor',
             'handleKeyPress',
             'handleLanguageMouseUp',
             'handleRestoreOption',
@@ -200,6 +204,7 @@ class MenuBar extends React.Component {
         const readyToReplaceProject = this.props.confirmReadyToReplaceProject(
             this.props.intl.formatMessage(sharedMessages.replaceProjectWarning)
         );
+        this.props.onSetFileSystemHandle(null);
         this.props.onRequestCloseFile();
         if (readyToReplaceProject) {
             this.props.onClickNew(this.props.canSave && this.props.canCreateNew);
@@ -249,6 +254,10 @@ class MenuBar extends React.Component {
     }
     handleClickExtension () {
         this.props.onOpenExtension();
+        this.props.onRequestCloseOther();
+    }
+    handleClickContributor () {
+        this.props.onOpenContributor();
         this.props.onRequestCloseOther();
     }
     handleRestoreOption (restoreFun) {
@@ -408,6 +417,13 @@ class MenuBar extends React.Component {
                 id="gui.menuBar.extension"
             />
         );
+        const contributorMessage = (
+            <FormattedMessage
+                defaultMessage="Contributor List"
+                description="Menu bar item for showing contributor list message"
+                id="gui.menuBar.contributor"
+            />
+        );
         const remixButton = (
             <Button
                 className={classNames(
@@ -427,7 +443,7 @@ class MenuBar extends React.Component {
             <Box
                 className={classNames(
                     this.props.className,
-                    styles.menuBar
+                    styles.menuBar,
                 )}
             >
                 <div className={styles.mainMenu}>
@@ -509,8 +525,22 @@ class MenuBar extends React.Component {
                                         >
                                             {this.props.intl.formatMessage(sharedMessages.loadFromComputerTitle)}
                                         </MenuItem>
-                                        <SB3Downloader>{(className, {cc3, sb3}) => (
+                                        <SB3Downloader>{(className, {cc3, sb3, saveToLastFile}) => (
                                             <>
+                                                {window.showSaveFilePicker && this.props.isStandalone && (
+                                                    <MenuItem
+                                                        className={classNames(className, {
+                                                            [styles.disabled]: this.props.fileHandle === null
+                                                        })}
+                                                        onClick={this.getSaveToComputerHandler(saveToLastFile)}
+                                                    >
+                                                        <FormattedMessage
+                                                            defaultMessage="Save to original file"
+                                                            description="Menu bar item for save a project to original file" // eslint-disable-line max-len
+                                                            id="gui.menuBar.saveToOriginalFile"
+                                                        />
+                                                    </MenuItem>
+                                                )}
                                                 <MenuItem
                                                     className={className}
                                                     onClick={this.getSaveToComputerHandler(cc3)}
@@ -623,6 +653,12 @@ class MenuBar extends React.Component {
                                     >
                                         {aboutMessage}
                                     </MenuItem>
+                                    <MenuItem
+                                        isRtl={this.props.isRtl}
+                                        onClick={this.handleClickContributor}
+                                    >
+                                        {contributorMessage}
+                                    </MenuItem>
                                 </MenuSection>
                             </MenuBarMenu>
                         </div>
@@ -642,27 +678,27 @@ class MenuBar extends React.Component {
                     </div>
                     */}
 
-<Divider className={classNames(styles.divider)} />
-                            {this.props.canEditTitle ? (
-                                <div className={classNames(styles.menuBarItem, styles.growable)}>
-                                    <MenuBarItemTooltip
-                                        enable
-                                        id="title-field"
-                                    >
-                                        <ProjectTitleInput
-                                            className={classNames(styles.titleFieldGrowable)}
-                                        />
-                                    </MenuBarItemTooltip>
-                                </div>
-                            ) : ((this.props.authorUsername && this.props.authorUsername !== this.props.username) ? (
-                                <AuthorInfo
-                                    className={styles.authorInfo}
-                                    imageUrl={this.props.authorThumbnailUrl}
-                                    projectTitle={this.props.projectTitle}
-                                    userId={this.props.authorId}
-                                    username={this.props.authorUsername}
+                    <Divider className={classNames(styles.divider)} />
+                    {this.props.canEditTitle ? (
+                        <div className={classNames(styles.menuBarItem, styles.growable)}>
+                            <MenuBarItemTooltip
+                                enable
+                                id="title-field"
+                            >
+                                <ProjectTitleInput
+                                    className={classNames(styles.titleFieldGrowable)}
                                 />
-                            ) : null)}
+                            </MenuBarItemTooltip>
+                        </div>
+                    ) : ((this.props.authorUsername && this.props.authorUsername !== this.props.username) ? (
+                        <AuthorInfo
+                            className={styles.authorInfo}
+                            imageUrl={this.props.authorThumbnailUrl}
+                            projectTitle={this.props.projectTitle}
+                            userId={this.props.authorId}
+                            username={this.props.authorUsername}
+                        />
+                    ) : null)}
 
                     {this.props.isStandalone ? null : (
                         <>
@@ -724,13 +760,15 @@ class MenuBar extends React.Component {
 
                 {/* show the proper UI in the account menu, given whether the user is
                 logged in, and whether a session is available to log in with */}
+                <div className={styles.menuBarItem}>
+                    <SaveStatus
+                        canSave={this.props.canSave}
+                        isStandalone={this.props.isStandalone}
+                        fileHandle={this.props.fileHandle}
+                    />
+                </div>
                 {this.props.isStandalone ? null : (
                     <div className={styles.accountInfoGroup}>
-                        <div className={styles.menuBarItem}>
-                            {this.props.canSave && (
-                                <SaveStatus />
-                            )}
-                        </div>
                         {this.props.sessionExists ? (
                             this.props.username ? (
                                 // ************ user is logged in ************
@@ -879,6 +917,7 @@ MenuBar.propTypes = {
     otherMenuOpen: PropTypes.bool,
     enableCommunity: PropTypes.bool,
     fileMenuOpen: PropTypes.bool,
+    fileHandle: PropTypes.func,
     intl: intlShape,
     isRtl: PropTypes.bool,
     isShared: PropTypes.bool,
@@ -911,6 +950,7 @@ MenuBar.propTypes = {
     onOpenSettings: PropTypes.func,
     onOpenAbout: PropTypes.func,
     onOpenExtension: PropTypes.func,
+    onOpenContributor: PropTypes.func,
     onLogOut: PropTypes.func,
     onOpenRegistration: PropTypes.func,
     // onOpenTipLibrary: PropTypes.func,
@@ -925,6 +965,7 @@ MenuBar.propTypes = {
     onRequestCloseOther: PropTypes.func,
     onSeeCommunity: PropTypes.func,
     onShare: PropTypes.func,
+    onSetFileSystemHandle: PropTypes.func,
     // onToggleLoginOpen: PropTypes.func,
     onStartSelectingFileUpload: PropTypes.func,
     onToggleLoginOpen: PropTypes.func,
@@ -951,6 +992,7 @@ const mapStateToProps = (state, ownProps) => {
         aboutMenuOpen: aboutMenuOpen(state),
         accountMenuOpen: accountMenuOpen(state),
         fileMenuOpen: fileMenuOpen(state),
+        fileHandle: state.scratchGui.projectState.fileHandle,
         editMenuOpen: editMenuOpen(state),
         otherMenuOpen: otherMenuOpen(state),
         isRtl: state.locales.isRtl,
@@ -974,6 +1016,7 @@ const mapDispatchToProps = dispatch => ({
     onOpenSettings: () => dispatch(openSettingsModal()),
     onOpenAbout: () => dispatch(openAboutModal()),
     onOpenExtension: () => dispatch(openExtensionModal()),
+    onOpenContributor: () => dispatch(openContributorModal()),
     onClickAccount: () => dispatch(openAccountMenu()),
     onRequestCloseAccount: () => dispatch(closeAccountMenu()),
     onClickFile: () => dispatch(openFileMenu()),
@@ -992,7 +1035,8 @@ const mapDispatchToProps = dispatch => ({
     onClickRemix: () => dispatch(remixProject()),
     onClickSave: () => dispatch(manualUpdateProject()),
     onClickSaveAsCopy: () => dispatch(saveProjectAsCopy()),
-    onSeeCommunity: () => dispatch(setPlayer(true))
+    onSeeCommunity: () => dispatch(setPlayer(true)),
+    onSetFileSystemHandle: fileHandle => dispatch(setFileSystemHandle(fileHandle))
 });
 
 export default compose(

@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 import bindAll from 'lodash.bindall';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -5,6 +6,8 @@ import {connect} from 'react-redux';
 
 import VM from 'clipcc-vm';
 import AudioEngine from 'scratch-audio';
+
+import {updateSetting, getSetting} from '../reducers/settings';
 
 import {setProjectUnchanged} from '../reducers/project-changed';
 import {
@@ -32,6 +35,15 @@ const vmManagerHOC = function (WrappedComponent) {
                 this.audioEngine = new AudioEngine();
                 this.props.vm.attachAudioEngine(this.audioEngine);
                 this.props.vm.setCompatibilityMode(true);
+                
+                //初始化设置
+                try {
+                    this.props.vm.runtime.setFramerate(this.props.fps);
+                    this.props.vm.setCompressionLevel(this.props.compression);
+                    this.props.vm.setDeserializeOption(this.props.compatibility);
+                } catch (e) {
+                    console.log('Failed to initialize settings:', e);
+                }
                 this.props.vm.initialized = true;
                 this.props.vm.setLocale(this.props.locale, this.props.messages);
             }
@@ -117,6 +129,9 @@ const vmManagerHOC = function (WrappedComponent) {
         projectData: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
         projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         username: PropTypes.string,
+        fps: PropTypes.number,
+        compression: PropTypes.number,
+        compatibility: PropTypes.string,
         vm: PropTypes.instanceOf(VM).isRequired
     };
 
@@ -131,7 +146,10 @@ const vmManagerHOC = function (WrappedComponent) {
             projectId: state.scratchGui.projectState.projectId,
             loadingState: loadingState,
             isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
-            isStarted: state.scratchGui.vmStatus.started
+            isStarted: state.scratchGui.vmStatus.started,
+            fps: parseInt(getSetting(state, 'fps')),
+            compression: parseInt(getSetting(state, 'compression')),
+            compatibility: getSetting(state, 'compatibility')
         };
     };
 

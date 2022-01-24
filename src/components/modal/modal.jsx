@@ -29,7 +29,9 @@ const ModalComponent = props => (
             direction="column"
             grow={1}
         >
-            <div className={classNames(styles.header, props.headerClassName)}>
+            <div
+                className={classNames(styles.header, props.headerClassName)}
+            >
                 {props.onHelp ? (
                     <div
                         className={classNames(
@@ -109,5 +111,6 @@ ModalComponent.propTypes = {
     onHelp: PropTypes.func,
     onRequestClose: PropTypes.func
 };
+
 
 export default ModalComponent;

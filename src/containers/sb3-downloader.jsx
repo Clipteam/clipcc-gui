@@ -4,6 +4,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {projectTitleInitialState} from '../reducers/project-title';
 import downloadBlob from '../lib/download-blob';
+import log from '../lib/log';
+import {showAlertWithTimeout} from '../reducers/alerts';
+import {setFileSystemHandle} from '../reducers/project-state';
+import {setProjectUnchanged} from '../reducers/project-changed';
 /**
  * Project saver component passes a downloadProject function to its child.
  * It expects this child to be a function with the signature
@@ -23,7 +27,8 @@ class SB3Downloader extends React.Component {
         super(props);
         bindAll(this, [
             'downloadCc3Project',
-            'downloadSb3Project'
+            'downloadSb3Project',
+            'saveToLastFile'
         ]);
     }
     downloadCc3Project () {
@@ -34,13 +39,54 @@ class SB3Downloader extends React.Component {
             downloadBlob(this.props.projectFilename, content);
         });
     }
-    downloadSb3Project () {
-        this.props.saveProjectSb3().then(content => {
-            if (this.props.onSaveFinished) {
-                this.props.onSaveFinished();
-            }
+    async downloadSb3Project () {
+        const content = await this.props.saveProjectSb3();
+        if (this.props.onSaveFinished) {
+            this.props.onSaveFinished();
+        }
+        if (window.showSaveFilePicker) {
+            await this.saveFilePicker(this.props.projectFilename, content);
+        } else {
             downloadBlob(this.props.projectFilename, content);
-        });
+        }
+    }
+    async saveToLastFile () {
+        const handle = this.props.fileHandle;
+        if (handle === null) return;
+        const writable = await handle.createWritable();
+        this.props.onShowSavingAlert();
+        const content = await this.props.saveProjectSb3();
+        await writable.write(content);
+        await writable.close();
+        this.props.onShowSaveSuccessAlert();
+        this.props.onSetProjectUnchanged();
+    }
+    async saveFilePicker (fileName, content) {
+        try {
+            const fileHandle = await window.showSaveFilePicker(
+                {
+                    types: [
+                        {
+                            description: 'Scratch 3 File',
+                            accept: {'application/x.scratch.sb3': ['.sb3']}
+                        }
+                    ],
+                    suggestedName: fileName,
+                    excludeAcceptAllOption: true
+                });
+            this.props.onShowSavingAlert();
+            const writable = await fileHandle.createWritable();
+            await writable.write(content);
+            this.props.onSetFileSystemHandle(fileHandle);
+            await writable.close();
+            this.props.onSetProjectUnchanged();
+            this.props.onShowSaveSuccessAlert();
+        } catch (err) {
+            log.error(err);
+            if (err.name === 'SecurityError') {
+                downloadBlob(fileName, content);
+            }
+        }
     }
     render () {
         const {
@@ -51,7 +97,8 @@ class SB3Downloader extends React.Component {
             {
                 cc3: this.downloadCc3Project,
                 sb3: this.downloadSb3Project
-            }
+            },
+            this.saveToLastFile
         );
     }
 }
@@ -68,7 +115,12 @@ const getProjectFilename = (curTitle, defaultTitle) => {
 SB3Downloader.propTypes = {
     children: PropTypes.func,
     className: PropTypes.string,
+    fileHandle: PropTypes.func,
     onSaveFinished: PropTypes.func,
+    onSetFileSystemHandle: PropTypes.func,
+    onSetProjectUnchanged: PropTypes.func,
+    onShowSavingAlert: PropTypes.func,
+    onShowSaveSuccessAlert: PropTypes.func,
     projectFilename: PropTypes.string,
     saveProjectCc3: PropTypes.func,
     saveProjectSb3: PropTypes.func
@@ -79,11 +131,19 @@ SB3Downloader.defaultProps = {
 
 const mapStateToProps = state => ({
     saveProjectCc3: state.scratchGui.vm.saveProjectCc3.bind(state.scratchGui.vm),
+    fileHandle: state.scratchGui.projectState.fileHandle,
     saveProjectSb3: state.scratchGui.vm.saveProjectSb3.bind(state.scratchGui.vm),
     projectFilename: getProjectFilename(state.scratchGui.projectTitle, projectTitleInitialState)
 });
 
+const mapDispatchToProps = dispatch => ({
+    onSetProjectUnchanged: () => dispatch(setProjectUnchanged()),
+    onSetFileSystemHandle: fileHandle => dispatch(setFileSystemHandle(fileHandle)),
+    onShowSaveSuccessAlert: () => showAlertWithTimeout(dispatch, 'saveSuccess'),
+    onShowSavingAlert: () => showAlertWithTimeout(dispatch, 'saving')
+});
+
 export default connect(
     mapStateToProps,
-    () => ({}) // omit dispatch prop
+    mapDispatchToProps
 )(SB3Downloader);

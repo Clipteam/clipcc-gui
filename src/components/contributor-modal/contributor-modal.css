@@ -1,0 +1,33 @@
+@import "../../css/colors.css";
+@import "../../css/units.css";
+
+.modal-content {
+    width: 600px;
+}
+
+.body {
+    background: $ui-white;
+    padding: 1.5rem 2.25rem;
+}
+
+.scrollable {
+    width: 550px;
+    height: 500px;
+    overflow: auto;
+}
+
+[theme='dark'] .body {
+    background: $ui-primary-dark;
+    color: $ui-white;
+}
+
+.logo {
+    display: block;
+    margin: 0px auto;
+    width: 100%;
+    max-width: 200px;
+}
+
+[theme='dark'] .logo {
+    filter: invert(100%) brightness(10000%);
+}

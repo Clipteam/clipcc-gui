@@ -15,6 +15,7 @@ const MODAL_SETTINGS_MODAL = 'settings';
 const MODAL_ABOUT_MODAL = 'about';
 const MODAL_EXTENSION_MODAL = 'extension';
 const MODAL_LOAD_ERROR_MODAL = 'loadError';
+const MODAL_CONTRIBUTOR_MODAL = 'contributor';
 
 const initialState = {
     [MODAL_BACKDROP_LIBRARY]: false,
@@ -30,7 +31,8 @@ const initialState = {
     [MODAL_SETTINGS_MODAL]: false,
     [MODAL_ABOUT_MODAL]: false,
     [MODAL_EXTENSION_MODAL]: false,
-    [MODAL_LOAD_ERROR_MODAL]: false
+    [MODAL_LOAD_ERROR_MODAL]: false,
+    [MODAL_CONTRIBUTOR_MODAL]: false
 };
 
 const reducer = function (state, action) {
@@ -102,6 +104,9 @@ const openExtensionModal = function () {
 const openLoadErrorModal = function () {
     return openModal(MODAL_LOAD_ERROR_MODAL);
 };
+const openContributorModal = function () {
+    return openModal(MODAL_CONTRIBUTOR_MODAL);
+};
 const closeBackdropLibrary = function () {
     return closeModal(MODAL_BACKDROP_LIBRARY);
 };
@@ -144,6 +149,9 @@ const closeExtensionModal = function () {
 const closeLoadErrorModal = function () {
     return closeModal(MODAL_LOAD_ERROR_MODAL);
 };
+const closeContributorModal = function () {
+    return closeModal(MODAL_CONTRIBUTOR_MODAL);
+};
 export {
     reducer as default,
     initialState as modalsInitialState,
@@ -161,6 +169,7 @@ export {
     openAboutModal,
     openExtensionModal,
     openLoadErrorModal,
+    openContributorModal,
     closeBackdropLibrary,
     closeCostumeLibrary,
     closeExtensionLibrary,
@@ -174,5 +183,6 @@ export {
     closeSettingsModal,
     closeAboutModal,
     closeExtensionModal,
-    closeLoadErrorModal
+    closeLoadErrorModal,
+    closeContributorModal
 };

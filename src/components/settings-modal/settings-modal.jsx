@@ -11,13 +11,18 @@ import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import Modal from '../../containers/modal.jsx';
 import styles from './settings-modal.css';
 // eslint-disable-next-line no-unused-vars
-import Switch from './switch.jsx';
+import classNames from 'classnames';
 import {connect} from 'react-redux';
 // eslint-disable-next-line no-unused-vars
-import {updateSetting, getSetting} from '../../reducers/settings';
+import {getSetting} from '../../reducers/settings';
 
 import LayoutSetting from './layout-setting.jsx';
 import FPSSetting from './fps-setting.jsx';
+import DarkModeSetting from './darkmode-setting.jsx';
+import BlurSetting from './blur-setting.jsx'
+import CompatibilitySetting from './compatibility-setting.jsx';
+import CompressionSetting from './compression-setting.jsx';
+import AutoSaveSetting from './autosave-settings.jsx';
 
 const messages = defineMessages({
     title: {
@@ -25,10 +30,20 @@ const messages = defineMessages({
         description: 'Settings Modal Title',
         id: 'gui.settingsModal.title'
     },
-    darkFullscreenStage: {
-        defaultMessage: 'Dark fullscreen stage',
-        description: 'Setting of making stage dark when fullscreen.',
-        id: 'gui.settingsModal.darkFullscreenStage'
+    appearance: {
+        defaultMessage: 'Appearance',
+        description: 'Label of Appearance',
+        id: 'gui.settingsModal.appearance'
+    },
+    player: {
+        defaultMessage: 'Player',
+        description: 'Label of Player',
+        id: 'gui.settingsModal.player'
+    },
+    project: {
+        defaultMessage: 'Project',
+        description: 'Label of project',
+        id: 'gui.settingsModal.project'
     }
 });
 
@@ -39,7 +54,7 @@ const Setting = props => (
         alignItems="center"
         style={{display: 'flex'}}
     >
-        <strong>{props.intl.formatMessage(props.message)}</strong>
+        <h3>{props.intl.formatMessage(props.message)}</h3>
         {props.children}
     </Box>
 );
@@ -56,7 +71,10 @@ Setting.propTypes = {
 
 const SettingsModal = ({
     intl,
-    onRequestClose
+    onRequestClose,
+    setFramerate,
+    setCompression,
+    setDeserializeOption
 }) => (
     <Modal
         className={styles.modalContent}
@@ -64,9 +82,41 @@ const SettingsModal = ({
         onRequestClose={onRequestClose}
         id="settingsModal"
     >
-        <Box className={styles.body}>
-            <FPSSetting />
-            <LayoutSetting />
+        <Box
+            className={classNames(styles.body)}
+            justifyContent="space-between"
+        >
+            <strong>{intl.formatMessage(messages.appearance)}</strong>
+            <Box
+                className={classNames(styles.settingGrid)}
+                justifyContent="space-between"
+            >
+                <LayoutSetting />
+                <DarkModeSetting />
+                <BlurSetting />
+            </Box>
+            <strong>{intl.formatMessage(messages.player)}</strong>
+            <Box
+                className={classNames(styles.settingGrid)}
+                justifyContent="space-between"
+            >
+                <FPSSetting
+                    setFramerate={setFramerate}
+                />
+            </Box>
+            <strong>{intl.formatMessage(messages.project)}</strong>
+            <Box
+                className={classNames(styles.settingGrid)}
+                justifyContent="space-between"
+            >
+                <CompatibilitySetting
+                    setDeserializeOption={setDeserializeOption}
+                />
+                <AutoSaveSetting />
+                <CompressionSetting
+                    setCompression={setCompression}
+                />
+            </Box>
         </Box>
     </Modal>
 );
@@ -79,7 +129,7 @@ SettingsModal.propTypes = {
 
 // eslint-disable-next-line no-unused-vars
 const mapStateToProps = state => ({
-    // darkFullscreenStage: getSetting(state, 'darkFullscreenStage')
+
 });
 
 // eslint-disable-next-line no-unused-vars

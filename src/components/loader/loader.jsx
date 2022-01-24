@@ -200,4 +200,5 @@ LoaderComponent.defaultProps = {
     messageId: 'gui.loader.headline'
 };
 
+
 export default LoaderComponent;

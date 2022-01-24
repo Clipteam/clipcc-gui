@@ -17,6 +17,11 @@
     z-index: $z-index-context-menu;
 }
 
+[theme='dark'] .context-menu {
+    background-color: $ui-primary-dark;
+    color: white;
+}
+
 .menu-item {
     padding: 8px 12px;
     white-space: nowrap;
