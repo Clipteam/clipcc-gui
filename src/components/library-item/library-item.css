@@ -123,6 +123,10 @@
     padding: 0;
 }
 
+.disabled {
+    filter: grayscale(50%);
+}
+
 .featured-image-container {
     position: relative;
     min-height: 183px;
