@@ -36,7 +36,7 @@ class SB3Downloader extends React.Component {
             if (this.props.onSaveFinished) {
                 this.props.onSaveFinished();
             }
-            downloadBlob(this.props.projectFilename, content);
+            downloadBlob(`${this.props.projectFilename}.cc3`, content);
         });
     }
     async downloadSb3Project () {
@@ -45,9 +45,9 @@ class SB3Downloader extends React.Component {
             this.props.onSaveFinished();
         }
         if (window.showSaveFilePicker) {
-            await this.saveFilePicker(this.props.projectFilename, content);
+            await this.saveFilePicker(`${this.props.projectFilename}.sb3`, content);
         } else {
-            downloadBlob(this.props.projectFilename, content);
+            downloadBlob(`${this.props.projectFilename}.sb3`, content);
         }
     }
     async saveToLastFile () {
@@ -108,8 +108,7 @@ const getProjectFilename = (curTitle, defaultTitle) => {
     if (!filenameTitle || filenameTitle.length === 0) {
         filenameTitle = defaultTitle;
     }
-    // cc: download .cc3 file
-    return `${filenameTitle.substring(0, 100)}.cc3`;
+    return `${filenameTitle.substring(0, 100)}`;
 };
 
 SB3Downloader.propTypes = {

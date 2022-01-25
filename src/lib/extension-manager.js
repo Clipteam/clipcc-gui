@@ -29,7 +29,7 @@ import text2speechInsetIconURL from './libraries/extensions/text2speech/text2spe
 
 import translateIconURL from './libraries/extensions/translate/translate.png';
 import translateInsetIconURL from './libraries/extensions/translate/translate-small.png';
-
+/*
 import makeymakeyIconURL from './libraries/extensions/makeymakey/makeymakey.png';
 import makeymakeyInsetIconURL from './libraries/extensions/makeymakey/makeymakey-small.svg';
 
@@ -62,7 +62,7 @@ import gdxforConnectionSmallIconURL from './libraries/extensions/gdxfor/gdxfor-s
 
 import libraImage from './libraries/extensions/libra/Libra.png';
 import libraInsetImage from './libraries/extensions/libra/Libra-small.svg';
-
+*/
 import HTTPIOImage from './libraries/extensions/HTTPIO/HTTPIO.png';
 import HTTPIOInsetImage from './libraries/extensions/HTTPIO/clipcc.httpio-small.svg';
 
@@ -131,7 +131,7 @@ const builtinExtensions = [
         name: 'gui.extension.translate.name',
         description: 'gui.extension.translate.description',
         requirement: ['internet']
-    },
+    }
     /*
     {
         extensionId: 'makeymakey',
@@ -205,7 +205,7 @@ const loadBuiltinExtension = dispatch => {
 };
 
 const initExtensionAPI = (gui, vm, blocks) => {
-    let apiInstance = {
+    const apiInstance = {
         gui: gui.extensionAPI,
         vm: vm.extensionAPI,
         blocks: blocks,
@@ -240,7 +240,7 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
             }
             info.api = 1;
         } else {
-            throw 'Cannot find \'info.json\' in ccx extension.';
+            throw new Error('Cannot find \'info.json\' in ccx extension.');
         }
 
         // Load extension class
@@ -255,7 +255,7 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
             const ExtensionPrototype = context.module.exports;
             instance = new ExtensionPrototype();
         } else {
-            throw 'Cannot find \'main.js\' in ccx extension';
+            throw new Error('Cannot find \'main.js\' in ccx extension');
         }
 
         // Load locale
@@ -266,19 +266,18 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
                 locale[result[0]] = JSON.parse(await zipData.files[fileName].async('text'));
             }
         }
-        if (info['default_language'] && locale.hasOwnProperty(info['default_language'])) { // default language param
-            locale['default'] = locale[info['default_language']];
-        }
-        else {
-            locale['default'] = locale['en'];
+        if (info.default_language && locale.hasOwnProperty(info.default_language)) { // default language param
+            locale.default = locale[info.default_language];
+        } else {
+            locale.default = locale.en;
         }
         dispatch(addLocales(locale));
         dispatch(updateLocale());
 
         const extensionInfo = {
             extensionId: info.id,
-            name: info.id + '.name',
-            description: info.id + '.description',
+            name: `${info.id}.name`,
+            description: `${info.id}.description`,
             iconURL: info.icon,
             insetIconURL: info.inset_icon,
             author: info.author,
@@ -319,7 +318,7 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
         dispatch(initExtension(extensionInfo));
         break;
     }
-    /*case 'scx': {
+    /* case 'scx': {
         const url = URL.createObjectURL(file);
         this.props.vm.extensionManager.loadExtensionURL(url);
         break;
@@ -328,7 +327,7 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
         console.error('Unkown extension type');
     }
     }
-}
+};
 
 export {
     loadBuiltinExtension,
