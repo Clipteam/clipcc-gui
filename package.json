@@ -51,7 +51,6 @@
     "file-loader": "2.0.0",
     "get-float-time-domain-data": "0.1.0",
     "get-user-media-promise": "1.1.4",
-    "gh-pages": "github:rschamp/gh-pages#publish-branch-to-subfolder",
     "hard-source-webpack-plugin": "^0.13.1",
     "html-webpack-plugin": "^4.5.2",
     "immutable": "3.8.2",

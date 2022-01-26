@@ -35,8 +35,7 @@ class LibraryItemComponent extends React.PureComponent {
                         </div>
                     ) : null}
                     <img
-                        className={this.props.switchable && !this.props.enabled ?
-                            classNames(styles.featuredImage, styles.disabled) : styles.featuredImage}
+                        className={styles.featuredImage}
                         src={this.props.iconURL}
                         onClick={this.props.onSwitchChange}
                     />
