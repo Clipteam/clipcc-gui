@@ -8,7 +8,7 @@ import HashParserHOC from '../lib/hash-parser-hoc.jsx';
 import log from '../lib/log.js';
 
 const onClickLogo = () => {
-    /*window.location = 'https://scratch.mit.edu';*/
+    /* window.location = 'https://scratch.mit.edu';*/
 };
 
 const handleTelemetryModalCancel = () => {
@@ -72,15 +72,18 @@ export default appTarget => {
                 onTelemetryModalCancel={handleTelemetryModalCancel}
                 onTelemetryModalOptIn={handleTelemetryModalOptIn}
                 onTelemetryModalOptOut={handleTelemetryModalOptOut}
-            /> :
-            <WrappedGui
-                canEditTitle
-                isStandalone
-                backpackVisible={false}
-                showComingSoon
-                backpackHost={backpackHost}
-                canSave={false}
-                onClickLogo={onClickLogo}
-            />,
+            /> : (
+                <React.StrictMode>
+                    <WrappedGui
+                        canEditTitle
+                        isStandalone
+                        backpackVisible={false}
+                        showComingSoon
+                        backpackHost={backpackHost}
+                        canSave={false}
+                        onClickLogo={onClickLogo}
+                    />
+                </React.StrictMode>
+            ),
         appTarget);
 };
