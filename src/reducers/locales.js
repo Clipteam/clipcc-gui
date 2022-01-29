@@ -20,7 +20,7 @@ const initialState = {
         ...editorMessages
     },
     messages: Object.assign({},
-        editorMessages[DEFAULT_LANGUAGE], 
+        editorMessages[DEFAULT_LANGUAGE],
         editorMessages.en
     )
 };
@@ -33,7 +33,7 @@ const reducer = function (state, action) {
             isRtl: isRtl(action.locale),
             locale: action.locale,
             messages: Object.assign({},
-                state.messagesByLocale[DEFAULT_LANGUAGE], 
+                state.messagesByLocale[DEFAULT_LANGUAGE],
                 state.messagesByLocale[action.locale]
             )
         });
@@ -44,7 +44,7 @@ const reducer = function (state, action) {
         );
         return state;
     case ADD_LOCALE:
-        let newState = Object.assign({}, state);
+        const newState = Object.assign({}, state);
         for (const locale in action.messagesByLocale) {
             newState.messagesByLocale[locale] = Object.assign({},
                 newState.messagesByLocale[locale],
@@ -74,8 +74,8 @@ const addLocales = function (localesMessages) {
     return {
         type: ADD_LOCALE,
         messagesByLocale: localesMessages
-    }
-}
+    };
+};
 
 const initLocale = function (currentState, locale) {
     if (currentState.messagesByLocale.hasOwnProperty(locale)) {

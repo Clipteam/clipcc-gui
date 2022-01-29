@@ -7,7 +7,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
-const TerserPlugin = require("terser-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 
 // PostCss
 const autoprefixer = require('autoprefixer');
@@ -30,8 +30,8 @@ const base = {
         proxy: {
         	'/editor/dev/canary': {
         		target: 'http://localhost:8601',
-        		pathRewrite: {'^/editor/dev/canary' : ''}
-              }
+        		pathRewrite: {'^/editor/dev/canary': ''}
+            }
         }
     },
     output: {
@@ -83,7 +83,7 @@ const base = {
                     modules: true,
                     importLoaders: 1,
                     localIdentName: '[name]_[local]_[hash:base64:5]',
-                    //localIdentName: '[path][name]_[local]',
+                    // localIdentName: '[path][name]_[local]',
                     camelCase: true
                 }
             }, {
@@ -106,19 +106,18 @@ const base = {
             new TerserPlugin({
                 include: /\.min\.js$/
             })
-        ],
+        ]
     },
     plugins: [new HardSourceWebpackPlugin()]
 };
 
 if (!process.env.CI) {
     base.plugins.push(new webpack.ProgressPlugin());
-}
-else {
+} else {
     base.stats = 'minimal';
 }
 
-function getPlugins() {
+function getPlugins () {
     let res = base.plugins.concat([
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': '"' + process.env.NODE_ENV + '"',
@@ -177,11 +176,11 @@ function getPlugins() {
             }),
             new CopyWebpackPlugin([{
                 from: 'static/sw.build.js',
-                to: 'sw.js',
+                to: 'sw.js'
             }]),
             new CopyWebpackPlugin([{
                 from: 'static/manifest.json',
-                to: 'manifest.json',
+                to: 'manifest.json'
             }])
         ]);
     }
