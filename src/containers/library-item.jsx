@@ -16,6 +16,7 @@ class LibraryItem extends React.PureComponent {
             'handleMouseEnter',
             'handleMouseLeave',
             'handlePlay',
+            'handleSwitchChange',
             'handleStop',
             'rotateIcon',
             'startRotatingIcons',
@@ -37,6 +38,11 @@ class LibraryItem extends React.PureComponent {
             this.props.onSelect(this.props.id);
         }
         e.preventDefault();
+    }
+    handleSwitchChange (status) {
+        if (!this.props.disabled) {
+            this.props.onSwitchChange(this.props.id, status);
+        }
     }
     handleFocus (id) {
         if (!this.props.showPlayButton) {
@@ -110,8 +116,7 @@ class LibraryItem extends React.PureComponent {
             this.props.iconRawURL;
         return (
             <LibraryItemComponent
-                bluetoothRequired={this.props.bluetoothRequired}
-                collaborator={this.props.collaborator}
+                author={this.props.author}
                 description={this.props.description}
                 disabled={this.props.disabled}
                 extensionId={this.props.extensionId}
@@ -121,7 +126,6 @@ class LibraryItem extends React.PureComponent {
                 icons={this.props.icons}
                 id={this.props.id}
                 insetIconURL={this.props.insetIconURL}
-                internetConnectionRequired={this.props.internetConnectionRequired}
                 isPlaying={this.props.isPlaying}
                 name={this.props.name}
                 showPlayButton={this.props.showPlayButton}
@@ -133,13 +137,23 @@ class LibraryItem extends React.PureComponent {
                 onMouseLeave={this.handleMouseLeave}
                 onPlay={this.handlePlay}
                 onStop={this.handleStop}
+                switchable={this.props.switchable}
+                onSwitchChange={this.handleSwitchChange}
+                enabled={this.props.enabled}
+                version={this.props.version}
             />
         );
     }
 }
 
 LibraryItem.propTypes = {
-    bluetoothRequired: PropTypes.bool,
+    author:  PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string)
+    ]),
+    switchable: PropTypes.bool,
+    onSwitchChange: PropTypes.func,
+    enabled: PropTypes.bool,
     collaborator: PropTypes.string,
     description: PropTypes.oneOfType([
         PropTypes.string,
@@ -159,7 +173,6 @@ LibraryItem.propTypes = {
     ),
     id: PropTypes.number.isRequired,
     insetIconURL: PropTypes.string,
-    internetConnectionRequired: PropTypes.bool,
     isPlaying: PropTypes.bool,
     name: PropTypes.oneOfType([
         PropTypes.string,
@@ -168,7 +181,8 @@ LibraryItem.propTypes = {
     onMouseEnter: PropTypes.func.isRequired,
     onMouseLeave: PropTypes.func.isRequired,
     onSelect: PropTypes.func.isRequired,
-    showPlayButton: PropTypes.bool
+    showPlayButton: PropTypes.bool,
+    version: PropTypes.bool
 };
 
 export default injectIntl(LibraryItem);

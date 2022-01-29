@@ -13,6 +13,8 @@ const MODAL_CONNECTION = 'connectionModal';
 const MODAL_TIPS_LIBRARY = 'tipsLibrary';
 const MODAL_SETTINGS_MODAL = 'settings';
 const MODAL_ABOUT_MODAL = 'about';
+const MODAL_EXTENSION_MODAL = 'extension';
+const MODAL_LOAD_ERROR_MODAL = 'loadError';
 const MODAL_CONTRIBUTOR_MODAL = 'contributor';
 
 const initialState = {
@@ -28,6 +30,8 @@ const initialState = {
     [MODAL_TIPS_LIBRARY]: false,
     [MODAL_SETTINGS_MODAL]: false,
     [MODAL_ABOUT_MODAL]: false,
+    [MODAL_EXTENSION_MODAL]: false,
+    [MODAL_LOAD_ERROR_MODAL]: false,
     [MODAL_CONTRIBUTOR_MODAL]: false
 };
 
@@ -94,6 +98,12 @@ const openSettingsModal = function () {
 const openAboutModal = function () {
     return openModal(MODAL_ABOUT_MODAL);
 };
+const openExtensionModal = function () {
+    return openModal(MODAL_EXTENSION_MODAL);
+};
+const openLoadErrorModal = function () {
+    return openModal(MODAL_LOAD_ERROR_MODAL);
+};
 const openContributorModal = function () {
     return openModal(MODAL_CONTRIBUTOR_MODAL);
 };
@@ -133,6 +143,12 @@ const closeSettingsModal = function () {
 const closeAboutModal = function () {
     return closeModal(MODAL_ABOUT_MODAL);
 };
+const closeExtensionModal = function () {
+    return closeModal(MODAL_EXTENSION_MODAL);
+};
+const closeLoadErrorModal = function () {
+    return closeModal(MODAL_LOAD_ERROR_MODAL);
+};
 const closeContributorModal = function () {
     return closeModal(MODAL_CONTRIBUTOR_MODAL);
 };
@@ -151,6 +167,8 @@ export {
     openConnectionModal,
     openSettingsModal,
     openAboutModal,
+    openExtensionModal,
+    openLoadErrorModal,
     openContributorModal,
     closeBackdropLibrary,
     closeCostumeLibrary,
@@ -164,5 +182,7 @@ export {
     closeConnectionModal,
     closeSettingsModal,
     closeAboutModal,
+    closeExtensionModal,
+    closeLoadErrorModal,
     closeContributorModal
 };

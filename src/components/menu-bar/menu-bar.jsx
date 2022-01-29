@@ -33,6 +33,7 @@ import {
     openTipsLibrary,
     openSettingsModal,
     openAboutModal,
+    openExtensionModal,
     openContributorModal
 } from '../../reducers/modals';
 import {setPlayer} from '../../reducers/mode';
@@ -179,6 +180,7 @@ class MenuBar extends React.Component {
             'handleClickShare',
             'handleClickSettings',
             'handleClickAbout',
+            'handleClickExtension',
             'handleClickContributor',
             'handleKeyPress',
             'handleLanguageMouseUp',
@@ -250,7 +252,10 @@ class MenuBar extends React.Component {
         this.props.onOpenAbout();
         this.props.onRequestCloseOther();
     }
-
+    handleClickExtension () {
+        this.props.onOpenExtension();
+        this.props.onRequestCloseOther();
+    }
     handleClickContributor () {
         this.props.onOpenContributor();
         this.props.onRequestCloseOther();
@@ -405,6 +410,13 @@ class MenuBar extends React.Component {
                 id="gui.menuBar.about"
             />
         );
+        const extensionMessage = (
+            <FormattedMessage
+                defaultMessage="Extension"
+                description="Menu bar item for setting extensions"
+                id="gui.menuBar.extension"
+            />
+        );
         const contributorMessage = (
             <FormattedMessage
                 defaultMessage="Contributor List"
@@ -513,8 +525,8 @@ class MenuBar extends React.Component {
                                         >
                                             {this.props.intl.formatMessage(sharedMessages.loadFromComputerTitle)}
                                         </MenuItem>
-                                        <SB3Downloader>{(className, downloadProjectCallback, saveToLastFile) => (
-                                            <React.Fragment>
+                                        <SB3Downloader>{(className, {cc3, sb3, saveToLastFile}) => (
+                                            <>
                                                 {window.showSaveFilePicker && this.props.isStandalone && (
                                                     <MenuItem
                                                         className={classNames(className, {
@@ -531,15 +543,25 @@ class MenuBar extends React.Component {
                                                 )}
                                                 <MenuItem
                                                     className={className}
-                                                    onClick={this.getSaveToComputerHandler(downloadProjectCallback)}
+                                                    onClick={this.getSaveToComputerHandler(cc3)}
                                                 >
                                                     <FormattedMessage
-                                                        defaultMessage="Save to your computer"
+                                                        defaultMessage="Save .cc3 file to your computer"
                                                         description="Menu bar item for downloading a project to your computer" // eslint-disable-line max-len
-                                                        id="gui.menuBar.downloadToComputer"
+                                                        id="gui.menuBar.downloadToComputer.cc3"
                                                     />
                                                 </MenuItem>
-                                            </React.Fragment>
+                                                <MenuItem
+                                                    className={className}
+                                                    onClick={this.getSaveToComputerHandler(sb3)}
+                                                >
+                                                    <FormattedMessage
+                                                        defaultMessage="Save .sb3 file to your computer"
+                                                        description="Menu bar item for downloading a project to your computer" // eslint-disable-line max-len
+                                                        id="gui.menuBar.downloadToComputer.sb3"
+                                                    />
+                                                </MenuItem>
+                                            </>
                                         )}</SB3Downloader>
                                     </MenuSection>
                                 </MenuBarMenu>
@@ -617,6 +639,12 @@ class MenuBar extends React.Component {
                                     onClick={this.handleClickSettings}
                                 >
                                     {settingsMessage}
+                                </MenuItem>
+                                <MenuItem
+                                    isRtl={this.props.isRtl}
+                                    onClick={this.handleClickExtension}
+                                >
+                                    {extensionMessage}
                                 </MenuItem>
                                 <MenuSection>
                                     <MenuItem
@@ -921,6 +949,7 @@ MenuBar.propTypes = {
     onClickSaveAsCopy: PropTypes.func,
     onOpenSettings: PropTypes.func,
     onOpenAbout: PropTypes.func,
+    onOpenExtension: PropTypes.func,
     onOpenContributor: PropTypes.func,
     onLogOut: PropTypes.func,
     onOpenRegistration: PropTypes.func,
@@ -986,6 +1015,7 @@ const mapDispatchToProps = dispatch => ({
     onOpenTipLibrary: () => dispatch(openTipsLibrary()),
     onOpenSettings: () => dispatch(openSettingsModal()),
     onOpenAbout: () => dispatch(openAboutModal()),
+    onOpenExtension: () => dispatch(openExtensionModal()),
     onOpenContributor: () => dispatch(openContributorModal()),
     onClickAccount: () => dispatch(openAccountMenu()),
     onRequestCloseAccount: () => dispatch(closeAccountMenu()),

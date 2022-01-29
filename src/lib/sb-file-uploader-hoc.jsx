@@ -17,11 +17,18 @@ import {
 import {setProjectTitle} from '../reducers/project-title';
 import {
     openLoadingProject,
-    closeLoadingProject
+    closeLoadingProject,
+    openLoadErrorModal
 } from '../reducers/modals';
 import {
     closeFileMenu
 } from '../reducers/menus';
+import {
+    enableExtension
+} from '../reducers/extension';
+import {
+    setLoadError
+} from '../reducers/load-error';
 import { getSetting } from '../reducers/settings';
 
 const messages = defineMessages({
@@ -81,7 +88,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                     const [handle] = await window.showOpenFilePicker({
                         types: [
                             {
-                                description: 'Scratch File',
+                                description: 'ClipCC File',
                                 accept: {
                                     'application/x.scratch.sb3': ['.sb', '.sb2', '.sb3', '.cc3']
                                 }
@@ -106,7 +113,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
             } else {
                 // create <input> element and add it to DOM
                 this.inputElement = document.createElement('input');
-                this.inputElement.accept = '.sb,.sb2,.sb3';
+                this.inputElement.accept = '.sb,.sb2,.sb3,.cc3';
                 this.inputElement.style = 'display: none;';
                 this.inputElement.type = 'file';
                 this.inputElement.onchange = this.handleChange; // connects to step 3
@@ -168,8 +175,8 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         getProjectTitleFromFilename (fileInputFilename) {
             if (!fileInputFilename) return '';
             // only parse title with valid scratch project extensions
-            // (.sb, .sb2, and .sb3)
-            const matches = fileInputFilename.match(/^(.*)\.sb[23]?$/);
+            // (.sb, .sb2, and .sb3/.cc3)
+            const matches = fileInputFilename.match(/^(.*)\.(sb|cc)[23]?$/);
             if (!matches) return '';
             return matches[1].substring(0, 100); // truncate project title to max 100 chars
         }
@@ -189,7 +196,15 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                         loadingSuccess = true;
                     })
                     .catch(error => {
-                        log.warn(error);
+                        let errorDetail;
+                        if (error.code === 0x90 /* ERROR_UNAVAILABLE_EXTENSION */) {
+                            this.props.showLoadErrorModal({
+                                errorId: 'unavailableExtension',
+                                missingExtensions: error.extension
+                            });
+                            errorDetail = `Unavailable extension:\n${error.extension.map(v => `  ${v.id}@${v.version}`).join('\n')}`;
+                        }
+                        log.error(errorDetail);
                         this.props.onSetFileSystemHandle(null);
                         alert(this.props.intl.formatMessage(messages.loadError)); // eslint-disable-line no-alert
                     })
@@ -255,10 +270,24 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         onSetProjectTitle: PropTypes.func,
         projectChanged: PropTypes.bool,
         requestProjectUpload: PropTypes.func,
+        showLoadErrorModal: PropTypes.func,
         userOwnsProject: PropTypes.bool,
         vm: PropTypes.shape({
             loadProject: PropTypes.func
-        })
+        }),
+        extension: PropTypes.shape({
+            extensionId: PropTypes.string,
+            iconURL: PropTypes.string,
+            insetIconURL: PropTypes.string,
+            author: PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.arrayOf(PropTypes.string)
+            ]),
+            name: PropTypes.string,
+            description: PropTypes.string,
+            requirement: PropTypes.arrayOf(PropTypes.string),
+            enabled: PropTypes.bool
+        }),
     };
     const mapStateToProps = (state, ownProps) => {
         const loadingState = state.scratchGui.projectState.loadingState;
@@ -272,7 +301,8 @@ const SBFileUploaderHOC = function (WrappedComponent) {
             projectChanged: state.scratchGui.projectChanged,
             userOwnsProject: ownProps.authorUsername && user &&
                 (ownProps.authorUsername === user.username),
-            vm: state.scratchGui.vm
+            vm: state.scratchGui.vm,
+            extension: state.scratchGui.extension.extension
         };
     };
     const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -292,7 +322,12 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         // step 4: transition the project state so we're ready to handle the new
         // project data. When this is done, the project state transition will be
         // noticed by componentDidUpdate()
-        requestProjectUpload: loadingState => dispatch(requestProjectUpload(loadingState))
+        requestProjectUpload: loadingState => dispatch(requestProjectUpload(loadingState)),
+        setExtensionEnable: id => dispatch(enableExtension(id)),
+        showLoadErrorModal: data => {
+            dispatch(setLoadError(data));
+            dispatch(openLoadErrorModal());
+        }
     });
     // Allow incoming props to override redux-provided props. Used to mock in tests.
     const mergeProps = (stateProps, dispatchProps, ownProps) => Object.assign(

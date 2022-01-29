@@ -60,6 +60,11 @@
     border-radius: 0;
 }
 
+.box {
+    height: 100%;
+    display: flex;
+}
+
 
 /*
     Modal header has 3 items:

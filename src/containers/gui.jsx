@@ -28,7 +28,9 @@ import {
     closeAboutModal,
     closeContributorModal,
     openLoadingProject,
-    closeLoadingProject
+    closeLoadingProject,
+    closeExtensionModal,
+    closeLoadErrorModal
 } from '../reducers/modals';
 
 import {
@@ -40,9 +42,6 @@ import {
 } from '../reducers/project-state';
 import {setProjectTitle} from '../reducers/project-title';
 
-import {
-} from '../reducers/modals';
-
 import FontLoaderHOC from '../lib/font-loader-hoc.jsx';
 import LocalizationHOC from '../lib/localization-hoc.jsx';
 import SBFileUploaderHOC from '../lib/sb-file-uploader-hoc.jsx';
@@ -52,8 +51,14 @@ import ProjectSaverHOC from '../lib/project-saver-hoc.jsx';
 import QueryParserHOC from '../lib/query-parser-hoc.jsx';
 import storage from '../lib/storage';
 import vmListenerHOC from '../lib/vm-listener-hoc.jsx';
+import blocks from '../lib/blocks.js';
+import extensionAPI from '../lib/extension-api.js'
 import vmManagerHOC from '../lib/vm-manager-hoc.jsx';
 import cloudManagerHOC from '../lib/cloud-manager-hoc.jsx';
+import {
+    initExtensionAPI,
+    loadBuiltinExtension
+} from '../lib/extension-manager.js';
 
 import GUIComponent from '../components/gui/gui.jsx';
 import {setIsScratchDesktop} from '../lib/isScratchDesktop.js';
@@ -64,6 +69,10 @@ class GUI extends React.Component {
         setIsScratchDesktop(this.props.isScratchDesktop);
         this.props.onStorageInit(storage);
         this.props.onVmInit(this.props.vm);
+        this.extensionAPI = new extensionAPI(this);
+        //console.log(this.extensionAPI, extensionAPI);
+        initExtensionAPI(this, this.props.vm, blocks(this.props.vm));
+        this.props.onLoadBuiltinExtension();
     }
     componentDidUpdate (prevProps) {
         if (this.props.projectId !== prevProps.projectId && this.props.projectId !== null) {
@@ -102,6 +111,7 @@ class GUI extends React.Component {
             onReceivedProjectTitle,
             loadingState,
             onRef,
+            onLoadBuiltinExtension,
             /* eslint-enable no-unused-vars */
             children,
             fetchingProject,
@@ -138,6 +148,7 @@ GUI.propTypes = {
     onRef: PropTypes.func,
     onLoadingStarted: PropTypes.func,
     onLoadingFinished: PropTypes.func,
+    onLoadBuiltinExtension: PropTypes.func,
     requestProjectUpload: PropTypes.func,
     onProjectLoaded: PropTypes.func,
     onSeeCommunity: PropTypes.func,
@@ -147,7 +158,7 @@ GUI.propTypes = {
     projectHost: PropTypes.string,
     projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     telemetryModalVisible: PropTypes.bool,
-    vm: PropTypes.instanceOf(VM).isRequired
+    vm: PropTypes.instanceOf(VM).isRequired,
 };
 
 GUI.defaultProps = {
@@ -156,7 +167,7 @@ GUI.defaultProps = {
     onProjectLoaded: () => {},
     onUpdateProjectId: () => {},
     onRef: () => {},
-    onVmInit: (/* vm */) => {}
+    onVmInit: (/* vm */) => {},
 };
 
 const mapStateToProps = state => {
@@ -183,6 +194,7 @@ const mapStateToProps = state => {
         costumesTabVisible: state.scratchGui.editorTab.activeTabIndex === COSTUMES_TAB_INDEX,
         darkMode: darkMode,
         error: state.scratchGui.projectState.error,
+        errorModalVisible: state.scratchGui.modals.errorModal,
         isError: getIsError(loadingState),
         isFullScreen: state.scratchGui.mode.isFullScreen,
         isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
@@ -200,6 +212,8 @@ const mapStateToProps = state => {
         tipsLibraryVisible: state.scratchGui.modals.tipsLibrary,
         settingsVisible: state.scratchGui.modals.settings,
         aboutModalVisible: state.scratchGui.modals.about,
+        extensionModalVisible: state.scratchGui.modals.extension,
+        loadErrorModalVisible: state.scratchGui.modals.loadError,
         contributorModalVisible: state.scratchGui.modals.contributor,
         layoutStyle: state.scratchGui.settings.layoutStyle,
         vm: state.scratchGui.vm
@@ -216,6 +230,8 @@ const mapDispatchToProps = dispatch => ({
     onRequestCloseTelemetryModal: () => dispatch(closeTelemetryModal()),
     onRequestCloseSettingsModal: () => dispatch(closeSettingsModal()),
     onRequestCloseAboutModal: () => dispatch(closeAboutModal()),
+    onRequestCloseExtensionModal: () => dispatch(closeExtensionModal()),
+    onRequestCloseLoadErrorModal: () => dispatch(closeLoadErrorModal()),
     onRequestCloseContributorModal: () => dispatch(closeContributorModal()),
     onLoadingFinished: (loadingState, success) => {
         dispatch(onLoadedProject(loadingState, false, success));
@@ -223,7 +239,8 @@ const mapDispatchToProps = dispatch => ({
     },
     requestProjectUpload: loadingState => dispatch(requestProjectUpload(loadingState)),
     onLoadingStarted: () => dispatch(openLoadingProject()),
-    onReceivedProjectTitle: title => dispatch(setProjectTitle(title))
+    onReceivedProjectTitle: title => dispatch(setProjectTitle(title)),
+    onLoadBuiltinExtension: () => loadBuiltinExtension(dispatch)
 });
 
 const ConnectedGUI = injectIntl(connect(
