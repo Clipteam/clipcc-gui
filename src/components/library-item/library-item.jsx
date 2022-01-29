@@ -37,7 +37,6 @@ class LibraryItemComponent extends React.PureComponent {
                     <img
                         className={styles.featuredImage}
                         src={this.props.iconURL}
-                        onClick={this.props.onSwitchChange}
                     />
                 </div>
                 {this.props.insetIconURL ? (

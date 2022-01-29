@@ -7,10 +7,17 @@
     padding: 1.5rem 2.25rem;
 }
 
+[theme~="dark"] .body {
+    background: $ui-primary-dark;
+    color: white;
+}
+
 .button-row {
+    display: flex;
+    justify-content: center;
     margin-top: 1rem;
     font-weight: bolder;
-    text-align: right;
+    text-align: center;
 }
 
 .button-row input {
@@ -26,6 +33,13 @@
     background: $motion-primary;
     border: $motion-primary;
     color: white;
+}
+
+[theme="dark"] .button-row input.button {
+    background: $ui-tertiary-dark;
+    border-color: $ui-primary-dark;
+    color: white;
+    border-size: 2px;
 }
 
 [dir="ltr"] .button-row input + input {
@@ -44,8 +58,15 @@
     right: 0;
     bottom: 0;
     z-index: $z-index-modal;
-    backdrop-filter: blur(4px);
     background-color: $ui-modal-overlay;
+}
+
+[theme="dark"] .modal-overlay {
+    background-color: $ui-modal-overlay-dark;
+}
+
+[blur="true"] .modal-overlay {
+    filter: blur(5px);
 }
 
 .modal-content * {
@@ -84,6 +105,10 @@
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 1rem;
     font-weight: normal;
+}
+
+[theme="dark"] .header {
+    background-color: black;
 }
 
 .header-item {

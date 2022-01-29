@@ -1,3 +1,4 @@
+/* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -27,9 +28,6 @@ const messages = defineMessages({
 });
 
 class MessageBoxModal extends React.PureComponent {
-    constructor (props) {
-        super(props);
-    }
     render () {
         return (
             <ReactModal
@@ -72,7 +70,7 @@ class MessageBoxModal extends React.PureComponent {
                                 <input
                                     type="button"
                                     value={this.props.intl.formatMessage(messages.giveup)}
-                                    //className={styles.button}
+                                    className={styles.button}
                                     onClick={this.props.onGiveup}
                                 />
                             ) : null}
@@ -80,7 +78,7 @@ class MessageBoxModal extends React.PureComponent {
                                 <input
                                     type="button"
                                     value={this.props.intl.formatMessage(messages.cancel)}
-                                    //className={styles.button}
+                                    className={styles.button}
                                     onClick={this.props.onCancel}
                                 />
                             ) : null}
