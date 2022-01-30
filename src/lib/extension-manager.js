@@ -246,10 +246,10 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
         // Load extension class
         if ('main.js' in zipData.files) {
             const script = new vm.Script(await zipData.files['main.js'].async('text'));
-            console.log(document);
             const context = vm.createContext({
                 module: {exports: {}},
-                ClipCCExtension
+                ClipCCExtension,
+                console
             });
             script.runInContext(context);
             const ExtensionPrototype = context.module.exports;
