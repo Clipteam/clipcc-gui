@@ -15,7 +15,7 @@ const appName = 'ClipCC';
 
 const appVersion = '3.1.0';
 const appVersionSimple = '3.1.0';
-const appVersionFull = '3.0.99-b${compileId}';
+const appVersionFull = '3.1.0-b${compileId}';
 const compileTime = '${time.toISOString()}';
 const commitHash = '${commitHash}';
 
