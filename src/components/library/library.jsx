@@ -29,6 +29,11 @@ const messages = defineMessages({
         id: 'gui.library.uploadButton',
         defaultMessage: 'Upload',
         description: 'Label for extension library button to upload an extension.'
+    },
+    fromOnline: {
+        id: 'gui.library.fromOnline',
+        defaultMessage: 'From Online',
+        description: 'Label for from extension store link in the extension library'
     }
 });
 
@@ -238,6 +243,14 @@ class LibraryComponent extends React.Component {
                                 {this.props.intl.formatMessage(messages.uploadButton)}
                             </Button>
                         }
+                        {this.props.extensionStore &&
+                            <Button
+                                className={styles.uploadButton}
+                                onClick={this.props.onClickExtensionStore}
+                            >
+                                {this.props.intl.formatMessage(messages.fromOnline)}
+                            </Button>
+                        }
                     </div>
                 )}
                 <div
@@ -304,6 +317,7 @@ LibraryComponent.propTypes = {
     ), PropTypes.instanceOf(Promise)]),
     filterable: PropTypes.bool,
     upload: PropTypes.bool,
+    extensionStore: PropTypes.bool,
     closeAfterSelect: PropTypes.bool,
     id: PropTypes.string.isRequired,
     intl: intlShape.isRequired,
@@ -313,6 +327,7 @@ LibraryComponent.propTypes = {
     onItemSwitchChange: PropTypes.func,
     onRequestClose: PropTypes.func,
     onUpload: PropTypes.func,
+    onClickExtensionStore: PropTypes.func,
     setStopHandler: PropTypes.func,
     showPlayButton: PropTypes.bool,
     tags: PropTypes.arrayOf(PropTypes.shape(TagButton.propTypes)),
@@ -322,6 +337,7 @@ LibraryComponent.propTypes = {
 LibraryComponent.defaultProps = {
     filterable: true,
     upload: false,
+    extensionStore: false,
     closeAfterSelect: true,
     showPlayButton: false
 };

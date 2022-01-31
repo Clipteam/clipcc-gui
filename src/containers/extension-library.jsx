@@ -92,6 +92,7 @@ class ExtensionLibrary extends React.PureComponent {
             'componentDidMount',
             'handleRequestClose',
             'handleUploadExtension',
+            'handleClickExtensionStore',
             'handleItemChange',
             'handleMsgboxConfirm',
             'handleMsgboxCancel',
@@ -127,7 +128,7 @@ class ExtensionLibrary extends React.PureComponent {
             }
         }
         catch (err) {
-            if (err.code === undefined) {
+            if (!err.code) {
                 throw err;
             }
             switch (err.code) {
@@ -187,6 +188,12 @@ class ExtensionLibrary extends React.PureComponent {
         };
         input.click();
     }
+    handleClickExtensionStore () {
+        const extensionWindow = window.open(`https://codingclip.com/extension`);
+        extensionWindow.addEventListener('message', event => {
+            console.log(event);
+        })
+    }
     handleMsgboxConfirm () {
         ClipCCExtension.extensionManager.loadExtensionsWithMode(this.loadOrder, extension => this.props.vm.extensionManager.loadExtensionURL(extension));
         for (const extension of this.loadOrder) {
@@ -225,7 +232,9 @@ class ExtensionLibrary extends React.PureComponent {
                     onItemSwitchChange={this.handleItemChange}
                     onRequestClose={this.handleRequestClose}
                     upload={true}
+                    extensionStore={true}
                     onUpload={this.handleUploadExtension}
+                    onClickExtensionStore={this.handleClickExtensionStore}
                 />
                 {this.showModal === 1 ? (
                     <MessageBoxModal
