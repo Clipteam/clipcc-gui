@@ -28,9 +28,13 @@ const base = {
         port: process.env.PORT || 8601,
         https: ENABLE_HTTPS,
         proxy: {
-        	'/editor/dev/canary': {
-        		target: 'http://localhost:8601',
-        		pathRewrite: {'^/editor/dev/canary': ''}
+            '/editor/dev/canary': {
+                target: 'http://localhost:8601',
+                pathRewrite: {'^/editor/dev/canary': ''}
+            },
+            '/extension/': {
+                target: 'http://localhost:3000',
+                pathRewrite: {'^/extension': ''}
             }
         }
     },

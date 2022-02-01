@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import VM from 'clipcc-vm';
 import {connect} from 'react-redux';
-import {defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import ClipCCExtension, { error } from 'clipcc-extension';
+import {defineMessages, injectIntl, intlShape, FormattedMessage} from 'react-intl';
+import ClipCCExtension, {error} from 'clipcc-extension';
 
 import LibraryComponent from '../components/library/library.jsx';
 import extensionIcon from '../components/action-menu/icon--sprite.svg';
@@ -19,8 +19,8 @@ import {
     addLocales
 } from '../reducers/locales';
 
-import { loadExtensionFromFile } from '../lib/extension-manager.js';
-import { extension } from 'mime-types';
+import {loadExtensionFromFile} from '../lib/extension-manager.js';
+import {extension} from 'mime-types';
 
 global.ClipCCExtension = ClipCCExtension;
 
@@ -112,7 +112,7 @@ class ExtensionLibrary extends React.PureComponent {
     }
     handleRequestClose () {
         try {
-            this.loadOrder = ClipCCExtension.extensionManager.getExtensionLoadOrder(this.willLoad);;
+            this.loadOrder = ClipCCExtension.extensionManager.getExtensionLoadOrder(this.willLoad);
             this.unloadOrder = ClipCCExtension.extensionManager.getExtensionUnloadOrder(this.willUnload);
             this.willLoadDependency = this.loadOrder.filter(v => !this.willLoad.includes(v.id)).map(v => v.id);
             this.willUnloadDependency = this.unloadOrder.filter(v => !this.willUnload.includes(v));
@@ -169,7 +169,7 @@ class ExtensionLibrary extends React.PureComponent {
             for (const file of files) {
                 const fileName = file.name;
                 const fileExt = fileName.substring(fileName.lastIndexOf('.') + 1);
-                
+
                 const url = URL.createObjectURL(file);
                 const reader = new FileReader();
                 reader.readAsArrayBuffer(file, 'utf8');
@@ -185,10 +185,23 @@ class ExtensionLibrary extends React.PureComponent {
         extensionChannel.addEventListener('message', event => {
             console.log(event);
             if (event.data.action === 'add'){
-                fetch(event.data.download).then(async response => {
-                    this.props.loadExtensionFromFile(response.arrayBuffer(), 'ccx');
-                });
+                fetch(event.data.download)
+                    .then(async response => {
+                        await this.props.loadExtensionFromFile(response.arrayBuffer(), 'ccx');
+                        extensionChannel.postMessage({
+                            action: 'addSuccess',
+                            extensionId: event.data.extension
+                        });
+                    })
+                    .catch(err => {
+                        extensionChannel.postMessage({
+                            action: 'addFail',
+                            extensionId: event.data.extension,
+                            error: err
+                        });
+                    });
             }
+
             if (event.data.action === 'get') {
                 const extensionList = [];
                 for (const ext in this.props.extension) extensionList.push(ext);
@@ -199,7 +212,7 @@ class ExtensionLibrary extends React.PureComponent {
                 });
             }
         });
-        window.open(`https://codingclip.com/extension/`);
+        window.open(`${document.domain === 'localhost' ? '' : 'https://codingclip.com'}/extension/`);
     }
     handleMsgboxConfirm () {
         ClipCCExtension.extensionManager.loadExtensionsWithMode(this.loadOrder, extension => this.props.vm.extensionManager.loadExtensionURL(extension));
@@ -225,8 +238,8 @@ class ExtensionLibrary extends React.PureComponent {
             rawURL: extension.iconURL || extensionIcon,
             featured: true,
             switchable: true,
-            name: (<FormattedMessage id={extension.name}/>),
-            description: (<FormattedMessage id={extension.description}/>)
+            name: (<FormattedMessage id={extension.name} />),
+            description: (<FormattedMessage id={extension.description} />)
         }));
         return (
             <>
@@ -238,8 +251,8 @@ class ExtensionLibrary extends React.PureComponent {
                     closeAfterSelect={false}
                     onItemSwitchChange={this.handleItemChange}
                     onRequestClose={this.handleRequestClose}
-                    upload={true}
-                    extensionStore={true}
+                    upload
+                    extensionStore
                     onUpload={this.handleUploadExtension}
                     onClickExtensionStore={this.handleClickExtensionStore}
                 />
