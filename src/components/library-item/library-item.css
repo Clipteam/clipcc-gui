@@ -39,9 +39,9 @@
 }
 
 .library-item-switch {
-    position: absolute;
-    right: 1em;
-    top: 1em;
+    height: 0;
+    align-self: flex-end;
+    margin-right: 1em;
 }
 
 .hidden {
