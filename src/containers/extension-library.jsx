@@ -20,6 +20,7 @@ import {
 } from '../reducers/locales';
 
 import { loadExtensionFromFile } from '../lib/extension-manager.js';
+import { extension } from 'mime-types';
 
 global.ClipCCExtension = ClipCCExtension;
 
@@ -182,9 +183,18 @@ class ExtensionLibrary extends React.PureComponent {
     handleClickExtensionStore () {
         const extensionChannel = new BroadcastChannel('extension');
         extensionChannel.addEventListener('message', event => {
-            if (typeof event.data === 'object') {
+            if (event.action === 'add'){
                 fetch(event.data.download).then(async response => {
                     this.props.loadExtensionFromFile(response.arrayBuffer(), 'ccx');
+                });
+            }
+            if (event.action === 'get') {
+                const extensionList = [];
+                for (const ext in this.props.extension) extensionList.push(ext);
+                console.log(extensionList);
+                extensionChannel.postMessage({
+                    action: 'tell',
+                    data: extensionList
                 });
             }
         });
