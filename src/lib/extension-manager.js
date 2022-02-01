@@ -261,9 +261,9 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
         // Load locale
         const locale = {};
         for (const fileName in zipData.files) {
-            const result = fileName.match(/(?<=locales[\\/])[0-9A-Za-z_\-]*(?=.json)/);
+            const result = fileName.match(/^locales\/([A-Za-z0-9_-]+).json$/);
             if (result) {
-                locale[result[0]] = JSON.parse(await zipData.files[fileName].async('text'));
+                locale[result[1]] = JSON.parse(await zipData.files[fileName].async('text'));
             }
         }
         if (info.default_language && locale.hasOwnProperty(info.default_language)) { // default language param
@@ -306,7 +306,7 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
             instance: apiInstance,
             api: 1
         };
-        
+
         ClipCCExtension.extensionManager.addInstance(info.id, {
             id: info.id,
             icon: info.blockIconURL,
