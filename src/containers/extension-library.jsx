@@ -6,13 +6,9 @@ import {connect} from 'react-redux';
 import {defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import ClipCCExtension, { error } from 'clipcc-extension';
 
-import extensionLibraryContent from '../lib/libraries/extensions/index.jsx';
-
 import LibraryComponent from '../components/library/library.jsx';
 import extensionIcon from '../components/action-menu/icon--sprite.svg';
 import MessageBoxModal from '../components/message-box-modal/message-box-modal.jsx';
-
-import uploadImageURL from '../lib/libraries/extensions/upload/upload.png';
 
 import {
     initExtension,
@@ -24,6 +20,7 @@ import {
 } from '../reducers/locales';
 
 import { loadExtensionFromFile } from '../lib/extension-manager.js';
+import { extension } from 'mime-types';
 
 global.ClipCCExtension = ClipCCExtension;
 
@@ -92,6 +89,7 @@ class ExtensionLibrary extends React.PureComponent {
             'componentDidMount',
             'handleRequestClose',
             'handleUploadExtension',
+            'handleClickExtensionStore',
             'handleItemChange',
             'handleMsgboxConfirm',
             'handleMsgboxCancel',
@@ -121,13 +119,11 @@ class ExtensionLibrary extends React.PureComponent {
             if (this.loadOrder.length || this.unloadOrder.length) {
                 this.showModal = 1;
                 this.forceUpdate();
-            }
-            else {
+            } else {
                 this.props.onRequestClose();
             }
-        }
-        catch (err) {
-            if (err.code === undefined) {
+        } catch (err) {
+            if (!err.code) {
                 throw err;
             }
             switch (err.code) {
@@ -151,17 +147,14 @@ class ExtensionLibrary extends React.PureComponent {
             const index = this.willUnload.indexOf(extension);
             if (index !== -1) {
                 this.willUnload.splice(index, 1);
-            }
-            else {
+            } else {
                 this.willLoad.push(extension);
             }
-        }
-        else { // unload
+        } else { // unload
             const index = this.willLoad.indexOf(extension);
             if (index !== -1) {
                 this.willLoad.splice(index, 1);
-            }
-            else {
+            } else {
                 this.willUnload.push(extension);
             }
         }
@@ -186,6 +179,27 @@ class ExtensionLibrary extends React.PureComponent {
             }
         };
         input.click();
+    }
+    handleClickExtensionStore () {
+        const extensionChannel = new BroadcastChannel('extension');
+        extensionChannel.addEventListener('message', event => {
+            console.log(event);
+            if (event.data.action === 'add'){
+                fetch(event.data.download).then(async response => {
+                    this.props.loadExtensionFromFile(response.arrayBuffer(), 'ccx');
+                });
+            }
+            if (event.data.action === 'get') {
+                const extensionList = [];
+                for (const ext in this.props.extension) extensionList.push(ext);
+                console.log(extensionList);
+                extensionChannel.postMessage({
+                    action: 'tell',
+                    data: extensionList
+                });
+            }
+        });
+        window.open(`https://codingclip.com/extension/`);
     }
     handleMsgboxConfirm () {
         ClipCCExtension.extensionManager.loadExtensionsWithMode(this.loadOrder, extension => this.props.vm.extensionManager.loadExtensionURL(extension));
@@ -225,7 +239,9 @@ class ExtensionLibrary extends React.PureComponent {
                     onItemSwitchChange={this.handleItemChange}
                     onRequestClose={this.handleRequestClose}
                     upload={true}
+                    extensionStore={true}
                     onUpload={this.handleUploadExtension}
+                    onClickExtensionStore={this.handleClickExtensionStore}
                 />
                 {this.showModal === 1 ? (
                     <MessageBoxModal
@@ -334,7 +350,9 @@ ExtensionLibrary.propTypes = {
         requirement: PropTypes.arrayOf(PropTypes.string)
     }),
     intl: intlShape.isRequired,
-    onCategorySelected: PropTypes.func,
+    loadExtensionFromFile: PropTypes.func.isRequired,
+    setExtensionEnable: PropTypes.func.isRequired,
+    setExtensionDisable: PropTypes.func.isRequired,
     onRequestClose: PropTypes.func,
     visible: PropTypes.bool,
     vm: PropTypes.instanceOf(VM).isRequired // eslint-disable-line react/no-unused-prop-types
