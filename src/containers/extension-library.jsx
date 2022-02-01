@@ -184,12 +184,12 @@ class ExtensionLibrary extends React.PureComponent {
         const extensionChannel = new BroadcastChannel('extension');
         extensionChannel.addEventListener('message', event => {
             console.log(event);
-            if (event.action === 'add'){
+            if (event.data.action === 'add'){
                 fetch(event.data.download).then(async response => {
                     this.props.loadExtensionFromFile(response.arrayBuffer(), 'ccx');
                 });
             }
-            if (event.action === 'get') {
+            if (event.data.action === 'get') {
                 const extensionList = [];
                 for (const ext in this.props.extension) extensionList.push(ext);
                 console.log(extensionList);
