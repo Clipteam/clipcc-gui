@@ -2904,10 +2904,10 @@ cli-width@^2.0.0:
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.1.tgz#b0433d0b4e9c847ef18868a4ef16fd5fc8271c48"
   integrity sha512-GRMWDxpOB6Dgk2E5Uo+3eEBvtOOlimMmpbFiKuLFnQzYDavtLFY3K5ona41jgN/WdRZtG7utuVSVTL4HbZHGkw==
 
-clipcc-block@3.1.3:
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/clipcc-block/-/clipcc-block-3.1.3.tgz#943d1db4358cc663d0f6659dfbd70f7ad527a571"
-  integrity sha512-qk9HaD+6W23XeQH4XV3gV9uC99zqo3pogmVOqDdKcyc8BJNsFHtwP52GA0cpcZqi8Q1qRK2I1S7NvxtTIDbbMQ==
+clipcc-block@3.1.4:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/clipcc-block/-/clipcc-block-3.1.4.tgz#838809b3a44c17e540609672d85a6072b633081f"
+  integrity sha512-mRqSSat59DXDTEAKphvJcy/5V9cHQqRRbBWV3IpPtKAFviqJ8pC/alKEI1E6bhkknwfu8lU4yGL6bpq6cpXmZA==
   dependencies:
     exports-loader "0.6.3"
     imports-loader "0.6.5"
@@ -2924,10 +2924,10 @@ clipcc-extension@^0.1.7:
   resolved "https://registry.yarnpkg.com/clipcc-extension/-/clipcc-extension-0.1.7.tgz#e7b022819f191f932e450ad54d1a50457b0cbb69"
   integrity sha512-CLQuOiWX02p7knh98OOGY61nbynO/8SGsulICXwk4cSvPJgeaB3krdjmWMNTb4+CAmB6+gVY8nd4x33DJm6IJQ==
 
-clipcc-l10n@3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/clipcc-l10n/-/clipcc-l10n-3.1.2.tgz#eb6c37877018473fa0bb742aead0ec138314e83d"
-  integrity sha512-sJrRgiE3DIb90ocYbT6A1abHLor2Uve2YxOTrd0NQxCbtSHjuqJmL+C3QUwfVPn1Uz99TTW3CYRZYOvPLQsIXw==
+clipcc-l10n@3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/clipcc-l10n/-/clipcc-l10n-3.1.3.tgz#105699391e3624dfddb7e86ca0c1be659ed8f23c"
+  integrity sha512-fv72aGd++WjEEBGutQx8bTgtVkkdD52dz2M7S8hgHUSUnMJ9bATMWnbH1hvdSJBjg/FJw0JqCsefOoDc3Pw+JA==
   dependencies:
     "@babel/cli" "^7.1.2"
     "@babel/core" "^7.1.2"
@@ -2950,10 +2950,10 @@ clipcc-render@^3.0.0:
     scratch-svg-renderer "0.2.0-prerelease.20210727023023"
     twgl.js "4.4.0"
 
-clipcc-vm@3.1.5:
-  version "3.1.5"
-  resolved "https://registry.yarnpkg.com/clipcc-vm/-/clipcc-vm-3.1.5.tgz#96d16d240dc102e1eec9cbcedc395125a5edfde1"
-  integrity sha512-JebOMaK5YZEFcfImxhtitIrWIJ5gI/Qcbm4nTZMXt40OQ7ikqqor/EYfi2LkGpFixxjiIdL14fBOyzYq/xplBQ==
+clipcc-vm@3.1.6:
+  version "3.1.6"
+  resolved "https://registry.yarnpkg.com/clipcc-vm/-/clipcc-vm-3.1.6.tgz#133e5764e7191527564139da77cf653cfebb8aca"
+  integrity sha512-VGn3Quq4eJPGeinivcA0bNlrDbZlrvnvsD/sHjOggMZbUknHSkva8ZlgBDksjSZgxqc+Iu5eJhx8q9ceQ7Cn7A==
   dependencies:
     "@vernier/godirect" "1.5.0"
     arraybuffer-loader "^1.0.6"
@@ -2961,7 +2961,7 @@ clipcc-vm@3.1.5:
     axios "^0.21.1"
     btoa "1.2.1"
     canvas-toBlob "1.0.0"
-    clipcc-l10n "3.1.2"
+    clipcc-l10n "3.1.3"
     decode-html "2.0.0"
     diff-match-patch "1.0.4"
     format-message "6.2.1"

@@ -63,7 +63,7 @@ const AboutModal = ({
             <div className={styles.contact}>
                 <img
                     draggable={false}
-                    width="50 px"
+                    width="100 px"
                     onClick={() => {
                         window.open('https://t.me/ClipCChat', '_blank');
                     }}
@@ -71,7 +71,7 @@ const AboutModal = ({
                 />
                 <img
                     draggable={false}
-                    width="50 px"
+                    width="100 px"
                     onClick={() => {
                         window.open('https://jq.qq.com/?_wv=1027&k=924RaGLu', '_blank');
                     }}
@@ -79,7 +79,7 @@ const AboutModal = ({
                 />
                 <img
                     draggable={false}
-                    width="50 px"
+                    width="100 px"
                     onClick={() => {
                         window.open('https://discord.gg/uuyHNBH', '_blank');
                     }}
