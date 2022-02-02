@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import bindAll from 'lodash.bindall';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -79,6 +80,11 @@ const messages = defineMessages({
         defaultMessage: 'Require stack:',
         description: 'Label for require stack',
         id: 'gui.extensionLibrary.requireStack'
+    },
+    unsupportChannel: {
+        defaultMessage: 'BroadcastChannel is not supported, So yo cannot use extension store anyway.',
+        description: 'Label for broadcast channel not supported',
+        id: 'gui.extensionLibrary.unsupportChannel'
     }
 });
 
@@ -181,9 +187,12 @@ class ExtensionLibrary extends React.PureComponent {
         input.click();
     }
     handleClickExtensionStore () {
+        if (!BroadcastChannel) {
+            alert(this.props.intl.formatMessage(messages.unsupportChannel));
+            return;
+        }
         const extensionChannel = new BroadcastChannel('extension');
         extensionChannel.addEventListener('message', event => {
-            console.log(event);
             if (event.data.action === 'add'){
                 fetch(event.data.download)
                     .then(async response => {
