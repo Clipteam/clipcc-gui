@@ -39,7 +39,7 @@
 }
 
 .library-item-switch {
-    height: 0;
+    height: 1rem;
     align-self: flex-end;
     margin-right: 1em;
 }
@@ -121,10 +121,6 @@
     height: auto;
     overflow: hidden;
     padding: 0;
-}
-
-.disabled {
-    filter: grayscale(50%);
 }
 
 .featured-image-container {
