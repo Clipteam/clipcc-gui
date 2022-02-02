@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?> <!-- Created with Vectornator for iOS (http://vectornator.io/) --><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:vectornator="http://vectornator.io" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" version="1.1" viewBox="0 0 1024 1024" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;">
+<svg xml:space="preserve" height="100%" width="100%" viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" xmlns:vectornator="http://vectornator.io">
 <metadata>
-<vectornator:setting key="WDSnapToGrid" value="false"/>
-<vectornator:setting key="WDCMYKEnabledKey" value="false"/>
-<vectornator:setting key="UndoHistoryDisabled" value="true"/>
-<vectornator:setting key="WDOutlineMode" value="false"/>
-<vectornator:setting key="WDUnits" value="Pixels"/>
-<vectornator:setting key="VNSnapToGuides" value="true"/>
-<vectornator:setting key="WDIsolateActiveLayer" value="false"/>
-<vectornator:setting value="false" key="WDDisplayWhiteBackground"/>
-<vectornator:setting value="true" key="VNDimensionsVisible"/>
 <vectornator:setting value="false" key="WDSnapToEdges"/>
-<vectornator:setting value="false" key="WDSnapToPoints"/>
-<vectornator:setting value="true" key="WDRulersVisible"/>
-<vectornator:setting key="WDGuidesVisible" value="true"/>
+<vectornator:setting key="WDIsolateActiveLayer" value="false"/>
 <vectornator:setting key="WDDynamicGuides" value="true"/>
-<vectornator:setting value="false" key="IsTimeLapseWatermarkDisabled"/>
+<vectornator:setting key="WDOutlineMode" value="false"/>
+<vectornator:setting value="true" key="VNSnapToGuides"/>
+<vectornator:setting key="WDUnits" value="Pixels"/>
+<vectornator:setting key="WDDisplayWhiteBackground" value="false"/>
+<vectornator:setting key="WDCMYKEnabledKey" value="false"/>
+<vectornator:setting value="true" key="WDGuidesVisible"/>
+<vectornator:setting key="WDSnapToPoints" value="false"/>
+<vectornator:setting key="WDRulersVisible" value="true"/>
+<vectornator:setting value="false" key="WDSnapToGrid"/>
+<vectornator:setting key="IsTimeLapseWatermarkDisabled" value="false"/>
+<vectornator:setting key="UndoHistoryDisabled" value="true"/>
+<vectornator:setting value="true" key="VNDimensionsVisible"/>
 </metadata>
 <defs/>
-<g vectornator:layerName="图层 1" id="图层 1">
-<path stroke-linejoin="round" stroke="#4280d7" stroke-width="2" fill="#4c97ff" opacity="1" stroke-linecap="round" d="M559.406+468.25C557.427+468.246+554.715+469.246+554.719+469.25L465.875+504.531C465.875+504.531+462+505.771+462+508.375C462+511.5+465.781+512.594+465.781+512.594L487+518.219L487.875+518.656L539.875+487.531C540.333+487.183+540.878+487.057+541.406+487.125C541.934+487.193+542.46+487.479+542.812+487.938C543.508+488.854+543.323+490.148+542.406+490.844L503.688+526.656L537.344+554.625C537.344+554.625+538.6+555.75+541+555.75C545.517+555.75+546.188+552.125+546.188+552.125L561.781+472.438C561.781+472.438+562+471.385+562+470.344C562+468.781+560.623+468.25+559.406+468.25Z"/>
+<g id="图层 1" vectornator:layerName="图层 1">
+<path opacity="1" stroke-linecap="round" stroke-width="2" fill="#4c97ff" d="M303.406+212.25C301.427+212.246+298.715+213.246+298.719+213.25L209.875+248.531C209.875+248.531+206+249.771+206+252.375C206+255.5+209.781+256.594+209.781+256.594L231+262.219L231.875+262.656L283.875+231.531C284.333+231.183+284.878+231.057+285.406+231.125C285.934+231.193+286.46+231.479+286.812+231.938C287.508+232.854+287.323+234.148+286.406+234.844L247.688+270.656L281.344+298.625C281.344+298.625+282.6+299.75+285+299.75C289.517+299.75+290.188+296.125+290.188+296.125L305.781+216.438C305.781+216.438+306+215.385+306+214.344C306+212.781+304.623+212.25+303.406+212.25Z" stroke-linejoin="round" stroke="#4280d7"/>
 </g>
 </svg>
