@@ -640,12 +640,13 @@ class MenuBar extends React.Component {
                                 >
                                     {settingsMessage}
                                 </MenuItem>
-                                <MenuItem
+                                {/* <MenuItem
                                     isRtl={this.props.isRtl}
                                     onClick={this.handleClickExtension}
                                 >
                                     {extensionMessage}
                                 </MenuItem>
+                                */}
                                 <MenuSection>
                                     <MenuItem
                                         isRtl={this.props.isRtl}
