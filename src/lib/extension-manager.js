@@ -204,11 +204,11 @@ const loadBuiltinExtension = dispatch => {
     }
 };
 
-const initExtensionAPI = (gui, vm, blocks, nativeInstance) => {
+const initExtensionAPI = (gui, _vm, blocks, nativeInstance) => {
     const apiInstance = {
         nativeInstance,
         gui: gui.extensionAPI,
-        vm: vm.extensionAPI,
+        vm: _vm.extensionAPI,
         blocks: blocks,
         document: document,
         window: window
@@ -228,15 +228,15 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
             const content = await zipData.files['info.json'].async('text');
             info = JSON.parse(content);
             if (info.icon) {
+                const data = await zipData.files[info.icon].async('arraybuffer');
                 info.icon = URL.createObjectURL(new Blob(
-                    [await zipData.files[info.icon].async('arraybuffer')],
-                    {type: mime.lookup(info.icon)}
+                    [data], {type: mime.lookup(info.icon)}
                 ));
             }
             if (info.inset_icon) {
+                const data = await zipData.files[info.inset_icon].async('blob');
                 info.inset_icon = URL.createObjectURL(new Blob(
-                    [await zipData.files[info.inset_icon].async('blob')],
-                    {type: mime.lookup(info.inset_icon)}
+                    [data], {type: mime.lookup(info.inset_icon)}
                 ));
             }
             info.api = 1;
@@ -247,13 +247,7 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
         // Load extension class
         if ('main.js' in zipData.files) {
             const script = new vm.Script(await zipData.files['main.js'].async('text'));
-            const context = vm.createContext({
-                module: {exports: {}},
-                ClipCCExtension,
-                console
-            });
-            script.runInContext(context);
-            const ExtensionPrototype = context.module.exports;
+            const ExtensionPrototype = script.runInThisContext();
             instance = new ExtensionPrototype();
         } else {
             throw new Error('Cannot find \'main.js\' in ccx extension');
@@ -325,7 +319,7 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
         break;
     }*/
     default: {
-        console.error('Unkown extension type');
+        throw new Error(`Unkown extension type *.${type}`);
     }
     }
 };
