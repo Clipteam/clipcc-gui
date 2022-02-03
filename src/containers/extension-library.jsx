@@ -21,7 +21,7 @@ import {
 } from '../reducers/locales';
 
 import {loadExtensionFromFile} from '../lib/extension-manager.js';
-import {extension} from 'mime-types';
+import {isScratchDesktop} from '../lib/isScratchDesktop';
 
 global.ClipCCExtension = ClipCCExtension;
 
@@ -187,6 +187,9 @@ class ExtensionLibrary extends React.PureComponent {
         input.click();
     }
     handleClickExtensionStore () {
+        if (isScratchDesktop()) {
+            return window.ClipCC.ipc.send('open-extension-store');
+        }
         if (!BroadcastChannel) {
             alert(this.props.intl.formatMessage(messages.unsupportChannel));
             return;
@@ -221,7 +224,12 @@ class ExtensionLibrary extends React.PureComponent {
                 });
             }
         });
-        window.open(`${document.domain === 'localhost' ? '' : 'https://codingclip.com'}/extension/`);
+        window.open(`https://extension.codingclip.com`, 'extension',
+            `width=800,
+            height=510
+            resizable=yes,
+            scrollbars=yes,
+            status=yes`);
     }
     handleMsgboxConfirm () {
         ClipCCExtension.extensionManager.loadExtensionsWithMode(this.loadOrder, extension => this.props.vm.extensionManager.loadExtensionURL(extension));
