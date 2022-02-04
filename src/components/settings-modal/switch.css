@@ -1,8 +1,6 @@
 @import "../../css/colors.css";
 @import "../../css/units.css";
 
-$true-color: rgb(73, 219, 44);
-$false-color: rgb(255, 68, 68);
 $disabled-color: rgb(125, 125, 125);
 $border-width: 1px;
 $width: 3rem;
@@ -12,7 +10,7 @@ $slider-width: calc($height - 4 * $border-width);
 $slider-height: $slider-width;
 
 .switch.true {
-    background-color: $true-color;
+    background-color: $motion-primary;
 }
 
 .switch.false {

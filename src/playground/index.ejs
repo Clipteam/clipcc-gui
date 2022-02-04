@@ -9,14 +9,15 @@
     <title>
         <%= htmlWebpackPlugin.options.title %>
     </title>
-    <% if (htmlWebpackPlugin.options.sentryConfig) { %>
-        <!-- Sentry error logging to help with finding bugs -->
-        <script defer src="https://cdn.ravenjs.com/3.22.1/raven.min.js" crossorigin="anonymous"></script>
-        <script defer>
-            Raven.config(<%= htmlWebpackPlugin.options.sentryConfig %>).install();
-        </script>
-        <!-- /Sentry -->
-        <% } %>
+    <script defer data-domain="codingclip.com" src="https://analytic.codingclip.com/js/plausible.js"></script>
+    <!-- Sentry error logging to help with finding bugs -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@sentry/browser@6.17.3/build/bundle.min.js" crossorigin="anonymous"></script>
+    <script defer>
+        Sentry.init({
+            dsn: 'https://ed881d9f133e457d8cdca25202200c3f@o1098997.ingest.sentry.io/6123390',
+        });
+    </script>
+    <!-- /Sentry -->
             <% if (htmlWebpackPlugin.options.enablePWA ) { %>
                 <!--<meta name="viewport" content="width=device-width, user-scalable=no" />-->
                 <link rel="manifest" href="manifest.json">

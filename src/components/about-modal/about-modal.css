@@ -22,6 +22,15 @@
     max-width: 200px;
 }
 
+.contact {
+    display: flex;
+    justify-content: space-around;
+    margin-top: -2rem;
+    margin-bottom: -2rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+}
+
 [theme='dark'] .logo {
     filter: invert(100%) brightness(10000%);
 }

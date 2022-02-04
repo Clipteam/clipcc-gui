@@ -5,8 +5,9 @@ const webpack = require('webpack');
 // Plugins
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
-const TerserPlugin = require("terser-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 
 // PostCss
 const autoprefixer = require('autoprefixer');
@@ -27,10 +28,14 @@ const base = {
         port: process.env.PORT || 8601,
         https: ENABLE_HTTPS,
         proxy: {
-        	'/editor/dev/canary': {
-        		target: 'http://localhost:8601',
-        		pathRewrite: {'^/editor/dev/canary' : ''}
-              }
+            '/editor/dev/canary': {
+                target: 'http://localhost:8601',
+                pathRewrite: {'^/editor/dev/canary': ''}
+            },
+            '/extension/': {
+                target: 'http://localhost:3000',
+                pathRewrite: {'^/extension': ''}
+            }
         }
     },
     output: {
@@ -48,6 +53,7 @@ const base = {
             include: [
                 path.resolve(__dirname, 'src'),
                 /node_modules[\\/]scratch-[^\\/]+[\\/]src/,
+                /node_modules[\\/]clipcc-[^\\/]+[\\/]src/,
                 /node_modules[\\/]pify/,
                 /node_modules[\\/]@vernier[\\/]godirect/
             ],
@@ -61,11 +67,14 @@ const base = {
                     '@babel/plugin-proposal-object-rest-spread',
                     ['react-intl', {
                         messagesDir: './translations/messages/'
-                    }]],
+                    }],
+                    '@babel/plugin-transform-runtime'
+                ],
                 presets: [
                     ['@babel/preset-env'],
                     '@babel/preset-react'
-                ]
+                ],
+                sourceType: 'unambiguous'
             }
         },
         {
@@ -78,6 +87,7 @@ const base = {
                     modules: true,
                     importLoaders: 1,
                     localIdentName: '[name]_[local]_[hash:base64:5]',
+                    // localIdentName: '[path][name]_[local]',
                     camelCase: true
                 }
             }, {
@@ -100,19 +110,18 @@ const base = {
             new TerserPlugin({
                 include: /\.min\.js$/
             })
-        ],
+        ]
     },
-    plugins: []
+    plugins: [new HardSourceWebpackPlugin()]
 };
 
 if (!process.env.CI) {
     base.plugins.push(new webpack.ProgressPlugin());
-}
-else {
+} else {
     base.stats = 'minimal';
 }
 
-function getPlugins() {
+function getPlugins () {
     let res = base.plugins.concat([
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': '"' + process.env.NODE_ENV + '"',
@@ -171,11 +180,11 @@ function getPlugins() {
             }),
             new CopyWebpackPlugin([{
                 from: 'static/sw.build.js',
-                to: 'sw.js',
+                to: 'sw.js'
             }]),
             new CopyWebpackPlugin([{
                 from: 'static/manifest.json',
-                to: 'manifest.json',
+                to: 'manifest.json'
             }])
         ]);
     }

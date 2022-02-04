@@ -8,6 +8,7 @@ import LibraryItem from '../../containers/library-item.jsx';
 import Modal from '../../containers/modal.jsx';
 import Divider from '../divider/divider.jsx';
 import Filter from '../filter/filter.jsx';
+import Button from '../button/button.jsx';
 import TagButton from '../../containers/tag-button.jsx';
 import Spinner from '../spinner/spinner.jsx';
 
@@ -23,6 +24,16 @@ const messages = defineMessages({
         id: 'gui.library.allTag',
         defaultMessage: 'All',
         description: 'Label for library tag to revert to all items after filtering by tag.'
+    },
+    uploadButton: {
+        id: 'gui.library.uploadButton',
+        defaultMessage: 'Upload',
+        description: 'Label for extension library button to upload an extension.'
+    },
+    fromOnline: {
+        id: 'gui.library.fromOnline',
+        defaultMessage: 'From Online',
+        description: 'Label for from extension store link in the extension library'
     }
 });
 
@@ -41,6 +52,7 @@ class LibraryComponent extends React.Component {
             'handlePlayingEnd',
             'handleSelect',
             'handleTagClick',
+            'handleSwitchChange',
             'setFilteredDataRef'
         ]);
         this.state = {
@@ -81,8 +93,8 @@ class LibraryComponent extends React.Component {
         }
     }
     handleSelect (id) {
-        this.handleClose();
-        this.props.onItemSelected(this.getFilteredData()[id]);
+        if (this.props.closeAfterSelect) this.handleClose();
+        if (this.props.onItemSelected) this.props.onItemSelected(this.getFilteredData()[id]);
     }
     handleClose () {
         this.props.onRequestClose();
@@ -143,6 +155,9 @@ class LibraryComponent extends React.Component {
     }
     handleFilterClear () {
         this.setState({filterQuery: ''});
+    }
+    handleSwitchChange (id, status) {
+        this.props.onItemSwitchChange(this.getFilteredData()[id], status);
     }
     getFilteredData () {
         if (this.state.selectedTag === 'all') {
@@ -217,6 +232,25 @@ class LibraryComponent extends React.Component {
                                 ))}
                             </div>
                         }
+                        {(this.props.filterable || this.props.tags) && this.props.upload && (
+                            <Divider className={classNames(styles.filterBarItem, styles.divider)} />
+                        )}
+                        {this.props.upload &&
+                            <Button
+                                className={styles.uploadButton}
+                                onClick={this.props.onUpload}
+                            >
+                                {this.props.intl.formatMessage(messages.uploadButton)}
+                            </Button>
+                        }
+                        {this.props.extensionStore &&
+                            <Button
+                                className={styles.uploadButton}
+                                onClick={this.props.onClickExtensionStore}
+                            >
+                                {this.props.intl.formatMessage(messages.fromOnline)}
+                            </Button>
+                        }
                     </div>
                 )}
                 <div
@@ -228,7 +262,7 @@ class LibraryComponent extends React.Component {
                     {this.state.loaded ? this.getFilteredData().map((dataItem, index) => (
                         <LibraryItem
                             bluetoothRequired={dataItem.bluetoothRequired}
-                            collaborator={dataItem.collaborator}
+                            author={dataItem.author}
                             description={dataItem.description}
                             disabled={dataItem.disabled}
                             extensionId={dataItem.extensionId}
@@ -244,9 +278,13 @@ class LibraryComponent extends React.Component {
                             key={typeof dataItem.name === 'string' ? dataItem.name : dataItem.rawURL}
                             name={dataItem.name}
                             showPlayButton={this.props.showPlayButton}
+                            switchable={dataItem.switchable}
+                            enabled={dataItem.enabled}
                             onMouseEnter={this.handleMouseEnter}
                             onMouseLeave={this.handleMouseLeave}
                             onSelect={this.handleSelect}
+                            onSwitchChange={this.handleSwitchChange}
+                            version={dataItem.version}
                         />
                     )) : (
                         <div className={styles.spinnerWrapper}>
@@ -278,12 +316,18 @@ LibraryComponent.propTypes = {
         /* eslint-enable react/no-unused-prop-types, lines-around-comment */
     ), PropTypes.instanceOf(Promise)]),
     filterable: PropTypes.bool,
+    upload: PropTypes.bool,
+    extensionStore: PropTypes.bool,
+    closeAfterSelect: PropTypes.bool,
     id: PropTypes.string.isRequired,
     intl: intlShape.isRequired,
     onItemMouseEnter: PropTypes.func,
     onItemMouseLeave: PropTypes.func,
     onItemSelected: PropTypes.func,
+    onItemSwitchChange: PropTypes.func,
     onRequestClose: PropTypes.func,
+    onUpload: PropTypes.func,
+    onClickExtensionStore: PropTypes.func,
     setStopHandler: PropTypes.func,
     showPlayButton: PropTypes.bool,
     tags: PropTypes.arrayOf(PropTypes.shape(TagButton.propTypes)),
@@ -292,6 +336,9 @@ LibraryComponent.propTypes = {
 
 LibraryComponent.defaultProps = {
     filterable: true,
+    upload: false,
+    extensionStore: false,
+    closeAfterSelect: true,
     showPlayButton: false
 };
 

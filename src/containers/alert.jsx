@@ -39,7 +39,7 @@ class Alert extends React.Component {
             showSaveNow
         } = this.props;
         return (
-            <SB3Downloader>{(_, downloadProject) => (
+            <SB3Downloader>{(_, {cc3}) => (
                 <AlertComponent
                     closeButton={closeButton}
                     content={content}
@@ -52,7 +52,7 @@ class Alert extends React.Component {
                     showReconnect={showReconnect}
                     showSaveNow={showSaveNow}
                     onCloseAlert={this.handleOnCloseAlert}
-                    onDownload={downloadProject}
+                    onDownload={cc3} // todo: cc3/sb3
                     onReconnect={this.handleOnReconnect}
                     onSaveNow={onSaveNow}
                 />

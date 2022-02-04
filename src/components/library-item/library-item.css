@@ -38,6 +38,12 @@
     border-color: $motion-primary;
 }
 
+.library-item-switch {
+    height: 1rem;
+    align-self: flex-end;
+    margin-right: 1em;
+}
+
 .hidden {
     display: none;
 }
@@ -119,10 +125,14 @@
 
 .featured-image-container {
     position: relative;
+    min-height: 183px;
+    max-height: 184px;
+    overflow: hidden;
 }
 
 .featured-image {
     width: 100%;
+    display: block;
 }
 
 .featured-text {
@@ -173,20 +183,14 @@
     text-align: right;
 }
 
-.featured-extension-requirement {
+.featured-extension-item {
     width: 100%;
     display: flex;
     flex-direction: column;
 }
 
-[theme='dark'] .featured-extension-requirement {
+[theme='dark'] .featured-extension-item {
     filter: brightness(1000%);
-}
-
-.featured-extension-collaboration {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
 }
 
 .featured-extension-metadata-detail {
