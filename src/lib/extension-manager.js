@@ -204,9 +204,8 @@ const loadBuiltinExtension = dispatch => {
     }
 };
 
-const initExtensionAPI = (gui, _vm, blocks, nativeInstance) => {
+const initExtensionAPI = (gui, vm, blocks) => {
     const apiInstance = {
-        nativeInstance,
         gui: gui.extensionAPI,
         vm: _vm.extensionAPI,
         blocks: blocks,
