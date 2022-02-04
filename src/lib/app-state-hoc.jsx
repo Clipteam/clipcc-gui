@@ -11,7 +11,7 @@ import {setPlayer, setFullScreen} from '../reducers/mode.js';
 import locales from 'clipcc-l10n';
 import {detectLocale} from './detect-locale';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({trace: true, traceLimit: 10}) || compose;
 
 /*
  * Higher Order Component to provide redux state. If an `intl` prop is provided
