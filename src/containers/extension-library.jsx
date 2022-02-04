@@ -224,7 +224,7 @@ class ExtensionLibrary extends React.PureComponent {
                 });
             }
         });
-        window.open(`https://extension.codingclip.com`, 'extension',
+        window.open(`https://codingclip.com/extension`, 'extension',
             `width=800,
             height=510
             resizable=yes,
