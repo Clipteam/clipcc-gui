@@ -18,7 +18,8 @@ class SliderMonitor extends React.Component {
             value: props.value
         };
     }
-    componentWillReceiveProps (nextProps) {
+    // @todo - 更新到新方法
+    UNSAFE_componentWillReceiveProps (nextProps) {
         if (this.state.value !== nextProps.value) {
             this.setState({value: nextProps.value});
         }

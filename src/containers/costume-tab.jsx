@@ -101,7 +101,8 @@ class CostumeTab extends React.Component {
             this.state = {selectedCostumeIndex: 0};
         }
     }
-    componentWillReceiveProps (nextProps) {
+    // @todo - 更新到新方法
+    UNSAFE_componentWillReceiveProps (nextProps) {
         const {
             editingTarget,
             sprites,
