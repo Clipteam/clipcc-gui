@@ -54,7 +54,7 @@ class StageSelector extends React.Component {
         ]);
     }
     componentDidMount () {
-        document.addEventListener('touchend', this.handleTouchEnd);
+        document.addEventListener('touchend', this.handleTouchEnd, { capture: true });
     }
     componentWillUnmount () {
         document.removeEventListener('touchend', this.handleTouchEnd);

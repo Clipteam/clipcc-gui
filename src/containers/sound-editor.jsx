@@ -63,7 +63,7 @@ class SoundEditor extends React.Component {
     componentDidMount () {
         this.audioBufferPlayer = new AudioBufferPlayer(this.props.samples, this.props.sampleRate);
 
-        document.addEventListener('keydown', this.handleKeyPress);
+        document.addEventListener('keydown', this.handleKeyPress, { capture: true });
     }
     // @todo - 更新到新方法
     UNSAFE_componentWillReceiveProps (newProps) {
