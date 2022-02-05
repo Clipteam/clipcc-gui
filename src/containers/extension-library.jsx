@@ -97,6 +97,7 @@ class ExtensionLibrary extends React.PureComponent {
             'handleUploadExtension',
             'handleClickExtensionStore',
             'handleItemChange',
+            'handleExtensionMessage',
             'handleMsgboxConfirm',
             'handleMsgboxCancel',
             'handleMsgboxGiveup'
@@ -109,12 +110,17 @@ class ExtensionLibrary extends React.PureComponent {
         this.unloadOrder = [];
         this.showModal = 0;
         this.error = 0;
+        this.extensionChannel = new BroadcastChannel('extension');
     }
     componentDidMount () {
         this.willLoad = [];
         this.willUnload = [];
         this.showModal = 0;
         this.error = 0;
+        this.extensionChannel.addEventListener('message', this.handleExtensionMessage);
+    }
+    componentWillUnmount () {
+        this.extensionChannel.removeEventListener('message');
     }
     handleRequestClose () {
         try {
@@ -186,6 +192,35 @@ class ExtensionLibrary extends React.PureComponent {
         };
         input.click();
     }
+    handleExtensionMessage (event) {
+        if (event.data.action === 'add'){
+            fetch(event.data.download)
+                .then(async response => {
+                    await this.props.loadExtensionFromFile(response.arrayBuffer(), 'ccx');
+                    this.extensionChannel.postMessage({
+                        action: 'addSuccess',
+                        extensionId: event.data.extension
+                    });
+                })
+                .catch(err => {
+                    this.extensionChannel.postMessage({
+                        action: 'addFail',
+                        extensionId: event.data.extension,
+                        error: err
+                    });
+                });
+        }
+
+        if (event.data.action === 'get') {
+            const extensionList = [];
+            for (const ext in this.props.extension) extensionList.push(ext);
+            console.log(extensionList);
+            this.extensionChannel.postMessage({
+                action: 'tell',
+                data: extensionList
+            });
+        }
+    }
     handleClickExtensionStore () {
         if (isScratchDesktop()) {
             return window.ClipCC.ipc.send('open-extension-store');
@@ -194,36 +229,6 @@ class ExtensionLibrary extends React.PureComponent {
             alert(this.props.intl.formatMessage(messages.unsupportChannel));
             return;
         }
-        const extensionChannel = new BroadcastChannel('extension');
-        extensionChannel.addEventListener('message', event => {
-            if (event.data.action === 'add'){
-                fetch(event.data.download)
-                    .then(async response => {
-                        await this.props.loadExtensionFromFile(response.arrayBuffer(), 'ccx');
-                        extensionChannel.postMessage({
-                            action: 'addSuccess',
-                            extensionId: event.data.extension
-                        });
-                    })
-                    .catch(err => {
-                        extensionChannel.postMessage({
-                            action: 'addFail',
-                            extensionId: event.data.extension,
-                            error: err
-                        });
-                    });
-            }
-
-            if (event.data.action === 'get') {
-                const extensionList = [];
-                for (const ext in this.props.extension) extensionList.push(ext);
-                console.log(extensionList);
-                extensionChannel.postMessage({
-                    action: 'tell',
-                    data: extensionList
-                });
-            }
-        });
         window.open(`https://codingclip.com/extension`, 'extension',
             `width=800,
             height=510
