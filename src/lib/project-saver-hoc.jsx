@@ -55,8 +55,7 @@ const ProjectSaverHOC = function (WrappedComponent) {
                 'tryToAutoSave'
             ]);
         }
-        // @todo - 更新到新方法
-        UNSAFE_componentWillMount () {
+        componentDidMount () {
             if (typeof window === 'object') {
                 // Note: it might be better to use a listener instead of assigning onbeforeunload;
                 // but then it'd be hard to turn this listening off in our tests

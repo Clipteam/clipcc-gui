@@ -63,8 +63,7 @@ class SBFileUploader extends React.Component {
         ]);
         if (props.onRef) props.onRef(this);
     }
-    // @todo - 更新到新方法
-    UNSAFE_componentWillMount () {
+    componentDidMount () {
         this.reader = new FileReader();
         this.reader.onload = this.onload;
         this.resetFileInput();
