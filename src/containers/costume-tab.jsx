@@ -96,13 +96,18 @@ class CostumeTab extends React.Component {
         } = props;
         const target = editingTarget && sprites[editingTarget] ? sprites[editingTarget] : stage;
         if (target && target.currentCostume) {
-            this.state = {selectedCostumeIndex: target.currentCostume};
+            this.state = {
+                cachedPrevProps: props,
+                selectedCostumeIndex: target.currentCostume
+            };
         } else {
-            this.state = {selectedCostumeIndex: 0};
+            this.state = {
+                cachedPrevProps: props,
+                selectedCostumeIndex: 0
+            };
         }
     }
-    // @todo - 更新到新方法
-    UNSAFE_componentWillReceiveProps (nextProps) {
+    static getDerivedStateFromProps(nextProps, prevState) {
         const {
             editingTarget,
             sprites,
@@ -110,24 +115,28 @@ class CostumeTab extends React.Component {
         } = nextProps;
 
         const target = editingTarget && sprites[editingTarget] ? sprites[editingTarget] : stage;
-        if (!target || !target.costumes) {
-            return;
-        }
+        if (!target || !target.costumes) return;
 
-        if (this.props.editingTarget === editingTarget) {
+        if (prevState.cachedPrevProps.props.editingTarget === editingTarget) {
             // If costumes have been added or removed, change costumes to the editing target's
             // current costume.
-            const oldTarget = this.props.sprites[editingTarget] ?
-                this.props.sprites[editingTarget] : this.props.stage;
+            const oldTarget = prevState.cachedPrevProps.sprites[editingTarget] ?
+                prevState.cachedPrevProps.sprites[editingTarget] : prevState.cachedPrevProps.stage;
             // @todo: Find and switch to the index of the costume that is new. This is blocked by
             // https://github.com/LLK/scratch-vm/issues/967
             // Right now, you can land on the wrong costume if a costume changing script is running.
             if (oldTarget.costumeCount !== target.costumeCount) {
-                this.setState({selectedCostumeIndex: target.currentCostume});
+                return {
+                    cachedPrevProps: nextProps,
+                    selectedCostumeIndex: target.currentCostume
+                };
             }
         } else {
             // If switching editing targets, update the costume index
-            this.setState({selectedCostumeIndex: target.currentCostume});
+            return {
+                cachedPrevProps: nextProps,
+                selectedCostumeIndex: target.currentCostume
+            };
         }
     }
     handleSelectCostume (costumeIndex) {

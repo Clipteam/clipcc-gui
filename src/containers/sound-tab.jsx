@@ -61,30 +61,26 @@ class SoundTab extends React.Component {
     }
 
     static getDerivedStateFromProps (nextProps, prevState) {
-        try {
-            const {
-                editingTarget,
-                sprites,
-                stage
-            } = nextProps;
-            const target = editingTarget && sprites[editingTarget] ? sprites[editingTarget] : stage;
-            if (!target || !target.sounds) return;
-            // If switching editing targets, reset the sound index
-            if (prevState.cachedPrevProps.editingTarget !== editingTarget) {
-                return {
-                    selectedSoundIndex: 0,
-                    cachedPrevProps: nextProps
-                };
-            } else if (prevState.cachedPrevProps.selectedSoundIndex > target.sounds.length - 1) {
-                return {
-                    selectedSoundIndex: Math.max(target.sounds.length - 1, 0),
-                    cachedPrevProps: nextProps
-                };
-            }
-            return { cachedPrevProps: nextProps };
-        } catch (e) {
-            console.log('Catched!', e);
+        const {
+            editingTarget,
+            sprites,
+            stage
+        } = nextProps;
+        const target = editingTarget && sprites[editingTarget] ? sprites[editingTarget] : stage;
+        if (!target || !target.sounds) return;
+        // If switching editing targets, reset the sound index
+        if (prevState.cachedPrevProps.editingTarget !== editingTarget) {
+            return {
+                selectedSoundIndex: 0,
+                cachedPrevProps: nextProps
+            };
+        } else if (prevState.cachedPrevProps.selectedSoundIndex > target.sounds.length - 1) {
+            return {
+                selectedSoundIndex: Math.max(target.sounds.length - 1, 0),
+                cachedPrevProps: nextProps
+            };
         }
+        return {cachedPrevProps: nextProps};
     }
 
     handleSelectSound (soundIndex) {
