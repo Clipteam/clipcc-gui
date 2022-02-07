@@ -120,7 +120,7 @@ class ExtensionLibrary extends React.PureComponent {
         this.extensionChannel.addEventListener('message', this.handleExtensionMessage);
     }
     componentWillUnmount () {
-        this.extensionChannel.removeEventListener('message');
+        this.extensionChannel.removeEventListener('message', this.handleExtensionMessage);
     }
     handleRequestClose () {
         try {
