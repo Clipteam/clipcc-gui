@@ -41,6 +41,6 @@ jobs:
         with:
           name: dist
           path: dist
-      - run: yarn publish --tag next
+      - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
