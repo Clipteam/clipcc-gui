@@ -241,7 +241,7 @@ class ExtensionLibrary extends React.PureComponent {
         for (const extension of this.loadOrder) {
             this.props.setExtensionEnable(extension.id);
         }
-        ClipCCExtension.extensionManager.unloadExtensions(this.unloadOrder);
+        ClipCCExtension.extensionManager.unloadExtensions(this.unloadOrder, extension => this.props.vm.extensionManager.unloadExtensionURL(extension));
         for (const extension of this.unloadOrder) {
             this.props.setExtensionDisable(extension);
         }
