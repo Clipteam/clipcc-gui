@@ -29,7 +29,7 @@ import {
 import {
     setLoadError
 } from '../reducers/load-error';
-import { getSetting } from '../reducers/settings';
+import {getSetting} from '../reducers/settings';
 
 const messages = defineMessages({
     loadError: {
@@ -232,14 +232,18 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                 /* eslint-disable no-unused-vars */
                 cancelFileUpload,
                 closeFileMenu: closeFileMenuProp,
+                enableAutoSave,
                 isLoadingUpload,
                 isShowingWithoutId,
                 loadingState,
                 onLoadingFinished,
                 onLoadingStarted,
                 onSetProjectTitle,
+                onSetFileSystemHandle,
                 projectChanged,
                 requestProjectUpload: requestProjectUploadProp,
+                setExtensionEnable,
+                showLoadErrorModal,
                 userOwnsProject,
                 /* eslint-enable no-unused-vars */
                 ...componentProps
@@ -271,6 +275,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         projectChanged: PropTypes.bool,
         requestProjectUpload: PropTypes.func,
         showLoadErrorModal: PropTypes.func,
+        setExtensionEnable: PropTypes.func,
         userOwnsProject: PropTypes.bool,
         vm: PropTypes.shape({
             loadProject: PropTypes.func
@@ -287,14 +292,12 @@ const SBFileUploaderHOC = function (WrappedComponent) {
             description: PropTypes.string,
             requirement: PropTypes.arrayOf(PropTypes.string),
             enabled: PropTypes.bool
-        }),
+        })
     };
     const mapStateToProps = (state, ownProps) => {
         const loadingState = state.scratchGui.projectState.loadingState;
         const user = state.session && state.session.session && state.session.session.user;
-        const enableAutoSave = getSetting(state, 'autosave') === 'on';
         return {
-            enableAutoSave: enableAutoSave,
             isLoadingUpload: getIsLoadingUpload(loadingState),
             isShowingWithoutId: getIsShowingWithoutId(loadingState),
             loadingState: loadingState,
@@ -302,7 +305,8 @@ const SBFileUploaderHOC = function (WrappedComponent) {
             userOwnsProject: ownProps.authorUsername && user &&
                 (ownProps.authorUsername === user.username),
             vm: state.scratchGui.vm,
-            extension: state.scratchGui.extension.extension
+            extension: state.scratchGui.extension.extension,
+            enableAutoSave: getSetting(state, 'autosave') === 'on'
         };
     };
     const mapDispatchToProps = (dispatch, ownProps) => ({

@@ -95,7 +95,9 @@ class GUI extends React.Component {
             /* eslint-disable no-unused-vars */
             assetHost,
             cloudHost,
+            darkMode,
             error,
+            errorModalVisible,
             isError,
             isScratchDesktop,
             isShowingProject,

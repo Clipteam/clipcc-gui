@@ -2,7 +2,7 @@ import GoogleAnalytics from 'react-ga';
 
 import log from './log';
 
-const GA_ID = (process.env.GA_ID || window.GA_ID);
+const GA_ID = false;
 if (GA_ID) {
     GoogleAnalytics.initialize(GA_ID, {
         debug: (process.env.NODE_ENV !== 'production'),
