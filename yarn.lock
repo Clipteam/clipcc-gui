@@ -2950,10 +2950,10 @@ clipcc-render@^3.0.0:
     scratch-svg-renderer "0.2.0-prerelease.20210727023023"
     twgl.js "4.4.0"
 
-clipcc-vm@3.1.6:
-  version "3.1.6"
-  resolved "https://registry.yarnpkg.com/clipcc-vm/-/clipcc-vm-3.1.6.tgz#133e5764e7191527564139da77cf653cfebb8aca"
-  integrity sha512-VGn3Quq4eJPGeinivcA0bNlrDbZlrvnvsD/sHjOggMZbUknHSkva8ZlgBDksjSZgxqc+Iu5eJhx8q9ceQ7Cn7A==
+clipcc-vm@3.1.8:
+  version "3.1.8"
+  resolved "https://registry.yarnpkg.com/clipcc-vm/-/clipcc-vm-3.1.8.tgz#a7637b029c884b470b314c6ae61b316d55985343"
+  integrity sha512-jGRX+Lp1ygWBkgLLuZRg7r/I4Xi0LBd3MW4nF3++NBPeZu79hZOYjyv+NMljF68B2zqQ5DLjg9jfPwFyhML33Q==
   dependencies:
     "@vernier/godirect" "1.5.0"
     arraybuffer-loader "^1.0.6"
@@ -4792,9 +4792,9 @@ flush-write-stream@^1.0.0:
     readable-stream "^2.3.6"
 
 follow-redirects@^1.0.0, follow-redirects@^1.14.0:
-  version "1.14.7"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.7.tgz#2004c02eb9436eee9a21446a6477debf17e81685"
-  integrity sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==
+  version "1.14.8"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.8.tgz#016996fb9a11a100566398b1c6839337d7bfa8fc"
+  integrity sha512-1x0S9UVJHsQprFcEC/qnNzBLcIxsjAV905f/UkQxbclCsoTWlacCNOpQa/anodLl2uaEKFhfWOvM2Qg77+15zA==
 
 for-in@^1.0.1, for-in@^1.0.2:
   version "1.0.2"
