@@ -7,7 +7,7 @@ const packageInfo = require('./package.json');
 const time = new Date();
 const compileId = moment(time).format('YYYYMMDDHHmm');
 
-let commitHash = 'unknown'
+let commitHash = 'unknown';
 try {
     commitHash = childProcess.execSync('git show -s --format=%h').toString()
         .trim();
@@ -18,7 +18,7 @@ const appName = 'ClipCC';
 
 const appVersion = '3.1.1';
 const appVersionSimple = '3.1.1';
-const appVersionFull = '3.1.1-b${compileId}';
+const appVersionFull = '3.1.1-${commitHash}-${compileId}';
 const compileTime = '${time.toISOString()}';
 const commitHash = '${commitHash}';
 
