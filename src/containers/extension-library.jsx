@@ -6,6 +6,7 @@ import VM from 'clipcc-vm';
 import {connect} from 'react-redux';
 import {defineMessages, injectIntl, intlShape, FormattedMessage} from 'react-intl';
 import ClipCCExtension, {error} from 'clipcc-extension';
+import log from '../lib/log';
 
 import LibraryComponent from '../components/library/library.jsx';
 import extensionIcon from '../components/action-menu/icon--sprite.svg';
@@ -110,17 +111,17 @@ class ExtensionLibrary extends React.PureComponent {
         this.unloadOrder = [];
         this.showModal = 0;
         this.error = 0;
-        this.extensionChannel = new BroadcastChannel('extension');
+        this.extensionChannel = global.BroadcastChannel ? new BroadcastChannel('extension') : null;
     }
     componentDidMount () {
         this.willLoad = [];
         this.willUnload = [];
         this.showModal = 0;
         this.error = 0;
-        this.extensionChannel.addEventListener('message', this.handleExtensionMessage);
+        if (this.extensionChannel) this.extensionChannel.addEventListener('message', this.handleExtensionMessage);
     }
     componentWillUnmount () {
-        this.extensionChannel.removeEventListener('message', this.handleExtensionMessage);
+        if (this.extensionChannel) this.extensionChannel.removeEventListener('message', this.handleExtensionMessage);
     }
     handleRequestClose () {
         try {
@@ -141,7 +142,7 @@ class ExtensionLibrary extends React.PureComponent {
             switch (err.code) {
             case error.ERROR_UNAVAILABLE_EXTENSION:
             case error.ERROR_CIRCULAR_REQUIREMENT: {
-                console.error('error', err);
+                log.error('error', err);
                 this.error = err;
                 this.showModal = 2;
                 this.forceUpdate();
@@ -155,6 +156,7 @@ class ExtensionLibrary extends React.PureComponent {
     }
     handleItemChange (item, status) {
         const extension = item.extensionId;
+        /* eslint-disable no-negated-condition */
         if (status) { // load
             const index = this.willUnload.indexOf(extension);
             if (index !== -1) {
@@ -170,6 +172,7 @@ class ExtensionLibrary extends React.PureComponent {
                 this.willUnload.push(extension);
             }
         }
+        /* eslint-enable no-negated-condition */
     }
     handleUploadExtension () {
         const input = document.createElement('input');
@@ -185,7 +188,7 @@ class ExtensionLibrary extends React.PureComponent {
                 const url = URL.createObjectURL(file);
                 const reader = new FileReader();
                 reader.readAsArrayBuffer(file, 'utf8');
-                reader.onload = async () => {
+                reader.onload = () => {
                     this.props.loadExtensionFromFile(reader.result, fileExt);
                 };
             }
@@ -214,7 +217,7 @@ class ExtensionLibrary extends React.PureComponent {
         if (event.data.action === 'get') {
             const extensionList = [];
             for (const ext in this.props.extension) extensionList.push(ext);
-            console.log(extensionList);
+            log.info(extensionList);
             this.extensionChannel.postMessage({
                 action: 'tell',
                 data: extensionList
@@ -225,7 +228,7 @@ class ExtensionLibrary extends React.PureComponent {
         if (isScratchDesktop()) {
             return window.ClipCC.ipc.send('open-extension-store');
         }
-        if (!BroadcastChannel) {
+        if (!this.extensionChannel) {
             alert(this.props.intl.formatMessage(messages.unsupportChannel));
             return;
         }
@@ -237,11 +240,17 @@ class ExtensionLibrary extends React.PureComponent {
             status=yes`);
     }
     handleMsgboxConfirm () {
-        ClipCCExtension.extensionManager.loadExtensionsWithMode(this.loadOrder, extension => this.props.vm.extensionManager.loadExtensionURL(extension));
+        ClipCCExtension.extensionManager.loadExtensionsWithMode(
+            this.loadOrder,
+            extension => this.props.vm.extensionManager.loadExtensionURL(extension)
+        );
         for (const extension of this.loadOrder) {
             this.props.setExtensionEnable(extension.id);
         }
-        ClipCCExtension.extensionManager.unloadExtensions(this.unloadOrder, extension => this.props.vm.extensionManager.unloadExtensionURL(extension));
+        ClipCCExtension.extensionManager.unloadExtensions(
+            this.unloadOrder,
+            extension => this.props.vm.extensionManager.unloadExtensionURL(extension)
+        );
         for (const extension of this.unloadOrder) {
             this.props.setExtensionDisable(extension);
         }
@@ -335,7 +344,10 @@ class ExtensionLibrary extends React.PureComponent {
                                     {this.props.intl.formatMessage(messages.errorUnavaliable)}
                                 </p>
                                 {this.error.extension.map(v => (
-                                    <p style={{margin: 0, paddingLeft: '2em'}}>
+                                    <p
+                                        style={{margin: 0, paddingLeft: '2em'}}
+                                        key={v.id}
+                                    >
                                         {`${v.id}: ${v.version}`}
                                     </p>
                                 ))}
@@ -343,7 +355,10 @@ class ExtensionLibrary extends React.PureComponent {
                                     {this.props.intl.formatMessage(messages.requireStack)}
                                 </p>
                                 {this.error.requireStack.map(v => (
-                                    <p style={{margin: 0, paddingLeft: '2em'}}>
+                                    <p
+                                        style={{margin: 0, paddingLeft: '2em'}}
+                                        key={v.id}
+                                    >
                                         {`${v.id}: ${v.version}`}
                                     </p>
                                 ))}
@@ -358,7 +373,10 @@ class ExtensionLibrary extends React.PureComponent {
                                     {this.props.intl.formatMessage(messages.requireStack)}
                                 </p>
                                 {this.error.requireStack.map(v => (
-                                    <p style={{margin: 0, paddingLeft: '2em'}}>
+                                    <p
+                                        style={{margin: 0, paddingLeft: '2em'}}
+                                        key={v.id}
+                                    >
                                         {`${v.id}: ${v.version}`}
                                     </p>
                                 ))}
