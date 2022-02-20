@@ -758,7 +758,10 @@ class MenuBar extends React.Component {
                         </>
                     )}
                 </div>
-
+                <div
+                    data-tauri-drag-region // Tauri Drag Region
+                    style={{flex: 1}}
+                />
                 {/* show the proper UI in the account menu, given whether the user is
                 logged in, and whether a session is available to log in with */}
                 <div className={styles.menuBarItem}>
