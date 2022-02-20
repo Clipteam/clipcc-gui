@@ -6,6 +6,7 @@ const initialState = {
     darkMode: 'system',
     fps: 30,
     blur: 'on',
+    seamless: 'off',
     autosave: 'off',
     compatibility: 'donotload',
     compression: 6

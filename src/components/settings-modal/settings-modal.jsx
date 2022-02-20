@@ -19,7 +19,8 @@ import {getSetting} from '../../reducers/settings';
 import LayoutSetting from './layout-setting.jsx';
 import FPSSetting from './fps-setting.jsx';
 import DarkModeSetting from './darkmode-setting.jsx';
-import BlurSetting from './blur-setting.jsx'
+import BlurSetting from './blur-setting.jsx';
+import SeamlessSetting from './seamless-setting.jsx';
 import CompatibilitySetting from './compatibility-setting.jsx';
 import CompressionSetting from './compression-setting.jsx';
 import AutoSaveSetting from './autosave-settings.jsx';
@@ -103,6 +104,7 @@ const SettingsModal = ({
                 <FPSSetting
                     setFramerate={setFramerate}
                 />
+                <SeamlessSetting />
             </Box>
             <strong>{intl.formatMessage(messages.project)}</strong>
             <Box
