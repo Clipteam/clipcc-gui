@@ -1,12 +1,10 @@
 const fs = require('fs');
 const path = require('path');
-const moment = require('moment');
 const childProcess = require('child_process');
 const packageInfo = require('./package.json');
 
 const isProd = process.env.NODE_ENV === 'production' ? true : false;
 const time = new Date();
-const compileId = moment(time).format('YYYYMMDDHHmm');
 
 let commitHash = 'unknown';
 try {
@@ -20,7 +18,7 @@ const appName = 'ClipCC';
 const isProd = ${isProd};
 const appVersion = '3.1.1';
 const appVersionSimple = '3.1.1';
-const appVersionFull = '3.1.1-${commitHash}-${compileId}';
+const appVersionFull = '3.1.1-${commitHash}-${time.toISOString()}';
 const compileTime = '${time.toISOString()}';
 const commitHash = '${commitHash}';
 
