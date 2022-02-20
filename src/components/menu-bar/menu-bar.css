@@ -41,7 +41,7 @@
     justify-content: flex-start;
     flex-wrap: nowrap;
     align-items: center;
-    flex-grow: 1;
+    /* flex-grow: 1; */
 }
 
 .scratch-logo {
@@ -98,6 +98,7 @@
 
 .menu-bar-item.growable {
     max-width: $menu-bar-item-max-width;
+    min-width: 12rem;
     flex: 1;
 }
 
