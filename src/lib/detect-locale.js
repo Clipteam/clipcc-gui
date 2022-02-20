@@ -25,6 +25,11 @@ const detectLocale = supportedLocales => {
         }
     }
 
+    const storageLocale = localStorage.getItem('locale');
+    if (supportedLocales.includes(storageLocale)) {
+        return storageLocale;
+    }
+
     const queryParams = queryString.parse(location.search);
     // Flatten potential arrays and remove falsy values
     const potentialLocales = [].concat(queryParams.locale, queryParams.lang).filter(l => l);
