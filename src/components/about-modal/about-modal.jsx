@@ -10,7 +10,7 @@ import telegram from './telegram.svg';
 import qq from './qq.svg';
 import discord from './discord.svg';
 
-import {appVersion, appVersionFull, commitHash, isProd} from '../../lib/app-info';
+import {appVersion, appVersionFull, compileTime, isProd} from '../../lib/app-info';
 
 const messages = defineMessages({
     aboutModalTitle: {
@@ -28,10 +28,10 @@ const messages = defineMessages({
         description: 'Label for showing license',
         id: 'gui.aboutModal.license'
     },
-    commitHash: {
-        defaultMessage: 'Commit Hash',
-        description: 'Label for commit hash',
-        id: 'gui.aboutModal.commitHash'
+    compileTime: {
+        defaultMessage: 'Compile Time',
+        description: 'Label for compile time',
+        id: 'gui.aboutModal.compileTime'
     },
     licenseContent: {
         defaultMessage: 'GNU Affero General Public License v3',
@@ -62,9 +62,9 @@ const AboutModal = ({
             </p>
             {!isProd ? (
                 <p>
-                    <strong><FormattedMessage {...messages.commitHash} /></strong>
+                    <strong><FormattedMessage {...messages.compileTime} /></strong>
                     {': '}
-                    <span>{commitHash}</span>
+                    <span>{compileTime}</span>
                 </p>
             ) : null}
             <p>
