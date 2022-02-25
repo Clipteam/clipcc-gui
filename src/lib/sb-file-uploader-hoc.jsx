@@ -306,7 +306,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
             requirement: PropTypes.arrayOf(PropTypes.string),
             enabled: PropTypes.bool
         }),
-        loadExtensionFromFile: PropTypes.func.isRequire
+        loadExtensionFromFile: PropTypes.func.isRequired
     };
     const mapStateToProps = (state, ownProps) => {
         const loadingState = state.scratchGui.projectState.loadingState;
