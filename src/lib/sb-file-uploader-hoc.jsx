@@ -3,8 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {defineMessages, intlShape, injectIntl} from 'react-intl';
 import {connect} from 'react-redux';
+import JSZip from 'jszip';
 import log from '../lib/log';
 import sharedMessages from './shared-messages';
+import {loadExtensionFromFile} from '../lib/extension-manager.js';
 
 import {
     LoadingStates,
@@ -182,11 +184,22 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         }
         // step 6: attached as a handler on our FileReader object; called when
         // file upload raw data is available in the reader
-        onload () {
+        async onload () {
             if (this.fileReader) {
                 this.props.onLoadingStarted();
                 const filename = this.fileToUpload && this.fileToUpload.name;
                 let loadingSuccess = false;
+                const fileExt = filename.substring(filename.lastIndexOf('.') + 1);
+                // If this is *.cc3 file, check and load its extensions in it.
+                if (fileExt === 'cc3') {
+                    const zipData = await JSZip.loadAsync(this.fileReader.result);
+                    for (const file in zipData.files) {
+                        if (/^extensions\/.+\.ccx$/g.test(file)) {
+                            const data = await zipData.files[file].async('arraybuffer');
+                            await this.props.loadExtensionFromFile(data, 'ccx');
+                        }
+                    }
+                }
                 this.props.vm.loadProject(this.fileReader.result)
                     .then(() => {
                         if (filename) {
@@ -292,7 +305,8 @@ const SBFileUploaderHOC = function (WrappedComponent) {
             description: PropTypes.string,
             requirement: PropTypes.arrayOf(PropTypes.string),
             enabled: PropTypes.bool
-        })
+        }),
+        loadExtensionFromFile: PropTypes.func.isRequire
     };
     const mapStateToProps = (state, ownProps) => {
         const loadingState = state.scratchGui.projectState.loadingState;
@@ -331,7 +345,8 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         showLoadErrorModal: data => {
             dispatch(setLoadError(data));
             dispatch(openLoadErrorModal());
-        }
+        },
+        loadExtensionFromFile: (file, type) => loadExtensionFromFile(dispatch, file, type)
     });
     // Allow incoming props to override redux-provided props. Used to mock in tests.
     const mergeProps = (stateProps, dispatchProps, ownProps) => Object.assign(
