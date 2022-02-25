@@ -1,9 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {
-    initExtension,
-    enableExtension,
-    disableExtension
-} from '../reducers/extension';
+import {initExtension} from '../reducers/extension';
 import {
     addLocales,
     updateLocale
