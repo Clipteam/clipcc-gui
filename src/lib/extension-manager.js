@@ -278,7 +278,8 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
             requirement: info.requirement,
             instance: instance,
             api: info.api,
-            version: info.version
+            version: info.version,
+            fileContent: file
         };
         ClipCCExtension.extensionManager.addInstance(info.id, info, instance);
         dispatch(initExtension(extensionInfo));
@@ -298,7 +299,8 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
             description: 'External Extension',
             requirement: [],
             instance: apiInstance,
-            api: 1
+            api: 1,
+            fileContent: file
         };
 
         ClipCCExtension.extensionManager.addInstance(info.id, {

@@ -28,11 +28,24 @@ class SB3Downloader extends React.Component {
         bindAll(this, [
             'downloadCc3Project',
             'downloadSb3Project',
-            'saveToLastFile'
+            'saveToLastFile',
+            'getExtensionData'
         ]);
     }
+    getExtensionData (extensions) {
+        const result = [];
+        for (const id in extensions) {
+            if (this.props.extension[id].api > 0) {
+                result.push({
+                    fileName: `extensions/${id}@${this.props.extension[id].version}.ccx`,
+                    fileContent: this.props.extension[id].fileContent
+                });
+            }
+        }
+        return result;
+    }
     downloadCc3Project () {
-        this.props.saveProjectCc3().then(content => {
+        this.props.saveProjectCc3(this.getExtensionData).then(content => {
             if (this.props.onSaveFinished) {
                 this.props.onSaveFinished();
             }
@@ -122,7 +135,20 @@ SB3Downloader.propTypes = {
     onShowSaveSuccessAlert: PropTypes.func,
     projectFilename: PropTypes.string,
     saveProjectCc3: PropTypes.func,
-    saveProjectSb3: PropTypes.func
+    saveProjectSb3: PropTypes.func,
+    extension: PropTypes.shape({
+        extensionId: PropTypes.string,
+        iconURL: PropTypes.string,
+        insetIconURL: PropTypes.string,
+        author: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.arrayOf(PropTypes.string)
+        ]),
+        name: PropTypes.string,
+        description: PropTypes.string,
+        requirement: PropTypes.arrayOf(PropTypes.string),
+        data: PropTypes.instanceOf(ArrayBuffer)
+    })
 };
 SB3Downloader.defaultProps = {
     className: ''
@@ -132,7 +158,8 @@ const mapStateToProps = state => ({
     saveProjectCc3: state.scratchGui.vm.saveProjectCc3.bind(state.scratchGui.vm),
     fileHandle: state.scratchGui.projectState.fileHandle,
     saveProjectSb3: state.scratchGui.vm.saveProjectSb3.bind(state.scratchGui.vm),
-    projectFilename: getProjectFilename(state.scratchGui.projectTitle, projectTitleInitialState)
+    projectFilename: getProjectFilename(state.scratchGui.projectTitle, projectTitleInitialState),
+    extension: state.scratchGui.extension.extension
 });
 
 const mapDispatchToProps = dispatch => ({
