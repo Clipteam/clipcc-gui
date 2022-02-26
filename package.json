@@ -66,6 +66,7 @@
     "lodash.throttle": "4.0.1",
     "mime-types": "^2.1.27",
     "minilog": "3.1.0",
+    "moment": "^2.29.1",
     "omggif": "1.0.9",
     "papaparse": "5.3.0",
     "postcss-import": "^12.0.0",
