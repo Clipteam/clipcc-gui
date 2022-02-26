@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://github.com/Clipteam/clipcc-site/raw/master/src/assets/logo-text.svg" alt="logo" width="300"/>
+<img src="https://raw.githubusercontent.com/Clipteam/clipcc-gui/master/src/components/about-modal/clipcc3_logo.svg" alt="logo" width="300"/>
 
 ![](https://img.shields.io/badge/license-AGPL-blue) ![](https://img.shields.io/badge/version-3.0.2-brightgreen) ![()[https://jq.qq.com/?_wv=1027&k=HCrQYsp2]](https://img.shields.io/badge/QQ-959825608-orange) [![](https://img.shields.io/badge/Telegram-Chat-blue)](https://t.me/+KcTYDTYKzUoxZmM1)
 ---

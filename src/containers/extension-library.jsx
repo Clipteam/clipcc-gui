@@ -6,6 +6,7 @@ import VM from 'clipcc-vm';
 import {connect} from 'react-redux';
 import {defineMessages, injectIntl, intlShape, FormattedMessage} from 'react-intl';
 import ClipCCExtension, {error} from 'clipcc-extension';
+import log from '../lib/log';
 
 import LibraryComponent from '../components/library/library.jsx';
 import extensionIcon from '../components/action-menu/icon--sprite.svg';
@@ -97,6 +98,7 @@ class ExtensionLibrary extends React.PureComponent {
             'handleUploadExtension',
             'handleClickExtensionStore',
             'handleItemChange',
+            'handleExtensionMessage',
             'handleMsgboxConfirm',
             'handleMsgboxCancel',
             'handleMsgboxGiveup'
@@ -109,12 +111,17 @@ class ExtensionLibrary extends React.PureComponent {
         this.unloadOrder = [];
         this.showModal = 0;
         this.error = 0;
+        this.extensionChannel = global.BroadcastChannel ? new BroadcastChannel('extension') : null;
     }
     componentDidMount () {
         this.willLoad = [];
         this.willUnload = [];
         this.showModal = 0;
         this.error = 0;
+        if (this.extensionChannel) this.extensionChannel.addEventListener('message', this.handleExtensionMessage);
+    }
+    componentWillUnmount () {
+        if (this.extensionChannel) this.extensionChannel.removeEventListener('message', this.handleExtensionMessage);
     }
     handleRequestClose () {
         try {
@@ -135,7 +142,7 @@ class ExtensionLibrary extends React.PureComponent {
             switch (err.code) {
             case error.ERROR_UNAVAILABLE_EXTENSION:
             case error.ERROR_CIRCULAR_REQUIREMENT: {
-                console.error('error', err);
+                log.error('error', err);
                 this.error = err;
                 this.showModal = 2;
                 this.forceUpdate();
@@ -149,6 +156,7 @@ class ExtensionLibrary extends React.PureComponent {
     }
     handleItemChange (item, status) {
         const extension = item.extensionId;
+        /* eslint-disable no-negated-condition */
         if (status) { // load
             const index = this.willUnload.indexOf(extension);
             if (index !== -1) {
@@ -164,6 +172,7 @@ class ExtensionLibrary extends React.PureComponent {
                 this.willUnload.push(extension);
             }
         }
+        /* eslint-enable no-negated-condition */
     }
     handleUploadExtension () {
         const input = document.createElement('input');
@@ -179,51 +188,50 @@ class ExtensionLibrary extends React.PureComponent {
                 const url = URL.createObjectURL(file);
                 const reader = new FileReader();
                 reader.readAsArrayBuffer(file, 'utf8');
-                reader.onload = async () => {
+                reader.onload = () => {
                     this.props.loadExtensionFromFile(reader.result, fileExt);
                 };
             }
         };
         input.click();
     }
+    handleExtensionMessage (event) {
+        if (event.data.action === 'add'){
+            fetch(event.data.download)
+                .then(async response => {
+                    await this.props.loadExtensionFromFile(response.arrayBuffer(), 'ccx');
+                    this.extensionChannel.postMessage({
+                        action: 'addSuccess',
+                        extensionId: event.data.extension
+                    });
+                })
+                .catch(err => {
+                    this.extensionChannel.postMessage({
+                        action: 'addFail',
+                        extensionId: event.data.extension,
+                        error: err
+                    });
+                });
+        }
+
+        if (event.data.action === 'get') {
+            const extensionList = [];
+            for (const ext in this.props.extension) extensionList.push(ext);
+            log.info(extensionList);
+            this.extensionChannel.postMessage({
+                action: 'tell',
+                data: extensionList
+            });
+        }
+    }
     handleClickExtensionStore () {
         if (isScratchDesktop()) {
             return window.ClipCC.ipc.send('open-extension-store');
         }
-        if (!BroadcastChannel) {
+        if (!this.extensionChannel) {
             alert(this.props.intl.formatMessage(messages.unsupportChannel));
             return;
         }
-        const extensionChannel = new BroadcastChannel('extension');
-        extensionChannel.addEventListener('message', event => {
-            if (event.data.action === 'add'){
-                fetch(event.data.download)
-                    .then(async response => {
-                        await this.props.loadExtensionFromFile(response.arrayBuffer(), 'ccx');
-                        extensionChannel.postMessage({
-                            action: 'addSuccess',
-                            extensionId: event.data.extension
-                        });
-                    })
-                    .catch(err => {
-                        extensionChannel.postMessage({
-                            action: 'addFail',
-                            extensionId: event.data.extension,
-                            error: err
-                        });
-                    });
-            }
-
-            if (event.data.action === 'get') {
-                const extensionList = [];
-                for (const ext in this.props.extension) extensionList.push(ext);
-                console.log(extensionList);
-                extensionChannel.postMessage({
-                    action: 'tell',
-                    data: extensionList
-                });
-            }
-        });
         window.open(`https://codingclip.com/extension`, 'extension',
             `width=800,
             height=510
@@ -232,11 +240,17 @@ class ExtensionLibrary extends React.PureComponent {
             status=yes`);
     }
     handleMsgboxConfirm () {
-        ClipCCExtension.extensionManager.loadExtensionsWithMode(this.loadOrder, extension => this.props.vm.extensionManager.loadExtensionURL(extension));
+        ClipCCExtension.extensionManager.loadExtensionsWithMode(
+            this.loadOrder,
+            extension => this.props.vm.extensionManager.loadExtensionURL(extension)
+        );
         for (const extension of this.loadOrder) {
             this.props.setExtensionEnable(extension.id);
         }
-        ClipCCExtension.extensionManager.unloadExtensions(this.unloadOrder);
+        ClipCCExtension.extensionManager.unloadExtensions(
+            this.unloadOrder,
+            extension => this.props.vm.extensionManager.unloadExtensionURL(extension)
+        );
         for (const extension of this.unloadOrder) {
             this.props.setExtensionDisable(extension);
         }
@@ -286,33 +300,53 @@ class ExtensionLibrary extends React.PureComponent {
                             <p style={{margin: 0}}>
                                 {this.props.intl.formatMessage(messages.confirmContent1)}
                             </p>
-                            <p style={{margin: 0, paddingLeft: '2em'}}>
-                                {this.willLoad.join(' ')}
-                            </p>
+                            {this.willLoad.map(v => (
+                                <p
+                                    style={{margin: 0, paddingLeft: '2em'}}
+                                    key={v}
+                                >
+                                    {`${v}`}
+                                </p>
+                            ))}
                         </>) : null}
                         {this.willLoadDependency.length ? (<>
                             <p style={{margin: 0}}>
                                 {this.props.intl.formatMessage(messages.confirmContent2)}
                             </p>
-                            <p style={{margin: 0, paddingLeft: '2em'}}>
-                                {this.willLoadDependency.join(' ')}
-                            </p>
+                            {this.willLoadDependency.map(v => (
+                                <p
+                                    style={{margin: 0, paddingLeft: '2em'}}
+                                    key={v}
+                                >
+                                    {`${v}`}
+                                </p>
+                            ))}
                         </>) : null}
                         {this.willUnload.length ? (<>
                             <p style={{margin: 0}}>
                                 {this.props.intl.formatMessage(messages.confirmContent3)}
                             </p>
-                            <p style={{margin: 0, paddingLeft: '2em'}}>
-                                {this.willUnload.join(' ')}
-                            </p>
+                            {this.willUnload.map(v => (
+                                <p
+                                    style={{margin: 0, paddingLeft: '2em'}}
+                                    key={v}
+                                >
+                                    {`${v}`}
+                                </p>
+                            ))}
                         </>) : null}
                         {this.willUnloadDependency.length ? (<>
                             <p style={{margin: 0}}>
                                 {this.props.intl.formatMessage(messages.confirmContent4)}
                             </p>
-                            <p style={{margin: 0, paddingLeft: '2em'}}>
-                                {this.willUnloadDependency.join(' ')}
-                            </p>
+                            {this.willUnloadDependency.map(v => (
+                                <p
+                                    style={{margin: 0, paddingLeft: '2em'}}
+                                    key={v}
+                                >
+                                    {`${v}`}
+                                </p>
+                            ))}
                         </>) : null}
                     </MessageBoxModal>
                 ) : null}
@@ -330,7 +364,10 @@ class ExtensionLibrary extends React.PureComponent {
                                     {this.props.intl.formatMessage(messages.errorUnavaliable)}
                                 </p>
                                 {this.error.extension.map(v => (
-                                    <p style={{margin: 0, paddingLeft: '2em'}}>
+                                    <p
+                                        style={{margin: 0, paddingLeft: '2em'}}
+                                        key={v.id}
+                                    >
                                         {`${v.id}: ${v.version}`}
                                     </p>
                                 ))}
@@ -338,7 +375,10 @@ class ExtensionLibrary extends React.PureComponent {
                                     {this.props.intl.formatMessage(messages.requireStack)}
                                 </p>
                                 {this.error.requireStack.map(v => (
-                                    <p style={{margin: 0, paddingLeft: '2em'}}>
+                                    <p
+                                        style={{margin: 0, paddingLeft: '2em'}}
+                                        key={v.id}
+                                    >
                                         {`${v.id}: ${v.version}`}
                                     </p>
                                 ))}
@@ -353,7 +393,10 @@ class ExtensionLibrary extends React.PureComponent {
                                     {this.props.intl.formatMessage(messages.requireStack)}
                                 </p>
                                 {this.error.requireStack.map(v => (
-                                    <p style={{margin: 0, paddingLeft: '2em'}}>
+                                    <p
+                                        style={{margin: 0, paddingLeft: '2em'}}
+                                        key={v.id}
+                                    >
                                         {`${v.id}: ${v.version}`}
                                     </p>
                                 ))}

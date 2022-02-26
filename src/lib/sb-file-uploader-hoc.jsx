@@ -3,8 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {defineMessages, intlShape, injectIntl} from 'react-intl';
 import {connect} from 'react-redux';
+import JSZip from 'jszip';
 import log from '../lib/log';
 import sharedMessages from './shared-messages';
+import {loadExtensionFromFile} from '../lib/extension-manager.js';
 
 import {
     LoadingStates,
@@ -29,7 +31,7 @@ import {
 import {
     setLoadError
 } from '../reducers/load-error';
-import { getSetting } from '../reducers/settings';
+import {getSetting} from '../reducers/settings';
 
 const messages = defineMessages({
     loadError: {
@@ -182,11 +184,22 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         }
         // step 6: attached as a handler on our FileReader object; called when
         // file upload raw data is available in the reader
-        onload () {
+        async onload () {
             if (this.fileReader) {
                 this.props.onLoadingStarted();
                 const filename = this.fileToUpload && this.fileToUpload.name;
                 let loadingSuccess = false;
+                const fileExt = filename.substring(filename.lastIndexOf('.') + 1);
+                // If this is *.cc3 file, check and load its extensions in it.
+                if (fileExt === 'cc3') {
+                    const zipData = await JSZip.loadAsync(this.fileReader.result);
+                    for (const file in zipData.files) {
+                        if (/^extensions\/.+\.ccx$/g.test(file)) {
+                            const data = await zipData.files[file].async('arraybuffer');
+                            await this.props.loadExtensionFromFile(data, 'ccx');
+                        }
+                    }
+                }
                 this.props.vm.loadProject(this.fileReader.result)
                     .then(() => {
                         if (filename) {
@@ -232,14 +245,18 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                 /* eslint-disable no-unused-vars */
                 cancelFileUpload,
                 closeFileMenu: closeFileMenuProp,
+                enableAutoSave,
                 isLoadingUpload,
                 isShowingWithoutId,
                 loadingState,
                 onLoadingFinished,
                 onLoadingStarted,
                 onSetProjectTitle,
+                onSetFileSystemHandle,
                 projectChanged,
                 requestProjectUpload: requestProjectUploadProp,
+                setExtensionEnable,
+                showLoadErrorModal,
                 userOwnsProject,
                 /* eslint-enable no-unused-vars */
                 ...componentProps
@@ -271,6 +288,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         projectChanged: PropTypes.bool,
         requestProjectUpload: PropTypes.func,
         showLoadErrorModal: PropTypes.func,
+        setExtensionEnable: PropTypes.func,
         userOwnsProject: PropTypes.bool,
         vm: PropTypes.shape({
             loadProject: PropTypes.func
@@ -288,13 +306,12 @@ const SBFileUploaderHOC = function (WrappedComponent) {
             requirement: PropTypes.arrayOf(PropTypes.string),
             enabled: PropTypes.bool
         }),
+        loadExtensionFromFile: PropTypes.func.isRequired
     };
     const mapStateToProps = (state, ownProps) => {
         const loadingState = state.scratchGui.projectState.loadingState;
         const user = state.session && state.session.session && state.session.session.user;
-        const enableAutoSave = getSetting(state, 'autosave') === 'on';
         return {
-            enableAutoSave: enableAutoSave,
             isLoadingUpload: getIsLoadingUpload(loadingState),
             isShowingWithoutId: getIsShowingWithoutId(loadingState),
             loadingState: loadingState,
@@ -302,7 +319,8 @@ const SBFileUploaderHOC = function (WrappedComponent) {
             userOwnsProject: ownProps.authorUsername && user &&
                 (ownProps.authorUsername === user.username),
             vm: state.scratchGui.vm,
-            extension: state.scratchGui.extension.extension
+            extension: state.scratchGui.extension.extension,
+            enableAutoSave: getSetting(state, 'autosave') === 'on'
         };
     };
     const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -327,7 +345,8 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         showLoadErrorModal: data => {
             dispatch(setLoadError(data));
             dispatch(openLoadErrorModal());
-        }
+        },
+        loadExtensionFromFile: (file, type) => loadExtensionFromFile(dispatch, file, type)
     });
     // Allow incoming props to override redux-provided props. Used to mock in tests.
     const mergeProps = (stateProps, dispatchProps, ownProps) => Object.assign(

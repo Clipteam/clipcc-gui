@@ -10,7 +10,8 @@ import telegram from './telegram.svg';
 import qq from './qq.svg';
 import discord from './discord.svg';
 
-import {appVersionFull} from '../../lib/app-info';
+import {appVersion, appVersionFull, compileTime, isProd} from '../../lib/app-info';
+import {isScratchDesktop} from '../../lib/isScratchDesktop';
 
 const messages = defineMessages({
     aboutModalTitle: {
@@ -23,10 +24,20 @@ const messages = defineMessages({
         description: 'Label for showing version',
         id: 'gui.aboutModal.appVersion'
     },
+    desktopComponentVersion: {
+        defaultMessage: '{component} Version',
+        description: 'Label for showing version',
+        id: 'gui.aboutModal.desktopComponentVersion'
+    },
     license: {
         defaultMessage: 'License',
         description: 'Label for showing license',
         id: 'gui.aboutModal.license'
+    },
+    compileTime: {
+        defaultMessage: 'Compile Time',
+        description: 'Label for compile time',
+        id: 'gui.aboutModal.compileTime'
     },
     licenseContent: {
         defaultMessage: 'GNU Affero General Public License v3',
@@ -53,38 +64,73 @@ const AboutModal = ({
             <p>
                 <strong><FormattedMessage {...messages.appVersion} /></strong>
                 {': '}
-                <span>{appVersionFull}</span>
+                <span>{isProd ? appVersion : appVersionFull}</span>
             </p>
+            {isProd ? null : (
+                <p>
+                    <strong><FormattedMessage {...messages.compileTime} /></strong>
+                    {': '}
+                    <span>{compileTime}</span>
+                </p>
+
+            )}
+            {isScratchDesktop() ? (
+                ['Electron', 'Chrome', 'Node'].map(component => (
+                    <p key={component}>
+                        <strong><FormattedMessage
+                            values={{component}}
+                            {...messages.desktopComponentVersion}
+                        /></strong>
+                        {': '}
+                        <span>{global.ClipCC.versions[component.toLowerCase()]}</span>
+                    </p>
+                ))
+            ) : null}
             <p>
                 <strong><FormattedMessage {...messages.license} /></strong>
                 {': '}
                 <FormattedMessage {...messages.licenseContent} />
             </p>
             <div className={styles.contact}>
-                <img
-                    draggable={false}
-                    width="100 px"
-                    onClick={() => {
-                        window.open('https://t.me/ClipCChat', '_blank');
-                    }}
-                    src={telegram}
-                />
-                <img
-                    draggable={false}
-                    width="100 px"
-                    onClick={() => {
-                        window.open('https://jq.qq.com/?_wv=1027&k=924RaGLu', '_blank');
-                    }}
-                    src={qq}
-                />
-                <img
-                    draggable={false}
-                    width="100 px"
-                    onClick={() => {
-                        window.open('https://discord.gg/uuyHNBH', '_blank');
-                    }}
-                    src={discord}
-                />
+                <a
+                    href="https://t.me/ClipCChat"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <img
+                        draggable={false}
+                        width="100 px"
+                        alt="Telegram"
+                        title="Telegram"
+                        src={telegram}
+                    />
+                </a>
+                <a
+                    href="https://jq.qq.com/?_wv=1027&k=924RaGLu"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <img
+                        draggable={false}
+                        width="100 px"
+                        alt="QQ"
+                        title="QQ"
+                        src={qq}
+                    />
+                </a>
+                <a
+                    href="https://discord.gg/uuyHNBH"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <img
+                        draggable={false}
+                        alt="Discord"
+                        title="Discord"
+                        width="100 px"
+                        src={discord}
+                    />
+                </a>
             </div>
         </Box>
     </Modal>
