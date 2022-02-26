@@ -300,33 +300,53 @@ class ExtensionLibrary extends React.PureComponent {
                             <p style={{margin: 0}}>
                                 {this.props.intl.formatMessage(messages.confirmContent1)}
                             </p>
-                            <p style={{margin: 0, paddingLeft: '2em'}}>
-                                {this.willLoad.join(' ')}
-                            </p>
+                            {this.willLoad.map(v => (
+                                <p
+                                    style={{margin: 0, paddingLeft: '2em'}}
+                                    key={v}
+                                >
+                                    {`${v}`}
+                                </p>
+                            ))}
                         </>) : null}
                         {this.willLoadDependency.length ? (<>
                             <p style={{margin: 0}}>
                                 {this.props.intl.formatMessage(messages.confirmContent2)}
                             </p>
-                            <p style={{margin: 0, paddingLeft: '2em'}}>
-                                {this.willLoadDependency.join(' ')}
-                            </p>
+                            {this.willLoadDependency.map(v => (
+                                <p
+                                    style={{margin: 0, paddingLeft: '2em'}}
+                                    key={v}
+                                >
+                                    {`${v}`}
+                                </p>
+                            ))}
                         </>) : null}
                         {this.willUnload.length ? (<>
                             <p style={{margin: 0}}>
                                 {this.props.intl.formatMessage(messages.confirmContent3)}
                             </p>
-                            <p style={{margin: 0, paddingLeft: '2em'}}>
-                                {this.willUnload.join(' ')}
-                            </p>
+                            {this.willUnload.map(v => (
+                                <p
+                                    style={{margin: 0, paddingLeft: '2em'}}
+                                    key={v}
+                                >
+                                    {`${v}`}
+                                </p>
+                            ))}
                         </>) : null}
                         {this.willUnloadDependency.length ? (<>
                             <p style={{margin: 0}}>
                                 {this.props.intl.formatMessage(messages.confirmContent4)}
                             </p>
-                            <p style={{margin: 0, paddingLeft: '2em'}}>
-                                {this.willUnloadDependency.join(' ')}
-                            </p>
+                            {this.willUnloadDependency.map(v => (
+                                <p
+                                    style={{margin: 0, paddingLeft: '2em'}}
+                                    key={v}
+                                >
+                                    {`${v}`}
+                                </p>
+                            ))}
                         </>) : null}
                     </MessageBoxModal>
                 ) : null}
