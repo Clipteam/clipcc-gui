@@ -264,14 +264,22 @@ class ExtensionLibrary extends React.PureComponent {
         this.props.onRequestClose();
     }
     render () {
-        const extensionLibraryThumbnailData = Object.values(this.props.extension).map(extension => ({
-            ...extension,
-            rawURL: extension.iconURL || extensionIcon,
-            featured: true,
-            switchable: true,
-            name: (<FormattedMessage id={extension.name} />),
-            description: (<FormattedMessage id={extension.description} />)
-        }));
+        const extensionLibraryThumbnailData = Object.values(this.props.extension)
+            .map(extension => ({
+                ...extension,
+                rawURL: extension.iconURL || extensionIcon,
+                featured: true,
+                switchable: true,
+                name: (<FormattedMessage id={extension.name} />),
+                description: (<FormattedMessage id={extension.description} />)
+            }))
+            .sort((a, b) => {
+                if (a.enabled === b.enabled) {
+                    if (a.name === b.name) return 0;
+                    return a.name < b.name ? -1 : 1;
+                }
+                return a.enabled ? -1 : 1;
+            });
         return (
             <>
                 <LibraryComponent
