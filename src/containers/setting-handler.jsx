@@ -1,63 +1,120 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import ReactModal from 'react-modal';
-import VM from 'clipcc-vm';
 import bindAll from 'lodash.bindall';
-import {injectIntl, intlShape} from 'react-intl';
+import {injectIntl} from 'react-intl';
+import VM from 'clipcc-vm';
 
 import SettingsComponent from '../components/settings-modal/settings-modal.jsx';
 
-class Settings extends React.Component {
-	constructor (props) {
+import {updateSetting} from '../reducers/settings';
+
+class SettingsModal extends React.Component {
+    constructor (props) {
         super(props);
         bindAll(this, [
-            'setFramerate',
-            'setCompression',
-            'setDeserializeOption'
+            'handleChangeLayoutStyle',
+            'handleChangeDarkMode',
+            'handleChangeBlurEffect',
+            'handleChangeFramerate',
+            'handleChangeSeamlessFullscreen',
+            'handleChangeAutoSave',
+            'handleChangeAutoSaveInterval',
+            'handleChangeCompatibility',
+            'handleChangeCompressionLevel'
         ]);
     }
+
+    handleChangeLayoutStyle (style) {
+        this.props.updateSettings('layoutStyle', style);
+    }
+
+    handleChangeDarkMode (mode) {
+        this.props.updateSettings('darkMode', mode);
+    }
+
+    handleChangeBlurEffect (value) {
+        this.props.updateSettings('blur', value ? 'on' : 'off');
+    }
     
-	setFramerate (framerate) {
-		this.props.vm.runtime.setFramerate(framerate);
-	}
-	
-	setCompression (level) {
-		this.props.vm.setCompressionLevel(level);
-	}
-	
-	setDeserializeOption (option) {
-		this.props.vm.setDeserializeOption(option);
-	}
-	
+    handleChangeFramerate (framerate) {
+        this.props.updateSettings('fps', framerate);
+        this.props.vm.runtime.setFramerate(framerate);
+    }
+
+    handleChangeSeamlessFullscreen (value) {
+        this.props.updateSettings('seamless', value ? 'on' : 'off');
+    }
+
+    handleChangeAutoSave (value) {
+        this.props.updateSettings('autosave', value ? 'on' : 'off');
+    }
+
+    handleChangeAutoSaveInterval (interval) {
+        this.props.updateSettings('autoSaveSecs', interval);
+    }
+
+    handleChangeCompatibility (value) {
+        const mode = value ? 'replace' : 'donotload';
+        this.props.updateSettings('compatibility', mode);
+        this.props.vm.setDeserializeOption(mode);
+    }
+
+    handleChangeCompressionLevel (level) {
+        this.props.updateSettings('compression', level);
+        this.props.vm.setCompressionLevel(level);
+    }
+
     render () {
         return (
             <SettingsComponent
+                onChangeLayoutStyle={this.handleChangeLayoutStyle}
+                onChangeDarkMode={this.handleChangeDarkMode}
+                onChangeBlurEffect={this.handleChangeBlurEffect}
+                onChangeFramerate={this.handleChangeFramerate}
+                onChangeSeamlessFullscreen={this.handleChangeSeamlessFullscreen}
+                onChangeAutoSave={this.handleChangeAutoSave}
+                onChangeAutosaveInterval={this.handleChangeAutoSaveInterval}
+                onChangeCompatibility={this.handleChangeCompatibility}
+                onChangeCompressionLevel={this.handleChangeCompressionLevel}
                 {...this.props}
-                setFramerate={this.setFramerate}
-                setCompression={this.setCompression}
-                setDeserializeOption={this.setDeserializeOption}
-            >
-                {this.props.children}
-            </SettingsComponent>
+            />
         );
     }
 }
 
-Settings.propTypes = {
+SettingsModal.propTypes = {
     vm: PropTypes.instanceOf(VM).isRequired,
-    children: PropTypes.node
+    layoutStyle: PropTypes.string.isRequired,
+    darkMode: PropTypes.string.isRequired,
+    blur: PropTypes.bool.isRequired,
+    fps: PropTypes.number.isRequired,
+    seamless: PropTypes.bool.isRequired,
+    autosave: PropTypes.bool.isRequired,
+    autosaveInterval: PropTypes.number.isRequired,
+    compatibility: PropTypes.bool.isRequired,
+    compression: PropTypes.number.isRequired,
+    updateSettings: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => {
-    return {
-        vm: state.scratchGui.vm
-    };
-};
+const mapStateToProps = state => ({
+    vm: state.scratchGui.vm,
+    layoutStyle: state.scratchGui.settings.layoutStyle,
+    darkMode: state.scratchGui.settings.darkMode,
+    blur: state.scratchGui.settings.blur === 'on',
+    fps: state.scratchGui.settings.fps,
+    seamless: state.scratchGui.settings.seamless === 'on',
+    autosave: state.scratchGui.settings.autosave === 'on',
+    autosaveInterval: state.scratchGui.settings.autoSaveSecs,
+    compatibility: state.scratchGui.settings.compatibility === 'replace',
+    compression: state.scratchGui.settings.compression
+});
 
-const SettingHandler = injectIntl(connect(
-    mapStateToProps
-)(Settings));
+const mapDispatchToProps = dispatch => ({
+    updateSettings: (name, value) => dispatch(updateSetting(name, value))
+});
 
-
-export default SettingHandler;
+export default injectIntl(connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SettingsModal));

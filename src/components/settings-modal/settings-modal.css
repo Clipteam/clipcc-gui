@@ -8,11 +8,27 @@
 .body {
     background: $ui-white;
     padding: 1.5rem 2.25rem;
+    overflow-y: auto;
+    max-height: 80vh;
 }
-
 
 [theme='dark'] .body {
     background: $ui-primary-dark;
     color: white;
 }
 
+.category {
+    font-weight: bold;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    padding-left: 1em;
+}
+
+.input {
+    width: 5rem;
+}
