@@ -86,7 +86,7 @@ class GUI extends React.Component {
     }
     render () {
         document.body.setAttribute('theme', this.props.darkMode);
-        document.body.setAttribute('effect', this.props.blur);
+        document.body.setAttribute('effect', this.props.blur ? 'blur' : null);
         if (this.props.isError) {
             throw new Error(
                 `Error in Scratch GUI [location=${window.location}]: ${this.props.error}`);
@@ -134,7 +134,7 @@ class GUI extends React.Component {
 
 GUI.propTypes = {
     assetHost: PropTypes.string,
-    blur: PropTypes.string,
+    blur: PropTypes.bool,
     children: PropTypes.node,
     cloudHost: PropTypes.string,
     darkMode: PropTypes.string,
@@ -160,7 +160,7 @@ GUI.propTypes = {
     projectHost: PropTypes.string,
     projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     telemetryModalVisible: PropTypes.bool,
-    vm: PropTypes.instanceOf(VM).isRequired,
+    vm: PropTypes.instanceOf(VM).isRequired
 };
 
 GUI.defaultProps = {
@@ -174,7 +174,7 @@ GUI.defaultProps = {
 
 const mapStateToProps = state => {
     const loadingState = state.scratchGui.projectState.loadingState;
-    let darkMode = getSetting(state, 'darkMode');
+    let darkMode = state.scratchGui.settings.darkMode;
     if (darkMode === 'system') {
         if (matchMedia('(prefers-color-scheme: dark)').matches) {
             darkMode = 'dark';
@@ -182,14 +182,12 @@ const mapStateToProps = state => {
             darkMode = 'light';
         }
     }
-    let blur = getSetting(state, 'blur');
-    if (blur) blur = 'blur';
     return {
         activeTabIndex: state.scratchGui.editorTab.activeTabIndex,
         alertsVisible: state.scratchGui.alerts.visible,
         backdropLibraryVisible: state.scratchGui.modals.backdropLibrary,
         blocksTabVisible: state.scratchGui.editorTab.activeTabIndex === BLOCKS_TAB_INDEX,
-        blur: blur,
+        blur: state.scratchGui.settings.blur,
         cardsVisible: state.scratchGui.cards.visible,
         connectionModalVisible: state.scratchGui.modals.connectionModal,
         costumeLibraryVisible: state.scratchGui.modals.costumeLibrary,
