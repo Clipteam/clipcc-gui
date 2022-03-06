@@ -186,6 +186,7 @@ class SettingsModal extends React.Component {
                 <Box
                     className={classNames(styles.body)}
                     justifyContent="space-between"
+                    scrollbar
                 >
                     <p className={classNames(styles.category)}>
                         {this.props.intl.formatMessage(messages.appearance)}

@@ -46,10 +46,11 @@ const Box = props => {
         wrap,
         shrink,
         style,
+        scrollbar,
         ...componentProps
     } = props;
     return React.createElement(element, {
-        className: classNames(className, styles.box),
+        className: classNames(className, styles.box, scrollbar ? styles.scrollbar : null),
         ref: componentRef,
         style: Object.assign(
             {
@@ -130,7 +131,8 @@ Box.propTypes = {
     /** How whitespace should wrap within this block. */
     wrap: PropTypes.oneOf([
         'nowrap', 'wrap', 'wrap-reverse'
-    ])
+    ]),
+    scrollbar: PropTypes.bool
 };
 Box.defaultProps = {
     element: 'div',
