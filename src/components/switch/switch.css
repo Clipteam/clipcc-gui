@@ -14,7 +14,7 @@ $slider-height: $slider-width;
 }
 
 .switch.false {
-    background-color: $ui-white;
+    background-color: hsla(0, 0%, 90%, 1);
 }
 
 .switch.disabled {
