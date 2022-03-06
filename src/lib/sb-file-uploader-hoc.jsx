@@ -320,7 +320,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                 (ownProps.authorUsername === user.username),
             vm: state.scratchGui.vm,
             extension: state.scratchGui.extension.extension,
-            enableAutoSave: getSetting(state, 'autosave') === 'on'
+            enableAutoSave: getSetting(state, 'autosave')
         };
     };
     const mapDispatchToProps = (dispatch, ownProps) => ({

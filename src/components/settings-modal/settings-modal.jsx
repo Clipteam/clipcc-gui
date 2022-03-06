@@ -36,7 +36,7 @@ const messages = defineMessages({
         description: 'Label of project',
         id: 'gui.settingsModal.project'
     },
-    fps: {
+    framerate: {
         defaultMessage: 'FPS',
         description: 'Label of FPS',
         id: 'gui.settingsModal.fps.label'
@@ -66,17 +66,17 @@ const messages = defineMessages({
         description: 'Label of ClipCC dark mode',
         id: 'gui.settingsModal.darkmode.label'
     },
-    system: {
+    darkmodeSystem: {
         defaultMessage: 'System',
         description: 'Label of system',
         id: 'gui.settingsModal.darkmode.system'
     },
-    light: {
+    darkmodeLight: {
         defaultMessage: 'Light',
         description: 'Label of light',
         id: 'gui.settingsModal.darkmode.light'
     },
-    dark: {
+    darkmodeDark: {
         defaultMessage: 'Dark',
         description: 'Label of dark',
         id: 'gui.settingsModal.darkmode.dark'
@@ -96,6 +96,11 @@ const messages = defineMessages({
         description: 'Label of Handling Auto Save',
         id: 'gui.settingsModal.autosave.label'
     },
+    autosaveUnsupported: {
+        defaultMessage: 'Your browser not support autosave :(',
+        description: 'Label of unsupport browser',
+        id: 'gui.settingsModal.autosave.unsupport'
+    },
     autosaveInterval: {
         defaultMessage: 'Auto Save interval',
         description: 'Label of Auto Save interval',
@@ -106,15 +111,25 @@ const messages = defineMessages({
         description: 'Label of Handling unknown blocks',
         id: 'gui.settingsModal.compatibility.label'
     },
+    compatibilityDoNotLoad: {
+        defaultMessage: 'Don\'t load',
+        description: 'Label of donot load',
+        id: 'gui.settingsModal.compatibility.donotload'
+    },
+    compatibilityConvert: {
+        defaultMessage: 'Convert to procedures',
+        description: 'Label of convert to procedures',
+        id: 'gui.settingsModal.compatibility.convert'
+    },
+    compatibilityDelete: {
+        defaultMessage: 'Delete them',
+        description: 'Label of delete',
+        id: 'gui.settingsModal.compatibility.delete'
+    },
     compression: {
         defaultMessage: 'Compression level',
         description: 'Label of Compression',
         id: 'gui.settingsModal.compression.label'
-    },
-    unsupprotedAutosave: {
-        defaultMessage: 'Your browser not support autosave :(',
-        description: 'Label of unsupport browser',
-        id: 'gui.settingsModal.autosave.unsupport'
     }
 });
 
@@ -129,10 +144,14 @@ class SettingsModal extends React.Component {
         ]);
     }
 
+    calcBound (value, upper, lower) {
+        if (value < lower) return lower;
+        if (value > upper) return upper;
+        return value;
+    }
+
     handleChangeFramerate (framerate) {
-        if (framerate < 10) framerate = 10;
-        if (framerate > 120) framerate = 120;
-        this.props.onChangeFramerate(framerate);
+        this.props.onChangeFramerate(this.calcBound(framerate, 10, 120));
     }
 
     handleChangeAutosave (autosave) {
@@ -140,20 +159,16 @@ class SettingsModal extends React.Component {
             this.props.onChangeAutoSave(autosave);
         } else {
             /* eslint-disable no-alert */
-            alert(this.props.intl.formatMessage(messages.unsupprotedAutosave));
+            alert(this.props.intl.formatMessage(messages.autosaveUnsupproted));
         }
     }
 
     handleChangeAutosaveInterval (interval) {
-        if (interval < 60) interval = 60;
-        if (interval > 600) interval = 600;
-        this.props.onChangeAutosaveInterval(interval);
+        this.props.onChangeAutosaveInterval(this.calcBound(interval, 60, 600));
     }
 
     handleChangeCompressionLevel (level) {
-        if (level < 1) level = 1;
-        if (level > 9) level = 9;
-        this.props.onChangeCompressionLevel(level);
+        this.props.onChangeCompressionLevel(this.calcBound(level, 1, 9));
     }
 
     render () {
@@ -167,14 +182,25 @@ class SettingsModal extends React.Component {
 
         const darkModeItems = [{
             id: 'system',
-            text: this.props.intl.formatMessage(messages.system)
+            text: this.props.intl.formatMessage(messages.darkmodeSystem)
         }, {
             id: 'light',
-            text: this.props.intl.formatMessage(messages.light)
+            text: this.props.intl.formatMessage(messages.darkmodeLight)
         }, {
             id: 'dark',
-            text: this.props.intl.formatMessage(messages.dark)
+            text: this.props.intl.formatMessage(messages.darkmodeDark)
         }];
+
+        const compatibilityItems = [{
+            id: 'donotload',
+            text: this.props.intl.formatMessage(messages.compatibilityDoNotLoad)
+        }, {
+            id: 'replace',
+            text: this.props.intl.formatMessage(messages.compatibilityConvert)
+        }/* , {
+            id: 'delete',
+            text: this.props.intl.formatMessage(messages.compatibilityDelete)
+        } */];
 
         return (
             <Modal
@@ -225,14 +251,14 @@ class SettingsModal extends React.Component {
                     </p>
                     <div className={classNames(styles.item)}>
                         <p className={classNames(styles.text)}>
-                            {this.props.intl.formatMessage(messages.fps)}
+                            {this.props.intl.formatMessage(messages.framerate)}
                         </p>
                         <BufferedInput
                             small
                             tabIndex="0"
                             type="text"
                             placeholder="30"
-                            value={this.props.fps}
+                            value={this.props.framerate}
                             onSubmit={this.handleChangeFramerate}
                             className={classNames(styles.input)}
                         />
@@ -277,7 +303,8 @@ class SettingsModal extends React.Component {
                         <p className={classNames(styles.text)}>
                             {this.props.intl.formatMessage(messages.compatibility)}
                         </p>
-                        <Switch
+                        <TextSwitch
+                            items={compatibilityItems}
                             onChange={this.props.onChangeCompatibility}
                             value={this.props.compatibility}
                         />
@@ -307,11 +334,11 @@ SettingsModal.propTypes = {
     layoutStyle: PropTypes.string.isRequired,
     darkMode: PropTypes.string.isRequired,
     blur: PropTypes.bool.isRequired,
-    fps: PropTypes.number.isRequired,
+    framerate: PropTypes.number.isRequired,
     seamless: PropTypes.bool.isRequired,
     autosave: PropTypes.bool.isRequired,
     autosaveInterval: PropTypes.number.isRequired,
-    compatibility: PropTypes.bool.isRequired,
+    compatibility: PropTypes.string.isRequired,
     compression: PropTypes.number.isRequired,
     onRequestClose: PropTypes.func.isRequired,
     onChangeLayoutStyle: PropTypes.func.isRequired,

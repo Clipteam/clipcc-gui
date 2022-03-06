@@ -183,7 +183,7 @@ const mapStateToProps = state => {
         }
     }
     let blur = getSetting(state, 'blur');
-    if (blur === 'on') blur = 'blur';
+    if (blur) blur = 'blur';
     return {
         activeTabIndex: state.scratchGui.editorTab.activeTabIndex,
         alertsVisible: state.scratchGui.alerts.visible,

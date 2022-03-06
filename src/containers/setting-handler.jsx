@@ -35,29 +35,28 @@ class SettingsModal extends React.Component {
     }
 
     handleChangeBlurEffect (value) {
-        this.props.updateSettings('blur', value ? 'on' : 'off');
+        this.props.updateSettings('blur', value);
     }
     
     handleChangeFramerate (framerate) {
-        this.props.updateSettings('fps', framerate);
+        this.props.updateSettings('framerate', framerate);
         this.props.vm.runtime.setFramerate(framerate);
     }
 
     handleChangeSeamlessFullscreen (value) {
-        this.props.updateSettings('seamless', value ? 'on' : 'off');
+        this.props.updateSettings('seamless', value);
         this.props.setSeamless(value);
     }
 
     handleChangeAutoSave (value) {
-        this.props.updateSettings('autosave', value ? 'on' : 'off');
+        this.props.updateSettings('autosave', value);
     }
 
     handleChangeAutoSaveInterval (interval) {
         this.props.updateSettings('autoSaveSecs', interval);
     }
 
-    handleChangeCompatibility (value) {
-        const mode = value ? 'replace' : 'donotload';
+    handleChangeCompatibility (mode) {
         this.props.updateSettings('compatibility', mode);
         this.props.vm.setDeserializeOption(mode);
     }
@@ -90,25 +89,26 @@ SettingsModal.propTypes = {
     layoutStyle: PropTypes.string.isRequired,
     darkMode: PropTypes.string.isRequired,
     blur: PropTypes.bool.isRequired,
-    fps: PropTypes.number.isRequired,
+    framerate: PropTypes.number.isRequired,
     seamless: PropTypes.bool.isRequired,
     autosave: PropTypes.bool.isRequired,
     autosaveInterval: PropTypes.number.isRequired,
-    compatibility: PropTypes.bool.isRequired,
+    compatibility: PropTypes.string.isRequired,
     compression: PropTypes.number.isRequired,
-    updateSettings: PropTypes.func.isRequired
+    updateSettings: PropTypes.func.isRequired,
+    setSeamless: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
     vm: state.scratchGui.vm,
     layoutStyle: state.scratchGui.settings.layoutStyle,
     darkMode: state.scratchGui.settings.darkMode,
-    blur: state.scratchGui.settings.blur === 'on',
-    fps: state.scratchGui.settings.fps,
-    seamless: state.scratchGui.settings.seamless === 'on',
-    autosave: state.scratchGui.settings.autosave === 'on',
-    autosaveInterval: state.scratchGui.settings.autoSaveSecs,
-    compatibility: state.scratchGui.settings.compatibility === 'replace',
+    blur: state.scratchGui.settings.blur,
+    framerate: state.scratchGui.settings.framerate,
+    seamless: state.scratchGui.settings.seamless,
+    autosave: state.scratchGui.settings.autosave,
+    autosaveInterval: state.scratchGui.settings.autosaveInteval,
+    compatibility: state.scratchGui.settings.compatibility,
     compression: state.scratchGui.settings.compression
 });
 

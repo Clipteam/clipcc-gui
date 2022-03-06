@@ -448,9 +448,9 @@ const ProjectSaverHOC = function (WrappedComponent) {
         const loadingState = state.scratchGui.projectState.loadingState;
         const isShowingWithId = getIsShowingWithId(loadingState);
         const isShowingProject = getIsShowingProject(loadingState);
-        const enableAutoSave = getSetting(state, 'autosave') === 'on';
+        const enableAutoSave = getSetting(state, 'autosave');
         return {
-            autoSaveIntervalSecs: getSetting(state, 'autoSaveSecs'),
+            autoSaveIntervalSecs: getSetting(state, 'autosaveInteval'),
             autoSaveTimeoutId: state.scratchGui.timeout.autoSaveTimeoutId,
             enableAutoSave: enableAutoSave,
             fileHandle: state.scratchGui.projectState.fileHandle,

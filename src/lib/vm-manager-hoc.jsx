@@ -147,7 +147,7 @@ const vmManagerHOC = function (WrappedComponent) {
             loadingState: loadingState,
             isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
             isStarted: state.scratchGui.vmStatus.started,
-            fps: parseInt(getSetting(state, 'fps')),
+            fps: parseInt(getSetting(state, 'framerate')),
             compression: parseInt(getSetting(state, 'compression')),
             compatibility: getSetting(state, 'compatibility')
         };
