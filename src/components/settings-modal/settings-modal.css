@@ -27,6 +27,12 @@
     align-items: center;
     align-content: center;
     padding-left: 1em;
+    padding-right: 1em;
+    transition-duration: .2s;
+}
+
+.item:hover {
+    background-color: rgb(240, 240, 240);
 }
 
 .input {
