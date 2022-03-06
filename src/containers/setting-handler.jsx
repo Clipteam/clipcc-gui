@@ -8,6 +8,7 @@ import VM from 'clipcc-vm';
 import SettingsComponent from '../components/settings-modal/settings-modal.jsx';
 
 import {updateSetting} from '../reducers/settings';
+import {setSeamless} from '../reducers/mode';
 
 class SettingsModal extends React.Component {
     constructor (props) {
@@ -44,6 +45,7 @@ class SettingsModal extends React.Component {
 
     handleChangeSeamlessFullscreen (value) {
         this.props.updateSettings('seamless', value ? 'on' : 'off');
+        this.props.setSeamless(value);
     }
 
     handleChangeAutoSave (value) {
@@ -111,7 +113,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    updateSettings: (name, value) => dispatch(updateSetting(name, value))
+    updateSettings: (name, value) => dispatch(updateSetting(name, value)),
+    setSeamless: value => dispatch(setSeamless(value))
 });
 
 export default injectIntl(connect(
