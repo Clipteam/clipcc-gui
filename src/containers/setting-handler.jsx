@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import ReactModal from 'react-modal';
 import VM from 'clipcc-vm';
 import bindAll from 'lodash.bindall';
-import {injectIntl, intlShape} from 'react-intl';
+import {injectIntl} from 'react-intl';
 
 import SettingsComponent from '../components/settings-modal/settings-modal.jsx';
 
@@ -17,19 +17,19 @@ class Settings extends React.Component {
             'setDeserializeOption'
         ]);
     }
-    
+
 	setFramerate (framerate) {
 		this.props.vm.runtime.setFramerate(framerate);
 	}
-	
+
 	setCompression (level) {
 		this.props.vm.setCompressionLevel(level);
 	}
-	
+
 	setDeserializeOption (option) {
 		this.props.vm.setDeserializeOption(option);
 	}
-	
+
     render () {
         return (
             <SettingsComponent

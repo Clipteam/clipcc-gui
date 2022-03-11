@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 
 import InlineMessages from '../../containers/inline-messages.jsx';
 
@@ -58,7 +58,6 @@ const SaveStatus = ({
     ));
 
 SaveStatus.propTypes = {
-    intl: intlShape.isRequired,
     alertsList: PropTypes.arrayOf(PropTypes.object),
     isStandalone: PropTypes.bool,
     canSave: PropTypes.bool,

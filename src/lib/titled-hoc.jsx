@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 
 import {
     getIsAnyCreatingNewState,
@@ -76,7 +76,6 @@ const TitledHOC = function (WrappedComponent) {
     }
 
     TitledComponent.propTypes = {
-        intl: intlShape,
         isAnyCreatingNewState: PropTypes.bool,
         isShowingWithoutId: PropTypes.bool,
         onChangedProjectTitle: PropTypes.func,

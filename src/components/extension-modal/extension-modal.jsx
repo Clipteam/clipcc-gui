@@ -2,7 +2,7 @@ import bindAll from 'lodash.bindall';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import Box from '../box/box.jsx';
 import Modal from '../../containers/modal.jsx';
 import Switch from '../settings-modal/switch.jsx';
@@ -91,7 +91,6 @@ class ExtensionModal extends React.PureComponent {
 };
 
 ExtensionModal.propTypes = {
-    intl: intlShape.isRequired,
     onRequestClose: PropTypes.func.isRequired,
     extension: PropTypes.shape({
         extensionId: PropTypes.string,

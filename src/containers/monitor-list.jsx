@@ -1,7 +1,7 @@
 import bindAll from 'lodash.bindall';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {injectIntl, intlShape} from 'react-intl';
+import {injectIntl} from 'react-intl';
 
 import {connect} from 'react-redux';
 import {moveMonitorRect} from '../reducers/monitor-layout';
@@ -33,7 +33,6 @@ class MonitorList extends React.Component {
 }
 
 MonitorList.propTypes = {
-    intl: intlShape.isRequired,
     moveMonitorRect: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({

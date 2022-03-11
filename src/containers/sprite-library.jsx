@@ -1,7 +1,7 @@
 import bindAll from 'lodash.bindall';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {injectIntl, intlShape, defineMessages} from 'react-intl';
+import {injectIntl, defineMessages} from 'react-intl';
 import VM from 'clipcc-vm';
 
 import {getSpriteLibrary} from '../lib/libraries/async-load-libraries.js';
@@ -48,7 +48,6 @@ class SpriteLibrary extends React.PureComponent {
 }
 
 SpriteLibrary.propTypes = {
-    intl: intlShape.isRequired,
     onActivateBlocksTab: PropTypes.func.isRequired,
     onRequestClose: PropTypes.func,
     vm: PropTypes.instanceOf(VM).isRequired

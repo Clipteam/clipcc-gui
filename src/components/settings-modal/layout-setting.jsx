@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 import Box from '../box/box.jsx';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 import {updateSetting, getSetting} from '../../reducers/settings';
 import styles from './layout-setting.css';
 
@@ -78,7 +78,6 @@ const LayoutSetting = props => (
 );
 
 LayoutSetting.propTypes = {
-    intl: intlShape.isRequired,
     layoutStyle: PropTypes.string.isRequired,
     onClickScratch2Style: PropTypes.func.isRequired,
     onClickScratch3Style: PropTypes.func.isRequired

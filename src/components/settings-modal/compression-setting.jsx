@@ -11,7 +11,7 @@ import Box from '../box/box.jsx';
 import Input from '../forms/input.jsx';
 import classNames from 'classnames';
 import BufferedInputHOC from '../forms/buffered-input-hoc.jsx';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 import {updateSetting, getSetting} from '../../reducers/settings';
 import styles from './layout-setting.css';
 
@@ -63,7 +63,6 @@ const CompressionSetting = props => (
 );
 
 CompressionSetting.propTypes = {
-    intl: intlShape.isRequired,
     compression: PropTypes.number.isRequired,
 };
 

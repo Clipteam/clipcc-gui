@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
 
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 
 import styles from './play-button.css';
 
@@ -61,7 +61,6 @@ const PlayButtonComponent = ({
 
 PlayButtonComponent.propTypes = {
     className: PropTypes.string,
-    intl: intlShape,
     isPlaying: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
     onMouseDown: PropTypes.func.isRequired,
