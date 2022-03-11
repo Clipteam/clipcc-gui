@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {defineMessages, injectIntl, intlShape, FormattedMessage} from 'react-intl';
+import {defineMessages, injectIntl, FormattedMessage} from 'react-intl';
 import ReactModal from 'react-modal';
 
 import Box from '../box/box.jsx';
@@ -79,7 +79,6 @@ class LoadErrorModal extends React.PureComponent {
 /* eslint-enable react/prefer-stateless-function */
 
 LoadErrorModal.propTypes = {
-    intl: intlShape.isRequired,
     isRtl: PropTypes.bool,
     data: PropTypes.shape({
         errorId: PropTypes.string,

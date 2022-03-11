@@ -1,10 +1,7 @@
-import {addLocaleData} from 'react-intl';
 import {cloneDeep} from 'lodash';
 
-import {localeData, isRtl} from 'clipcc-l10n';
+import {isRtl} from 'clipcc-l10n';
 import editorMessages from 'clipcc-l10n/dist/editor-msgs';
-
-addLocaleData(localeData);
 
 const UPDATE_LOCALE = 'clipcc-gui/locales/UPDATE_LOCALE';
 const SELECT_LOCALE = 'clipcc-gui/locales/SELECT_LOCALE';

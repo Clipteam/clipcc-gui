@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactModal from 'react-modal';
 import Box from '../box/box.jsx';
-import {defineMessages, injectIntl, intlShape, FormattedMessage} from 'react-intl';
+import {defineMessages, injectIntl, FormattedMessage} from 'react-intl';
 
 import styles from './browser-modal.css';
 import unhappyBrowser from './unsupported-browser.svg';
@@ -97,7 +97,6 @@ const BrowserModal = ({intl, ...props}) => {
 
 BrowserModal.propTypes = {
     error: PropTypes.bool,
-    intl: intlShape.isRequired,
     isRtl: PropTypes.bool,
     onBack: PropTypes.func.isRequired
 };

@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 import Box from '../box/box.jsx';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 import {updateSetting, getSetting} from '../../reducers/settings';
 import {setSeamless} from '../../reducers/mode';
 import styles from './layout-setting.css';
@@ -74,7 +74,6 @@ const SeamlessSetting = props => (
 );
 
 SeamlessSetting.propTypes = {
-    intl: intlShape.isRequired,
     seamless: PropTypes.string.isRequired,
     onEnable: PropTypes.func.isRequired,
     onDisable: PropTypes.func.isRequired

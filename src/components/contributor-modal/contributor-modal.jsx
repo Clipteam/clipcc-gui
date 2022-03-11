@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Box from '../box/box.jsx';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 import Modal from '../../containers/modal.jsx';
 import styles from './contributor-modal.css';
 import {contributorList} from './contributor-list.js';
@@ -106,7 +106,6 @@ const ContributorModal = ({
 );
 
 ContributorModal.propTypes = {
-    intl: intlShape.isRequired,
     onRequestClose: PropTypes.func.isRequired
 };
 

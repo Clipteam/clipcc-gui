@@ -3,7 +3,7 @@ import React from 'react';
 import Modal from '../../containers/modal.jsx';
 import Box from '../box/box.jsx';
 import Checkbox from '../checkbox/checkbox.jsx';
-import {defineMessages, injectIntl, intlShape, FormattedMessage} from 'react-intl';
+import {defineMessages, injectIntl, FormattedMessage} from 'react-intl';
 
 import booleanInputIcon from './icon--boolean-input.svg';
 import textInputIcon from './icon--text-input.svg';
@@ -149,7 +149,6 @@ const CustomProcedures = props => (
 
 CustomProcedures.propTypes = {
     componentRef: PropTypes.func.isRequired,
-    intl: intlShape,
     isCreate: PropTypes.bool.isRequired,
     onAddBoolean: PropTypes.func.isRequired,
     onAddLabel: PropTypes.func.isRequired,

@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Box from '../box/box.jsx';
-import {defineMessages, injectIntl, intlShape, FormattedMessage} from 'react-intl';
+import {defineMessages, injectIntl, FormattedMessage} from 'react-intl';
 import Modal from '../../containers/modal.jsx';
 import styles from './about-modal.css';
 import logo from './clipcc3_logo.svg';
@@ -137,7 +137,6 @@ const AboutModal = ({
 );
 
 AboutModal.propTypes = {
-    intl: intlShape.isRequired,
     onRequestClose: PropTypes.func.isRequired
 };
 

@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 import Box from '../box/box.jsx';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 import {updateSetting, getSetting} from '../../reducers/settings';
 import styles from './layout-setting.css';
 
@@ -94,7 +94,6 @@ const CompatibilitySetting = props => (
 );
 
 CompatibilitySetting.propTypes = {
-    intl: intlShape.isRequired,
     compatibility: PropTypes.string.isRequired,
     onClickDoNotLoad: PropTypes.func.isRequired,
     onClickReplace: PropTypes.func.isRequired,
