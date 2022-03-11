@@ -25,7 +25,7 @@ class Menu extends React.Component {
         this.removeListeners();
     }
     addListeners () {
-        document.addEventListener('mouseup', this.handleClick);
+        document.addEventListener('mouseup', this.handleClick, {capture: true});
     }
     removeListeners () {
         document.removeEventListener('mouseup', this.handleClick);

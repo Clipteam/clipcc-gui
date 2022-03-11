@@ -54,27 +54,33 @@ class SoundTab extends React.Component {
             'handleDrop',
             'setFileInput'
         ]);
-        this.state = {selectedSoundIndex: 0};
+        this.state = {
+            cachedPrevProps: props,
+            selectedSoundIndex: 0
+        };
     }
 
-    componentWillReceiveProps (nextProps) {
+    static getDerivedStateFromProps (nextProps, prevState) {
         const {
             editingTarget,
             sprites,
             stage
         } = nextProps;
-
         const target = editingTarget && sprites[editingTarget] ? sprites[editingTarget] : stage;
-        if (!target || !target.sounds) {
-            return;
-        }
-
+        if (!target || !target.sounds) return;
         // If switching editing targets, reset the sound index
-        if (this.props.editingTarget !== editingTarget) {
-            this.setState({selectedSoundIndex: 0});
-        } else if (this.state.selectedSoundIndex > target.sounds.length - 1) {
-            this.setState({selectedSoundIndex: Math.max(target.sounds.length - 1, 0)});
+        if (prevState.cachedPrevProps.editingTarget !== editingTarget) {
+            return {
+                selectedSoundIndex: 0,
+                cachedPrevProps: nextProps
+            };
+        } else if (prevState.cachedPrevProps.selectedSoundIndex > target.sounds.length - 1) {
+            return {
+                selectedSoundIndex: Math.max(target.sounds.length - 1, 0),
+                cachedPrevProps: nextProps
+            };
         }
+        return {cachedPrevProps: nextProps};
     }
 
     handleSelectSound (soundIndex) {

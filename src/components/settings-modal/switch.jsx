@@ -13,11 +13,9 @@ class Switch extends React.Component {
         this.state = {checked: props.default};
     }
     handleClick () {
-        this.setState((state, props) => {
-            props.onChange(!state.checked);
-            return {
-                checked: !state.checked
-            };
+        this.props.onChange(!this.state.checked);
+        this.setState({
+            checked: !this.state.checked
         });
     }
     render () {

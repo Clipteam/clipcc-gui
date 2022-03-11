@@ -50,8 +50,8 @@ const vmListenerHOC = function (WrappedComponent) {
         }
         componentDidMount () {
             if (this.props.attachKeyboardEvents) {
-                document.addEventListener('keydown', this.handleKeyDown);
-                document.addEventListener('keyup', this.handleKeyUp);
+                document.addEventListener('keydown', this.handleKeyDown, { capture: true });
+                document.addEventListener('keyup', this.handleKeyUp, { capture: true });
             }
             this.props.vm.postIOData('userData', {username: this.props.username});
         }

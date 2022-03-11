@@ -75,22 +75,22 @@
     "prop-types": "^15.5.10",
     "query-string": "^5.1.1",
     "raw-loader": "^0.5.1",
-    "react": "16.2.0",
+    "react": "17.0.2",
     "react-contextmenu": "2.9.4",
-    "react-dom": "16.2.1",
+    "react-dom": "17.0.2",
     "react-draggable": "3.0.5",
     "react-ga": "2.5.3",
     "react-intl": "2.9.0",
     "react-modal": "3.9.1",
     "react-popover": "0.5.10",
-    "react-redux": "5.0.7",
+    "react-redux": "7.2.6",
     "react-responsive": "5.0.0",
     "react-style-proptype": "3.2.2",
     "react-tabs": "2.3.0",
     "react-tooltip": "3.8.0",
     "react-transition-group": "^4.4.1",
     "react-virtualized": "9.20.1",
-    "redux": "3.7.2",
+    "redux": "4.1.2",
     "redux-throttle": "0.1.1",
     "scratch-audio": "0.1.0-prerelease.20200528195344",
     "scratch-paint": "^0.2.0-prerelease.20211027080909",
@@ -107,8 +107,8 @@
     "xhr": "2.5.0"
   },
   "peerDependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
   },
   "devDependencies": {
     "@babel/cli": "7.14.8",

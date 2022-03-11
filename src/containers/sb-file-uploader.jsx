@@ -63,7 +63,7 @@ class SBFileUploader extends React.Component {
         ]);
         if (props.onRef) props.onRef(this);
     }
-    componentWillMount () {
+    componentDidMount () {
         this.reader = new FileReader();
         this.reader.onload = this.onload;
         this.resetFileInput();
