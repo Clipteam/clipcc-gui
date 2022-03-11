@@ -1,7 +1,7 @@
 import bindAll from 'lodash.bindall';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 import VM from 'clipcc-vm';
 import AudioEngine from 'scratch-audio';
 
@@ -62,7 +62,7 @@ class SoundLibrary extends React.PureComponent {
          * function to call when the sound ends
          */
         this.handleStop = null;
-        
+
         const soundLibrary = getSoundLibrary();
         this.state = {
             data: Array.isArray(soundLibrary) ?
@@ -190,7 +190,6 @@ class SoundLibrary extends React.PureComponent {
 }
 
 SoundLibrary.propTypes = {
-    intl: intlShape.isRequired,
     isRtl: PropTypes.bool,
     onNewSound: PropTypes.func.isRequired,
     onRequestClose: PropTypes.func,

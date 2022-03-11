@@ -26,3 +26,6 @@ if (supportedBrowser()) {
     // eslint-disable-next-line react/jsx-no-bind
     ReactDOM.render(<WrappedBrowserModalComponent onBack={handleBack} />, appTarget);
 }
+
+global.React = React;
+global.ReactDOM = ReactDOM;

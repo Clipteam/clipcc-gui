@@ -2,7 +2,7 @@ import bindAll from 'lodash.bindall';
 import omit from 'lodash.omit';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {intlShape, injectIntl} from 'react-intl';
+import {injectIntl} from 'react-intl';
 
 import {connect} from 'react-redux';
 import {openBackdropLibrary} from '../reducers/modals';
@@ -180,7 +180,6 @@ class StageSelector extends React.Component {
 StageSelector.propTypes = {
     ...StageSelectorComponent.propTypes,
     id: PropTypes.string,
-    intl: intlShape.isRequired,
     onCloseImporting: PropTypes.func,
     onSelect: PropTypes.func,
     onShowImporting: PropTypes.func

@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 import Box from '../box/box.jsx';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 import {updateSetting, getSetting} from '../../reducers/settings';
 import styles from './layout-setting.css';
 
@@ -88,7 +88,6 @@ const darkModeSetting = props => (
 );
 
 darkModeSetting.propTypes = {
-    intl: intlShape.isRequired,
     darkMode: PropTypes.string.isRequired,
     onClickSystem: PropTypes.func.isRequired,
     onClickLight: PropTypes.func.isRequired,

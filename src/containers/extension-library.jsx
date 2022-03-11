@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import VM from 'clipcc-vm';
 import {connect} from 'react-redux';
-import {defineMessages, injectIntl, intlShape, FormattedMessage} from 'react-intl';
+import {defineMessages, injectIntl, FormattedMessage} from 'react-intl';
 import ClipCCExtension, {error} from 'clipcc-extension';
 import log from '../lib/log';
 
@@ -422,7 +422,6 @@ ExtensionLibrary.propTypes = {
         description: PropTypes.string,
         requirement: PropTypes.arrayOf(PropTypes.string)
     }),
-    intl: intlShape.isRequired,
     loadExtensionFromFile: PropTypes.func.isRequired,
     setExtensionEnable: PropTypes.func.isRequired,
     setExtensionDisable: PropTypes.func.isRequired,

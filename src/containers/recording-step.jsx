@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import bindAll from 'lodash.bindall';
 import RecordingStepComponent from '../components/record-modal/recording-step.jsx';
 import AudioRecorder from '../lib/audio/audio-recorder.js';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 
 const messages = defineMessages({
     alertMsg: {
@@ -77,7 +77,6 @@ class RecordingStep extends React.Component {
 }
 
 RecordingStep.propTypes = {
-    intl: intlShape.isRequired,
     onRecord: PropTypes.func.isRequired,
     onStopRecording: PropTypes.func.isRequired,
     recording: PropTypes.bool

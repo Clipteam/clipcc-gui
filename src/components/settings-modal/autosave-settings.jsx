@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import Input from '../forms/input.jsx';
 import Box from '../box/box.jsx';
 import BufferedInputHOC from '../forms/buffered-input-hoc.jsx';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 import {updateSetting, getSetting} from '../../reducers/settings';
 import styles from './layout-setting.css';
 
@@ -120,7 +120,6 @@ const AutoSaveSetting = props => (
 );
 
 AutoSaveSetting.propTypes = {
-    intl: intlShape.isRequired,
     autoSaveSecs: PropTypes.number.isRequired,
     autoSave: PropTypes.string.isRequired,
     onEnable: PropTypes.func.isRequired,

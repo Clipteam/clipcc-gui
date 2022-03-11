@@ -8,7 +8,7 @@ import Input from '../forms/input.jsx';
 import BufferedInputHOC from '../forms/buffered-input-hoc.jsx';
 import DirectionPicker from '../../containers/direction-picker.jsx';
 
-import {injectIntl, intlShape, defineMessages, FormattedMessage} from 'react-intl';
+import {injectIntl, defineMessages, FormattedMessage} from 'react-intl';
 
 import {STAGE_DISPLAY_SIZES} from '../../lib/layout-constants.js';
 import {isWideLocale} from '../../lib/locale-utils.js';
@@ -265,7 +265,6 @@ SpriteInfo.propTypes = {
         PropTypes.number
     ]),
     disabled: PropTypes.bool,
-    intl: intlShape,
     name: PropTypes.string,
     onChangeDirection: PropTypes.func,
     onChangeName: PropTypes.func,

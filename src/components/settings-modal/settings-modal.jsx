@@ -7,7 +7,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Box from '../box/box.jsx';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 import Modal from '../../containers/modal.jsx';
 import styles from './settings-modal.css';
 // eslint-disable-next-line no-unused-vars
@@ -61,7 +61,6 @@ const Setting = props => (
 );
 
 Setting.propTypes = {
-    intl: intlShape.isRequired,
     children: PropTypes.node,
     message: PropTypes.shape({
         defaultMessage: PropTypes.string,
@@ -125,7 +124,6 @@ const SettingsModal = ({
 
 
 SettingsModal.propTypes = {
-    intl: intlShape.isRequired,
     onRequestClose: PropTypes.func.isRequired
 };
 

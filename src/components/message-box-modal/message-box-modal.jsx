@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 import ReactModal from 'react-modal';
 
 import Box from '../box/box.jsx';
@@ -92,7 +92,6 @@ class MessageBoxModal extends React.PureComponent {
 
 MessageBoxModal.propTypes = {
     children: PropTypes.node,
-    intl: intlShape.isRequired,
     isRtl: PropTypes.bool,
     title: PropTypes.string,
     mode: PropTypes.string,

@@ -1,4 +1,4 @@
-import {defineMessages, FormattedMessage, intlShape, injectIntl} from 'react-intl';
+import {defineMessages, FormattedMessage, injectIntl} from 'react-intl';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -89,7 +89,6 @@ const SliderPromptComponent = props => (
 );
 
 SliderPromptComponent.propTypes = {
-    intl: intlShape,
     maxValue: PropTypes.string,
     minValue: PropTypes.string,
     onCancel: PropTypes.func.isRequired,

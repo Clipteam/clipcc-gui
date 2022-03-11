@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 import Box from '../box/box.jsx';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 import {updateSetting, getSetting} from '../../reducers/settings';
 import styles from './layout-setting.css';
 
@@ -73,7 +73,6 @@ const BlurSetting = props => (
 );
 
 BlurSetting.propTypes = {
-    intl: intlShape.isRequired,
     blur: PropTypes.string.isRequired,
     onEnable: PropTypes.func.isRequired,
     onDisable: PropTypes.func.isRequired
