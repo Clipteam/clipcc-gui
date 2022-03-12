@@ -130,6 +130,16 @@ const messages = defineMessages({
         defaultMessage: 'Compression level',
         description: 'Label of Compression',
         id: 'gui.settingsModal.compression.label'
+    },
+    saveExtension: {
+        defaultMessage: 'Save Extension to Project File',
+        description: 'Label of Save Extension',
+        id: 'gui.settingsModal.saveExtension.label'
+    },
+    saveOptionalExtension: {
+        defaultMessage: 'Save Optional Extension to Project File',
+        description: 'Label of Save Optional Extension',
+        id: 'gui.settingsModal.saveOptionalExtension.label'
     }
 });
 
@@ -323,6 +333,24 @@ class SettingsModal extends React.Component {
                             className={classNames(styles.input)}
                         />
                     </div>
+                    <div className={classNames(styles.item)}>
+                        <p className={classNames(styles.text)}>
+                            {this.props.intl.formatMessage(messages.saveExtension)}
+                        </p>
+                        <Switch
+                            onChange={this.props.onChangeSaveExtension}
+                            value={this.props.saveExtension}
+                        />
+                    </div>
+                    <div className={classNames(styles.item)}>
+                        <p className={classNames(styles.text)}>
+                            {this.props.intl.formatMessage(messages.saveOptionalExtension)}
+                        </p>
+                        <Switch
+                            onChange={this.props.onChangeSaveOptionalExtension}
+                            value={this.props.saveOptionalExtension}
+                        />
+                    </div>
                 </Box>
             </Modal>
         );
@@ -340,6 +368,8 @@ SettingsModal.propTypes = {
     autosaveInterval: PropTypes.number.isRequired,
     compatibility: PropTypes.string.isRequired,
     compression: PropTypes.number.isRequired,
+    saveExtension: PropTypes.bool.isRequired,
+    saveOptionalExtension: PropTypes.bool.isRequired,
     onRequestClose: PropTypes.func.isRequired,
     onChangeLayoutStyle: PropTypes.func.isRequired,
     onChangeDarkMode: PropTypes.func.isRequired,
@@ -349,7 +379,9 @@ SettingsModal.propTypes = {
     onChangeAutoSave: PropTypes.func.isRequired,
     onChangeAutosaveInterval: PropTypes.func.isRequired,
     onChangeCompatibility: PropTypes.func.isRequired,
-    onChangeCompressionLevel: PropTypes.func.isRequired
+    onChangeCompressionLevel: PropTypes.func.isRequired,
+    onChangeSaveExtension: PropTypes.func.isRequired,
+    onChangeSaveOptionalExtension: PropTypes.func.isRequired
 };
 
 export default injectIntl(SettingsModal);

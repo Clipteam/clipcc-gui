@@ -22,7 +22,9 @@ class SettingsModal extends React.Component {
             'handleChangeAutoSave',
             'handleChangeAutoSaveInterval',
             'handleChangeCompatibility',
-            'handleChangeCompressionLevel'
+            'handleChangeCompressionLevel',
+            'handleChangeSaveExtension',
+            'handleChangeSaveOptionalExtension'
         ]);
     }
 
@@ -66,6 +68,14 @@ class SettingsModal extends React.Component {
         this.props.vm.setCompressionLevel(level);
     }
 
+    handleChangeSaveExtension (value) {
+        this.props.updateSettings('saveExtension', value);
+    }
+
+    handleChangeSaveOptionalExtension (value) {
+        this.props.updateSettings('saveOptionalExtension', value);
+    }
+
     render () {
         return (
             <SettingsComponent
@@ -78,6 +88,8 @@ class SettingsModal extends React.Component {
                 onChangeAutosaveInterval={this.handleChangeAutoSaveInterval}
                 onChangeCompatibility={this.handleChangeCompatibility}
                 onChangeCompressionLevel={this.handleChangeCompressionLevel}
+                onChangeSaveExtension={this.handleChangeSaveExtension}
+                onChangeSaveOptionalExtension={this.handleChangeSaveOptionalExtension}
                 {...this.props}
             />
         );
@@ -95,6 +107,8 @@ SettingsModal.propTypes = {
     autosaveInterval: PropTypes.number.isRequired,
     compatibility: PropTypes.string.isRequired,
     compression: PropTypes.number.isRequired,
+    saveExtension: PropTypes.bool.isRequired,
+    saveOptionalExtension: PropTypes.bool.isRequired,
     updateSettings: PropTypes.func.isRequired,
     setSeamless: PropTypes.func.isRequired
 };
@@ -109,7 +123,9 @@ const mapStateToProps = state => ({
     autosave: state.scratchGui.settings.autosave,
     autosaveInterval: state.scratchGui.settings.autosaveInteval,
     compatibility: state.scratchGui.settings.compatibility,
-    compression: state.scratchGui.settings.compression
+    compression: state.scratchGui.settings.compression,
+    saveExtension: state.scratchGui.settings.saveExtension,
+    saveOptionalExtension: state.scratchGui.settings.saveOptionalExtension
 });
 
 const mapDispatchToProps = dispatch => ({

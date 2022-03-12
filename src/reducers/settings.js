@@ -10,7 +10,9 @@ const defaultState = {
     autosaveInterval: 120,
     framerate: 30,
     compatibility: 'donotload',
-    compression: 6
+    compression: 6,
+    saveExtension: true,
+    saveOptionalExtension: false
 };
 
 const initialState = JSON.parse(localStorage.getItem('settings')) || {};

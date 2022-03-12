@@ -45,7 +45,7 @@ class SB3Downloader extends React.Component {
         return result;
     }
     downloadCc3Project () {
-        this.props.saveProjectCc3(this.getExtensionData).then(content => {
+        this.props.saveProjectCc3(this.props.settings, this.getExtensionData).then(content => {
             if (this.props.onSaveFinished) {
                 this.props.onSaveFinished();
             }
@@ -148,7 +148,8 @@ SB3Downloader.propTypes = {
         description: PropTypes.string,
         requirement: PropTypes.arrayOf(PropTypes.string),
         data: PropTypes.instanceOf(ArrayBuffer)
-    })
+    }),
+    settings: PropTypes.object.isRequired
 };
 SB3Downloader.defaultProps = {
     className: ''
@@ -159,7 +160,8 @@ const mapStateToProps = state => ({
     fileHandle: state.scratchGui.projectState.fileHandle,
     saveProjectSb3: state.scratchGui.vm.saveProjectSb3.bind(state.scratchGui.vm),
     projectFilename: getProjectFilename(state.scratchGui.projectTitle, projectTitleInitialState),
-    extension: state.scratchGui.extension.extension
+    extension: state.scratchGui.extension.extension,
+    settings: state.scratchGui.settings
 });
 
 const mapDispatchToProps = dispatch => ({
