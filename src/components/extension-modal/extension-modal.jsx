@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import Box from '../box/box.jsx';
 import Modal from '../../containers/modal.jsx';
-import Switch from '../settings-modal/switch.jsx';
+import Switch from '../switch/switch.jsx';
 import styles from './extension-modal.css';
 
 const messages = defineMessages({
@@ -69,7 +69,7 @@ class ExtensionModal extends React.PureComponent {
                                     <td>
                                         <Switch
                                             onChange={this.handleSwitchChange}
-                                            default={ext.enabled}
+                                            value={ext.enabled}
                                         />
                                     </td>
                                     <td>
