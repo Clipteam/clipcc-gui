@@ -30,7 +30,7 @@ import Alerts from '../../containers/alerts.jsx';
 import DragLayer from '../../containers/drag-layer.jsx';
 import ConnectionModal from '../../containers/connection-modal.jsx';
 import TelemetryModal from '../telemetry-modal/telemetry-modal.jsx';
-import SettingsModal from '../../containers/setting-handler.jsx';
+import SettingsModal from '../../containers/settings-modal.jsx';
 import AboutModal from '../about-modal/about-modal.jsx';
 import ExtensionModal from '../extension-modal/extension-modal.jsx';
 import LoadErrorModal from '../../containers/load-error-modal.jsx';
