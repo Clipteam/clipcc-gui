@@ -33,7 +33,6 @@ import {
     openTipsLibrary,
     openSettingsModal,
     openAboutModal,
-    openExtensionModal,
     openContributorModal
 } from '../../reducers/modals';
 import {setPlayer} from '../../reducers/mode';
@@ -1019,7 +1018,6 @@ const mapDispatchToProps = dispatch => ({
     onOpenTipLibrary: () => dispatch(openTipsLibrary()),
     onOpenSettings: () => dispatch(openSettingsModal()),
     onOpenAbout: () => dispatch(openAboutModal()),
-    onOpenExtension: () => dispatch(openExtensionModal()),
     onOpenContributor: () => dispatch(openContributorModal()),
     onClickAccount: () => dispatch(openAccountMenu()),
     onRequestCloseAccount: () => dispatch(closeAccountMenu()),

@@ -32,7 +32,6 @@ import ConnectionModal from '../../containers/connection-modal.jsx';
 import TelemetryModal from '../telemetry-modal/telemetry-modal.jsx';
 import SettingsModal from '../../containers/settings-modal.jsx';
 import AboutModal from '../about-modal/about-modal.jsx';
-import ExtensionModal from '../extension-modal/extension-modal.jsx';
 import LoadErrorModal from '../../containers/load-error-modal.jsx';
 import ContributorModal from '../contributor-modal/contributor-modal.jsx';
 
@@ -87,7 +86,6 @@ const GUIComponent = props => {
         costumesTabVisible,
         contributorModalVisible,
         enableCommunity,
-        extensionModalVisible,
         intl,
         isCreating,
         isFullScreen,
@@ -117,7 +115,6 @@ const GUIComponent = props => {
         onRequestCloseTelemetryModal,
         onRequestCloseSettingsModal,
         onRequestCloseAboutModal,
-        onRequestCloseExtensionModal,
         onRequestCloseLoadErrorModal,
         onRequestCloseContributorModal,
         onSeeCommunity,
@@ -352,11 +349,6 @@ const GUIComponent = props => {
                         onRequestClose={onRequestCloseAboutModal}
                     />
                 ) : null}
-                {extensionModalVisible ? (
-                    <ExtensionModal
-                        onRequestClose={onRequestCloseExtensionModal}
-                    />
-                ) : null}
                 {contributorModalVisible ? (
                     <ContributorModal
                         onRequestClose={onRequestCloseContributorModal}
@@ -433,7 +425,6 @@ GUIComponent.propTypes = {
     costumesTabVisible: PropTypes.bool,
     contributorModalVisible: PropTypes.bool,
     enableCommunity: PropTypes.bool,
-    extensionModalVisible : PropTypes.bool,
     intl: intlShape.isRequired,
     isCreating: PropTypes.bool,
     isFullScreen: PropTypes.bool,
@@ -457,7 +448,6 @@ GUIComponent.propTypes = {
     onRequestCloseTelemetryModal: PropTypes.func,
     onRequestCloseSettingsModal: PropTypes.func,
     onRequestCloseAboutModal: PropTypes.func,
-    onRequestCloseExtensionModal: PropTypes.func,
     onRequestCloseLoadErrorModal: PropTypes.func,
     onRequestCloseContributorModal: PropTypes.func,
     onSeeCommunity: PropTypes.func,

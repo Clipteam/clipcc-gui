@@ -29,7 +29,6 @@ import {
     closeContributorModal,
     openLoadingProject,
     closeLoadingProject,
-    closeExtensionModal,
     closeLoadErrorModal
 } from '../reducers/modals';
 
@@ -212,7 +211,6 @@ const mapStateToProps = state => {
         tipsLibraryVisible: state.scratchGui.modals.tipsLibrary,
         settingsVisible: state.scratchGui.modals.settings,
         aboutModalVisible: state.scratchGui.modals.about,
-        extensionModalVisible: state.scratchGui.modals.extension,
         loadErrorModalVisible: state.scratchGui.modals.loadError,
         contributorModalVisible: state.scratchGui.modals.contributor,
         layoutStyle: state.scratchGui.settings.layoutStyle,
@@ -230,7 +228,6 @@ const mapDispatchToProps = dispatch => ({
     onRequestCloseTelemetryModal: () => dispatch(closeTelemetryModal()),
     onRequestCloseSettingsModal: () => dispatch(closeSettingsModal()),
     onRequestCloseAboutModal: () => dispatch(closeAboutModal()),
-    onRequestCloseExtensionModal: () => dispatch(closeExtensionModal()),
     onRequestCloseLoadErrorModal: () => dispatch(closeLoadErrorModal()),
     onRequestCloseContributorModal: () => dispatch(closeContributorModal()),
     onLoadingFinished: (loadingState, success) => {
