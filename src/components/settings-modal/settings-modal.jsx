@@ -161,6 +161,7 @@ class SettingsModal extends React.Component {
     }
 
     handleChangeFramerate (framerate) {
+        framerate = parseInt(framerate, 10);
         this.props.onChangeFramerate(this.calcBound(framerate, 10, 120));
     }
 
@@ -174,10 +175,12 @@ class SettingsModal extends React.Component {
     }
 
     handleChangeAutosaveInterval (interval) {
+        interval = parseInt(interval, 10);
         this.props.onChangeAutosaveInterval(this.calcBound(interval, 60, 600));
     }
 
     handleChangeCompressionLevel (level) {
+        level = parseInt(level, 10);
         this.props.onChangeCompressionLevel(this.calcBound(level, 1, 9));
     }
 

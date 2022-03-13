@@ -34,7 +34,6 @@ import {
     projectError,
     getIsShowingProject
 } from '../reducers/project-state';
-import {getSetting} from '../reducers/settings';
 
 /**
  * Higher Order Component to provide behavior for saving projects.
@@ -448,9 +447,9 @@ const ProjectSaverHOC = function (WrappedComponent) {
         const loadingState = state.scratchGui.projectState.loadingState;
         const isShowingWithId = getIsShowingWithId(loadingState);
         const isShowingProject = getIsShowingProject(loadingState);
-        const enableAutoSave = getSetting(state, 'autosave');
+        const enableAutoSave = state.scratchGui.settings.autosave;
         return {
-            autoSaveIntervalSecs: getSetting(state, 'autosaveInteval'),
+            autoSaveIntervalSecs: state.scratchGui.settings.autosaveInteval,
             autoSaveTimeoutId: state.scratchGui.timeout.autoSaveTimeoutId,
             enableAutoSave: enableAutoSave,
             fileHandle: state.scratchGui.projectState.fileHandle,

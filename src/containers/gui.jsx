@@ -17,7 +17,6 @@ import {
     COSTUMES_TAB_INDEX,
     SOUNDS_TAB_INDEX
 } from '../reducers/editor-tab';
-import {getSetting} from '../reducers/settings';
 
 import {
     closeCostumeLibrary,

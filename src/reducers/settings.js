@@ -50,12 +50,9 @@ const resetSettingsToDefault = () => ({
     type: RESET_DEFAULT
 });
 
-const getSetting = (state, key) => state.scratchGui.settings[key];
-
 export {
     reducer as default,
     initialState as settingsInitialState,
     updateSetting,
-    resetSettingsToDefault,
-    getSetting
+    resetSettingsToDefault
 };
