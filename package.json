@@ -41,7 +41,7 @@
     "classnames": "2.2.6",
     "clipcc-block": "3.1.4",
     "clipcc-extension": "^0.1.7",
-    "clipcc-paint": "latest",
+    "clipcc-paint": "3.1.1",
     "clipcc-l10n": "3.1.4",
     "clipcc-render": "^3.0.0",
     "clipcc-vm": "3.1.8",
