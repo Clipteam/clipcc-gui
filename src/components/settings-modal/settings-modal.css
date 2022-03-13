@@ -19,6 +19,8 @@
 
 .category {
     font-weight: bold;
+    margin: 0;
+    padding: 1em 0;
 }
 
 .item {
