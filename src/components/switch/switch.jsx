@@ -17,6 +17,9 @@ class Switch extends React.Component {
     }
 
     handleClick () {
+        if (this.props.disabled) {
+            return;
+        }
         this.props.onChange(!this.state.value);
         this.setState(state => ({
             value: !state.value
@@ -28,14 +31,16 @@ class Switch extends React.Component {
             <div
                 className={classNames(
                     styles.switch,
-                    this.state.value ? styles.true : styles.false
+                    this.state.value ? styles.true : styles.false,
+                    this.props.disabled ? styles.disabled : null
                 )}
                 onClick={this.handleClick}
             >
                 <div
                     className={classNames(
                         styles.slider,
-                        this.state.value ? styles.true : styles.false
+                        this.state.value ? styles.true : styles.false,
+                        this.props.disabled ? styles.disabled : null
                     )}
                 />
             </div>
@@ -44,12 +49,14 @@ class Switch extends React.Component {
 }
 
 Switch.propTypes = {
-    value: PropTypes.bool,
+    value: PropTypes.bool.isRequired,
+    disabled: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired
 };
 
 Switch.defaultProps = {
-    value: false
+    value: false,
+    disabled: false
 };
 
 export default Switch;

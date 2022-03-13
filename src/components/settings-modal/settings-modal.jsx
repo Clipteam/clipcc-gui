@@ -349,6 +349,7 @@ class SettingsModal extends React.Component {
                         <Switch
                             onChange={this.props.onChangeSaveOptionalExtension}
                             value={this.props.saveOptionalExtension}
+                            disabled={!this.props.saveExtension}
                         />
                     </div>
                 </Box>
