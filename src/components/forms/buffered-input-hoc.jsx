@@ -22,7 +22,6 @@ export default function (Input) {
         }
         handleKeyPress (e) {
             if (e.key === 'Enter') {
-                this.handleFlush();
                 e.target.blur();
             }
         }
@@ -30,7 +29,6 @@ export default function (Input) {
             const isNumeric = typeof this.props.value === 'number';
             const validatesNumeric = isNumeric ? !isNaN(this.state.value) : true;
             if (this.state.value !== null && validatesNumeric) {
-            	if (this.props.bindSetting) this.props.extra(isNumeric ? Number(this.state.value) : this.state.value);
                 this.props.onSubmit(isNumeric ? Number(this.state.value) : this.state.value);
             }
             this.setState({value: null});
