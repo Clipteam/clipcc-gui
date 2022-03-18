@@ -1,4 +1,5 @@
 const UPDATE = 'clipcc-gui/settings/UPDATE';
+const NEW_ITEM = 'clipcc-gui/settings/NEW_ITEM';
 const RESET_DEFAULT = 'clipcc-gui/settings/RESET_DEFAULT';
 
 const defaultState = {
@@ -32,6 +33,14 @@ const reducer = function (state, action) {
         state[action.key] = action.value;
         localStorage.setItem('settings', JSON.stringify(state));
         return Object.assign({}, state);
+    case NEW_ITEM:
+        if (state.hasOwnProperty(action.key)) {
+            // if the setting item already exists
+            return state;
+        }
+        state[action.key] = action.defaultValue;
+        localStorage.setItem('settings', JSON.stringify(state));
+        return Object.assign({}, state);
     case RESET_DEFAULT:
         localStorage.setItem('settings', JSON.stringify(defaultState));
         return Object.assign({}, defaultState);
@@ -46,6 +55,12 @@ const updateSetting = (key, value) => ({
     value
 });
 
+const addNewSetting = (key, defaultValue) => ({
+    type: NEW_ITEM,
+    key,
+    defaultValue
+});
+
 const resetSettingsToDefault = () => ({
     type: RESET_DEFAULT
 });
@@ -54,5 +69,6 @@ export {
     reducer as default,
     initialState as settingsInitialState,
     updateSetting,
+    addNewSetting,
     resetSettingsToDefault
 };

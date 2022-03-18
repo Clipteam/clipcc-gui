@@ -147,10 +147,12 @@ class SettingsModal extends React.Component {
     constructor (props) {
         super(props);
         bindAll(this, [
+            'handleChangeSettingsItem',
             'handleChangeFramerate',
             'handleChangeAutosave',
             'handleChangeAutosaveInterval',
-            'handleChangeCompressionLevel'
+            'handleChangeCompressionLevel',
+            'renderExtensionSettings'
         ]);
     }
 
@@ -158,6 +160,12 @@ class SettingsModal extends React.Component {
         if (value < lower) return lower;
         if (value > upper) return upper;
         return value;
+    }
+
+    handleChangeSettingsItem (id) {
+        return value => {
+            this.props.onChangeSettingsItem(id, value);
+        };
     }
 
     handleChangeFramerate (framerate) {
@@ -182,6 +190,73 @@ class SettingsModal extends React.Component {
     handleChangeCompressionLevel (level) {
         level = parseInt(level, 10);
         this.props.onChangeCompressionLevel(this.calcBound(level, 1, 9));
+    }
+
+    renderExtensionSettings () {
+        const ids = Object.keys(this.props.extensionSettings);
+        const content = [];
+        for (const id of ids) {
+            const settings = this.props.extensionSettings[id];
+            const currentContent = [(<p
+                key={id}
+                className={classNames(styles.category)}
+            >
+                {this.props.intl.formatMessage({id: `${id}.name`})}
+            </p>)];
+            for (const item of settings) {
+                let element = null;
+                switch (item.type) {
+                case 'boolean': {
+                    element = (<Switch
+                        key={item.id}
+                        onChange={this.handleChangeSettingsItem(item.id)}
+                        value={this.props.settings[item.id]}
+                    />);
+                    break;
+                }
+                case 'number': {
+                    element = (<BufferedInput
+                        key={item.id}
+                        small
+                        tabIndex="0"
+                        type="text"
+                        placeholder="6"
+                        value={this.props.settings[item.id]}
+                        onSubmit={this.handleChangeSettingsItem(item.id)}
+                        className={classNames(styles.input)}
+                    />);
+                    break;
+                }
+                case 'selector': {
+                    const selectorItems = item.items.map(v => ({
+                        id: v.id,
+                        text: this.props.intl.formatMessage({id: v.message})
+                    }));
+                    element = (<TextSwitch
+                        items={selectorItems}
+                        onChange={this.handleChangeSettingsItem(item.id)}
+                        value={this.props.settings[item.id]}
+                    />);
+                    break;
+                }
+                default: {
+                    element = (<p>{'Error Type'}</p>);
+                }
+                }
+
+                currentContent.push(<div
+                    key={item.id}
+                    className={classNames(styles.item)}
+                >
+                    <p className={classNames(styles.text)}>
+                        {this.props.intl.formatMessage({id: item.message})}
+                    </p>
+                    {element}
+                </div>);
+            }
+            content.push(currentContent);
+        }
+        return content;
     }
 
     render () {
@@ -355,6 +430,7 @@ class SettingsModal extends React.Component {
                             disabled={!this.props.saveExtension}
                         />
                     </div>
+                    {this.renderExtensionSettings()}
                 </Box>
             </Modal>
         );
@@ -363,6 +439,8 @@ class SettingsModal extends React.Component {
 
 SettingsModal.propTypes = {
     intl: intlShape.isRequired,
+    extensionSettings: PropTypes.object.isRequired,
+    settings: PropTypes.object.isRequired,
     layoutStyle: PropTypes.string.isRequired,
     darkMode: PropTypes.string.isRequired,
     blur: PropTypes.bool.isRequired,
@@ -375,6 +453,7 @@ SettingsModal.propTypes = {
     saveExtension: PropTypes.bool.isRequired,
     saveOptionalExtension: PropTypes.bool.isRequired,
     onRequestClose: PropTypes.func.isRequired,
+    onChangeSettingsItem: PropTypes.func.isRequired,
     onChangeLayoutStyle: PropTypes.func.isRequired,
     onChangeDarkMode: PropTypes.func.isRequired,
     onChangeBlurEffect: PropTypes.func.isRequired,

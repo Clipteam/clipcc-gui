@@ -14,6 +14,7 @@ class SettingsModal extends React.Component {
     constructor (props) {
         super(props);
         bindAll(this, [
+            'handleChangeSettingsItem',
             'handleChangeLayoutStyle',
             'handleChangeDarkMode',
             'handleChangeBlurEffect',
@@ -26,6 +27,11 @@ class SettingsModal extends React.Component {
             'handleChangeSaveExtension',
             'handleChangeSaveOptionalExtension'
         ]);
+    }
+
+    handleChangeSettingsItem (id, value) {
+        console.log('Change Settings:', id, value);
+        this.props.updateSettings(id, value);
     }
 
     handleChangeLayoutStyle (style) {
@@ -79,6 +85,7 @@ class SettingsModal extends React.Component {
     render () {
         return (
             <SettingsComponent
+                onChangeSettingsItem={this.handleChangeSettingsItem}
                 onChangeLayoutStyle={this.handleChangeLayoutStyle}
                 onChangeDarkMode={this.handleChangeDarkMode}
                 onChangeBlurEffect={this.handleChangeBlurEffect}
@@ -98,6 +105,8 @@ class SettingsModal extends React.Component {
 
 SettingsModal.propTypes = {
     vm: PropTypes.instanceOf(VM).isRequired,
+    extensionSettings: PropTypes.object.isRequired,
+    settings: PropTypes.object.isRequired,
     layoutStyle: PropTypes.string.isRequired,
     darkMode: PropTypes.string.isRequired,
     blur: PropTypes.bool.isRequired,
@@ -115,6 +124,8 @@ SettingsModal.propTypes = {
 
 const mapStateToProps = state => ({
     vm: state.scratchGui.vm,
+    extensionSettings: state.scratchGui.extensionSettings,
+    settings: state.scratchGui.settings,
     layoutStyle: state.scratchGui.settings.layoutStyle,
     darkMode: state.scratchGui.settings.darkMode,
     blur: state.scratchGui.settings.blur,
