@@ -2,6 +2,8 @@ import bindAll from 'lodash.bindall';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import {round10} from '../../lib/math';
+
 /**
  * Higher Order Component to manage inputs that submit on blur and <enter>
  * @param {React.Component} Input text input that consumes onChange, onBlur, onKeyPress
@@ -19,6 +21,7 @@ export default function (Input) {
             this.state = {
                 value: null
             };
+            this.componentType = props.type === 'number' ? 'text' : props.type;
         }
         handleKeyPress (e) {
             if (e.key === 'Enter') {
@@ -29,7 +32,16 @@ export default function (Input) {
             const isNumeric = typeof this.props.value === 'number';
             const validatesNumeric = isNumeric ? !isNaN(this.state.value) : true;
             if (this.state.value !== null && validatesNumeric) {
-                this.props.onSubmit(isNumeric ? Number(this.state.value) : this.state.value);
+                let value = this.state.value;
+                if (isNumeric) {
+                    value = Number(value);
+                    if (typeof this.props.max !== 'undefined') value = Math.min(value, this.props.max);
+                    if (typeof this.props.min !== 'undefined') value = Math.max(value, this.props.min);
+                    if (typeof this.props.precision !== 'undefined') value = round10(value, this.props.precision);
+                    console.log('before submit 0', value);
+                }
+                console.log('before submit', value);
+                this.props.onSubmit(value);
             }
             this.setState({value: null});
         }
@@ -37,10 +49,16 @@ export default function (Input) {
             this.setState({value: e.target.value});
         }
         render () {
-            const bufferedValue = this.state.value === null ? this.props.value : this.state.value;
+            const {
+                // eslint-disable-next-line no-unused-vars
+                type, value, max, min, precision, onSubmit,
+                ...componentProps
+            } = this.props;
+            const bufferedValue = this.state.value === null ? value : this.state.value;
             return (
                 <Input
-                    {...this.props}
+                    {...componentProps}
+                    type={this.componentType}
                     value={bufferedValue}
                     onBlur={this.handleFlush}
                     onChange={this.handleChange}
@@ -52,8 +70,11 @@ export default function (Input) {
 
     BufferedInput.propTypes = {
         onSubmit: PropTypes.func.isRequired,
-        extra: PropTypes.func,
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+        type: PropTypes.string.isRequired,
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        max: PropTypes.number,
+        min: PropTypes.number,
+        precision: PropTypes.number
     };
 
     return BufferedInput;

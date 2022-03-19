@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import bindAll from 'lodash.bindall';
-import {injectIntl} from 'react-intl';
+import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import VM from 'clipcc-vm';
 
 import SettingsComponent from '../components/settings-modal/settings-modal.jsx';
@@ -10,40 +10,30 @@ import SettingsComponent from '../components/settings-modal/settings-modal.jsx';
 import {updateSetting} from '../reducers/settings';
 import {setSeamless} from '../reducers/mode';
 
+const messages = defineMessages({
+    autosaveUnsupported: {
+        defaultMessage: 'Your browser not support autosave :(',
+        description: 'Label of unsupport browser',
+        id: 'gui.settingsModal.autosave.unsupport'
+    }
+});
+
 class SettingsModal extends React.Component {
     constructor (props) {
         super(props);
         bindAll(this, [
             'handleChangeSettingsItem',
-            'handleChangeLayoutStyle',
-            'handleChangeDarkMode',
-            'handleChangeBlurEffect',
             'handleChangeFramerate',
             'handleChangeSeamlessFullscreen',
             'handleChangeAutoSave',
-            'handleChangeAutoSaveInterval',
             'handleChangeCompatibility',
-            'handleChangeCompressionLevel',
-            'handleChangeSaveExtension',
-            'handleChangeSaveOptionalExtension'
+            'handleChangeCompressionLevel'
         ]);
     }
 
     handleChangeSettingsItem (id, value) {
         console.log('Change Settings:', id, value);
         this.props.updateSettings(id, value);
-    }
-
-    handleChangeLayoutStyle (style) {
-        this.props.updateSettings('layoutStyle', style);
-    }
-
-    handleChangeDarkMode (mode) {
-        this.props.updateSettings('darkMode', mode);
-    }
-
-    handleChangeBlurEffect (value) {
-        this.props.updateSettings('blur', value);
     }
     
     handleChangeFramerate (framerate) {
@@ -57,11 +47,12 @@ class SettingsModal extends React.Component {
     }
 
     handleChangeAutoSave (value) {
-        this.props.updateSettings('autosave', value);
-    }
-
-    handleChangeAutoSaveInterval (interval) {
-        this.props.updateSettings('autoSaveSecs', interval);
+        if (window.showSaveFilePicker) {
+            this.props.updateSettings('autosave', value);
+        } else {
+            /* eslint-disable no-alert */
+            alert(this.props.intl.formatMessage(messages.autosaveUnsupproted));
+        }
     }
 
     handleChangeCompatibility (mode) {
@@ -74,29 +65,15 @@ class SettingsModal extends React.Component {
         this.props.vm.setCompressionLevel(level);
     }
 
-    handleChangeSaveExtension (value) {
-        this.props.updateSettings('saveExtension', value);
-    }
-
-    handleChangeSaveOptionalExtension (value) {
-        this.props.updateSettings('saveOptionalExtension', value);
-    }
-
     render () {
         return (
             <SettingsComponent
                 onChangeSettingsItem={this.handleChangeSettingsItem}
-                onChangeLayoutStyle={this.handleChangeLayoutStyle}
-                onChangeDarkMode={this.handleChangeDarkMode}
-                onChangeBlurEffect={this.handleChangeBlurEffect}
                 onChangeFramerate={this.handleChangeFramerate}
                 onChangeSeamlessFullscreen={this.handleChangeSeamlessFullscreen}
                 onChangeAutoSave={this.handleChangeAutoSave}
-                onChangeAutosaveInterval={this.handleChangeAutoSaveInterval}
                 onChangeCompatibility={this.handleChangeCompatibility}
                 onChangeCompressionLevel={this.handleChangeCompressionLevel}
-                onChangeSaveExtension={this.handleChangeSaveExtension}
-                onChangeSaveOptionalExtension={this.handleChangeSaveOptionalExtension}
                 {...this.props}
             />
         );
@@ -104,6 +81,7 @@ class SettingsModal extends React.Component {
 }
 
 SettingsModal.propTypes = {
+    intl: intlShape.isRequired,
     vm: PropTypes.instanceOf(VM).isRequired,
     extensionSettings: PropTypes.object.isRequired,
     settings: PropTypes.object.isRequired,

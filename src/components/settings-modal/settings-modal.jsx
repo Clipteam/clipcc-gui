@@ -96,11 +96,6 @@ const messages = defineMessages({
         description: 'Label of Handling Auto Save',
         id: 'gui.settingsModal.autosave.label'
     },
-    autosaveUnsupported: {
-        defaultMessage: 'Your browser not support autosave :(',
-        description: 'Label of unsupport browser',
-        id: 'gui.settingsModal.autosave.unsupport'
-    },
     autosaveInterval: {
         defaultMessage: 'Auto Save interval',
         description: 'Label of Auto Save interval',
@@ -148,48 +143,14 @@ class SettingsModal extends React.Component {
         super(props);
         bindAll(this, [
             'handleChangeSettingsItem',
-            'handleChangeFramerate',
-            'handleChangeAutosave',
-            'handleChangeAutosaveInterval',
-            'handleChangeCompressionLevel',
             'renderExtensionSettings'
         ]);
-    }
-
-    calcBound (value, lower, upper) {
-        if (value < lower) return lower;
-        if (value > upper) return upper;
-        return value;
     }
 
     handleChangeSettingsItem (id) {
         return value => {
             this.props.onChangeSettingsItem(id, value);
         };
-    }
-
-    handleChangeFramerate (framerate) {
-        framerate = parseInt(framerate, 10);
-        this.props.onChangeFramerate(this.calcBound(framerate, 10, 120));
-    }
-
-    handleChangeAutosave (autosave) {
-        if (window.showSaveFilePicker) {
-            this.props.onChangeAutoSave(autosave);
-        } else {
-            /* eslint-disable no-alert */
-            alert(this.props.intl.formatMessage(messages.autosaveUnsupproted));
-        }
-    }
-
-    handleChangeAutosaveInterval (interval) {
-        interval = parseInt(interval, 10);
-        this.props.onChangeAutosaveInterval(this.calcBound(interval, 60, 600));
-    }
-
-    handleChangeCompressionLevel (level) {
-        level = parseInt(level, 10);
-        this.props.onChangeCompressionLevel(this.calcBound(level, 1, 9));
     }
 
     renderExtensionSettings () {
@@ -311,7 +272,7 @@ class SettingsModal extends React.Component {
                         </p>
                         <TextSwitch
                             items={layoutStyleItems}
-                            onChange={this.props.onChangeLayoutStyle}
+                            onChange={this.handleChangeSettingsItem('layoutStyle')}
                             value={this.props.layoutStyle}
                         />
                     </div>
@@ -321,7 +282,7 @@ class SettingsModal extends React.Component {
                         </p>
                         <TextSwitch
                             items={darkModeItems}
-                            onChange={this.props.onChangeDarkMode}
+                            onChange={this.handleChangeSettingsItem('darkMode')}
                             value={this.props.darkMode}
                         />
                     </div>
@@ -330,7 +291,7 @@ class SettingsModal extends React.Component {
                             {this.props.intl.formatMessage(messages.blur)}
                         </p>
                         <Switch
-                            onChange={this.props.onChangeBlurEffect}
+                            onChange={this.handleChangeSettingsItem('blur')}
                             value={this.props.blur}
                         />
                     </div>
@@ -344,10 +305,13 @@ class SettingsModal extends React.Component {
                         <BufferedInput
                             small
                             tabIndex="0"
-                            type="text"
+                            type="number"
+                            min={10}
+                            max={240}
+                            precision={0}
                             placeholder="30"
                             value={this.props.framerate}
-                            onSubmit={this.handleChangeFramerate}
+                            onSubmit={this.props.onChangeFramerate}
                             className={classNames(styles.input)}
                         />
                     </div>
@@ -368,7 +332,7 @@ class SettingsModal extends React.Component {
                             {this.props.intl.formatMessage(messages.autosave)}
                         </p>
                         <Switch
-                            onChange={this.handleChangeAutosave}
+                            onChange={this.props.onChangeAutoSave}
                             value={this.props.autosave}
                         />
                     </div>
@@ -379,11 +343,14 @@ class SettingsModal extends React.Component {
                         <BufferedInput
                             small
                             tabIndex="0"
-                            type="text"
+                            type="number"
+                            min={60}
+                            max={600}
+                            precision={0}
                             placeholder="300"
                             disabled={!this.props.autosave}
                             value={this.props.autosaveInterval}
-                            onSubmit={this.handleChangeAutosaveInterval}
+                            onSubmit={this.handleChangeSettingsItem('autosaveInterval')}
                             className={classNames(styles.input)}
                         />
                     </div>
@@ -404,10 +371,13 @@ class SettingsModal extends React.Component {
                         <BufferedInput
                             small
                             tabIndex="0"
-                            type="text"
+                            type="number"
+                            min={1}
+                            max={9}
+                            precision={0}
                             placeholder="6"
                             value={this.props.compression}
-                            onSubmit={this.handleChangeCompressionLevel}
+                            onSubmit={this.props.onChangeCompressionLevel}
                             className={classNames(styles.input)}
                         />
                     </div>
@@ -416,7 +386,7 @@ class SettingsModal extends React.Component {
                             {this.props.intl.formatMessage(messages.saveExtension)}
                         </p>
                         <Switch
-                            onChange={this.props.onChangeSaveExtension}
+                            onChange={this.handleChangeSettingsItem('saveExtension')}
                             value={this.props.saveExtension}
                         />
                     </div>
@@ -425,7 +395,7 @@ class SettingsModal extends React.Component {
                             {this.props.intl.formatMessage(messages.saveOptionalExtension)}
                         </p>
                         <Switch
-                            onChange={this.props.onChangeSaveOptionalExtension}
+                            onChange={this.handleChangeSettingsItem('saveOptionalExtension')}
                             value={this.props.saveOptionalExtension}
                             disabled={!this.props.saveExtension}
                         />
@@ -454,17 +424,11 @@ SettingsModal.propTypes = {
     saveOptionalExtension: PropTypes.bool.isRequired,
     onRequestClose: PropTypes.func.isRequired,
     onChangeSettingsItem: PropTypes.func.isRequired,
-    onChangeLayoutStyle: PropTypes.func.isRequired,
-    onChangeDarkMode: PropTypes.func.isRequired,
-    onChangeBlurEffect: PropTypes.func.isRequired,
     onChangeFramerate: PropTypes.func.isRequired,
     onChangeSeamlessFullscreen: PropTypes.func.isRequired,
     onChangeAutoSave: PropTypes.func.isRequired,
-    onChangeAutosaveInterval: PropTypes.func.isRequired,
     onChangeCompatibility: PropTypes.func.isRequired,
-    onChangeCompressionLevel: PropTypes.func.isRequired,
-    onChangeSaveExtension: PropTypes.func.isRequired,
-    onChangeSaveOptionalExtension: PropTypes.func.isRequired
+    onChangeCompressionLevel: PropTypes.func.isRequired
 };
 
 export default injectIntl(SettingsModal);
