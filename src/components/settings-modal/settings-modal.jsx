@@ -156,7 +156,7 @@ class SettingsModal extends React.Component {
         ]);
     }
 
-    calcBound (value, upper, lower) {
+    calcBound (value, lower, upper) {
         if (value < lower) return lower;
         if (value > upper) return upper;
         return value;
