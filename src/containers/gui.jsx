@@ -83,8 +83,6 @@ class GUI extends React.Component {
         }
     }
     render () {
-        document.body.setAttribute('theme', this.props.darkMode);
-        document.body.setAttribute('effect', this.props.blur ? 'blur' : null);
         if (this.props.isError) {
             throw new Error(
                 `Error in Scratch GUI [location=${window.location}]: ${this.props.error}`);
@@ -92,6 +90,7 @@ class GUI extends React.Component {
         const {
             /* eslint-disable no-unused-vars */
             assetHost,
+            blur,
             cloudHost,
             darkMode,
             error,
@@ -119,6 +118,8 @@ class GUI extends React.Component {
             loadingStateVisible,
             ...componentProps
         } = this.props;
+        document.body.setAttribute('theme', darkMode);
+        document.body.setAttribute('effect', blur ? 'blur' : null);
         return (
             <GUIComponent
                 loading={fetchingProject || isLoading || loadingStateVisible}

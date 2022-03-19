@@ -132,7 +132,7 @@ const mapStateToProps = state => ({
     framerate: state.scratchGui.settings.framerate,
     seamless: state.scratchGui.settings.seamless,
     autosave: state.scratchGui.settings.autosave,
-    autosaveInterval: state.scratchGui.settings.autosaveInteval,
+    autosaveInterval: state.scratchGui.settings.autosaveInterval,
     compatibility: state.scratchGui.settings.compatibility,
     compression: state.scratchGui.settings.compression,
     saveExtension: state.scratchGui.settings.saveExtension,
