@@ -210,12 +210,12 @@ class SettingsModal extends React.Component {
                     break;
                 }
                 case 'selector': {
-                    const selectorItems = item.items.map(v => ({
+                    const options = item.options.map(v => ({
                         id: v.id,
                         text: this.props.intl.formatMessage({id: v.message})
                     }));
                     element = (<TextSwitch
-                        items={selectorItems}
+                        options={options}
                         onChange={this.handleChangeSettingsItem(item.id)}
                         value={this.props.settings[item.id]}
                     />);
@@ -242,7 +242,7 @@ class SettingsModal extends React.Component {
     }
 
     render () {
-        const layoutStyleItems = [{
+        const layoutStyleOptions = [{
             id: 'scratch2',
             text: this.props.intl.formatMessage(messages.scratch2)
         }, {
@@ -250,7 +250,7 @@ class SettingsModal extends React.Component {
             text: this.props.intl.formatMessage(messages.scratch3)
         }];
 
-        const darkModeItems = [{
+        const darkModeOptions = [{
             id: 'system',
             text: this.props.intl.formatMessage(messages.darkmodeSystem)
         }, {
@@ -261,7 +261,7 @@ class SettingsModal extends React.Component {
             text: this.props.intl.formatMessage(messages.darkmodeDark)
         }];
 
-        const compatibilityItems = [{
+        const compatibilityOptions = [{
             id: 'donotload',
             text: this.props.intl.formatMessage(messages.compatibilityDoNotLoad)
         }, {
@@ -313,7 +313,7 @@ class SettingsModal extends React.Component {
                                 {this.props.intl.formatMessage(messages.layout)}
                             </p>
                             <TextSwitch
-                                items={layoutStyleItems}
+                                options={layoutStyleOptions}
                                 onChange={this.handleChangeSettingsItem('layoutStyle')}
                                 value={this.props.layoutStyle}
                             />
@@ -323,7 +323,7 @@ class SettingsModal extends React.Component {
                                 {this.props.intl.formatMessage(messages.darkmode)}
                             </p>
                             <TextSwitch
-                                items={darkModeItems}
+                                options={darkModeOptions}
                                 onChange={this.handleChangeSettingsItem('darkMode')}
                                 value={this.props.darkMode}
                             />
@@ -407,7 +407,7 @@ class SettingsModal extends React.Component {
                                 {this.props.intl.formatMessage(messages.compatibility)}
                             </p>
                             <TextSwitch
-                                items={compatibilityItems}
+                                options={compatibilityOptions}
                                 onChange={this.props.onChangeCompatibility}
                                 value={this.props.compatibility}
                             />

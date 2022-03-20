@@ -6,25 +6,25 @@ import styles from './text-switch.css';
 
 const TextSwitch = props => (
     <div className={classNames(styles.textSwitch)}>
-        {props.items.map(item => (
+        {props.options.map(option => (
             <span
-                key={item.id}
+                key={option.id}
                 className={classNames(
-                    styles.item,
+                    styles.option,
                     styles.switch,
-                    props.value === item.id ? styles.active : null
+                    props.value === option.id ? styles.active : null
                 )}
                 // eslint-disable-next-line react/jsx-no-bind
-                onClick={() => props.onChange(item.id)}
+                onClick={() => props.onChange(option.id)}
             >
-                {item.text}
+                {option.text}
             </span>
         ))}
     </div>
 );
 
 TextSwitch.propTypes = {
-    items: PropTypes.arrayOf(PropTypes.shape({
+    options: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         text: PropTypes.string
     })).isRequired,
