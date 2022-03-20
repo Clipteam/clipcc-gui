@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {defineMessages, intlShape, injectIntl} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 import {setProjectTitle} from '../../reducers/project-title';
 
 import BufferedInputHOC from '../forms/buffered-input-hoc.jsx';
@@ -38,7 +38,6 @@ const ProjectTitleInput = ({
 
 ProjectTitleInput.propTypes = {
     className: PropTypes.string,
-    intl: intlShape.isRequired,
     onSubmit: PropTypes.func,
     projectTitle: PropTypes.string
 };

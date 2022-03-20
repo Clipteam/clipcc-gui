@@ -30,7 +30,7 @@ class ActionMenu extends React.Component {
         // Touch start on the main button is caught to trigger open and not click
         this.buttonRef.addEventListener('touchstart', this.handleTouchStart);
         // Touch start on document is used to trigger close if it is outside
-        document.addEventListener('touchstart', this.handleTouchOutside);
+        document.addEventListener('touchstart', this.handleTouchOutside, {capture: true});
     }
     shouldComponentUpdate (newProps, newState) {
         // This check prevents re-rendering while the project is updating.

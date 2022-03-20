@@ -120,12 +120,12 @@ class Stage extends React.Component {
         clearInterval(this.intervalId);
     }
     attachMouseEvents (canvas) {
-        document.addEventListener('mousemove', this.onMouseMove);
-        document.addEventListener('mouseup', this.onMouseUp);
-        document.addEventListener('touchmove', this.onMouseMove);
-        document.addEventListener('touchend', this.onMouseUp);
-        canvas.addEventListener('mousedown', this.onMouseDown);
-        canvas.addEventListener('touchstart', this.onMouseDown);
+        document.addEventListener('mousemove', this.onMouseMove, { capture: true });
+        document.addEventListener('mouseup', this.onMouseUp, { capture: true });
+        document.addEventListener('touchmove', this.onMouseMove, { capture: true });
+        document.addEventListener('touchend', this.onMouseUp, { capture: true });
+        canvas.addEventListener('mousedown', this.onMouseDown, { capture: true });
+        canvas.addEventListener('touchstart', this.onMouseDown, { capture: true });
         canvas.addEventListener('wheel', this.onWheel);
     }
     detachMouseEvents (canvas) {

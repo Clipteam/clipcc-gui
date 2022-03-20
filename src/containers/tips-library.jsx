@@ -1,7 +1,7 @@
 import bindAll from 'lodash.bindall';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {injectIntl, intlShape, defineMessages} from 'react-intl';
+import {injectIntl, defineMessages} from 'react-intl';
 
 import decksLibraryContent from '../lib/libraries/decks/index.jsx';
 import tutorialTags from '../lib/libraries/tutorial-tags';
@@ -100,7 +100,6 @@ class TipsLibrary extends React.PureComponent {
 }
 
 TipsLibrary.propTypes = {
-    intl: intlShape.isRequired,
     onActivateDeck: PropTypes.func.isRequired,
     onRequestClose: PropTypes.func,
     projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

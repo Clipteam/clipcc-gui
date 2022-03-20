@@ -4,7 +4,7 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import ReactModal from 'react-modal';
 import VM from 'clipcc-vm';
-import {injectIntl, intlShape} from 'react-intl';
+import {injectIntl} from 'react-intl';
 
 import ErrorBoundaryHOC from '../lib/error-boundary-hoc.jsx';
 import {
@@ -139,7 +139,6 @@ GUI.propTypes = {
     darkMode: PropTypes.string,
     error: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
     fetchingProject: PropTypes.bool,
-    intl: intlShape,
     isError: PropTypes.bool,
     isLoading: PropTypes.bool,
     loadingState: PropTypes.oneOf(LoadingStates),

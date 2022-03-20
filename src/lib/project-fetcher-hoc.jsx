@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {intlShape, injectIntl} from 'react-intl';
+import {injectIntl} from 'react-intl';
 import bindAll from 'lodash.bindall';
 import {connect} from 'react-redux';
 
@@ -114,7 +114,6 @@ const ProjectFetcherHOC = function (WrappedComponent) {
     ProjectFetcherComponent.propTypes = {
         assetHost: PropTypes.string,
         canSave: PropTypes.bool,
-        intl: intlShape.isRequired,
         isCreatingNew: PropTypes.bool,
         isFetchingWithId: PropTypes.bool,
         isLoadingProject: PropTypes.bool,

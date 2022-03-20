@@ -41,7 +41,8 @@
     "classnames": "2.2.6",
     "clipcc-block": "3.1.4",
     "clipcc-extension": "^0.1.7",
-    "clipcc-l10n": "3.1.3",
+    "clipcc-paint": "3.1.1",
+    "clipcc-l10n": "3.1.4",
     "clipcc-render": "^3.0.0",
     "clipcc-vm": "3.1.8",
     "computed-style-to-inline-style": "3.0.0",
@@ -66,6 +67,7 @@
     "lodash.throttle": "4.0.1",
     "mime-types": "^2.1.27",
     "minilog": "3.1.0",
+    "moment": "^2.29.1",
     "omggif": "1.0.9",
     "papaparse": "5.3.0",
     "postcss-import": "^12.0.0",
@@ -74,25 +76,24 @@
     "prop-types": "^15.5.10",
     "query-string": "^5.1.1",
     "raw-loader": "^0.5.1",
-    "react": "16.2.0",
+    "react": "17.0.2",
     "react-contextmenu": "2.9.4",
-    "react-dom": "16.2.1",
+    "react-dom": "17.0.2",
     "react-draggable": "3.0.5",
-    "react-ga": "2.5.3",
-    "react-intl": "2.9.0",
+    "react-ga": "3.3.0",
+    "react-intl": "3.12.1",
     "react-modal": "3.9.1",
     "react-popover": "0.5.10",
-    "react-redux": "5.0.7",
-    "react-responsive": "5.0.0",
+    "react-redux": "7.2.6",
+    "react-responsive": "8.2.0",
     "react-style-proptype": "3.2.2",
-    "react-tabs": "2.3.0",
-    "react-tooltip": "3.8.0",
+    "react-tabs": "4.0.1",
+    "react-tooltip": "4.2.21",
     "react-transition-group": "^4.4.1",
     "react-virtualized": "9.20.1",
-    "redux": "3.7.2",
+    "redux": "4.1.2",
     "redux-throttle": "0.1.1",
     "scratch-audio": "0.1.0-prerelease.20200528195344",
-    "scratch-paint": "^0.2.0-prerelease.20211027080909",
     "scratch-render-fonts": "1.0.0-prerelease.20210401210003",
     "scratch-storage": "1.3.5",
     "scratch-svg-renderer": "0.2.0-prerelease.20210727023023",
@@ -106,8 +107,8 @@
     "xhr": "2.5.0"
   },
   "peerDependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
   },
   "devDependencies": {
     "@babel/cli": "7.14.8",
@@ -156,5 +157,10 @@
       "\\.(css|less)$": "<rootDir>/test/__mocks__/styleMock.js",
       "editor-msgs(\\.js)?$": "<rootDir>/test/__mocks__/editor-msgs-mock.js"
     }
+  },
+  "resolutions": {
+    "**/react": "17.0.2",
+    "**/react-dom": "17.0.2",
+    "**/react-redux": "7.2.6"
   }
 }

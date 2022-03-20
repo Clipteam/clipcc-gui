@@ -19,7 +19,7 @@ class StageHeader extends React.Component {
         ]);
     }
     componentDidMount () {
-        document.addEventListener('keydown', this.handleKeyPress);
+        document.addEventListener('keydown', this.handleKeyPress, { capture: true });
     }
     componentWillUnmount () {
         document.removeEventListener('keydown', this.handleKeyPress);

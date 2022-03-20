@@ -17,7 +17,7 @@ if (!bowser.msie) {
             window.webkitAudioContext)();
         StartAudioContext(AUDIO_CONTEXT);
     };
-    document.addEventListener(event, initAudioContext);
+    document.addEventListener(event, initAudioContext, { capture: true });
 }
 
 /**

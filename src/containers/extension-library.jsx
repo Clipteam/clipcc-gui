@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import VM from 'clipcc-vm';
 import {connect} from 'react-redux';
-import {defineMessages, injectIntl, intlShape, FormattedMessage} from 'react-intl';
+import {defineMessages, injectIntl, FormattedMessage} from 'react-intl';
 import ClipCCExtension, {error} from 'clipcc-extension';
 import log from '../lib/log';
 
@@ -264,14 +264,22 @@ class ExtensionLibrary extends React.PureComponent {
         this.props.onRequestClose();
     }
     render () {
-        const extensionLibraryThumbnailData = Object.values(this.props.extension).map(extension => ({
-            ...extension,
-            rawURL: extension.iconURL || extensionIcon,
-            featured: true,
-            switchable: true,
-            name: (<FormattedMessage id={extension.name} />),
-            description: (<FormattedMessage id={extension.description} />)
-        }));
+        const extensionLibraryThumbnailData = Object.values(this.props.extension)
+            .map(extension => ({
+                ...extension,
+                rawURL: extension.iconURL || extensionIcon,
+                featured: true,
+                switchable: true,
+                name: (<FormattedMessage id={extension.name} />),
+                description: (<FormattedMessage id={extension.description} />)
+            }))
+            .sort((a, b) => {
+                if (a.enabled === b.enabled) {
+                    if (a.name === b.name) return 0;
+                    return a.name < b.name ? -1 : 1;
+                }
+                return a.enabled ? -1 : 1;
+            });
         return (
             <>
                 <LibraryComponent
@@ -422,7 +430,6 @@ ExtensionLibrary.propTypes = {
         description: PropTypes.string,
         requirement: PropTypes.arrayOf(PropTypes.string)
     }),
-    intl: intlShape.isRequired,
     loadExtensionFromFile: PropTypes.func.isRequired,
     setExtensionEnable: PropTypes.func.isRequired,
     setExtensionDisable: PropTypes.func.isRequired,

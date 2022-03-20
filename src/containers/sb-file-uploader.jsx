@@ -2,7 +2,7 @@ import bindAll from 'lodash.bindall';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 import {setProjectTitle} from '../reducers/project-title';
 
 import log from '../lib/log';
@@ -63,7 +63,7 @@ class SBFileUploader extends React.Component {
         ]);
         if (props.onRef) props.onRef(this);
     }
-    componentWillMount () {
+    componentDidMount () {
         this.reader = new FileReader();
         this.reader.onload = this.onload;
         this.resetFileInput();
@@ -175,7 +175,6 @@ SBFileUploader.propTypes = {
     children: PropTypes.func,
     className: PropTypes.string,
     closeFileMenu: PropTypes.func,
-    intl: intlShape.isRequired,
     isLoadingUpload: PropTypes.bool,
     isShowingWithoutId: PropTypes.bool,
     loadingState: PropTypes.oneOf(LoadingStates),
