@@ -19,7 +19,7 @@ class SliderMonitor extends React.Component {
         };
     }
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (prevState.value === nextProps.value) return;
+        if (prevState.value === nextProps.value) return null;
         return {
             value: nextProps.value
         };

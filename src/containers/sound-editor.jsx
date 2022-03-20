@@ -62,7 +62,7 @@ class SoundEditor extends React.Component {
         this.ref = null;
     }
     static getDerivedStateFromProps (nextProps, prevState) {
-        if (nextProps.soundId === prevState.cachedPrevProps) return;
+        if (nextProps.soundId === prevState.cachedPrevProps) return null;
 
         return {
             cachedPrevProps: nextProps,
