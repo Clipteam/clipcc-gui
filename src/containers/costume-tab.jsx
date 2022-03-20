@@ -109,7 +109,7 @@ class CostumeTab extends React.Component {
         } = nextProps;
 
         const target = editingTarget && sprites[editingTarget] ? sprites[editingTarget] : stage;
-        if (!target || !target.costumes) return;
+        if (!target || !target.costumes) return null;
 
         if (prevState.cachedPrevProps.editingTarget === editingTarget) {
             // If costumes have been added or removed, change costumes to the editing target's
@@ -125,13 +125,13 @@ class CostumeTab extends React.Component {
                     selectedCostumeIndex: target.currentCostume
                 };
             }
-        } else {
-            // If switching editing targets, update the costume index
-            return {
-                cachedPrevProps: nextProps,
-                selectedCostumeIndex: target.currentCostume
-            };
+            return null;
         }
+        // If switching editing targets, update the costume index
+        return {
+            cachedPrevProps: nextProps,
+            selectedCostumeIndex: target.currentCostume
+        };
     }
     handleSelectCostume (costumeIndex) {
         this.props.vm.editingTarget.setCostume(costumeIndex);

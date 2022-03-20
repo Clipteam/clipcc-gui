@@ -45,7 +45,7 @@ class AudioSelector extends React.Component {
     }
     static getDerivedStateFromProps (nextProps, prevState) {
         const {trimStart, trimEnd} = prevState.cachedPrevProps;
-        if (trimStart === nextProps.trimStart || trimEnd === nextProps.trimEnd) return;
+        if (trimStart === nextProps.trimStart || trimEnd === nextProps.trimEnd) return null;
         return {
             cachedPrevProps: nextProps,
             trimStart: nextProps.trimStart,
