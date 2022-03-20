@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
 import {defineMessages, injectIntl} from 'react-intl';
 import classNames from 'classnames';
@@ -143,8 +143,14 @@ class SettingsModal extends React.Component {
         super(props);
         bindAll(this, [
             'handleChangeSettingsItem',
+            'handleJumpToCategory',
             'renderExtensionSettings'
         ]);
+        this.categoryRef = {
+            appearance: createRef(),
+            player: createRef(),
+            project: createRef()
+        };
     }
 
     handleChangeSettingsItem (id) {
@@ -153,14 +159,26 @@ class SettingsModal extends React.Component {
         };
     }
 
+    handleJumpToCategory (id) {
+        return () => {
+            this.categoryRef[id].current.scrollIntoView({
+                behavior: 'smooth'
+            });
+        };
+    }
+
     renderExtensionSettings () {
         const ids = Object.keys(this.props.extensionSettings);
         const content = [];
         for (const id of ids) {
             const settings = this.props.extensionSettings[id];
+            if (!this.categoryRef.hasOwnProperty(id)) {
+                this.categoryRef[id] = createRef();
+            }
             const currentContent = [(<p
                 key={id}
                 className={classNames(styles.category)}
+                ref={this.categoryRef[id]}
             >
                 {this.props.intl.formatMessage({id: `${id}.name`})}
             </p>)];
@@ -261,149 +279,177 @@ class SettingsModal extends React.Component {
                 onRequestClose={this.props.onRequestClose}
                 id="settingsModal"
             >
-                <Box
-                    className={classNames(styles.body)}
-                    justifyContent="space-between"
-                    scrollbar
-                >
-                    <p className={classNames(styles.category)}>
-                        {this.props.intl.formatMessage(messages.appearance)}
-                    </p>
-                    <div className={classNames(styles.item)}>
-                        <p className={classNames(styles.text)}>
-                            {this.props.intl.formatMessage(messages.layout)}
+                <Box className={classNames(styles.body)}>
+                    <Box
+                        className={classNames(styles.menu)}
+                        justifyContent="space-between"
+                        scrollbar
+                    >
+                        <p onClick={this.handleJumpToCategory('appearance')}>{this.props.intl.formatMessage(messages.appearance)}</p>
+                        <p onClick={this.handleJumpToCategory('player')}>{this.props.intl.formatMessage(messages.player)}</p>
+                        <p onClick={this.handleJumpToCategory('project')}>{this.props.intl.formatMessage(messages.project)}</p>
+                        {Object.keys(this.props.extensionSettings).map(id => (
+                            <p
+                                key={id}
+                                onClick={this.handleJumpToCategory(id)}
+                            >
+                                {this.props.intl.formatMessage({id: `${id}.name`})}
+                            </p>
+                        ))}
+                    </Box>
+                    <Box
+                        className={classNames(styles.content)}
+                        justifyContent="space-between"
+                        scrollbar
+                    >
+                        <p
+                            className={classNames(styles.category)}
+                            ref={this.categoryRef.appearance}
+                        >
+                            {this.props.intl.formatMessage(messages.appearance)}
                         </p>
-                        <TextSwitch
-                            items={layoutStyleItems}
-                            onChange={this.handleChangeSettingsItem('layoutStyle')}
-                            value={this.props.layoutStyle}
-                        />
-                    </div>
-                    <div className={classNames(styles.item)}>
-                        <p className={classNames(styles.text)}>
-                            {this.props.intl.formatMessage(messages.darkmode)}
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.layout)}
+                            </p>
+                            <TextSwitch
+                                items={layoutStyleItems}
+                                onChange={this.handleChangeSettingsItem('layoutStyle')}
+                                value={this.props.layoutStyle}
+                            />
+                        </div>
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.darkmode)}
+                            </p>
+                            <TextSwitch
+                                items={darkModeItems}
+                                onChange={this.handleChangeSettingsItem('darkMode')}
+                                value={this.props.darkMode}
+                            />
+                        </div>
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.blur)}
+                            </p>
+                            <Switch
+                                onChange={this.handleChangeSettingsItem('blur')}
+                                value={this.props.blur}
+                            />
+                        </div>
+                        <p
+                            className={classNames(styles.category)}
+                            ref={this.categoryRef.player}
+                        >
+                            {this.props.intl.formatMessage(messages.player)}
                         </p>
-                        <TextSwitch
-                            items={darkModeItems}
-                            onChange={this.handleChangeSettingsItem('darkMode')}
-                            value={this.props.darkMode}
-                        />
-                    </div>
-                    <div className={classNames(styles.item)}>
-                        <p className={classNames(styles.text)}>
-                            {this.props.intl.formatMessage(messages.blur)}
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.framerate)}
+                            </p>
+                            <BufferedInput
+                                small
+                                tabIndex="0"
+                                type="number"
+                                min={10}
+                                max={240}
+                                precision={0}
+                                placeholder="30"
+                                value={this.props.framerate}
+                                onSubmit={this.props.onChangeFramerate}
+                                className={classNames(styles.input)}
+                            />
+                        </div>
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.seamless)}
+                            </p>
+                            <Switch
+                                onChange={this.props.onChangeSeamlessFullscreen}
+                                value={this.props.seamless}
+                            />
+                        </div>
+                        <p
+                            className={classNames(styles.category)}
+                            ref={this.categoryRef.project}
+                        >
+                            {this.props.intl.formatMessage(messages.project)}
                         </p>
-                        <Switch
-                            onChange={this.handleChangeSettingsItem('blur')}
-                            value={this.props.blur}
-                        />
-                    </div>
-                    <p className={classNames(styles.category)}>
-                        {this.props.intl.formatMessage(messages.player)}
-                    </p>
-                    <div className={classNames(styles.item)}>
-                        <p className={classNames(styles.text)}>
-                            {this.props.intl.formatMessage(messages.framerate)}
-                        </p>
-                        <BufferedInput
-                            small
-                            tabIndex="0"
-                            type="number"
-                            min={10}
-                            max={240}
-                            precision={0}
-                            placeholder="30"
-                            value={this.props.framerate}
-                            onSubmit={this.props.onChangeFramerate}
-                            className={classNames(styles.input)}
-                        />
-                    </div>
-                    <div className={classNames(styles.item)}>
-                        <p className={classNames(styles.text)}>
-                            {this.props.intl.formatMessage(messages.seamless)}
-                        </p>
-                        <Switch
-                            onChange={this.props.onChangeSeamlessFullscreen}
-                            value={this.props.seamless}
-                        />
-                    </div>
-                    <p className={classNames(styles.category)}>
-                        {this.props.intl.formatMessage(messages.project)}
-                    </p>
-                    <div className={classNames(styles.item)}>
-                        <p className={classNames(styles.text)}>
-                            {this.props.intl.formatMessage(messages.autosave)}
-                        </p>
-                        <Switch
-                            onChange={this.props.onChangeAutoSave}
-                            value={this.props.autosave}
-                        />
-                    </div>
-                    <div className={classNames(styles.item)}>
-                        <p className={classNames(styles.text)}>
-                            {this.props.intl.formatMessage(messages.autosaveInterval)}
-                        </p>
-                        <BufferedInput
-                            small
-                            tabIndex="0"
-                            type="number"
-                            min={60}
-                            max={600}
-                            precision={0}
-                            placeholder="300"
-                            disabled={!this.props.autosave}
-                            value={this.props.autosaveInterval}
-                            onSubmit={this.handleChangeSettingsItem('autosaveInterval')}
-                            className={classNames(styles.input)}
-                        />
-                    </div>
-                    <div className={classNames(styles.item)}>
-                        <p className={classNames(styles.text)}>
-                            {this.props.intl.formatMessage(messages.compatibility)}
-                        </p>
-                        <TextSwitch
-                            items={compatibilityItems}
-                            onChange={this.props.onChangeCompatibility}
-                            value={this.props.compatibility}
-                        />
-                    </div>
-                    <div className={classNames(styles.item)}>
-                        <p className={classNames(styles.text)}>
-                            {this.props.intl.formatMessage(messages.compression)}
-                        </p>
-                        <BufferedInput
-                            small
-                            tabIndex="0"
-                            type="number"
-                            min={1}
-                            max={9}
-                            precision={0}
-                            placeholder="6"
-                            value={this.props.compression}
-                            onSubmit={this.props.onChangeCompressionLevel}
-                            className={classNames(styles.input)}
-                        />
-                    </div>
-                    <div className={classNames(styles.item)}>
-                        <p className={classNames(styles.text)}>
-                            {this.props.intl.formatMessage(messages.saveExtension)}
-                        </p>
-                        <Switch
-                            onChange={this.handleChangeSettingsItem('saveExtension')}
-                            value={this.props.saveExtension}
-                        />
-                    </div>
-                    <div className={classNames(styles.item)}>
-                        <p className={classNames(styles.text)}>
-                            {this.props.intl.formatMessage(messages.saveOptionalExtension)}
-                        </p>
-                        <Switch
-                            onChange={this.handleChangeSettingsItem('saveOptionalExtension')}
-                            value={this.props.saveOptionalExtension}
-                            disabled={!this.props.saveExtension}
-                        />
-                    </div>
-                    {this.renderExtensionSettings()}
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.autosave)}
+                            </p>
+                            <Switch
+                                onChange={this.props.onChangeAutoSave}
+                                value={this.props.autosave}
+                            />
+                        </div>
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.autosaveInterval)}
+                            </p>
+                            <BufferedInput
+                                small
+                                tabIndex="0"
+                                type="number"
+                                min={60}
+                                max={600}
+                                precision={0}
+                                placeholder="300"
+                                disabled={!this.props.autosave}
+                                value={this.props.autosaveInterval}
+                                onSubmit={this.handleChangeSettingsItem('autosaveInterval')}
+                                className={classNames(styles.input)}
+                            />
+                        </div>
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.compatibility)}
+                            </p>
+                            <TextSwitch
+                                items={compatibilityItems}
+                                onChange={this.props.onChangeCompatibility}
+                                value={this.props.compatibility}
+                            />
+                        </div>
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.compression)}
+                            </p>
+                            <BufferedInput
+                                small
+                                tabIndex="0"
+                                type="number"
+                                min={1}
+                                max={9}
+                                precision={0}
+                                placeholder="6"
+                                value={this.props.compression}
+                                onSubmit={this.props.onChangeCompressionLevel}
+                                className={classNames(styles.input)}
+                            />
+                        </div>
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.saveExtension)}
+                            </p>
+                            <Switch
+                                onChange={this.handleChangeSettingsItem('saveExtension')}
+                                value={this.props.saveExtension}
+                            />
+                        </div>
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.saveOptionalExtension)}
+                            </p>
+                            <Switch
+                                onChange={this.handleChangeSettingsItem('saveOptionalExtension')}
+                                value={this.props.saveOptionalExtension}
+                                disabled={!this.props.saveExtension}
+                            />
+                        </div>
+                        {this.renderExtensionSettings()}
+                    </Box>
                 </Box>
             </Modal>
         );

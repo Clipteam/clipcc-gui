@@ -2,14 +2,32 @@
 @import "../../css/units.css";
 
 .modal-content {
-    width: 700px;
+    width: 900px;
 }
 
 .body {
     background: $ui-white;
+    max-height: 80vh;
+    display: flex;
+}
+
+.menu, .content {
     padding: 1.5rem 2.25rem;
     overflow-y: auto;
-    max-height: 80vh;
+}
+
+.menu {
+    flex: 1;
+    border-right: solid 1px $ui-black-transparent;
+}
+
+.menu > p {
+    margin: 0.5em 0em;
+    cursor: pointer;
+}
+
+.content {
+    flex: 5;
 }
 
 [theme='dark'] .body {
