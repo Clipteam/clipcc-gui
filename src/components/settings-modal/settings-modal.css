@@ -55,6 +55,11 @@
     background-color: rgb(240, 240, 240);
 }
 
+
+[theme='dark'] .item:hover {
+    background-color: rgb(150, 150, 150);
+}
+
 .input {
     width: 5rem;
 }
