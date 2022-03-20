@@ -180,7 +180,10 @@ class SettingsModal extends React.Component {
                         key={item.id}
                         small
                         tabIndex="0"
-                        type="text"
+                        type="number"
+                        min={item.min}
+                        max={item.max}
+                        precision={item.precision}
                         placeholder="6"
                         value={this.props.settings[item.id]}
                         onSubmit={this.handleChangeSettingsItem(item.id)}
