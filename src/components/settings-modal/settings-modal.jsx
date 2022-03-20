@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {defineMessages, injectIntl, IntlProvider} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 import classNames from 'classnames';
 import bindAll from 'lodash.bindall';
 
@@ -411,7 +411,6 @@ class SettingsModal extends React.Component {
 }
 
 SettingsModal.propTypes = {
-    intl: PropTypes.shape(IntlProvider).isRequired,
     extensionSettings: PropTypes.object.isRequired,
     settings: PropTypes.object.isRequired,
     layoutStyle: PropTypes.string.isRequired,

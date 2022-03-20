@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import bindAll from 'lodash.bindall';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 import VM from 'clipcc-vm';
 
 import SettingsComponent from '../components/settings-modal/settings-modal.jsx';
@@ -81,7 +81,6 @@ class SettingsModal extends React.Component {
 }
 
 SettingsModal.propTypes = {
-    intl: intlShape.isRequired,
     vm: PropTypes.instanceOf(VM).isRequired,
     extensionSettings: PropTypes.object.isRequired,
     settings: PropTypes.object.isRequired,
