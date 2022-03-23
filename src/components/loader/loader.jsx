@@ -107,6 +107,13 @@ const mainMessages = {
             id="gui.loader.headline"
         />
     ),
+    'gui.loader.blocks': (
+        <FormattedMessage
+            defaultMessage="Loading Blocks"
+            description="loading blocks message"
+            id="gui.loader.blocks"
+        />
+    ),
     'gui.loader.creating': (
         <FormattedMessage
             defaultMessage="Creating Project"
