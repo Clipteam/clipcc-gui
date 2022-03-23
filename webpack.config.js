@@ -1,3 +1,5 @@
+/* eslint-disable require-jsdoc */
+/* eslint-disable func-style */
 const defaultsDeep = require('lodash.defaultsdeep');
 const path = require('path');
 const webpack = require('webpack');
@@ -8,6 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin');
 
 // PostCss
 const autoprefixer = require('autoprefixer');
@@ -28,10 +31,6 @@ const base = {
         port: process.env.PORT || 8601,
         https: ENABLE_HTTPS,
         proxy: {
-            '/editor/dev/canary': {
-                target: 'http://localhost:8601',
-                pathRewrite: {'^/editor/dev/canary': ''}
-            },
             '/extension/': {
                 target: 'http://localhost:3000',
                 pathRewrite: {'^/extension': ''}
@@ -108,6 +107,8 @@ const base = {
     optimization: {
         minimizer: [
             new TerserPlugin({
+                minify: TerserPlugin.swcMinify,
+                parallel: true,
                 include: /\.min\.js$/
             })
         ]
@@ -171,7 +172,8 @@ function getPlugins () {
         new CopyWebpackPlugin([{
             from: 'extension-worker.{js,js.map}',
             context: 'node_modules/clipcc-vm/dist/web'
-        }])
+        }]),
+        new ImageminWebpWebpackPlugin()
     ]);
     if (ENABLE_PWA) {
         res = res.concat([
