@@ -1,8 +1,20 @@
-import ScratchBlocks from 'clipcc-block';
+import lazyClipCCBlock from './lazy-blocks';
 
 const categorySeparator = '<sep gap="36"/>';
 
 const blockSeparator = '<sep gap="36"/>'; // At default scale, about 28px
+
+const ScratchBlocks = {
+    ScratchMsgs: {
+        translate: (messageId, defaultMessage) => {
+            if (lazyClipCCBlock.loaded()) {
+                const ClipCCBlocks = lazyClipCCBlock.get();
+                return ClipCCBlocks.ScratchMsgs.translate(messageId, defaultMessage)
+            }
+            return defaultMessage;
+        }
+    }
+};
 
 /* eslint-disable no-unused-vars */
 const motion = function (isInitialSetup, isStage, targetId) {

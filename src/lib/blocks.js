@@ -1,4 +1,5 @@
-import ScratchBlocks from 'clipcc-block';
+import lazyClipCCBlock from './lazy-blocks';
+
 
 /**
  * Connect scratch blocks with the vm
@@ -6,7 +7,7 @@ import ScratchBlocks from 'clipcc-block';
  * @return {ScratchBlocks} ScratchBlocks connected with the vm
  */
 export default function (vm) {
-
+    const ScratchBlocks = lazyClipCCBlock.get();
     const jsonForMenuBlock = function (name, menuOptionsFn, colors, start) {
         return {
             message0: '%1',

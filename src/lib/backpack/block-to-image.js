@@ -1,5 +1,5 @@
 import computedStyleToInlineStyle from 'computed-style-to-inline-style';
-import ScratchBlocks from 'clipcc-block';
+import lazyClipCCBloock from '../lazy-blocks';
 
 /**
  * Given a blockId, return a data-uri image that can be used to create a thumbnail.
@@ -7,6 +7,7 @@ import ScratchBlocks from 'clipcc-block';
  * @return {Promise} resolves to a data-url of a picture of the blocks
  */
 export default function (blockId) {
+    const ScratchBlocks = lazyClipCCBloock.get();
     // Not sure any better way to access the scratch-blocks workspace than this...
     const block = ScratchBlocks.getMainWorkspace().getBlockById(blockId);
     const blockSvg = block.getSvgRoot().cloneNode(true /* deep */);
