@@ -2,16 +2,19 @@
 /* eslint-disable require-jsdoc */
 import React from 'react';
 import LazyBlocks from './lazy-blocks';
-import Loader from '../components/loader/loader.jsx';
+import BlocksLoader from '../components/loader/blocks-loader.jsx';
+
 export default function LazyBlocksHOC (WrappedComponent) {
     class LazyLoadBlocks extends React.Component {
         constructor (props) {
             super(props);
-            this.state = {isLoaded: false};
+            this.state = {
+                isLoaded: LazyBlocks.loaded()
+            };
         }
         componentDidMount () {
             if (!this.state.isLoaded) {
-                LazyBlocks.get().then(() => {
+                LazyBlocks.load().then(() => {
                     this.setState({isLoaded: true});
                 })
                     .catch(e => {
@@ -22,7 +25,7 @@ export default function LazyBlocksHOC (WrappedComponent) {
         render () {
             return (
                 <>
-                    {this.state.isLoaded ? <WrappedComponent {...this.props} /> : <Loader messageId="gui.loader.blocks" />}
+                    {this.state.isLoaded ? <WrappedComponent {...this.props} /> : <BlocksLoader />}
                 </>
             );
         }
