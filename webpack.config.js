@@ -28,6 +28,10 @@ const base = {
         port: process.env.PORT || 8601,
         https: ENABLE_HTTPS,
         proxy: {
+            '/editor/dev/canary': {
+                target: 'http://localhost:8601',
+                pathRewrite: {'^/editor/dev/canary': ''}
+            },
             '/extension/': {
                 target: 'http://localhost:3000',
                 pathRewrite: {'^/extension': ''}
@@ -36,8 +40,8 @@ const base = {
     },
     output: {
         library: 'GUI',
-        filename: '[name].[contenthash].js',
-        chunkFilename: 'chunks/[name].[contenthash].js'
+        filename: '[name].js',
+        chunkFilename: 'chunks/[name].js'
     },
     resolve: {
         symlinks: false
@@ -104,7 +108,6 @@ const base = {
     optimization: {
         minimizer: [
             new TerserPlugin({
-                minify: TerserPlugin.uglifyJsMinify,
                 include: /\.min\.js$/
             })
         ]
@@ -206,39 +209,17 @@ module.exports = [
             rules: base.module.rules.concat([
                 {
                     test: /\.(svg|png|wav|gif|jpg)$/,
-                    //使用内联加载小元素来解决一些社区版因为配置不当导致的问题
-                    use: [
-                        {
-                            loader: 'url-loader',
-                            options: {
-                                limit: 1024,
-                                esModule: false,
-                                fallback: 'file-loader',
-                                outputPath: 'static/assets/'
-                            }
-                        }
-                    ]
+                    loader: 'file-loader',
+                    options: {
+                        outputPath: 'static/assets/'
+                    }
                 }
             ])
         },
         optimization: {
             splitChunks: {
                 chunks: 'all',
-                name: 'lib.min',
-                cacheGroups: {
-                    // 依赖
-                    vendors: {
-                        name: 'vendors',
-                        test: /[\\/]node_modules[\\/]/,
-                        priority: -10
-                    },
-                    default: {
-                        name: 'gui',
-                        minChunks: 2,
-                        priority: -20,
-                        reuseExistingChunk: true
-                    }
-                }
+                name: 'lib.min'
             },
             runtimeChunk: {
                 name: 'lib.min'
