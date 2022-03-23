@@ -22,7 +22,7 @@ export default function LazyBlocksHOC (WrappedComponent) {
         render () {
             return (
                 <>
-                    {this.state.isLoaded ? <WrappedComponent {...this.props} /> : <Loader />}
+                    {this.state.isLoaded ? <WrappedComponent {...this.props} /> : <Loader messageId="gui.loader.blocks" />}
                 </>
             );
         }
