@@ -1,6 +1,10 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable require-jsdoc */
 import React from 'react';
+import PropTypes from 'prop-types';
+import VM from 'clipcc-vm';
+import log from './log';
+import GUI from '../containers/gui.jsx';
 import LazyBlocks from './lazy-blocks';
 import BlocksLoader from '../components/loader/blocks-loader.jsx';
 
@@ -14,40 +18,33 @@ export default function LazyBlocksHOC (WrappedComponent) {
         }
         componentDidMount () {
             if (!this.state.isLoaded) {
-                LazyBlocks.load().then(() => {
+                LazyBlocks.load(GUI, this.props.vm).then(() => {
                     this.setState({isLoaded: true});
                 })
                     .catch(e => {
-                        console.error(e);
+                        log.error(e);
                     });
             }
         }
         render () {
+            const {
+                vm
+            } = this.props;
             return (
                 <>
-                    {this.state.isLoaded ? <WrappedComponent {...this.props} /> : <BlocksLoader />}
+                    {this.state.isLoaded ? <WrappedComponent
+                        {...this.props}
+                        vm={vm}
+                    /> : <BlocksLoader />}
                 </>
             );
         }
     }
+
+    LazyLoadBlocks.propTypes = {
+        vm: PropTypes.instanceOf(VM).isRequired
+    };
+
     return LazyLoadBlocks;
-    // 鬼知道为什么函数类型的组件不能用useState，我换个类组件吧
-    /*
-    const [loaded, setLoaded] = useState(false);
-    useEffect(() => {
-        if (!loaded) {
-            LazyBlocks.get().then(() => {
-                setLoaded(true);
-            })
-                .catch(e => {
-                    console.error(e);
-                });
-        }
-    });
-    return (
-        <>
-            {loaded ? <WrappedComponent /> : <div>Loading...</div>}
-        </>
-    );
-    */
+
 }

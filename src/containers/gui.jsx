@@ -6,7 +6,6 @@ import ReactModal from 'react-modal';
 import VM from 'clipcc-vm';
 import {injectIntl} from 'react-intl';
 
-import lazyBlocks from '../lib/lazy-blocks.js';
 import ErrorBoundaryHOC from '../lib/error-boundary-hoc.jsx';
 import {
     getIsError,
@@ -50,12 +49,10 @@ import ProjectSaverHOC from '../lib/project-saver-hoc.jsx';
 import QueryParserHOC from '../lib/query-parser-hoc.jsx';
 import storage from '../lib/storage';
 import vmListenerHOC from '../lib/vm-listener-hoc.jsx';
-import blocks from '../lib/blocks.js';
 import extensionAPI from '../lib/extension-api.js';
 import vmManagerHOC from '../lib/vm-manager-hoc.jsx';
 import cloudManagerHOC from '../lib/cloud-manager-hoc.jsx';
 import {
-    initExtensionAPI,
     loadBuiltinExtension
 } from '../lib/extension-manager.js';
 
@@ -69,10 +66,7 @@ class GUI extends React.Component {
         this.props.onStorageInit(storage);
         this.props.onVmInit(this.props.vm);
         this.extensionAPI = new extensionAPI(this);
-        //console.log(this.extensionAPI, extensionAPI);
-        if (lazyBlocks.loaded()) {
-            initExtensionAPI(this, this.props.vm, blocks(this.props.vm));
-        }
+        // console.log(this.extensionAPI, extensionAPI);
         this.props.onLoadBuiltinExtension();
     }
     componentDidUpdate (prevProps) {
@@ -171,7 +165,7 @@ GUI.defaultProps = {
     onProjectLoaded: () => {},
     onUpdateProjectId: () => {},
     onRef: () => {},
-    onVmInit: (/* vm */) => {},
+    onVmInit: (/* vm */) => {}
 };
 
 const mapStateToProps = state => {
