@@ -10,7 +10,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin');
 
 // PostCss
 const autoprefixer = require('autoprefixer');
@@ -172,8 +171,7 @@ function getPlugins () {
         new CopyWebpackPlugin([{
             from: 'extension-worker.{js,js.map}',
             context: 'node_modules/clipcc-vm/dist/web'
-        }]),
-        new ImageminWebpWebpackPlugin()
+        }])
     ]);
     if (ENABLE_PWA) {
         res = res.concat([
