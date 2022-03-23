@@ -17,6 +17,15 @@
     color: white;
 }
 
+.blocks-loader {
+    position: relative;
+    z-index: 100;
+    backdrop-filter: none!important;
+    width: 100%;
+    height: 100%;
+    background-color: $motion-primary!important;
+}
+
 [effect='blur'] .background {
 	backdrop-filter: blur(4px);
     background-color: $ui-modal-overlay;

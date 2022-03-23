@@ -60,13 +60,9 @@ const base = {
                 // in much lower dependencies.
                 babelrc: false,
                 plugins: [
-                    '@babel/plugin-syntax-dynamic-import',
-                    '@babel/plugin-transform-async-to-generator',
-                    '@babel/plugin-proposal-object-rest-spread',
                     ['react-intl', {
                         messagesDir: './translations/messages/'
-                    }],
-                    '@babel/plugin-transform-runtime'
+                    }]
                 ],
                 presets: [
                     ['@babel/preset-env'],
@@ -108,7 +104,7 @@ const base = {
             new TerserPlugin({
                 minify: TerserPlugin.swcMinify,
                 parallel: true,
-                include: /\.min\.js$/
+                include: /\.js$/
             })
         ]
     },
@@ -218,8 +214,10 @@ module.exports = [
         },
         optimization: {
             splitChunks: {
+                name: 'lib.min',
                 chunks: 'all',
-                name: 'lib.min'
+                minChunks: 2,
+                maxInitialRequests: 5
             },
             runtimeChunk: {
                 name: 'lib.min'

@@ -6,6 +6,7 @@ import ReactModal from 'react-modal';
 import VM from 'clipcc-vm';
 import {injectIntl} from 'react-intl';
 
+import lazyBlocks from '../lib/lazy-blocks.js';
 import ErrorBoundaryHOC from '../lib/error-boundary-hoc.jsx';
 import {
     getIsError,
@@ -52,7 +53,7 @@ import QueryParserHOC from '../lib/query-parser-hoc.jsx';
 import storage from '../lib/storage';
 import vmListenerHOC from '../lib/vm-listener-hoc.jsx';
 import blocks from '../lib/blocks.js';
-import extensionAPI from '../lib/extension-api.js'
+import extensionAPI from '../lib/extension-api.js';
 import vmManagerHOC from '../lib/vm-manager-hoc.jsx';
 import cloudManagerHOC from '../lib/cloud-manager-hoc.jsx';
 import {
@@ -71,7 +72,9 @@ class GUI extends React.Component {
         this.props.onVmInit(this.props.vm);
         this.extensionAPI = new extensionAPI(this);
         //console.log(this.extensionAPI, extensionAPI);
-        initExtensionAPI(this, this.props.vm, blocks(this.props.vm));
+        if (lazyBlocks.loaded()) {
+            initExtensionAPI(this, this.props.vm, blocks(this.props.vm));
+        }
         this.props.onLoadBuiltinExtension();
     }
     componentDidUpdate (prevProps) {
@@ -83,6 +86,7 @@ class GUI extends React.Component {
             // At this time the project view in www doesn't need to know when a project is unloaded
             this.props.onProjectLoaded();
         }
+
     }
     render () {
         document.body.setAttribute('theme', this.props.darkMode);
