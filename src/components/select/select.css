@@ -1,0 +1,77 @@
+@import "../../css/colors.css";
+@import "../../css/units.css";
+
+.container {
+    position: relative;
+}
+
+.select {
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    height: 2.25rem;
+    background-color: $ui-white;
+    border: 1px solid $ui-black-transparent;
+    border-radius: 0.75rem;
+    transition: 0.25s ease-out;
+    width: 10em;
+}
+
+.select:hover {
+    border-color: $motion-primary;
+}
+
+.select-focus {
+    border-color: $motion-primary;
+    box-shadow: 0 0 0 0.25rem $motion-transparent;
+}
+
+.value {
+    padding: 0.5rem;
+}
+
+.indicator {
+    display: flex;
+    position: relative;
+    align-self: stretch;
+}
+
+.indicator > img {
+    padding: 0.5rem;
+}
+
+.menu {
+    position: absolute;
+    width: 100%;
+    margin-top: 0.25rem;
+    background: $ui-white;
+    border-radius: 0.25rem;
+    padding: 0.25rem 0;
+    box-shadow: 0 0 3px 2px $ui-black-transparent;
+    z-index: 1; /* what the fuck. why translateX modifies z-index?! */
+}
+
+.option {
+    height: 2rem;
+    line-height: 2rem;
+    padding: 0 1rem;
+}
+
+.option:hover {
+    background-color: $motion-primary;
+    color: $ui-white;
+}
+
+.dummy-input {
+    position: relative;
+    opacity: 0;
+    padding: 0px;
+    left: -100px;
+    width: 1px;
+    background: 0px center;
+    color: transparent;
+    border: 0px;
+    outline: 0px;
+    caret-color: transparent;
+    transform: scale(0.01);
+}

@@ -8,6 +8,7 @@ import Box from '../box/box.jsx';
 import Modal from '../../containers/modal.jsx';
 import Switch from '../switch/switch.jsx';
 import TextSwitch from '../text-switch/text-switch.jsx';
+import Select from '../select/select.jsx';
 import Input from '../forms/input.jsx';
 import BufferedInputHOC from '../forms/buffered-input-hoc.jsx';
 
@@ -155,6 +156,7 @@ class SettingsModal extends React.Component {
 
     handleChangeSettingsItem (id) {
         return value => {
+            console.log('settings', id, value);
             this.props.onChangeSettingsItem(id, value);
         };
     }
@@ -322,7 +324,7 @@ class SettingsModal extends React.Component {
                             <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.darkmode)}
                             </p>
-                            <TextSwitch
+                            <Select
                                 options={darkModeOptions}
                                 onChange={this.handleChangeSettingsItem('darkMode')}
                                 value={this.props.darkMode}
