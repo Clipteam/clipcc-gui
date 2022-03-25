@@ -14,7 +14,7 @@
     border: 1px solid $ui-black-transparent;
     border-radius: 0.75rem;
     transition: 0.25s ease-out;
-    width: 10em;
+    width: 15em;
 }
 
 .select:hover {

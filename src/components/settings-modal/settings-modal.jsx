@@ -7,7 +7,6 @@ import bindAll from 'lodash.bindall';
 import Box from '../box/box.jsx';
 import Modal from '../../containers/modal.jsx';
 import Switch from '../switch/switch.jsx';
-import TextSwitch from '../text-switch/text-switch.jsx';
 import Select from '../select/select.jsx';
 import Input from '../forms/input.jsx';
 import BufferedInputHOC from '../forms/buffered-input-hoc.jsx';
@@ -48,17 +47,17 @@ const messages = defineMessages({
         id: 'gui.settingsModal.layout.label'
     },
     scratch1: {
-        defaultMessage: 'Scratch 1.4 Style',
+        defaultMessage: 'Scratch 1.4',
         description: 'Label of ClipCC layout',
         id: 'gui.settingsModal.layout.scratch1'
     },
     scratch2: {
-        defaultMessage: 'Scratch 2.0 Style',
+        defaultMessage: 'Scratch 2.0',
         description: 'Label of ClipCC layout',
         id: 'gui.settingsModal.layout.scratch2'
     },
     scratch3: {
-        defaultMessage: 'Scratch 3.0 Style',
+        defaultMessage: 'Scratch 3.0',
         description: 'Label of ClipCC layout',
         id: 'gui.settingsModal.layout.scratch3'
     },
@@ -216,7 +215,7 @@ class SettingsModal extends React.Component {
                         id: v.id,
                         text: this.props.intl.formatMessage({id: v.message})
                     }));
-                    element = (<TextSwitch
+                    element = (<Select
                         options={options}
                         onChange={this.handleChangeSettingsItem(item.id)}
                         value={this.props.settings[item.id]}
@@ -314,7 +313,7 @@ class SettingsModal extends React.Component {
                             <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.layout)}
                             </p>
-                            <TextSwitch
+                            <Select
                                 options={layoutStyleOptions}
                                 onChange={this.handleChangeSettingsItem('layoutStyle')}
                                 value={this.props.layoutStyle}
@@ -408,7 +407,7 @@ class SettingsModal extends React.Component {
                             <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.compatibility)}
                             </p>
-                            <TextSwitch
+                            <Select
                                 options={compatibilityOptions}
                                 onChange={this.props.onChangeCompatibility}
                                 value={this.props.compatibility}
