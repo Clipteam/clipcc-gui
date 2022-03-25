@@ -5,7 +5,6 @@ import classNames from 'classnames';
 
 import styles from './select.css';
 import indicatorIcon from './chevron-down.svg';
-import { FormattedDisplayName } from 'react-intl';
 
 class Select extends React.Component {
     constructor (props) {
@@ -15,11 +14,16 @@ class Select extends React.Component {
             'handleInputBlur',
             'handleInputFocus',
             'handleClickOption',
+            'handleHoverOption',
+            'handleKeyDown',
             'renderMenu'
         ]);
+        const cur = props.options.findIndex(option => option.id === props.value);
         this.state = {
             showMenu: false,
-            focus: false
+            focus: false,
+            select: Math.max(cur, 0),
+            value: cur
         };
         this.inputRef = createRef();
         this.menuRef = createRef();
@@ -36,7 +40,7 @@ class Select extends React.Component {
         event.preventDefault();
     }
 
-    handleInputFocus() {
+    handleInputFocus () {
         this.setState({focus: true});
     }
 
@@ -47,13 +51,61 @@ class Select extends React.Component {
         });
     }
 
-    handleClickOption (id) {
+    handleClickOption (index) {
         return event => {
-            this.props.onChange(id);
-            this.setState({showMenu: false});
+            this.props.onChange(this.props.options[index].id);
+            this.setState({showMenu: false, value: index});
             event.stopPropagation();
             event.preventDefault();
         };
+    }
+
+    handleHoverOption (index) {
+        return () => {
+            this.setState({select: index});
+        };
+    }
+
+    handleKeyDown (event) {
+        switch (event.key) {
+        case 'Enter':
+            if (this.state.showMenu) {
+                this.props.onChange(this.props.options[this.state.select].id);
+                this.setState({showMenu: false, value: this.state.select});
+            } else {
+                this.setState({showMenu: true});
+            }
+            break;
+        case 'Escape': {
+            if (this.state.showMenu) {
+                this.setState({showMenu: false});
+            } else {
+                return;
+            }
+            break;
+        }
+        case 'ArrowUp':
+            if (this.state.showMenu) {
+                this.setState({
+                    select: this.state.select === 0 ? this.props.options.length - 1 : this.state.select - 1
+                });
+            } else {
+                this.setState({showMenu: true});
+            }
+            break;
+        case 'ArrowDown':
+            if (this.state.showMenu) {
+                this.setState({
+                    select: this.state.select === this.props.options.length - 1 ? 0 : this.state.select + 1
+                });
+            } else {
+                this.setState({showMenu: true});
+            }
+            break;
+        default:
+            return;
+        }
+        event.stopPropagation();
     }
 
     renderMenu () {
@@ -65,11 +117,16 @@ class Select extends React.Component {
                 className={styles.menu}
                 ref={this.menuRef}
             >
-                {this.props.options.map(option => (
+                {this.props.options.map((option, index) => (
                     <div
                         key={option.id}
-                        className={styles.option}
-                        onMouseDown={this.handleClickOption(option.id)}
+                        className={classNames(
+                            styles.option,
+                            index === this.state.value ? styles.optionSelect : null,
+                            index === this.state.select ? styles.optionFocus : null
+                        )}
+                        onMouseDown={this.handleClickOption(index)}
+                        onMouseEnter={this.handleHoverOption(index)}
                     >
                         <span>{option.text}</span>
                     </div>
@@ -84,7 +141,6 @@ class Select extends React.Component {
             value, options, disabled, onChange,
             ...componentProps
         } = this.props;
-        console.log(this.state);
         return (
             <div className={styles.container}>
                 <div
@@ -93,11 +149,12 @@ class Select extends React.Component {
                         this.state.focus ? styles.selectFocus : null
                     )}
                     onMouseDown={this.handleMouseDown}
+                    onKeyDown={this.handleKeyDown}
                     {...componentProps}
                 >
                     <div className={styles.value}>
                         <span>
-                            {this.props.options.find(v => v.id === this.props.value).text}
+                            {this.state.value === -1 ? '' : this.props.options[this.state.value].text}
                         </span>
                     </div>
                     <input

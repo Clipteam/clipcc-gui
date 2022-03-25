@@ -57,9 +57,13 @@
     padding: 0 1rem;
 }
 
-.option:hover {
-    background-color: $motion-primary;
-    color: $ui-white;
+.option-select {
+    color: $motion-primary;
+    font-weight: bold;
+}
+
+.option-focus {
+    background-color: #deebff;
 }
 
 .dummy-input {
