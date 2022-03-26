@@ -67,15 +67,9 @@
 }
 
 .dummy-input {
-    position: relative;
+    position: absolute;
+    width: 0;
+    height: 0;
     opacity: 0;
-    padding: 0px;
-    left: -100px;
-    width: 1px;
-    background: 0px center;
-    color: transparent;
-    border: 0px;
-    outline: 0px;
-    caret-color: transparent;
-    transform: scale(0.01);
+    margin: 0;
 }

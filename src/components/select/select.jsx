@@ -163,6 +163,7 @@ class Select extends React.Component {
                         ref={this.inputRef}
                         onBlur={this.handleInputBlur}
                         onFocus={this.handleInputFocus}
+                        inputMode="none"
                     />
                     <div className={styles.indicator}>
                         <img src={indicatorIcon} />

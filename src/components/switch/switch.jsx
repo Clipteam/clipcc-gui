@@ -9,7 +9,8 @@ class Switch extends React.Component {
     constructor (props) {
         super(props);
         bindAll(this, [
-            'handleClick'
+            'handleClick',
+            'handleKeyDown'
         ]);
         this.state = {
             value: props.value
@@ -21,9 +22,15 @@ class Switch extends React.Component {
             return;
         }
         this.props.onChange(!this.state.value);
-        this.setState(state => ({
-            value: !state.value
-        }));
+        this.setState({value: !this.state.value});
+    }
+
+    handleKeyDown (event) {
+        if (event.key === 'Enter') {
+            this.props.onChange(!this.state.value);
+            this.setState({value: !this.state.value});
+            event.stopPropagation();
+        }
     }
 
     render () {
@@ -35,6 +42,7 @@ class Switch extends React.Component {
                     this.props.disabled ? styles.disabled : null
                 )}
                 onClick={this.handleClick}
+                onKeyDown={this.handleKeyDown}
             >
                 <div
                     className={classNames(
@@ -42,6 +50,10 @@ class Switch extends React.Component {
                         this.state.value ? styles.true : styles.false,
                         this.props.disabled ? styles.disabled : null
                     )}
+                />
+                <input
+                    className={styles.dummyInput}
+                    inputMode="none"
                 />
             </div>
         );

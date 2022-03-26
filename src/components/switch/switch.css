@@ -52,3 +52,11 @@ $slider-height: $slider-width;
 .slider.disabled {
     background-color: #d3d3d3;
 }
+
+.dummy-input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    margin: 0;
+}
