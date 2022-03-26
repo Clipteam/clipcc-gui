@@ -36,8 +36,13 @@
     align-self: stretch;
 }
 
-.indicator > img {
+.image {
     padding: 0.5rem;
+    transition-duration: 0.3s;
+}
+
+.image-rotate {
+    transform: rotate(180deg);
 }
 
 .menu {

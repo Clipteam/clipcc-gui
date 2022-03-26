@@ -13,6 +13,7 @@ class Select extends React.Component {
             'handleMouseDown',
             'handleInputBlur',
             'handleInputFocus',
+            'handleClickSelect',
             'handleClickOption',
             'handleHoverOption',
             'handleKeyDown',
@@ -30,6 +31,11 @@ class Select extends React.Component {
     }
 
     handleMouseDown (event) {
+        event.stopPropagation();
+        event.preventDefault();
+    }
+
+    handleClickSelect (event) {
         if (this.props.disabled) {
             return;
         }
@@ -37,6 +43,7 @@ class Select extends React.Component {
             this.inputRef.current.focus();
         }
         this.setState({showMenu: !this.state.showMenu});
+        event.stopPropagation();
         event.preventDefault();
     }
 
@@ -125,7 +132,8 @@ class Select extends React.Component {
                             index === this.state.value ? styles.optionSelect : null,
                             index === this.state.select ? styles.optionFocus : null
                         )}
-                        onMouseDown={this.handleClickOption(index)}
+                        onClick={this.handleClickOption(index)}
+                        onMouseDown={this.handleMouseDown}
                         onMouseEnter={this.handleHoverOption(index)}
                     >
                         <span>{option.text}</span>
@@ -149,6 +157,7 @@ class Select extends React.Component {
                         styles.select,
                         this.state.focus ? styles.selectFocus : null
                     )}
+                    onClick={this.handleClickSelect}
                     onMouseDown={this.handleMouseDown}
                     onKeyDown={this.handleKeyDown}
                     {...componentProps}
@@ -166,7 +175,13 @@ class Select extends React.Component {
                         inputMode="none"
                     />
                     <div className={styles.indicator}>
-                        <img src={indicatorIcon} />
+                        <img
+                            src={indicatorIcon}
+                            className={classNames(
+                                styles.image,
+                                this.state.showMenu ? styles.imageRotate : null
+                            )}
+                        />
                     </div>
                 </div>
                 {this.renderMenu()}
