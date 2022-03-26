@@ -138,13 +138,14 @@ class Select extends React.Component {
     render () {
         const {
             // eslint-disable-next-line no-unused-vars
-            value, options, disabled, onChange,
+            value, options, disabled, onChange, className,
             ...componentProps
         } = this.props;
         return (
             <div className={styles.container}>
                 <div
                     className={classNames(
+                        className,
                         styles.select,
                         this.state.focus ? styles.selectFocus : null
                     )}
@@ -180,7 +181,8 @@ Select.propTypes = {
         text: PropTypes.string
     })).isRequired,
     disabled: PropTypes.bool.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    className: PropTypes.string
 };
 
 Select.defaultProps = {

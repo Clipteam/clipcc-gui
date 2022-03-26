@@ -317,6 +317,7 @@ class SettingsModal extends React.Component {
                                 options={layoutStyleOptions}
                                 onChange={this.handleChangeSettingsItem('layoutStyle')}
                                 value={this.props.layoutStyle}
+                                className={styles.selectBig}
                             />
                         </div>
                         <div className={classNames(styles.item)}>
@@ -327,6 +328,7 @@ class SettingsModal extends React.Component {
                                 options={darkModeOptions}
                                 onChange={this.handleChangeSettingsItem('darkMode')}
                                 value={this.props.darkMode}
+                                className={styles.selectSmall}
                             />
                         </div>
                         <div className={classNames(styles.item)}>
@@ -411,6 +413,7 @@ class SettingsModal extends React.Component {
                                 options={compatibilityOptions}
                                 onChange={this.props.onChangeCompatibility}
                                 value={this.props.compatibility}
+                                className={styles.selectBig}
                             />
                         </div>
                         <div className={classNames(styles.item)}>

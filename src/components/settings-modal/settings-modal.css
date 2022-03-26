@@ -63,3 +63,11 @@
 .input {
     width: 5rem;
 }
+
+.select-small {
+    width: 10rem;
+}
+
+.select-big {
+    width: 15rem;
+}
