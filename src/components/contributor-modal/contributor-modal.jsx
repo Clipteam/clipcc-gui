@@ -64,43 +64,44 @@ const ContributorModal = ({
         onRequestClose={onRequestClose}
         id="contributorModal"
     >
-        <Box className={styles.body}>
-            <div className={styles.scrollable}>
-                <strong>{intl.formatMessage(messages.majorDeveloper)}</strong>
-                <p>{contributorList.sinangentoo}</p>
-                <p>{contributorList.alexcui}</p>
-                <p>{contributorList.frank782}</p>
-                <p>{contributorList.hydrostic}</p>
-                <strong>{intl.formatMessage(messages.developer)}</strong>
-                <p>{contributorList.stevexmh}</p>
-                <p>{contributorList.jasonxu}</p>
-                <p>{contributorList.solstice23}</p>
-                <p>{contributorList.e4361}</p>
-                <p>{contributorList.waterblock79}</p>
-                <p>{contributorList.sparrowhe}</p>
-                <strong>{intl.formatMessage(messages.designer)}</strong>
-                <p>{contributorList.zerlight}</p>
-                <p>{contributorList.soilzhu}</p>
-                <strong>{intl.formatMessage(messages.advocates)}</strong>
-                <p>{contributorList.someoneyoung}</p>
-                <p>{contributorList.yuan3old}</p>
-                <p>{contributorList.jasonjia}</p>
-                <p>{contributorList.cyarice}</p>
-                <p>{contributorList.xiaoji4093}</p>
-                <strong>{intl.formatMessage(messages.investor)}</strong>
-                <p>{contributorList.bleshi}</p>
-                <p>{contributorList.xiaoji4093}</p>
-                <strong>{intl.formatMessage(messages.translator)}</strong>
-                <p>{contributorList.soilzhu}</p>
-                <p>{contributorList.lmlanmei}</p>
-                <strong>{intl.formatMessage(messages.donor)}</strong>
-                <p>{contributorList.cyarice}</p>
-                <p>{contributorList.lyricepic}</p>
-                <p>{contributorList.unknown}</p>
-                <p>{contributorList.mbzzw}</p>
-                <p>{contributorList.afadian}</p>
-                <strong>{intl.formatMessage(messages.andyou)}</strong>
-            </div>
+        <Box
+            className={styles.body}
+            scrollbar
+        >
+            <strong>{intl.formatMessage(messages.majorDeveloper)}</strong>
+            <p>{contributorList.sinangentoo}</p>
+            <p>{contributorList.alexcui}</p>
+            <p>{contributorList.frank782}</p>
+            <p>{contributorList.hydrostic}</p>
+            <strong>{intl.formatMessage(messages.developer)}</strong>
+            <p>{contributorList.stevexmh}</p>
+            <p>{contributorList.jasonxu}</p>
+            <p>{contributorList.solstice23}</p>
+            <p>{contributorList.e4361}</p>
+            <p>{contributorList.waterblock79}</p>
+            <p>{contributorList.sparrowhe}</p>
+            <strong>{intl.formatMessage(messages.designer)}</strong>
+            <p>{contributorList.zerlight}</p>
+            <p>{contributorList.soilzhu}</p>
+            <strong>{intl.formatMessage(messages.advocates)}</strong>
+            <p>{contributorList.someoneyoung}</p>
+            <p>{contributorList.yuan3old}</p>
+            <p>{contributorList.jasonjia}</p>
+            <p>{contributorList.cyarice}</p>
+            <p>{contributorList.xiaoji4093}</p>
+            <strong>{intl.formatMessage(messages.investor)}</strong>
+            <p>{contributorList.bleshi}</p>
+            <p>{contributorList.xiaoji4093}</p>
+            <strong>{intl.formatMessage(messages.translator)}</strong>
+            <p>{contributorList.soilzhu}</p>
+            <p>{contributorList.lmlanmei}</p>
+            <strong>{intl.formatMessage(messages.donor)}</strong>
+            <p>{contributorList.cyarice}</p>
+            <p>{contributorList.lyricepic}</p>
+            <p>{contributorList.unknown}</p>
+            <p>{contributorList.mbzzw}</p>
+            <p>{contributorList.afadian}</p>
+            <strong>{intl.formatMessage(messages.andyou)}</strong>
         </Box>
     </Modal>
 );

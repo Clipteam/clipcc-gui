@@ -8,12 +8,8 @@
 .body {
     background: $ui-white;
     padding: 1.5rem 2.25rem;
-}
-
-.scrollable {
-    width: 550px;
-    height: 500px;
-    overflow: auto;
+    overflow-y: auto;
+    height: 70vh;
 }
 
 [theme='dark'] .body {
