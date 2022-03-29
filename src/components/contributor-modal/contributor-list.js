@@ -15,7 +15,7 @@ export const contributorList = {
     bleshi: 'BleShi',
     xiaoji4093: 'xiaoji4093',
     hotover: 'Hotover',
-    lmlanmei: 'LMLanmei',
+    lmlanmei: 'LanmeiCN',
     yuan3old: 'Yuan3old',
     someoneyoung: 'Someone_Young',
     jasonjia: 'JasonJia',
