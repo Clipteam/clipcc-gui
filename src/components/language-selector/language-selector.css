@@ -8,7 +8,7 @@
     height: $menu-bar-height;
     opacity: 0;
     user-select: none;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "华文隶书", Helvetica, Arial, sans-serif;
     font-size: .875rem;
     color: $text-primary;
     background: $ui-white;

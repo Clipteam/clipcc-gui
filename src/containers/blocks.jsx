@@ -686,7 +686,7 @@ Blocks.defaultOptions = {
     },
     comments: true,
     collapse: false,
-    sounds: false
+    sounds: true
 };
 
 Blocks.defaultProps = {

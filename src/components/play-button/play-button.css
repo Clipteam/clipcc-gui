@@ -13,7 +13,7 @@
     background-color: $sound-primary;
     color: $ui-white;
     border-radius: 50%;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "华文隶书", Helvetica, Arial, sans-serif;
     user-select: none;
     cursor: pointer;
     transition: all 0.15s ease-out;

@@ -18,7 +18,7 @@ $more-button-size: 2.25rem;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "华文隶书", Helvetica, Arial, sans-serif;
     background: $motion-primary;
     outline: none;
     border: none;
@@ -137,7 +137,7 @@ button::-moz-focus-inner {
     opacity: 1 !important;
     border: 1px solid hsla(0, 0%, 0%, .1) !important;
     box-shadow: 0 0 .5rem hsla(0, 0%, 0%, .25) !important;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-family: "华文隶书", Helvetica, Arial, sans-serif !important;
 }
 
 .tooltip:after {
@@ -156,7 +156,7 @@ button::-moz-focus-inner {
     border: 1px solid hsla(0, 0%, 0%, .1) !important;
     border-radius: $form-radius !important;
     box-shadow: 0 0 .5rem hsla(0, 0%, 0%, .25) !important;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-family: "华文隶书", Helvetica, Arial, sans-serif !important;
     z-index: $z-index-tooltip !important;
 }
 

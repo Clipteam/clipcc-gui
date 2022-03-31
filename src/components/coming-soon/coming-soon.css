@@ -14,7 +14,7 @@
     border-radius: $form-radius !important;
     box-shadow: 0 0 .5rem $ui-black-transparent !important;
     padding: .75rem 1rem !important;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-family: "华文隶书", Helvetica, Arial, sans-serif !important;
     font-size: 1rem !important;
     line-height: 1.25rem !important;
     z-index: $z-index-tooltip !important;

@@ -13,7 +13,7 @@
 .question-label {
     font-size: 0.75rem;
     font-weight: bold;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "华文隶书", Helvetica, Arial, sans-serif;
     color: $text-primary;
     padding-bottom: $space;
 }

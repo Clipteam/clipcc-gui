@@ -24,10 +24,10 @@
         but fixes [FFx + Safari] [resize window down + scroll to the right] bug.
         width: 100%;
     */
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "华文隶书", Helvetica, Arial, sans-serif;
     font-size: $menu-bar-standard-font-size;
     font-weight: bold;
-    background: linear-gradient(35deg, $motion-primary, #479cff);
+    background: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet);
     color: $ui-white;
 }
 
