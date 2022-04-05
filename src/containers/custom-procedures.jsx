@@ -129,10 +129,14 @@ class CustomProcedures extends React.Component {
             return;
         }
         
-        if (procCode_.indexOf('%') !== -1) {
+        // 这个bug需要配合clipcc-block修复
+        //我懒 屏蔽了 等LLK
+        /*
+        if ((procCode_.split("%").length - 1) !== argumentIds_.length) {
             alert('Procedure name cannot contain the "%" character');
             return;
         }
+        */
         const newMutation = this.mutationRoot ? this.mutationRoot.mutationToDom(true) : null;
         this.props.onRequestClose(newMutation);
     }
