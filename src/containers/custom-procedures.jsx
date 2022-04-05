@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import bindAll from 'lodash.bindall';
 import defaultsDeep from 'lodash.defaultsdeep';
 import PropTypes from 'prop-types';
@@ -122,6 +123,16 @@ class CustomProcedures extends React.Component {
         this.props.onRequestClose();
     }
     handleOk () {
+        const {procCode_} = this.mutationRoot;
+        if (procCode_ === '') {
+            alert('Please enter a name for your procedure');
+            return;
+        }
+        
+        if (procCode_.indexOf('%') !== -1) {
+            alert('Procedure name cannot contain the "%" character');
+            return;
+        }
         const newMutation = this.mutationRoot ? this.mutationRoot.mutationToDom(true) : null;
         this.props.onRequestClose(newMutation);
     }
