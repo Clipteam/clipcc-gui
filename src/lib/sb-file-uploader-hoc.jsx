@@ -196,7 +196,8 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                     for (const file in zipData.files) {
                         if (/^extensions\/.+\.ccx$/g.test(file)) {
                             const data = await zipData.files[file].async('arraybuffer');
-                            await this.props.loadExtensionFromFile(data, 'ccx');
+                            const {id} = await this.props.loadExtensionFromFile(data, 'ccx');
+                            this.props.setExtensionEnable(id);
                         }
                     }
                 }
@@ -315,6 +316,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
             isShowingWithoutId: getIsShowingWithoutId(loadingState),
             loadingState: loadingState,
             projectChanged: state.scratchGui.projectChanged,
+            setExtensionEnable: PropTypes.func.isRequired,
             userOwnsProject: ownProps.authorUsername && user &&
                 (ownProps.authorUsername === user.username),
             vm: state.scratchGui.vm,
@@ -325,6 +327,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
     const mapDispatchToProps = (dispatch, ownProps) => ({
         cancelFileUpload: loadingState => dispatch(onLoadedProject(loadingState, false, false)),
         closeFileMenu: () => dispatch(closeFileMenu()),
+        setExtensionEnable: id => dispatch(enableExtension(id)),
         // transition project state from loading to regular, and close
         // loading screen and file menu
         onLoadingFinished: (loadingState, success) => {

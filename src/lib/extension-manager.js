@@ -212,10 +212,10 @@ const initExtensionAPI = (gui, vm, blocks) => {
 };
 
 const loadExtensionFromFile = async (dispatch, file, type) => {
+    let info = {};
     switch (type) {
     case 'ccx': {
         const zipData = await JSZip.loadAsync(file);
-        let info = {};
         let instance = null;
 
         // Load info
@@ -319,6 +319,7 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
         throw new Error(`Unkown extension type *.${type}`);
     }
     }
+    return info;
 };
 
 export {

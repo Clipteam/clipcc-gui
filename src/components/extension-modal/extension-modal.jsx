@@ -56,14 +56,16 @@ class ExtensionModal extends React.PureComponent {
                             <tr>
                                 <th><FormattedMessage {...messages.extensionId} /></th>
                                 <th><FormattedMessage {...messages.required} /></th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {Object.values(this.props.extension).map(ext => (
                                 <tr key={ext.extensionId}>
                                     <td>
-                                        <img src={ext.insetIconURL} className={styles.icon} />
+                                        <img
+                                            src={ext.insetIconURL}
+                                            className={styles.icon}
+                                        />
                                         <span className={styles.extensionId}>{ext.extensionId}</span>
                                     </td>
                                     <td>
@@ -75,7 +77,6 @@ class ExtensionModal extends React.PureComponent {
                                     <td>
                                         <button
                                             className={styles.uploadButton}
-                                            //onClick={this.props.onOk}
                                         >
                                             <FormattedMessage {...messages.upload} />
                                         </button>
