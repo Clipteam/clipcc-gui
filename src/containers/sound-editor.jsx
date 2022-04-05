@@ -62,7 +62,7 @@ class SoundEditor extends React.Component {
         this.ref = null;
     }
     static getDerivedStateFromProps (nextProps, prevState) {
-        if (nextProps.soundId === prevState.cachedPrevProps) return null;
+        if (nextProps.soundId === prevState.cachedPrevProps) return ;
 
         return {
             cachedPrevProps: nextProps,
@@ -73,7 +73,7 @@ class SoundEditor extends React.Component {
     componentDidMount () {
         this.audioBufferPlayer = new AudioBufferPlayer(this.props.samples, this.props.sampleRate);
 
-        document.addEventListener('keydown', this.handleKeyPress, {capture: true});
+        document.addEventListener('keydown', this.handleKeyPress, { capture: true });
     }
     componentDidUpdate (prevProps) {
         if (prevProps.soundId === this.props.soundId) return;
