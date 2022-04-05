@@ -95,13 +95,19 @@ class CostumeTab extends React.Component {
             stage
         } = props;
         const target = editingTarget && sprites[editingTarget] ? sprites[editingTarget] : stage;
-        const index = target && target.currentCostume ? target.currentCostume : 0;
-        this.state = {
-            cachedPrevProps: props,
-            selectedCostumeIndex: index
-        };
+        if (target && target.currentCostume) {
+            this.state = {
+                cachedPrevProps: props,
+                selectedCostumeIndex: target.currentCostume
+            };
+        } else {
+            this.state = {
+                cachedPrevProps: props,
+                selectedCostumeIndex: 0
+            };
+        }
     }
-    static getDerivedStateFromProps (nextProps, prevState) {
+    static getDerivedStateFromProps(nextProps, prevState) {
         const {
             editingTarget,
             sprites,
@@ -111,7 +117,7 @@ class CostumeTab extends React.Component {
         const target = editingTarget && sprites[editingTarget] ? sprites[editingTarget] : stage;
         if (!target || !target.costumes) return null;
 
-        if (prevState.cachedPrevProps.editingTarget === editingTarget) {
+        if (prevState.cachedPrevProps.props.editingTarget === editingTarget) {
             // If costumes have been added or removed, change costumes to the editing target's
             // current costume.
             const oldTarget = prevState.cachedPrevProps.sprites[editingTarget] ?
