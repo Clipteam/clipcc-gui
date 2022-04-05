@@ -53,6 +53,7 @@
         same for Firefox, so a different solution may be needed for them.
     */
     -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 [dir="rtl"] .blocks :global(.blocklyToolboxDiv) {

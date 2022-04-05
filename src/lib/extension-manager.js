@@ -223,6 +223,7 @@ const loadSettings = (dispatch, id, settings) => {
 };
 
 const loadExtensionFromFile = async (dispatch, file, type) => {
+    let info = {};
     switch (type) {
     case 'ccx': {
         const zipData = await JSZip.loadAsync(file);
@@ -340,6 +341,7 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
         throw new Error(`Unkown extension type *.${type}`);
     }
     }
+    return info;
 };
 
 export {

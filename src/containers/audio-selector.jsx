@@ -23,7 +23,6 @@ class AudioSelector extends React.Component {
         ]);
 
         this.state = {
-            cachedPrevProps: props,
             trimStart: props.trimStart,
             trimEnd: props.trimEnd
         };
@@ -43,14 +42,14 @@ class AudioSelector extends React.Component {
             distanceThreshold: 0
         });
     }
-    static getDerivedStateFromProps (nextProps, prevState) {
-        const {trimStart, trimEnd} = prevState.cachedPrevProps;
-        if (trimStart === nextProps.trimStart || trimEnd === nextProps.trimEnd) return null;
-        return {
-            cachedPrevProps: nextProps,
-            trimStart: nextProps.trimStart,
-            trimEnd: nextProps.trimEnd
-        };
+    // @todo - 更新到新方法
+    UNSAFE_componentWillReceiveProps (newProps) {
+        const {trimStart, trimEnd} = this.props;
+        if (newProps.trimStart === trimStart && newProps.trimEnd === trimEnd) return;
+        this.setState({
+            trimStart: newProps.trimStart,
+            trimEnd: newProps.trimEnd
+        });
     }
     clearSelection () {
         this.props.onSetTrim(null, null);
