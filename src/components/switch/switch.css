@@ -27,8 +27,16 @@ $slider-height: $slider-width;
     background-color: #e6e6e6;
 }
 
+[theme='dark'] .switch.false {
+    background-color: $ui-tertiary-dark;
+}
+
 .switch.disabled {
     background-color: #9c9c9c;
+}
+
+[theme='dark'] .switch.disabled {
+    background-color: #000000;
 }
 
 .slider {
