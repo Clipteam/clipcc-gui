@@ -18,8 +18,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
  * it will override the internal `intl` redux state
  * @param {React.Component} WrappedComponent - component to provide state for
  * @param {boolean} localesOnly - only provide the locale state, not everything
- * required by the GUI. Used to exclude excess state when
-    only rendering modals, not the GUI.
+ *                      required by the GUI. Used to exclude excess state when
+                        only rendering modals, not the GUI.
  * @returns {React.Component} component with redux and intl state provided
  */
 const AppStateHOC = function (WrappedComponent, localesOnly) {

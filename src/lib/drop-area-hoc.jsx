@@ -48,37 +48,7 @@ const DropAreaHOC = function (dragTypes) {
                 this.containerBox = null;
             }
 
-            /*
-            static getDerivedStateFromProps (nextProps, prevState) {
-                let dragOverStatus = prevState.dragOver;
-                // If `dragging` becomes true, record the drop area rectangle
-                if (!nextProps.dragInfo.dragging && prevState.nextPrevProps.dragInfo.dragging && prevState.dragOver) {
-                    dragOverStatus = false;
-                }
-
-                // 未确定dropAreaRect用法，故暂时不启用新写法
-                // If a drag is in progress (currentOffset) and it matches the relevant drag types,
-                // test if the drag is within the drop area rect and set the state accordingly.
-                if (this.dropAreaRect && nextProps.dragInfo.currentOffset &&
-                    dragTypes.includes(nextProps.dragInfo.dragType)) {
-                    const {x, y} = nextProps.dragInfo.currentOffset;
-                    const {top, right, bottom, left} = this.dropAreaRect;
-                    if (x > left && x < right && y > top && y < bottom) dragOverStatus = true;
-                    else dragOverStatus = false;
-                }
-            }
-            componentDidUpdate (prevProps) {
-                // If `dragging` becomes true, record the drop area rectangle
-                if (this.props.dragInfo.dragging && !prevProps.dragInfo.dragging) {
-                    this.dropAreaRect = this.ref && this.ref.getBoundingClientRect();
-                // If `dragging` becomes false, call the drop handler
-                } else if (!this.props.dragInfo.dragging && prevProps.dragInfo.dragging && this.state.dragOver) {
-                    this.props.onDrop(prevProps.dragInfo);
-                }
-            }
-            */
-           
-            // @todo - 更新到新方法(上面注释的方法，暂时不启用)
+            // @todo - 更新到新方法
             UNSAFE_componentWillReceiveProps (newProps) {
                 // If `dragging` becomes true, record the drop area rectangle
                 if (newProps.dragInfo.dragging && !this.props.dragInfo.dragging) {
