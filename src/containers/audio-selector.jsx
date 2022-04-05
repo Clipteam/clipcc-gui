@@ -23,7 +23,7 @@ class AudioSelector extends React.Component {
         ]);
 
         this.state = {
-            cachedPrevProps: props,
+            cachedPrevProps: null,
             trimStart: props.trimStart,
             trimEnd: props.trimEnd
         };

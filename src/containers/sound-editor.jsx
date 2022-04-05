@@ -48,7 +48,7 @@ class SoundEditor extends React.Component {
             'resampleBufferToRate'
         ]);
         this.state = {
-            cachedPrevProps: props,
+            cachedPrevProps: null,
             copyBuffer: null,
             chunkLevels: computeChunkedRMS(this.props.samples),
             playhead: null, // null is not playing, [0 -> 1] is playing percent
