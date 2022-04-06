@@ -297,7 +297,7 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
 
         ClipCCExtension.extensionManager.addInstance(info.id, info, instance);
         dispatch(initExtension(extensionInfo));
-        loadSettings(dispatch, info.id, settings);
+        if (settings) loadSettings(dispatch, info.id, settings);
         dispatch(addLocales(locale));
         dispatch(updateLocale());
 
