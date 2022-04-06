@@ -26,6 +26,8 @@ class SettingsModal extends React.Component {
             'handleChangeFramerate',
             'handleChangeSeamlessFullscreen',
             'handleChangeAutoSave',
+            'handleChangeStageWidth',
+            'handleChangeStageHeight',
             'handleChangeCompatibility',
             'handleChangeCompressionLevel'
         ]);
@@ -39,6 +41,16 @@ class SettingsModal extends React.Component {
     handleChangeFramerate (framerate) {
         this.props.updateSettings('framerate', framerate);
         this.props.vm.runtime.setFramerate(framerate);
+    }
+
+    handleChangeStageWidth (width) {
+        this.props.updateSettings('stageWidth', width);
+        this.props.vm.setStageWidth(width);
+    }
+
+    handleChangeStageHeight (height) {
+        this.props.updateSettings('stageHeight', height);
+        this.props.vm.setStageHeight(height);
     }
 
     handleChangeSeamlessFullscreen (value) {
@@ -73,6 +85,8 @@ class SettingsModal extends React.Component {
                 onChangeSeamlessFullscreen={this.handleChangeSeamlessFullscreen}
                 onChangeAutoSave={this.handleChangeAutoSave}
                 onChangeCompatibility={this.handleChangeCompatibility}
+                onChangeStageWidth={this.handleChangeStageWidth}
+                onChangeStageHeight={this.handleChangeStageHeight}
                 onChangeCompressionLevel={this.handleChangeCompressionLevel}
                 {...this.props}
             />
@@ -89,6 +103,8 @@ SettingsModal.propTypes = {
     blur: PropTypes.bool.isRequired,
     framerate: PropTypes.number.isRequired,
     seamless: PropTypes.bool.isRequired,
+    stageHeight: PropTypes.number.isRequired,
+    stageWidth: PropTypes.number.isRequired,
     autosave: PropTypes.bool.isRequired,
     autosaveInterval: PropTypes.number.isRequired,
     compatibility: PropTypes.string.isRequired,
@@ -108,6 +124,8 @@ const mapStateToProps = state => ({
     blur: state.scratchGui.settings.blur,
     framerate: state.scratchGui.settings.framerate,
     seamless: state.scratchGui.settings.seamless,
+    stageHeight: state.scratchGui.settings.stageHeight,
+    stageWidth: state.scratchGui.settings.stageWidth,
     autosave: state.scratchGui.settings.autosave,
     autosaveInterval: state.scratchGui.settings.autosaveInterval,
     compatibility: state.scratchGui.settings.compatibility,

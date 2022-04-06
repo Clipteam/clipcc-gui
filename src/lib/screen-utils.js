@@ -41,10 +41,10 @@ const resolveStageSize = (stageSizeMode, isFullSize) => {
  * @param {boolean} isFullScreen - true if full-screen mode is enabled.
  * @return {StageDimensions} - an object describing the dimensions of the stage.
  */
-const getStageDimensions = (stageSize, isFullScreen) => {
+const getStageDimensions = (stageSize, isFullScreen, resolutionX, resolutionY) => {
     const stageDimensions = {
-        heightDefault: layout.standardStageHeight,
-        widthDefault: layout.standardStageWidth,
+        heightDefault: resolutionY ? resolutionY : layout.standardStageHeight,
+        widthDefault: resolutionX ? resolutionX : layout.standardStageWidth,
         height: 0,
         width: 0,
         scale: 0

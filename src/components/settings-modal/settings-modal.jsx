@@ -91,6 +91,11 @@ const messages = defineMessages({
         description: 'Label of Seamless Fullscreen',
         id: 'gui.settingsModal.seamless.label'
     },
+    resolution: {
+        defaultMessage: 'Stage size',
+        description: 'Label of Stage size',
+        id: 'gui.settingsModal.resolution.label'
+    },
     autosave: {
         defaultMessage: 'Auto Save',
         description: 'Label of Handling Auto Save',
@@ -371,6 +376,36 @@ class SettingsModal extends React.Component {
                                 onChange={this.props.onChangeSeamlessFullscreen}
                                 value={this.props.seamless}
                             />
+                        </div>
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.resolution)}
+                            </p>
+                            <div className={styles.group}>
+                                <BufferedInput
+                                    small
+                                    tabIndex="0"
+                                    type="number"
+                                    precision={0}
+                                    placeholder="480"
+                                    value={this.props.stageWidth}
+                                    onSubmit={this.props.onChangeStageWidth}
+                                    className={classNames(styles.input)}
+                                />
+                                <div style={{margin: '0 1rem'}}>
+                                    {'×'}
+                                </div>
+                                <BufferedInput
+                                    small
+                                    tabIndex="0"
+                                    type="number"
+                                    precision={0}
+                                    placeholder="360"
+                                    value={this.props.stageHeight}
+                                    onSubmit={this.props.onChangeStageHeight}
+                                    className={classNames(styles.input)}
+                                />
+                            </div>
                         </div>
                         <p
                             className={classNames(styles.category)}

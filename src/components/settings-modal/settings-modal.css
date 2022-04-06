@@ -60,6 +60,11 @@
     background-color: rgb(150, 150, 150);
 }
 
+.group {
+    display: flex;
+    align-items: center;
+}
+
 .input {
     width: 5rem;
 }

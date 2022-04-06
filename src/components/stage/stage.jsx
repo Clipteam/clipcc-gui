@@ -30,10 +30,12 @@ const StageComponent = props => {
         onDoubleClick,
         onQuestionAnswered,
         layoutStyle,
+        resolutionX,
+        resolutionY,
         ...boxProps
     } = props;
 
-    const stageDimensions = getStageDimensions(stageSize, isFullScreen);
+    const stageDimensions = getStageDimensions(stageSize, isFullScreen, resolutionX, resolutionY);
 
     return (
         <React.Fragment>
@@ -84,6 +86,8 @@ const StageComponent = props => {
 
                 {/* `stageOverlays` is for items that should *not* have their overflow contained within the stage */}
                 <Box
+                    resolutionX={resolutionX}
+                    resolutionY={resolutionY}
                     className={classNames(
                         styles.stageOverlays,
                         {[styles.fullScreen]: isFullScreen}
@@ -147,9 +151,14 @@ StageComponent.propTypes = {
     isFullScreen: PropTypes.bool.isRequired,
     isStarted: PropTypes.bool,
     micIndicator: PropTypes.bool,
+    layoutStyle: PropTypes.string,
+    resolutionX: PropTypes.number,
+    resolutionY: PropTypes.number,
     onDeactivateColorPicker: PropTypes.func,
     onDoubleClick: PropTypes.func,
     onQuestionAnswered: PropTypes.func,
+    stageWidth: PropTypes.number,
+    stageHeight: PropTypes.number,
     question: PropTypes.string,
     stageSize: PropTypes.oneOf(Object.keys(STAGE_DISPLAY_SIZES)).isRequired,
     useEditorDragStyle: PropTypes.bool

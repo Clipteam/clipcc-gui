@@ -11,6 +11,8 @@ const defaultState = {
     autosaveInterval: 120,
     framerate: 30,
     compatibility: 'donotload',
+    stageWidth: 480,
+    stageHeight: 360,
     compression: 6,
     saveExtension: true,
     saveOptionalExtension: false
