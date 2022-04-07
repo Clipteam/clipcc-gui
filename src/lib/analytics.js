@@ -1,3 +1,4 @@
+/*
 import GoogleAnalytics from 'react-ga';
 
 import log from './log';
@@ -21,3 +22,4 @@ if (GA_ID) {
 }
 
 export default GoogleAnalytics;
+*/
