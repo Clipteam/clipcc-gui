@@ -270,8 +270,8 @@ class ExtensionLibrary extends React.PureComponent {
                 rawURL: extension.iconURL || extensionIcon,
                 featured: true,
                 switchable: true,
-                name: (<FormattedMessage id={extension.name} />),
-                description: (<FormattedMessage id={extension.description} />)
+                name: this.props.intl.formatMessage({id: extension.name}),
+                description: this.props.intl.formatMessage({id: extension.description})
             }))
             .sort((a, b) => {
                 if (a.enabled === b.enabled) {
