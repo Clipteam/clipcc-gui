@@ -12,6 +12,7 @@ const defaultState = {
     framerate: 30,
     compatibility: 'donotload',
     compression: 6,
+    hideNonOriginalBlocks: false,
     saveExtension: true,
     saveOptionalExtension: false
 };

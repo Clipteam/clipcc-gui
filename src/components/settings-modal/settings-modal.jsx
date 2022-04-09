@@ -1,4 +1,5 @@
-import React, { createRef } from 'react';
+/* eslint-disable react/forbid-prop-types */
+import React, {createRef} from 'react';
 import PropTypes from 'prop-types';
 import {defineMessages, injectIntl} from 'react-intl';
 import classNames from 'classnames';
@@ -135,6 +136,11 @@ const messages = defineMessages({
         defaultMessage: 'Save Optional Extension to Project File',
         description: 'Label of Save Optional Extension',
         id: 'gui.settingsModal.saveOptionalExtension.label'
+    },
+    hideNonOriginalBlocks: {
+        defaultMessage: 'Hide non-original Blocks',
+        description: 'Label of Hide non-original Blocks',
+        id: 'gui.settingsModal.hideNonoriginalBlocks.label'
     }
 });
 
@@ -452,6 +458,15 @@ class SettingsModal extends React.Component {
                                 disabled={!this.props.saveExtension}
                             />
                         </div>
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.hideNonOriginalBlocks)}
+                            </p>
+                            <Switch
+                                onChange={this.handleChangeSettingsItem('hideNonOriginalBlocks')}
+                                value={this.props.hideNonOriginalBlocks}
+                            />
+                        </div>
                         {this.renderExtensionSettings()}
                     </Box>
                 </Box>
@@ -461,6 +476,7 @@ class SettingsModal extends React.Component {
 }
 
 SettingsModal.propTypes = {
+    intl: PropTypes.object.isRequired,
     extensionSettings: PropTypes.object.isRequired,
     settings: PropTypes.object.isRequired,
     layoutStyle: PropTypes.string.isRequired,
@@ -472,6 +488,7 @@ SettingsModal.propTypes = {
     autosaveInterval: PropTypes.number.isRequired,
     compatibility: PropTypes.string.isRequired,
     compression: PropTypes.number.isRequired,
+    hideNonOriginalBlocks: PropTypes.bool.isRequired,
     saveExtension: PropTypes.bool.isRequired,
     saveOptionalExtension: PropTypes.bool.isRequired,
     onRequestClose: PropTypes.func.isRequired,

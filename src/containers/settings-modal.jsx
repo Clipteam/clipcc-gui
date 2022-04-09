@@ -35,7 +35,7 @@ class SettingsModal extends React.Component {
         console.log('Change Settings:', id, value);
         this.props.updateSettings(id, value);
     }
-    
+
     handleChangeFramerate (framerate) {
         this.props.updateSettings('framerate', framerate);
         this.props.vm.runtime.setFramerate(framerate);
@@ -90,6 +90,7 @@ SettingsModal.propTypes = {
     framerate: PropTypes.number.isRequired,
     seamless: PropTypes.bool.isRequired,
     autosave: PropTypes.bool.isRequired,
+    hideNonOriginalBlocks: PropTypes.bool.isRequired,
     autosaveInterval: PropTypes.number.isRequired,
     compatibility: PropTypes.string.isRequired,
     compression: PropTypes.number.isRequired,
@@ -112,6 +113,7 @@ const mapStateToProps = state => ({
     autosaveInterval: state.scratchGui.settings.autosaveInterval,
     compatibility: state.scratchGui.settings.compatibility,
     compression: state.scratchGui.settings.compression,
+    hideNonOriginalBlocks: state.scratchGui.settings.hideNonOriginalBlocks,
     saveExtension: state.scratchGui.settings.saveExtension,
     saveOptionalExtension: state.scratchGui.settings.saveOptionalExtension
 });

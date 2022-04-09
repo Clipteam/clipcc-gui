@@ -148,6 +148,7 @@ class Blocks extends React.Component {
             this.props.locale !== nextProps.locale ||
             this.props.anyModalVisible !== nextProps.anyModalVisible ||
             this.props.stageSize !== nextProps.stageSize ||
+            this.props.hideNonOriginalBlocks !== nextProps.hideNonOriginalBlocks ||
             this.props.layoutStyle !== nextProps.layoutStyle
         );
     }
@@ -162,6 +163,12 @@ class Blocks extends React.Component {
         // Do not check against prevProps.toolboxXML because that may not have been rendered.
         if (this.props.isVisible && this.props.toolboxXML !== this._renderedToolboxXML) {
             this.requestToolboxUpdate();
+        }
+        if (this.props.hideNonOriginalBlocks !== prevProps.hideNonOriginalBlocks) {
+            const toolboxXML = this.getToolboxXML();
+            if (toolboxXML) {
+                this.props.updateToolboxState(toolboxXML);
+            }
         }
 
         if (this.props.isVisible === prevProps.isVisible) {
@@ -353,7 +360,8 @@ class Blocks extends React.Component {
             return makeToolboxXML(false, target.isStage, target.id, dynamicBlocksXML,
                 targetCostumes[targetCostumes.length - 1].name,
                 stageCostumes[stageCostumes.length - 1].name,
-                targetSounds.length > 0 ? targetSounds[targetSounds.length - 1].name : ''
+                targetSounds.length > 0 ? targetSounds[targetSounds.length - 1].name : '',
+                this.props.hideNonOriginalBlocks
             );
         } catch {
             return null;
@@ -560,6 +568,7 @@ class Blocks extends React.Component {
             isVisible,
             onActivateColorPicker,
             onOpenConnectionModal,
+            hideNonOriginalBlocks,
             onOpenSoundRecorder,
             updateToolboxState,
             onActivateCustomProcedures,
@@ -618,6 +627,7 @@ Blocks.propTypes = {
     canUseCloud: PropTypes.bool,
     customProceduresVisible: PropTypes.bool,
     extensionLibraryVisible: PropTypes.bool,
+    hideNonOriginalBlocks: PropTypes.bool,
     isRtl: PropTypes.bool,
     isVisible: PropTypes.bool,
     layoutStyle: PropTypes.string,
@@ -701,6 +711,7 @@ const mapStateToProps = state => ({
         state.scratchGui.mode.isFullScreen
     ),
     extensionLibraryVisible: state.scratchGui.modals.extensionLibrary,
+    hideNonOriginalBlocks: state.scratchGui.settings.hideNonOriginalBlocks,
     isRtl: state.locales.isRtl,
     locale: state.locales.locale,
     messages: state.locales.messages,

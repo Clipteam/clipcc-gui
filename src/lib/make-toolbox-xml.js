@@ -9,7 +9,7 @@ const ScratchBlocks = {
         translate: (messageId, defaultMessage) => {
             if (lazyClipCCBlock.loaded()) {
                 const ClipCCBlocks = lazyClipCCBlock.get();
-                return ClipCCBlocks.ScratchMsgs.translate(messageId, defaultMessage)
+                return ClipCCBlocks.ScratchMsgs.translate(messageId, defaultMessage);
             }
             return defaultMessage;
         }
@@ -496,7 +496,7 @@ const control = function (isInitialSetup, isStage) {
     `;
 };
 
-const sensing = function (isInitialSetup, isStage) {
+const sensing = function (isInitialSetup, isStage, targetId, hideNonOriginalBlocks) {
     const obsoletedBlocks = ScratchBlocks.ScratchMsgs.translate(
         'OBSOLETED_BLOCKS',
         'Obsoleted Blocks'
@@ -529,6 +529,7 @@ const sensing = function (isInitialSetup, isStage) {
                 </value>
             </block>
         `}
+        ${hideNonOriginalBlocks ? '' : `
         <block type="sensing_distancebetweenposition">
             <value name="X1">
                 <shadow type="math_number">
@@ -573,6 +574,7 @@ const sensing = function (isInitialSetup, isStage) {
                 </shadow>
             </value>
         </block>
+        `}
         ${blockSeparator}
         ${isInitialSetup ? '' : `
             <block id="askandwait" type="sensing_askandwait">
@@ -591,11 +593,14 @@ const sensing = function (isInitialSetup, isStage) {
             </value>
         </block>
         <block type="sensing_mousedown"/>
+        ${hideNonOriginalBlocks ? '' : `
         <block type="sensing_mousepressed">
             <value name="MOUSE_OPTION">
                 <shadow type="sensing_mouseoptions"/>
             </value>
         </block>
+        `}
+
         <block type="sensing_mousex"/>
         <block type="sensing_mousey"/>
         ${isStage ? '' : `
@@ -620,11 +625,14 @@ const sensing = function (isInitialSetup, isStage) {
         ${blockSeparator}
         <block type="sensing_username"/>
         ${blockSeparator}
+        ${hideNonOriginalBlocks ? '' : `
         <block type="sensing_operatingsystem"/>
         <block type="sensing_clipcc_version"/>
         <block type="sensing_isturbomode"/>
         <block type="sensing_turnonturbomode"/>
         <block type="sensing_turnoffturbomode"/>
+        `}
+
         <label text="${obsoletedBlocks}"></label>
         <block type="sensing_userid" />
         <block type="sensing_loud" />
@@ -633,7 +641,7 @@ const sensing = function (isInitialSetup, isStage) {
     `;
 };
 
-const operators = function (isInitialSetup) {
+const operators = function (isInitialSetup, _isStage, _targetId, hideNonOriginalBlocks) {
     const apple = ScratchBlocks.ScratchMsgs.translate('OPERATORS_JOIN_APPLE', 'apple');
     const banana = ScratchBlocks.ScratchMsgs.translate('OPERATORS_JOIN_BANANA', 'banana');
     const letter = ScratchBlocks.ScratchMsgs.translate('OPERATORS_LETTEROF_APPLE', 'a');
@@ -687,6 +695,7 @@ const operators = function (isInitialSetup) {
                 </shadow>
             </value>
         </block>
+        ${hideNonOriginalBlocks ? '' : `
         <block type="operator_power">
             <value name="NUM1">
                 <shadow type="math_number">
@@ -779,6 +788,7 @@ const operators = function (isInitialSetup) {
                 </shadow>
             </value>
         </block>
+        `}
         ${blockSeparator}
         <block type="operator_random">
             <value name="FROM">
@@ -805,6 +815,7 @@ const operators = function (isInitialSetup) {
                 </shadow>
             </value>
         </block>
+        ${hideNonOriginalBlocks ? '' : `
         <block type="operator_ge">
             <value name="OPERAND1">
                 <shadow type="text">
@@ -817,6 +828,7 @@ const operators = function (isInitialSetup) {
                 </shadow>
             </value>
         </block>
+        `}
         <block type="operator_lt">
             <value name="OPERAND1">
                 <shadow type="text">
@@ -829,6 +841,7 @@ const operators = function (isInitialSetup) {
                 </shadow>
             </value>
         </block>
+        ${hideNonOriginalBlocks ? '' : `
         <block type="operator_le">
             <value name="OPERAND1">
                 <shadow type="text">
@@ -841,6 +854,7 @@ const operators = function (isInitialSetup) {
                 </shadow>
             </value>
         </block>
+        `}
         <block type="operator_equals">
             <value name="OPERAND1">
                 <shadow type="text">
@@ -853,6 +867,7 @@ const operators = function (isInitialSetup) {
                 </shadow>
             </value>
         </block>
+        ${hideNonOriginalBlocks ? '' : `
         <block type="operator_nequals">
             <value name="OPERAND1">
                 <shadow type="text">
@@ -865,6 +880,7 @@ const operators = function (isInitialSetup) {
                 </shadow>
             </value>
         </block>
+        `}
         ${blockSeparator}
         <block type="operator_and"/>
         <block type="operator_or"/>
@@ -883,6 +899,7 @@ const operators = function (isInitialSetup) {
                     </shadow>
                 </value>
             </block>
+            ${hideNonOriginalBlocks ? '' : `
             <block type="operator_indexof">
                 <value name="POS">
                     <shadow type="math_number">
@@ -900,6 +917,7 @@ const operators = function (isInitialSetup) {
                     </shadow>
                 </value>
             </block>
+            `}
             <block type="operator_letter_of">
                 <value name="LETTER">
                     <shadow type="math_whole_number">
@@ -1006,10 +1024,11 @@ const xmlClose = '</xml>';
  * @param {?string} costumeName - The name of the default selected costume dropdown.
  * @param {?string} backdropName - The name of the default selected backdrop dropdown.
  * @param {?string} soundName -  The name of the default selected sound dropdown.
+ * @param {?string} hideNonOriginalBlocks - hide non-original blocks.
  * @returns {string} - a ScratchBlocks-style XML document for the contents of the toolbox.
  */
 const makeToolboxXML = function (isInitialSetup, isStage = true, targetId, categoriesXML = [],
-    costumeName = '', backdropName = '', soundName = '') {
+    costumeName = '', backdropName = '', soundName = '', hideNonOriginalBlocks = false) {
     isStage = isInitialSetup || isStage;
     const gap = [categorySeparator];
 
@@ -1032,8 +1051,8 @@ const makeToolboxXML = function (isInitialSetup, isStage = true, targetId, categ
     const soundXML = moveCategory('sound') || sound(isInitialSetup, isStage, targetId, soundName);
     const eventsXML = moveCategory('event') || events(isInitialSetup, isStage, targetId);
     const controlXML = moveCategory('control') || control(isInitialSetup, isStage, targetId);
-    const sensingXML = moveCategory('sensing') || sensing(isInitialSetup, isStage, targetId);
-    const operatorsXML = moveCategory('operators') || operators(isInitialSetup, isStage, targetId);
+    const sensingXML = moveCategory('sensing') || sensing(isInitialSetup, isStage, targetId, hideNonOriginalBlocks);
+    const operatorsXML = moveCategory('operators') || operators(isInitialSetup, isStage, targetId, hideNonOriginalBlocks);
     const variablesXML = moveCategory('data') || variables(isInitialSetup, isStage, targetId);
     const myBlocksXML = moveCategory('procedures') || myBlocks(isInitialSetup, isStage, targetId);
 
