@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import ReactModal from 'react-modal';
 import VM from 'clipcc-vm';
 import {injectIntl} from 'react-intl';
+import bindAll from 'lodash.bindall';
 
 import ErrorBoundaryHOC from '../lib/error-boundary-hoc.jsx';
 import {
@@ -52,21 +53,22 @@ import vmListenerHOC from '../lib/vm-listener-hoc.jsx';
 import extensionAPI from '../lib/extension-api.js';
 import vmManagerHOC from '../lib/vm-manager-hoc.jsx';
 import cloudManagerHOC from '../lib/cloud-manager-hoc.jsx';
-import {
-    loadBuiltinExtension
-} from '../lib/extension-manager.js';
+import {loadBuiltinExtension, initExtensionAPI} from '../lib/extension-manager.js';
 
 import GUIComponent from '../components/gui/gui.jsx';
 import {setIsScratchDesktop} from '../lib/isScratchDesktop.js';
 
 class GUI extends React.Component {
+    constructor (props) {
+        super(props);
+        bindAll(this, ['handleBlocksLoad']);
+    }
     componentDidMount () {
         this.props.onRef(this);
         setIsScratchDesktop(this.props.isScratchDesktop);
         this.props.onStorageInit(storage);
         this.props.onVmInit(this.props.vm);
         this.extensionAPI = new extensionAPI(this);
-        // console.log(this.extensionAPI, extensionAPI);
         this.props.onLoadBuiltinExtension();
     }
     componentDidUpdate (prevProps) {
@@ -79,6 +81,9 @@ class GUI extends React.Component {
             this.props.onProjectLoaded();
         }
 
+    }
+    handleBlocksLoad (block) {
+        initExtensionAPI(this, this.props.vm, block);
     }
     render () {
         if (this.props.isError) {
@@ -121,6 +126,7 @@ class GUI extends React.Component {
         return (
             <GUIComponent
                 loading={fetchingProject || isLoading || loadingStateVisible}
+                onBlocksLoad={this.handleBlocksLoad}
                 {...componentProps}
             >
                 {children}

@@ -107,6 +107,7 @@ const GUIComponent = props => {
         onActivateCostumesTab,
         onActivateSoundsTab,
         onActivateTab,
+        onBlocksLoad,
         onClickLogo,
         onExtensionButtonClick,
         onProjectTelemetryEvent,
@@ -227,6 +228,7 @@ const GUIComponent = props => {
                                     media: `${basePath}static/blocks-media/`
                                 }}
                                 stageSize={stageSize}
+                                onLoad={onBlocksLoad}
                                 vm={vm}
                             />
                         </Box>
@@ -436,6 +438,7 @@ GUIComponent.propTypes = {
     onActivateCostumesTab: PropTypes.func,
     onActivateSoundsTab: PropTypes.func,
     onActivateTab: PropTypes.func,
+    onBlocksLoad: PropTypes.func,
     onClickAccountNav: PropTypes.func,
     onClickLogo: PropTypes.func,
     onCloseAccountNav: PropTypes.func,

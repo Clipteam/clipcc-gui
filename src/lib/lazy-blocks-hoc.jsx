@@ -18,7 +18,9 @@ export default function LazyBlocksHOC (WrappedComponent) {
         }
         componentDidMount () {
             if (!this.state.isLoaded) {
-                LazyBlocks.load(GUI, this.props.vm).then(() => {
+                LazyBlocks.load(this.props.vm, block => {
+                    this.props.onLoad(block);
+                }).then(() => {
                     this.setState({isLoaded: true});
                 })
                     .catch(e => {
@@ -42,6 +44,7 @@ export default function LazyBlocksHOC (WrappedComponent) {
     }
 
     LazyLoadBlocks.propTypes = {
+        onLoad: PropTypes.func,
         vm: PropTypes.instanceOf(VM).isRequired
     };
 
