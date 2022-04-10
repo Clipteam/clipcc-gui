@@ -162,6 +162,7 @@ GUI.propTypes = {
     projectHost: PropTypes.string,
     projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     telemetryModalVisible: PropTypes.bool,
+    settings: PropTypes.object.isRequired,
     vm: PropTypes.instanceOf(VM).isRequired
 };
 
@@ -217,6 +218,7 @@ const mapStateToProps = state => {
         loadErrorModalVisible: state.scratchGui.modals.loadError,
         contributorModalVisible: state.scratchGui.modals.contributor,
         layoutStyle: state.scratchGui.settings.layoutStyle,
+        settings: state.scratchGui.settings,
         vm: state.scratchGui.vm
     };
 };
