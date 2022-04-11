@@ -252,11 +252,6 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
             throw new Error('Cannot find \'info.json\' in ccx extension.');
         }
 
-        // Load settings
-        if ('settings.json' in zipData.files) {
-            const content = await zipData.files['settings.json'].async('text');
-            settings = JSON.parse(content);
-        }
 
         // Load extension class
         if ('main.js' in zipData.files) {
@@ -265,6 +260,12 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
             instance = new ExtensionPrototype();
         } else {
             throw new Error('Cannot find \'main.js\' in ccx extension');
+        }
+
+        // Load settings
+        if ('settings.json' in zipData.files) {
+            const content = await zipData.files['settings.json'].async('text');
+            settings = JSON.parse(content);
         }
 
         // Load locale
@@ -295,11 +296,11 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
             fileContent: file
         };
 
-        ClipCCExtension.extensionManager.addInstance(info.id, info, instance);
-        dispatch(initExtension(extensionInfo));
         if (settings) loadSettings(dispatch, info.id, settings);
+        ClipCCExtension.extensionManager.addInstance(info.id, info, instance);
         dispatch(addLocales(locale));
         dispatch(updateLocale());
+        dispatch(initExtension(extensionInfo));
 
         break;
     }
