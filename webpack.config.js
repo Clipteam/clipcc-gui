@@ -7,8 +7,10 @@ const webpack = require('webpack');
 // Plugins
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 // PostCss
@@ -18,6 +20,7 @@ const postcssImport = require('postcss-import');
 
 const STATIC_PATH = process.env.STATIC_PATH || '/static';
 const NODE_ENV = process.env.NODE_ENV || 'development';
+const DIST_BUILD = process.env.NODE_ENV === 'production' || process.env.BUILD_MODE === 'dist';
 const ENABLE_PWA = process.env.ENABLE_PWA;
 const ENABLE_HTTPS = process.env.ENABLE_HTTPS;
 
@@ -74,7 +77,7 @@ const base = {
         {
             test: /\.css$/,
             use: [{
-                loader: 'style-loader'
+                loader: DIST_BUILD ? 'style-loader' : MiniCssExtractPlugin.loader
             }, {
                 loader: 'css-loader',
                 options: {
@@ -105,7 +108,8 @@ const base = {
                 minify: TerserPlugin.swcMinify,
                 parallel: true,
                 include: /\.js$/
-            })
+            }),
+            new CssMinimizerPlugin()
         ]
     },
     plugins: [new HardSourceWebpackPlugin()]
@@ -169,6 +173,15 @@ function getPlugins () {
             context: 'node_modules/clipcc-vm/dist/web'
         }])
     ]);
+    if (!DIST_BUILD) {
+        res = res.concat([
+            new MiniCssExtractPlugin({
+                filename: '[name].css',
+                chunkFilename: 'chunks/[name].chunks.css',
+                ignoreOrder: true
+            })
+        ]);
+    }
     if (ENABLE_PWA) {
         res = res.concat([
             new ServiceWorkerWebpackPlugin({
@@ -226,7 +239,7 @@ module.exports = [
         plugins: getPlugins()
     })
 ].concat(
-    process.env.NODE_ENV === 'production' || process.env.BUILD_MODE === 'dist' ? (
+    DIST_BUILD ? (
         // export as library
         defaultsDeep({}, base, {
             target: 'web',
