@@ -11,7 +11,7 @@ import Switch from '../switch/switch.jsx';
 import Select from '../select/select.jsx';
 import Input from '../forms/input.jsx';
 import BufferedInputHOC from '../forms/buffered-input-hoc.jsx';
-
+import log from '../../lib/log';
 import styles from './settings-modal.css';
 
 const BufferedInput = BufferedInputHOC(Input);
@@ -161,7 +161,7 @@ class SettingsModal extends React.Component {
 
     handleChangeSettingsItem (id) {
         return value => {
-            console.log('settings', id, value);
+            log.info('settings', id, value);
             this.props.onChangeSettingsItem(id, value);
         };
     }
@@ -411,6 +411,7 @@ class SettingsModal extends React.Component {
                                 className={classNames(styles.input)}
                             />
                         </div>
+                        {/*
                         <div className={classNames(styles.item)}>
                             <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.compatibility)}
@@ -422,6 +423,7 @@ class SettingsModal extends React.Component {
                                 className={styles.selectBig}
                             />
                         </div>
+                        */}
                         <div className={classNames(styles.item)}>
                             <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.compression)}
