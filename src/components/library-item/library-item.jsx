@@ -4,7 +4,7 @@ import React from 'react';
 
 import Box from '../box/box.jsx';
 import PlayButton from '../../containers/play-button.jsx';
-import Switch from '../settings-modal/switch.jsx';
+import Switch from '../switch/switch.jsx';
 import styles from './library-item.css';
 import classNames from 'classnames';
 
@@ -51,7 +51,7 @@ class LibraryItemComponent extends React.PureComponent {
                     <div className={styles.libraryItemSwitch}>
                         <Switch
                             onChange={this.props.onSwitchChange}
-                            default={this.props.enabled}
+                            value={this.props.enabled}
                         />
                     </div>
                 ) : null}

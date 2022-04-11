@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
 import {initExtension} from '../reducers/extension';
-import {
-    addLocales,
-    updateLocale
-} from '../reducers/locales';
+import {addLocales, updateLocale} from '../reducers/locales';
+import {addNewSetting} from '../reducers/settings';
+import {newExtensionSettings} from '../reducers/extension-settings';
 
 import JSZip from 'jszip';
 import mime from 'mime-types';
@@ -211,11 +210,25 @@ const initExtensionAPI = (gui, vm, blocks) => {
     ClipCCExtension.api.registExtensionAPI(apiInstance);
 };
 
+const loadSettings = (dispatch, id, settings) => {
+    if (!Array.isArray(settings)) {
+        throw Error('Bad settings format: Expect an array.');
+    }
+    for (const item of settings) {
+        item.message = `${id}.settings.${item.id}`;
+        item.id = `${id}.${item.id}`;
+        dispatch(addNewSetting(item.id, item.default));
+    }
+    dispatch(newExtensionSettings(id, settings));
+};
+
 const loadExtensionFromFile = async (dispatch, file, type) => {
     let info = {};
     switch (type) {
     case 'ccx': {
         const zipData = await JSZip.loadAsync(file);
+        let info = {};
+        let settings = null;
         let instance = null;
 
         // Load info
@@ -237,6 +250,12 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
             info.api = 1;
         } else {
             throw new Error('Cannot find \'info.json\' in ccx extension.');
+        }
+
+        // Load settings
+        if ('settings.json' in zipData.files) {
+            const content = await zipData.files['settings.json'].async('text');
+            settings = JSON.parse(content);
         }
 
         // Load extension class
@@ -261,8 +280,6 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
         } else {
             locale.default = locale.en;
         }
-        dispatch(addLocales(locale));
-        dispatch(updateLocale());
 
         const extensionInfo = {
             extensionId: info.id,
@@ -277,8 +294,13 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
             version: info.version,
             fileContent: file
         };
+
         ClipCCExtension.extensionManager.addInstance(info.id, info, instance);
         dispatch(initExtension(extensionInfo));
+        if (settings) loadSettings(dispatch, info.id, settings);
+        dispatch(addLocales(locale));
+        dispatch(updateLocale());
+
         break;
     }
     case 'js': {

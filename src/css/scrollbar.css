@@ -1,0 +1,38 @@
+@import "colors.css";
+
+$scrollbar-thickness: 11px;
+$scrollbar-radius: 6px;
+$scrollbar-padding: 2.5px;
+$scrollbar-color: #bbb;
+$scrollbar-color-dark: #333;
+$scrollbar-color-hover: #aaa;
+
+/* for webkit */
+.scrollbar::-webkit-scrollbar {
+    width: $scrollbar-thickness;
+    height: $scrollbar-thickness;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    border-radius: $scrollbar-radius;
+    background-color: $scrollbar-color;
+    border: solid white $scrollbar-padding;
+}
+
+[theme='dark'] .scrollbar::-webkit-scrollbar-thumb {
+    border-color: $scrollbar-color-dark;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: $scrollbar-color-hover;
+}
+
+/* for firefox */
+.scrollbar {
+    scrollbar-color: $scrollbar-color;
+    scrollbar-width: thin;
+}
+
+[theme='dark'] .scrollbar {
+    scrollbar-color: $scrollbar-color-dark;
+}

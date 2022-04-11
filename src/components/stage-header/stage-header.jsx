@@ -10,7 +10,6 @@ import Button from '../button/button.jsx';
 import Controls from '../../containers/controls.jsx';
 import {getStageDimensions} from '../../lib/screen-utils';
 import {STAGE_SIZE_MODES} from '../../lib/layout-constants';
-import {getSetting} from '../../reducers/settings';
 
 import fullScreenIcon from './icon--fullscreen.svg';
 import largeStageIcon from './icon--large-stage.svg';
@@ -191,7 +190,7 @@ const StageHeaderComponent = function (props) {
 const mapStateToProps = state => ({
     // This is the button's mode, as opposed to the actual current state
     stageSizeMode: state.scratchGui.stageSize.stageSize,
-    darkFullscreenStage: getSetting(state, 'darkFullscreenStage')
+    darkFullscreenStage: state.scratchGui.settings.darkFullscreenStage
 });
 
 StageHeaderComponent.propTypes = {

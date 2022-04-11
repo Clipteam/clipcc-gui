@@ -9,18 +9,6 @@ $height: 1.5rem;
 $slider-width: calc($height - 4 * $border-width);
 $slider-height: $slider-width;
 
-.switch.true {
-    background-color: $motion-primary;
-}
-
-.switch.false {
-    background-color: $ui-white;
-}
-
-.switch.disabled {
-    background-color: $disabled-color;
-}
-
 .switch {
     width: $width;
     height: $height;
@@ -31,14 +19,24 @@ $slider-height: $slider-width;
     cursor: pointer;
 }
 
-.slider.true {
-    /* background-color: $true-color; */
-    transform: translateX(calc($width - $height));
+.switch.true {
+    background-color: $motion-primary;
 }
 
-.slider.false {
-    /* background-color: $false-color; */
-    transform: translateX(0rem);
+.switch.false {
+    background-color: #e6e6e6;
+}
+
+[theme='dark'] .switch.false {
+    background-color: $ui-tertiary-dark;
+}
+
+.switch.disabled {
+    background-color: #9c9c9c;
+}
+
+[theme='dark'] .switch.disabled {
+    background-color: #000000;
 }
 
 .slider {
@@ -49,4 +47,24 @@ $slider-height: $slider-width;
     transition: all 0.3s;
     border: solid $ui-black-transparent $border-width;
     background-color: $ui-white;
+}
+
+.slider.true {
+    transform: translateX(calc($width - $height));
+}
+
+.slider.false {
+    transform: translateX(0rem);
+}
+
+.slider.disabled {
+    background-color: #d3d3d3;
+}
+
+.dummy-input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    margin: 0;
 }

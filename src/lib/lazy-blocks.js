@@ -1,4 +1,3 @@
-import {initExtensionAPI} from './extension-manager';
 import blocks from './blocks.js';
 /* eslint-disable linebreak-style */
 // 异步加载 clipcc-block
@@ -11,11 +10,11 @@ const get = () => {
     return BlocksComponent;
 };
 
-const load = (gui, vm) => {
+const load = (vm, callback) => {
     if (BlocksComponent) return Promise.resolve(BlocksComponent);
     return import(/* webpackChunkName: "ccblocks" */'clipcc-block').then(data => {
         BlocksComponent = data.default;
-        initExtensionAPI(gui, vm, blocks(vm));
+        callback(blocks(vm));
         return BlocksComponent;
     });
 };

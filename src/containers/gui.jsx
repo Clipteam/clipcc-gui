@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import ReactModal from 'react-modal';
 import VM from 'clipcc-vm';
 import {injectIntl} from 'react-intl';
+import bindAll from 'lodash.bindall';
 
 import ErrorBoundaryHOC from '../lib/error-boundary-hoc.jsx';
 import {
@@ -17,7 +18,6 @@ import {
     COSTUMES_TAB_INDEX,
     SOUNDS_TAB_INDEX
 } from '../reducers/editor-tab';
-import {getSetting} from '../reducers/settings';
 
 import {
     closeCostumeLibrary,
@@ -29,7 +29,6 @@ import {
     closeContributorModal,
     openLoadingProject,
     closeLoadingProject,
-    closeExtensionModal,
     closeLoadErrorModal
 } from '../reducers/modals';
 
@@ -54,21 +53,22 @@ import vmListenerHOC from '../lib/vm-listener-hoc.jsx';
 import extensionAPI from '../lib/extension-api.js';
 import vmManagerHOC from '../lib/vm-manager-hoc.jsx';
 import cloudManagerHOC from '../lib/cloud-manager-hoc.jsx';
-import {
-    loadBuiltinExtension
-} from '../lib/extension-manager.js';
+import {loadBuiltinExtension, initExtensionAPI} from '../lib/extension-manager.js';
 
 import GUIComponent from '../components/gui/gui.jsx';
 import {setIsScratchDesktop} from '../lib/isScratchDesktop.js';
 
 class GUI extends React.Component {
+    constructor (props) {
+        super(props);
+        bindAll(this, ['handleBlocksLoad']);
+    }
     componentDidMount () {
         this.props.onRef(this);
         setIsScratchDesktop(this.props.isScratchDesktop);
         this.props.onStorageInit(storage);
         this.props.onVmInit(this.props.vm);
         this.extensionAPI = new extensionAPI(this);
-        // console.log(this.extensionAPI, extensionAPI);
         this.props.onLoadBuiltinExtension();
     }
     componentDidUpdate (prevProps) {
@@ -82,9 +82,10 @@ class GUI extends React.Component {
         }
 
     }
+    handleBlocksLoad (block) {
+        initExtensionAPI(this, this.props.vm, block);
+    }
     render () {
-        document.body.setAttribute('theme', this.props.darkMode);
-        document.body.setAttribute('effect', this.props.blur);
         if (this.props.isError) {
             throw new Error(
                 `Error in Scratch GUI [location=${window.location}]: ${this.props.error}`);
@@ -92,6 +93,7 @@ class GUI extends React.Component {
         const {
             /* eslint-disable no-unused-vars */
             assetHost,
+            blur,
             cloudHost,
             darkMode,
             error,
@@ -119,9 +121,12 @@ class GUI extends React.Component {
             loadingStateVisible,
             ...componentProps
         } = this.props;
+        document.body.setAttribute('theme', darkMode);
+        document.body.setAttribute('effect', blur ? 'blur' : null);
         return (
             <GUIComponent
                 loading={fetchingProject || isLoading || loadingStateVisible}
+                onBlocksLoad={this.handleBlocksLoad}
                 {...componentProps}
             >
                 {children}
@@ -132,7 +137,7 @@ class GUI extends React.Component {
 
 GUI.propTypes = {
     assetHost: PropTypes.string,
-    blur: PropTypes.string,
+    blur: PropTypes.bool,
     children: PropTypes.node,
     cloudHost: PropTypes.string,
     darkMode: PropTypes.string,
@@ -157,6 +162,7 @@ GUI.propTypes = {
     projectHost: PropTypes.string,
     projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     telemetryModalVisible: PropTypes.bool,
+    settings: PropTypes.object.isRequired,
     vm: PropTypes.instanceOf(VM).isRequired
 };
 
@@ -171,7 +177,7 @@ GUI.defaultProps = {
 
 const mapStateToProps = state => {
     const loadingState = state.scratchGui.projectState.loadingState;
-    let darkMode = getSetting(state, 'darkMode');
+    let darkMode = state.scratchGui.settings.darkMode;
     if (darkMode === 'system') {
         if (matchMedia('(prefers-color-scheme: dark)').matches) {
             darkMode = 'dark';
@@ -179,14 +185,12 @@ const mapStateToProps = state => {
             darkMode = 'light';
         }
     }
-    let blur = getSetting(state, 'blur');
-    if (blur === 'on') blur = 'blur';
     return {
         activeTabIndex: state.scratchGui.editorTab.activeTabIndex,
         alertsVisible: state.scratchGui.alerts.visible,
         backdropLibraryVisible: state.scratchGui.modals.backdropLibrary,
         blocksTabVisible: state.scratchGui.editorTab.activeTabIndex === BLOCKS_TAB_INDEX,
-        blur: blur,
+        blur: state.scratchGui.settings.blur,
         cardsVisible: state.scratchGui.cards.visible,
         connectionModalVisible: state.scratchGui.modals.connectionModal,
         costumeLibraryVisible: state.scratchGui.modals.costumeLibrary,
@@ -211,10 +215,10 @@ const mapStateToProps = state => {
         tipsLibraryVisible: state.scratchGui.modals.tipsLibrary,
         settingsVisible: state.scratchGui.modals.settings,
         aboutModalVisible: state.scratchGui.modals.about,
-        extensionModalVisible: state.scratchGui.modals.extension,
         loadErrorModalVisible: state.scratchGui.modals.loadError,
         contributorModalVisible: state.scratchGui.modals.contributor,
         layoutStyle: state.scratchGui.settings.layoutStyle,
+        settings: state.scratchGui.settings,
         vm: state.scratchGui.vm
     };
 };
@@ -229,7 +233,6 @@ const mapDispatchToProps = dispatch => ({
     onRequestCloseTelemetryModal: () => dispatch(closeTelemetryModal()),
     onRequestCloseSettingsModal: () => dispatch(closeSettingsModal()),
     onRequestCloseAboutModal: () => dispatch(closeAboutModal()),
-    onRequestCloseExtensionModal: () => dispatch(closeExtensionModal()),
     onRequestCloseLoadErrorModal: () => dispatch(closeLoadErrorModal()),
     onRequestCloseContributorModal: () => dispatch(closeContributorModal()),
     onLoadingFinished: (loadingState, success) => {

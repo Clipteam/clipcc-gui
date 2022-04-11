@@ -10,6 +10,10 @@ class ExtensionAPI {
     isEditorLoading () {
         return this.gui.props.isLoading;
     }
+
+    getSettings (id) {
+        return this.gui.props.settings[id];
+    }
 }
 
 export default ExtensionAPI;

@@ -99,7 +99,6 @@ const AboutModal = ({
                 >
                     <img
                         draggable={false}
-                        width="100 px"
                         alt="Telegram"
                         title="Telegram"
                         src={telegram}
@@ -112,7 +111,6 @@ const AboutModal = ({
                 >
                     <img
                         draggable={false}
-                        width="100 px"
                         alt="QQ"
                         title="QQ"
                         src={qq}
@@ -127,7 +125,6 @@ const AboutModal = ({
                         draggable={false}
                         alt="Discord"
                         title="Discord"
-                        width="100 px"
                         src={discord}
                     />
                 </a>

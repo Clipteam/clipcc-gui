@@ -2,17 +2,72 @@
 @import "../../css/units.css";
 
 .modal-content {
-    width: 700px;
+    width: 900px;
 }
 
 .body {
     background: $ui-white;
-    padding: 1.5rem 2.25rem;
+    max-height: 80vh;
+    display: flex;
 }
 
+.menu, .content {
+    padding: 1.5rem 2.25rem;
+    overflow-y: auto;
+}
+
+.menu {
+    flex: 1;
+    border-right: solid 1px $ui-black-transparent;
+}
+
+.menu > p {
+    margin: 0.5em 0em;
+    cursor: pointer;
+}
+
+.content {
+    flex: 5;
+}
 
 [theme='dark'] .body {
     background: $ui-primary-dark;
     color: white;
 }
 
+.category {
+    font-weight: bold;
+    margin: 0;
+    padding: 1em 0;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    padding-left: 1em;
+    padding-right: 1em;
+    transition-duration: .2s;
+}
+
+.item:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+
+[theme='dark'] .item:hover {
+    background-color: rgb(150, 150, 150);
+}
+
+.input {
+    width: 5rem;
+}
+
+.select-small {
+    width: 10rem;
+}
+
+.select-big {
+    width: 15rem;
+}

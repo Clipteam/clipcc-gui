@@ -7,8 +7,6 @@ import {connect} from 'react-redux';
 import VM from 'clipcc-vm';
 import AudioEngine from 'scratch-audio';
 
-import {updateSetting, getSetting} from '../reducers/settings';
-
 import {setProjectUnchanged} from '../reducers/project-changed';
 import {
     LoadingStates,
@@ -147,9 +145,9 @@ const vmManagerHOC = function (WrappedComponent) {
             loadingState: loadingState,
             isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
             isStarted: state.scratchGui.vmStatus.started,
-            fps: parseInt(getSetting(state, 'fps')),
-            compression: parseInt(getSetting(state, 'compression')),
-            compatibility: getSetting(state, 'compatibility')
+            fps: state.scratchGui.settings.framerate,
+            compression: state.scratchGui.settings.compression,
+            compatibility: state.scratchGui.settings.compatibility
         };
     };
 

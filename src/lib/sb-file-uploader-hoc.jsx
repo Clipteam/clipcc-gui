@@ -31,7 +31,6 @@ import {
 import {
     setLoadError
 } from '../reducers/load-error';
-import {getSetting} from '../reducers/settings';
 
 const messages = defineMessages({
     loadError: {
@@ -321,7 +320,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                 (ownProps.authorUsername === user.username),
             vm: state.scratchGui.vm,
             extension: state.scratchGui.extension.extension,
-            enableAutoSave: getSetting(state, 'autosave') === 'on'
+            enableAutoSave: state.scratchGui.settings.autosave
         };
     };
     const mapDispatchToProps = (dispatch, ownProps) => ({
