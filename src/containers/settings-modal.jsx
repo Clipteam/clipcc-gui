@@ -27,13 +27,17 @@ class SettingsModal extends React.Component {
             'handleChangeSeamlessFullscreen',
             'handleChangeAutoSave',
             'handleChangeCompatibility',
-            'handleChangeCompressionLevel'
+            'handleChangeCompressionLevel',
+            'handleChangeHQPen'
         ]);
     }
 
     handleChangeSettingsItem (id, value) {
-        console.log('Change Settings:', id, value);
         this.props.updateSettings(id, value);
+    }
+
+    handleChangeHQPen (option) {
+        this.props.vm.renderer.setUseHighQualityPen(option);
     }
 
     handleChangeFramerate (framerate) {
@@ -74,6 +78,7 @@ class SettingsModal extends React.Component {
                 onChangeAutoSave={this.handleChangeAutoSave}
                 onChangeCompatibility={this.handleChangeCompatibility}
                 onChangeCompressionLevel={this.handleChangeCompressionLevel}
+                onChangeHQPen={this.handleChangeHQPen}
                 {...this.props}
             />
         );
@@ -89,6 +94,7 @@ SettingsModal.propTypes = {
     blur: PropTypes.bool.isRequired,
     framerate: PropTypes.number.isRequired,
     seamless: PropTypes.bool.isRequired,
+    hqpen: PropTypes.bool.isRequired,
     autosave: PropTypes.bool.isRequired,
     hideNonOriginalBlocks: PropTypes.bool.isRequired,
     autosaveInterval: PropTypes.number.isRequired,
@@ -108,6 +114,7 @@ const mapStateToProps = state => ({
     darkMode: state.scratchGui.settings.darkMode,
     blur: state.scratchGui.settings.blur,
     framerate: state.scratchGui.settings.framerate,
+    hqpen: state.scratchGui.settings.hqpen,
     seamless: state.scratchGui.settings.seamless,
     autosave: state.scratchGui.settings.autosave,
     autosaveInterval: state.scratchGui.settings.autosaveInterval,

@@ -107,6 +107,11 @@ const messages = defineMessages({
         description: 'Label of Handling unknown blocks',
         id: 'gui.settingsModal.compatibility.label'
     },
+    hqpen: {
+        defaultMessage: 'High-Quality Pen',
+        description: 'Label of High-Quality Pen',
+        id: 'gui.settingsModal.hqpen.label'
+    },
     compatibilityDoNotLoad: {
         defaultMessage: 'Don\'t load',
         description: 'Label of donot load',
@@ -159,10 +164,11 @@ class SettingsModal extends React.Component {
         };
     }
 
-    handleChangeSettingsItem (id) {
+    handleChangeSettingsItem (id, callback) {
         return value => {
             log.info('settings', id, value);
             this.props.onChangeSettingsItem(id, value);
+            if (callback) callback(value);
         };
     }
 
@@ -268,16 +274,16 @@ class SettingsModal extends React.Component {
             text: this.props.intl.formatMessage(messages.darkmodeDark)
         }];
 
-        const compatibilityOptions = [{
+        /* const compatibilityOptions = [{
             id: 'donotload',
             text: this.props.intl.formatMessage(messages.compatibilityDoNotLoad)
         }, {
             id: 'replace',
             text: this.props.intl.formatMessage(messages.compatibilityConvert)
-        }/* , {
+        } , {
             id: 'delete',
             text: this.props.intl.formatMessage(messages.compatibilityDelete)
-        } */];
+        } ];*/
 
         return (
             <Modal
@@ -367,6 +373,15 @@ class SettingsModal extends React.Component {
                                 value={this.props.framerate}
                                 onSubmit={this.props.onChangeFramerate}
                                 className={classNames(styles.input)}
+                            />
+                        </div>
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.hqpen)}
+                            </p>
+                            <Switch
+                                onChange={this.handleChangeSettingsItem('hqpen', this.props.onChangeHQPen)}
+                                value={this.props.hqpen}
                             />
                         </div>
                         <div className={classNames(styles.item)}>
@@ -486,9 +501,10 @@ SettingsModal.propTypes = {
     blur: PropTypes.bool.isRequired,
     framerate: PropTypes.number.isRequired,
     seamless: PropTypes.bool.isRequired,
+    hqpen: PropTypes.bool.isRequired,
     autosave: PropTypes.bool.isRequired,
     autosaveInterval: PropTypes.number.isRequired,
-    compatibility: PropTypes.string.isRequired,
+    // compatibility: PropTypes.string.isRequired,
     compression: PropTypes.number.isRequired,
     hideNonOriginalBlocks: PropTypes.bool.isRequired,
     saveExtension: PropTypes.bool.isRequired,
@@ -496,9 +512,10 @@ SettingsModal.propTypes = {
     onRequestClose: PropTypes.func.isRequired,
     onChangeSettingsItem: PropTypes.func.isRequired,
     onChangeFramerate: PropTypes.func.isRequired,
+    onChangeHQPen: PropTypes.func.isRequired,
     onChangeSeamlessFullscreen: PropTypes.func.isRequired,
     onChangeAutoSave: PropTypes.func.isRequired,
-    onChangeCompatibility: PropTypes.func.isRequired,
+    // onChangeCompatibility: PropTypes.func.isRequired,
     onChangeCompressionLevel: PropTypes.func.isRequired
 };
 

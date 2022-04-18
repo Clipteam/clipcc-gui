@@ -24,40 +24,22 @@ import text2speechInsetIconURL from './libraries/extensions/text2speech/text2spe
 
 import translateIconURL from './libraries/extensions/translate/translate.png';
 import translateInsetIconURL from './libraries/extensions/translate/translate-small.png';
-/*
 import makeymakeyIconURL from './libraries/extensions/makeymakey/makeymakey.png';
 import makeymakeyInsetIconURL from './libraries/extensions/makeymakey/makeymakey-small.svg';
 
 import microbitIconURL from './libraries/extensions/microbit/microbit.png';
 import microbitInsetIconURL from './libraries/extensions/microbit/microbit-small.svg';
-import microbitConnectionIconURL from './libraries/extensions/microbit/microbit-illustration.svg';
-import microbitConnectionSmallIconURL from './libraries/extensions/microbit/microbit-small.svg';
 
 import ev3IconURL from './libraries/extensions/ev3/ev3.png';
 import ev3InsetIconURL from './libraries/extensions/ev3/ev3-small.svg';
-import ev3ConnectionIconURL from './libraries/extensions/ev3/ev3-hub-illustration.svg';
-import ev3ConnectionSmallIconURL from './libraries/extensions/ev3/ev3-small.svg';
 
 import wedo2IconURL from './libraries/extensions/wedo2/wedo.png';
 import wedo2InsetIconURL from './libraries/extensions/wedo2/wedo-small.svg';
-import wedo2ConnectionIconURL from './libraries/extensions/wedo2/wedo-illustration.svg';
-import wedo2ConnectionSmallIconURL from './libraries/extensions/wedo2/wedo-small.svg';
-import wedo2ConnectionTipIconURL from './libraries/extensions/wedo2/wedo-button-illustration.svg';
 
 import boostIconURL from './libraries/extensions/boost/boost.png';
 import boostInsetIconURL from './libraries/extensions/boost/boost-small.svg';
-import boostConnectionIconURL from './libraries/extensions/boost/boost-illustration.svg';
-import boostConnectionSmallIconURL from './libraries/extensions/boost/boost-small.svg';
-import boostConnectionTipIconURL from './libraries/extensions/boost/boost-button-illustration.svg';
-
 import gdxforIconURL from './libraries/extensions/gdxfor/gdxfor.png';
 import gdxforInsetIconURL from './libraries/extensions/gdxfor/gdxfor-small.svg';
-import gdxforConnectionIconURL from './libraries/extensions/gdxfor/gdxfor-illustration.svg';
-import gdxforConnectionSmallIconURL from './libraries/extensions/gdxfor/gdxfor-small.svg';
-
-import libraImage from './libraries/extensions/libra/Libra.png';
-import libraInsetImage from './libraries/extensions/libra/Libra-small.svg';
-*/
 import HTTPIOImage from './libraries/extensions/HTTPIO/HTTPIO.png';
 import HTTPIOInsetImage from './libraries/extensions/HTTPIO/clipcc.httpio-small.svg';
 
@@ -127,7 +109,9 @@ const builtinExtensions = [
         description: 'gui.extension.translate.description',
         requirement: ['internet']
     }
-    /*
+];
+
+const deprecatedExtensions = [
     {
         extensionId: 'makeymakey',
         iconURL: makeymakeyIconURL,
@@ -181,7 +165,6 @@ const builtinExtensions = [
         description: 'gui.extension.gdxfor.description',
         requirement: ['internet', 'bluetooth']
     }
-    */
 ];
 
 const loadBuiltinExtension = dispatch => {
@@ -196,6 +179,18 @@ const loadBuiltinExtension = dispatch => {
             version: '1.0.0'
         }, new ClipCCExtension.Extension());
         dispatch(initExtension(ext));
+    }
+    // 弃用的扩展仍需要被加载，但是不会被显示
+    for (const ext of deprecatedExtensions) {
+        ClipCCExtension.extensionManager.addInstance(ext.extensionId, {
+            id: ext.extensionId,
+            icon: ext.iconURL,
+            inset_icon: ext.insetIconURL,
+            author: ext.author,
+            requirement: ext.requirement,
+            api: 0,
+            version: '1.0.0'
+        }, new ClipCCExtension.Extension());
     }
 };
 
