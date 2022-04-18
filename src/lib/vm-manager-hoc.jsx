@@ -39,6 +39,7 @@ const vmManagerHOC = function (WrappedComponent) {
                     this.props.vm.runtime.setFramerate(this.props.fps);
                     this.props.vm.setCompressionLevel(this.props.compression);
                     this.props.vm.setDeserializeOption(this.props.compatibility);
+                    this.props.vm.runtime.renderer.setUseHighQualityPen(this.props.hqpen);
                 } catch (e) {
                     console.log('Failed to initialize settings:', e);
                 }
@@ -130,6 +131,7 @@ const vmManagerHOC = function (WrappedComponent) {
         fps: PropTypes.number,
         compression: PropTypes.number,
         compatibility: PropTypes.string,
+        hqpen: PropTypes.bool,
         vm: PropTypes.instanceOf(VM).isRequired
     };
 
@@ -146,6 +148,7 @@ const vmManagerHOC = function (WrappedComponent) {
             isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
             isStarted: state.scratchGui.vmStatus.started,
             fps: state.scratchGui.settings.framerate,
+            hqpen: state.scratchGui.settings.hqpen,
             compression: state.scratchGui.settings.compression,
             compatibility: state.scratchGui.settings.compatibility
         };
