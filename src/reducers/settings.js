@@ -5,7 +5,7 @@ const RESET_DEFAULT = 'clipcc-gui/settings/RESET_DEFAULT';
 const defaultState = {
     layoutStyle: 'scratch3',
     darkMode: 'system',
-    blur: true,
+    blur: false,
     seamless: false,
     autosave: false,
     autosaveInterval: 120,
