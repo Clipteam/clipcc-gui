@@ -63,12 +63,12 @@ const messages = defineMessages({
         id: 'gui.settingsModal.layout.scratch3'
     },
     darkmode: {
-        defaultMessage: 'Dark Mode',
+        defaultMessage: 'Theme',
         description: 'Label of ClipCC dark mode',
         id: 'gui.settingsModal.darkmode.label'
     },
     darkmodeSystem: {
-        defaultMessage: 'System',
+        defaultMessage: 'System Default',
         description: 'Label of system',
         id: 'gui.settingsModal.darkmode.system'
     },
