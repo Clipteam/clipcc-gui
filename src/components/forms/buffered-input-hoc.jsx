@@ -38,9 +38,9 @@ export default function (Input) {
                     if (typeof this.props.max !== 'undefined') value = Math.min(value, this.props.max);
                     if (typeof this.props.min !== 'undefined') value = Math.max(value, this.props.min);
                     if (typeof this.props.precision !== 'undefined') value = round10(value, this.props.precision);
-                    console.log('before submit 0', value);
+                    // console.log('before submit 0', value);
                 }
-                console.log('before submit', value);
+                // console.log('before submit', value);
                 this.props.onSubmit(value);
             }
             this.setState({value: null});
