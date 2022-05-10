@@ -305,19 +305,19 @@
             });
             switch (darkMode) {
                 case "light":
-                    p.style.backgroundColor = "rgb(76, 151, 255)";
+                    p.style.backgroundColor = "rgb(53, 129, 234)";
                     break;
                 case "dark":
-                    p.style.backgroundColor = "rgb(51, 51, 51)";
+                    p.style.backgroundColor = "rgb(37, 41, 50)";
                     p.style.color = "white";
                     break;
                 case "system":
                 default:
                     if (matchMedia("(prefers-color-scheme: dark)").matches) {
-                        p.style.backgroundColor = "rgb(51, 51, 51)";
+                        p.style.backgroundColor = "rgb(37, 41, 50)";
                         p.style.color = "white";
                     } else {
-                        p.style.backgroundColor = "rgb(76, 151, 255)";
+                        p.style.backgroundColor = "rgb(53, 129, 234)";
                     }
                     break;
             }
