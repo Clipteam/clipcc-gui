@@ -25,7 +25,7 @@ $header-height: calc($stage-menu-height - 2px);
 
 [theme='dark'] .stage-selector {
     background-color: $ui-primary-dark;
-    color: $ui-white;
+    color: $text-primary-dark;
 }
 
 .stage-selector.is-selected {
@@ -56,7 +56,7 @@ $header-height: calc($stage-menu-height - 2px);
 
 [theme='dark'] .header {
     background-color: $ui-primary-dark;
-    color: white;
+    color: $text-primary-dark;
 }
 
 .header-title {
@@ -70,7 +70,7 @@ $header-height: calc($stage-menu-height - 2px);
 }
 
 [theme='dark'] .header-title {
-    color: white;
+    color: $text-primary-dark;
 }
 
 .stage-selector.is-selected .header {
@@ -89,7 +89,7 @@ $header-height: calc($stage-menu-height - 2px);
 }
 
 [theme='dark'] .count {
-    color: white;
+    color: $text-primary-dark;
 }
 
 .label {
@@ -101,7 +101,7 @@ $header-height: calc($stage-menu-height - 2px);
 }
 
 [theme='dark'] .label {
-    color: white;
+    color: $text-primary-dark;
 }
 
 .costume-canvas {

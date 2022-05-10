@@ -13,7 +13,7 @@
 
 [theme='dark'] .sprite-info {
     background-color: $drop-highlight-dark;
-    color :white;
+    color: $text-primary-dark;
 }
 
 .row {

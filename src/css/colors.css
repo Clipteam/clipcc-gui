@@ -1,8 +1,8 @@
 $ui-primary: rgb(242, 242, 242); /* #E5F0FF */
-$ui-primary-dark: rgb(51, 51, 51);
+$ui-primary-dark: rgb(37, 41, 50);
 $ui-secondary: rgb(237, 237, 237); /* #E9F1FC */
 $ui-tertiary: rgb(229, 229, 229); /* #D9E3F2 */
-$ui-tertiary-dark: rgb(77, 77, 77);
+$ui-tertiary-dark: rgb(34, 39, 46);
 
 $ui-modal-overlay: hsla(215, 100%, 65%, 0.5); /* 50% transparent version of motion-primary */
 $ui-modal-overlay-dark: hsla(0, 0%, 1%, 0.5);
@@ -15,13 +15,12 @@ $ui-transparent: hsla(0, 100%, 100%, 0); /* 25% transparent version of ui-white 
 $ui-black-transparent: hsla(0, 0%, 0%, 0.15); /* 15% transparent version of black */
 
 $text-primary: hsla(225, 15%, 40%, 1); /* #575E75 */
-$text-primary-dark: rgb(51, 51, 51);
 $text-primary-transparent: hsla(225, 15%, 40%, 0.75);
-$text-primary-dark: hsla(0, 100%, 100%, 1);
+$text-primary-dark: rgb(211, 215, 220);
 $text-primary-transparent-dark: hsla(0, 100%, 100%, 0.75);
 
 $motion-primary: rgb(53, 129, 234); /* #4286F3 */
-$motion-primary-dark: rgb(13, 13, 13); /* #4C97FF */
+$motion-primary-dark: rgb(45, 51, 59); /* #4C97FF */
 $motion-tertiary: hsla(215, 60%, 50%, 1); /* #3373CC */
 $motion-transparent: hsla(215, 100%, 65%, 0.35); /* 35% transparent version of motion-primary */
 $motion-light-transparent: hsla(215, 100%, 65%, 0.15); /* 15% transparent version of motion-primary */
@@ -49,4 +48,4 @@ $extensions-transparent: hsla(163, 85%, 40%, 0.35); /* 35% transparent version o
 $extensions-light: hsla(163, 57%, 85%, 1); /* opaque version of extensions-transparent, on white bg */
 
 $drop-highlight: hsla(215, 100%, 77%, 1); /* lighter than motion-primary */
-$drop-highlight-dark: rgb(38, 38, 38);
+$drop-highlight-dark: rgb(46, 52, 64);

@@ -12,7 +12,7 @@
 
 [theme='dark'] .body {
     background: $ui-primary-dark;
-    color: $ui-white;
+    color: $text-primary-dark;
 }
 
 .body input[type="checkbox"],
@@ -22,7 +22,7 @@
 
 [theme='dark'] .body input {
     background: $ui-tertiary-dark;
-    color: white;
+    color: $text-primary-dark;
 }
 
 .label {
@@ -75,7 +75,7 @@
 
 [theme='dark'] .button-row button {
     background: $ui-tertiary-dark;
-    color: white;
+    color: $text-primary-dark;
 }
 
 .button-row button.ok-button {

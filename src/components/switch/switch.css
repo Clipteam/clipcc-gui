@@ -36,7 +36,7 @@ $slider-height: $slider-width;
 }
 
 [theme='dark'] .switch.disabled {
-    background-color: #000000;
+    background-color: $motion-primary-dark;
 }
 
 .slider {

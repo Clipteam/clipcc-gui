@@ -80,7 +80,7 @@
 }
 
 [theme='dark'] .option-select {
-    color: $ui-white;
+    color: $text-primary-dark;
 }
 
 .option-focus {

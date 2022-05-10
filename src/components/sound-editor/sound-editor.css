@@ -128,7 +128,7 @@ $border-radius: 0.25rem;
 }
 
 [theme='dark'] .trim-button {
-    color: white;
+    color: $text-primary-dark;
 }
 
 [dir="ltr"] .trim-button {
@@ -152,7 +152,7 @@ $border-radius: 0.25rem;
 }
 
 [theme='dark'] .effect-button {
-    color: white;
+    color: $text-primary-dark;
 }
 
 .effect-button + .effect-button {
@@ -174,7 +174,7 @@ $border-radius: 0.25rem;
 }
 
 [theme='dark'] .tool-button {
-    color: white
+    color: $text-primary-dark;
 }
 
 .tool-button + .tool-button {

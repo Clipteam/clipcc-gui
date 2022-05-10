@@ -24,7 +24,7 @@
 }
 
 [theme='dark'] .sprite-selector-item {
-    color: $ui-white;
+    color: $text-primary-dark;
 }
 
 .sprite-selector-item.is-selected {
@@ -86,7 +86,7 @@
 }
 
 [theme='dark'] .sprite-info {
-    color: $ui-white;
+    color: $text-primary-dark;
 }
 
 .sprite-name, .sprite-details {

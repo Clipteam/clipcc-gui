@@ -102,7 +102,7 @@
 
 [theme='dark'] .tab {
     background-color: $drop-highlight-dark;
-    color: white;
+    color: $text-primary-dark;
 }
 
 [dir="ltr"] .tab {

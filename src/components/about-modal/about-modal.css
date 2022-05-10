@@ -12,7 +12,7 @@
 
 [theme='dark'] .body {
     background: $ui-primary-dark;
-    color: $ui-white;
+    color: $text-primary-dark;
 }
 
 .logo {

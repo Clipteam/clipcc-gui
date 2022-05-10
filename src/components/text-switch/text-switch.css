@@ -24,7 +24,7 @@
 
 [theme='dark'] .switch {
     background-color: $ui-primary-dark;
-    color: $ui-white;
+    color: $text-primary-dark;
 }
 
 .switch:first-child {

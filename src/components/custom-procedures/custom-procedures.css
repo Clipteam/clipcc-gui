@@ -66,7 +66,7 @@
 
 [theme='dark'] .option-card {
     background-color: $drop-highlight-dark;
-    color: white;
+    color: $text-primary-dark;
 }
 
 .option-card:hover {
@@ -88,7 +88,7 @@
 }
 
 [theme='dark'] .option-title {
-    color: white;
+    color: $text-primary-dark;
 }
 
 /* "Run without screen refresh" row */
@@ -114,11 +114,11 @@
 
 [theme='dark'] .button-row button {
     background-color: $ui-tertiary-dark;
-    color: white;
+    color: $text-primary-dark;
 }
 
 [theme='dark'] .checkbox-row {
-    color: white;
+    color: $text-primary-dark;
 }
 
 .button-row button.ok-button {

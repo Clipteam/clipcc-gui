@@ -12,7 +12,7 @@
 
 [theme='dark'] .wrapper {
     background: $motion-primary-dark;
-    color: white;
+    color: $text-primary-dark;
 }
 
 [dir="ltr"] .wrapper {
