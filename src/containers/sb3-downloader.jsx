@@ -44,13 +44,16 @@ class SB3Downloader extends React.Component {
         }
         return result;
     }
-    downloadCc3Project () {
-        this.props.saveProjectCc3(this.props.settings, this.getExtensionData).then(content => {
-            if (this.props.onSaveFinished) {
-                this.props.onSaveFinished();
-            }
+    async downloadCc3Project () {
+        const content = await this.props.saveProjectCc3(this.props.settings, this.getExtensionData);
+        if (this.props.onSaveFinished) {
+            this.props.onSaveFinished();
+        }
+        if (window.showSaveFilePicker) {
+            await this.saveFilePicker(`${this.props.projectFilename}.cc3`, content);
+        } else {
             downloadBlob(`${this.props.projectFilename}.cc3`, content);
-        });
+        }
     }
     async downloadSb3Project () {
         const content = await this.props.saveProjectSb3();
