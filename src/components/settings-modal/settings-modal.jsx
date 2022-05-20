@@ -42,6 +42,11 @@ const messages = defineMessages({
         description: 'Label of FPS',
         id: 'gui.settingsModal.fps.label'
     },
+    compiler: {
+        defaultMessage: 'Compiler',
+        description: 'Label of compiler',
+        id: 'gui.settingsModal.compiler.label'
+    },
     layout: {
         defaultMessage: 'Layout Style',
         description: 'Label of ClipCC layout',
@@ -377,6 +382,15 @@ class SettingsModal extends React.Component {
                         </div>
                         <div className={classNames(styles.item)}>
                             <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.compiler)}
+                            </p>
+                            <Switch
+                                onChange={this.handleChangeSettingsItem('compiler', this.props.onChangeCompiler)}
+                                value={this.props.compiler}
+                            />
+                        </div>
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.hqpen)}
                             </p>
                             <Switch
@@ -501,6 +515,7 @@ SettingsModal.propTypes = {
     blur: PropTypes.bool.isRequired,
     framerate: PropTypes.number.isRequired,
     seamless: PropTypes.bool.isRequired,
+    compiler: PropTypes.bool.isRequired,
     hqpen: PropTypes.bool.isRequired,
     autosave: PropTypes.bool.isRequired,
     autosaveInterval: PropTypes.number.isRequired,
@@ -512,6 +527,7 @@ SettingsModal.propTypes = {
     onRequestClose: PropTypes.func.isRequired,
     onChangeSettingsItem: PropTypes.func.isRequired,
     onChangeFramerate: PropTypes.func.isRequired,
+    onChangeCompiler: PropTypes.func.isRequired,
     onChangeHQPen: PropTypes.func.isRequired,
     onChangeSeamlessFullscreen: PropTypes.func.isRequired,
     onChangeAutoSave: PropTypes.func.isRequired,

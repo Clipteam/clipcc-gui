@@ -24,6 +24,7 @@ class SettingsModal extends React.Component {
         bindAll(this, [
             'handleChangeSettingsItem',
             'handleChangeFramerate',
+            'handleChangeCompiler',
             'handleChangeSeamlessFullscreen',
             'handleChangeAutoSave',
             'handleChangeCompatibility',
@@ -34,6 +35,10 @@ class SettingsModal extends React.Component {
 
     handleChangeSettingsItem (id, value) {
         this.props.updateSettings(id, value);
+    }
+
+    handleChangeCompiler (option) {
+        this.props.vm.runtime.setCompiler(option);
     }
 
     handleChangeHQPen (option) {
@@ -78,6 +83,7 @@ class SettingsModal extends React.Component {
                 onChangeAutoSave={this.handleChangeAutoSave}
                 onChangeCompatibility={this.handleChangeCompatibility}
                 onChangeCompressionLevel={this.handleChangeCompressionLevel}
+                onChangeCompiler={this.handleChangeCompiler}
                 onChangeHQPen={this.handleChangeHQPen}
                 {...this.props}
             />
@@ -93,6 +99,7 @@ SettingsModal.propTypes = {
     darkMode: PropTypes.string.isRequired,
     blur: PropTypes.bool.isRequired,
     framerate: PropTypes.number.isRequired,
+    compiler: PropTypes.bool.isRequired,
     seamless: PropTypes.bool.isRequired,
     hqpen: PropTypes.bool.isRequired,
     autosave: PropTypes.bool.isRequired,
@@ -114,6 +121,7 @@ const mapStateToProps = state => ({
     darkMode: state.scratchGui.settings.darkMode,
     blur: state.scratchGui.settings.blur,
     framerate: state.scratchGui.settings.framerate,
+    compiler: state.scratchGui.settings.compiler,
     hqpen: state.scratchGui.settings.hqpen,
     seamless: state.scratchGui.settings.seamless,
     autosave: state.scratchGui.settings.autosave,
