@@ -432,7 +432,7 @@ const events = function (isInitialSetup, isStage) {
     `;
 };
 
-const control = function (isInitialSetup, isStage) {
+const control = function (isInitialSetup, isStage, targetId, hideNonOriginalBlocks) {
     const obsoletedBlocks = ScratchBlocks.ScratchMsgs.translate(
         'OBSOLETED_BLOCKS',
         'Obsoleted Blocks'
@@ -462,6 +462,10 @@ const control = function (isInitialSetup, isStage) {
         <block id="repeat_until" type="control_repeat_until"/>
         ${blockSeparator}
         <block type="control_stop"/>
+        ${hideNonOriginalBlocks ? '' : `
+        <block type="control_suspend" />
+        <block type="control_breakpoint" />
+        `}
         ${blockSeparator}
         ${isStage ? `
             <block type="control_create_clone_of">
