@@ -10,14 +10,6 @@
         <%= htmlWebpackPlugin.options.title %>
     </title>
     <script defer data-domain="codingclip.com" src="https://analytic.codingclip.com/js/plausible.js"></script>
-    <!-- Sentry error logging to help with finding bugs -->
-    <script src="https://cdn.blestudio.com/npm/@sentry/browser@6.18.1/build/bundle.min.js" crossorigin="anonymous"></script>
-    <script>
-        Sentry.init({
-            dsn: 'https://ed881d9f133e457d8cdca25202200c3f@o1098997.ingest.sentry.io/6123390',
-        });
-    </script>
-    <!-- /Sentry -->
             <% if (htmlWebpackPlugin.options.enablePWA ) { %>
                 <!--<meta name="viewport" content="width=device-width, user-scalable=no" />-->
                 <link rel="manifest" href="manifest.json">
