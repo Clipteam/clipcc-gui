@@ -603,6 +603,9 @@ const sensing = function (isInitialSetup, isStage, targetId, hideNonOriginalBloc
                 <shadow type="sensing_mouseoptions"/>
             </value>
         </block>
+        <block type="sensing_joystickx"/>
+        <block type="sensing_joysticky"/>
+        <block type="sensing_joystick_direction"/>
         `}
 
         <block type="sensing_mousex"/>
