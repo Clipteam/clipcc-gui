@@ -2,7 +2,7 @@
 
 <img src="https://raw.githubusercontent.com/Clipteam/clipcc-gui/master/src/components/about-modal/clipcc3_logo.svg" alt="logo" width="300"/>
 
-![](https://img.shields.io/badge/license-AGPL-blue) ![](https://img.shields.io/badge/version-3.0.2-brightgreen) ![()[https://jq.qq.com/?_wv=1027&k=HCrQYsp2]](https://img.shields.io/badge/QQ-959825608-orange) [![](https://img.shields.io/badge/Telegram-Chat-blue)](https://t.me/+KcTYDTYKzUoxZmM1)
+![](https://img.shields.io/badge/license-AGPL-blue) ![](https://img.shields.io/badge/version-3.1.2-brightgreen) ![()[https://jq.qq.com/?_wv=1027&k=HCrQYsp2]](https://img.shields.io/badge/QQ-959825608-orange) [![](https://img.shields.io/badge/Telegram-Chat-blue)](https://t.me/+KcTYDTYKzUoxZmM1)
 ---
 </div>
 
@@ -15,14 +15,14 @@ ClipCC is a powerful scratch fork which adds some useful features such as new ex
 
 **Special thanks for Ble Studio!**
 # Useful Links
-### [Online Editor(Stable)](https://codingclip.com/editor/dev)
-### [Online Editor(Canary)](https://codingclip.com/editor/dev/canary)
+### [Online Editor(Stable)](https://codingclip.com/editor/stable)
+### [Online Editor(Canary)](https://codingclip.com/editor/canary)
 ### [Offline Editor](https://github.com/Clipteam/clipcc-desktop/releases)
 # What's left to be added
-- New extension system
+- Hide blocks
 - High-quality pen
 - JIT support
-- Global procedure
+- Blockly optimization
 - custom stage size
 # Building
 **Please note! Please make sure you have installed Git and Node.js before building.**
