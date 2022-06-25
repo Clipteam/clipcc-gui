@@ -5,6 +5,16 @@
     width: 900px;
 }
 
+.tag {
+    margin: 0 1rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    font-size: 12px;
+    background-color: rgb(53, 129, 234);
+    border: 1px solid rgb(42, 103, 187);
+    color: white;
+}
+
 .body {
     background: $ui-white;
     max-height: 80vh;
@@ -30,6 +40,12 @@
     flex: 5;
 }
 
+.elastic {
+    display: flex;
+    margin-right: auto;
+    flex-wrap: 1;
+}
+
 [theme='dark'] .body {
     background: $ui-primary-dark;
     color: $text-primary-dark;
@@ -43,7 +59,6 @@
 
 .item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     align-content: center;
     padding-left: 1em;
