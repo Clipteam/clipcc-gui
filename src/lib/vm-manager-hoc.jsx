@@ -37,6 +37,7 @@ const vmManagerHOC = function (WrappedComponent) {
                 //初始化设置
                 try {
                     this.props.vm.runtime.setFramerate(this.props.fps);
+                    this.props.vm.runtime.setCompiler(this.props.compiler);
                     this.props.vm.setCompressionLevel(this.props.compression);
                     this.props.vm.setDeserializeOption(this.props.compatibility);
                     this.props.vm.runtime.renderer.setUseHighQualityPen(this.props.hqpen);
@@ -132,6 +133,7 @@ const vmManagerHOC = function (WrappedComponent) {
         compression: PropTypes.number,
         compatibility: PropTypes.string,
         hqpen: PropTypes.bool,
+        compiler: PropTypes.bool,
         vm: PropTypes.instanceOf(VM).isRequired
     };
 
@@ -148,6 +150,7 @@ const vmManagerHOC = function (WrappedComponent) {
             isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
             isStarted: state.scratchGui.vmStatus.started,
             fps: state.scratchGui.settings.framerate,
+            compiler: state.scratchGui.settings.compiler,
             hqpen: state.scratchGui.settings.hqpen,
             compression: state.scratchGui.settings.compression,
             compatibility: state.scratchGui.settings.compatibility

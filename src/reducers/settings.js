@@ -10,6 +10,7 @@ const defaultState = {
     autosave: false,
     autosaveInterval: 120,
     framerate: 30,
+    compiler: false,
     hqpen: false,
     compatibility: 'donotload',
     compression: 6,

@@ -22,6 +22,11 @@ const messages = defineMessages({
         description: 'Settings Modal Title',
         id: 'gui.settingsModal.title'
     },
+    experimental: {
+        defaultMessage: 'Experimental',
+        description: 'Label of Experimental',
+        id: 'gui.settingsModal.experimental'
+    },
     appearance: {
         defaultMessage: 'Appearance',
         description: 'Label of Appearance',
@@ -41,6 +46,11 @@ const messages = defineMessages({
         defaultMessage: 'FPS',
         description: 'Label of FPS',
         id: 'gui.settingsModal.fps.label'
+    },
+    compiler: {
+        defaultMessage: 'Compiler',
+        description: 'Label of compiler',
+        id: 'gui.settingsModal.compiler.label'
     },
     layout: {
         defaultMessage: 'Layout Style',
@@ -149,6 +159,16 @@ const messages = defineMessages({
     }
 });
 
+const ExperimentalTag = ({intl}) => {
+    return (
+        <div className={styles.tag}>
+            {intl.formatMessage(messages.experimental)}
+        </div>
+    );
+}
+
+const Elastic = () => <div className={styles.elastic} />;
+
 class SettingsModal extends React.Component {
     constructor (props) {
         super(props);
@@ -246,6 +266,7 @@ class SettingsModal extends React.Component {
                     <p className={classNames(styles.text)}>
                         {this.props.intl.formatMessage({id: item.message})}
                     </p>
+                    <Elastic />
                     {element}
                 </div>);
             }
@@ -325,6 +346,7 @@ class SettingsModal extends React.Component {
                             <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.layout)}
                             </p>
+                            <Elastic />
                             <Select
                                 options={layoutStyleOptions}
                                 onChange={this.handleChangeSettingsItem('layoutStyle')}
@@ -336,6 +358,7 @@ class SettingsModal extends React.Component {
                             <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.darkmode)}
                             </p>
+                            <Elastic />
                             <Select
                                 options={darkModeOptions}
                                 onChange={this.handleChangeSettingsItem('darkMode')}
@@ -347,6 +370,7 @@ class SettingsModal extends React.Component {
                             <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.blur)}
                             </p>
+                            <Elastic />
                             <Switch
                                 onChange={this.handleChangeSettingsItem('blur')}
                                 value={this.props.blur}
@@ -362,6 +386,7 @@ class SettingsModal extends React.Component {
                             <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.framerate)}
                             </p>
+                            <Elastic />
                             <BufferedInput
                                 small
                                 tabIndex="0"
@@ -377,8 +402,21 @@ class SettingsModal extends React.Component {
                         </div>
                         <div className={classNames(styles.item)}>
                             <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.compiler)}
+                            </p>
+                            <ExperimentalTag intl={this.props.intl} />
+                            <Elastic />
+                            <Switch
+                                onChange={this.handleChangeSettingsItem('compiler', this.props.onChangeCompiler)}
+                                value={this.props.compiler}
+                            />
+                        </div>
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.hqpen)}
                             </p>
+                            <ExperimentalTag intl={this.props.intl} />
+                            <Elastic />
                             <Switch
                                 onChange={this.handleChangeSettingsItem('hqpen', this.props.onChangeHQPen)}
                                 value={this.props.hqpen}
@@ -388,6 +426,7 @@ class SettingsModal extends React.Component {
                             <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.seamless)}
                             </p>
+                            <Elastic />
                             <Switch
                                 onChange={this.props.onChangeSeamlessFullscreen}
                                 value={this.props.seamless}
@@ -403,6 +442,7 @@ class SettingsModal extends React.Component {
                             <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.autosave)}
                             </p>
+                            <Elastic />
                             <Switch
                                 onChange={this.props.onChangeAutoSave}
                                 value={this.props.autosave}
@@ -412,6 +452,7 @@ class SettingsModal extends React.Component {
                             <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.autosaveInterval)}
                             </p>
+                            <Elastic />
                             <BufferedInput
                                 small
                                 tabIndex="0"
@@ -443,6 +484,7 @@ class SettingsModal extends React.Component {
                             <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.compression)}
                             </p>
+                            <Elastic />
                             <BufferedInput
                                 small
                                 tabIndex="0"
@@ -460,6 +502,7 @@ class SettingsModal extends React.Component {
                             <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.saveExtension)}
                             </p>
+                            <Elastic />
                             <Switch
                                 onChange={this.handleChangeSettingsItem('saveExtension')}
                                 value={this.props.saveExtension}
@@ -469,6 +512,7 @@ class SettingsModal extends React.Component {
                             <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.saveOptionalExtension)}
                             </p>
+                            <Elastic />
                             <Switch
                                 onChange={this.handleChangeSettingsItem('saveOptionalExtension')}
                                 value={this.props.saveOptionalExtension}
@@ -479,6 +523,7 @@ class SettingsModal extends React.Component {
                             <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.hideNonOriginalBlocks)}
                             </p>
+                            <Elastic />
                             <Switch
                                 onChange={this.handleChangeSettingsItem('hideNonOriginalBlocks')}
                                 value={this.props.hideNonOriginalBlocks}
@@ -501,6 +546,7 @@ SettingsModal.propTypes = {
     blur: PropTypes.bool.isRequired,
     framerate: PropTypes.number.isRequired,
     seamless: PropTypes.bool.isRequired,
+    compiler: PropTypes.bool.isRequired,
     hqpen: PropTypes.bool.isRequired,
     autosave: PropTypes.bool.isRequired,
     autosaveInterval: PropTypes.number.isRequired,
@@ -512,6 +558,7 @@ SettingsModal.propTypes = {
     onRequestClose: PropTypes.func.isRequired,
     onChangeSettingsItem: PropTypes.func.isRequired,
     onChangeFramerate: PropTypes.func.isRequired,
+    onChangeCompiler: PropTypes.func.isRequired,
     onChangeHQPen: PropTypes.func.isRequired,
     onChangeSeamlessFullscreen: PropTypes.func.isRequired,
     onChangeAutoSave: PropTypes.func.isRequired,
