@@ -232,7 +232,7 @@ class ExtensionLibrary extends React.PureComponent {
             alert(this.props.intl.formatMessage(messages.unsupportChannel));
             return;
         }
-        window.open(`https://codingclip.com/extension`, 'extension',
+        window.open(/extension`, 'extension',
             `width=800,
             height=510
             resizable=yes,
