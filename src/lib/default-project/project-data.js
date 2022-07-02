@@ -61,50 +61,32 @@ const projectData = translateFunction => {
                 currentCostume: 0,
                 costumes: [
                     {
-                        assetId: 'c6b1479621329fac5f2f8321678cc8d9',
+                        assetId: '8503e5b283cf0a746478e000a67c7e6f',
                         name: 'smile',
                         bitmapResolution: 1,
-                        md5ext: 'c6b1479621329fac5f2f8321678cc8d9.svg',
+                        md5ext: '8503e5b283cf0a746478e000a67c7e6f.svg',
                         dataFormat: 'svg',
-                        rotationCenterX: 37.25555555555556,
-                        rotationCenterY: 46.0099173553719
+                        rotationCenterX: 37.354164123535156,
+                        rotationCenterY: 45.80350112915039
                     },
                     {
-                        assetId: 'ade067a9d36b483c33c3660fe4be5f39',
+                        assetId: 'ade71c65863ef2b939bf573ab9cb0049',
                         name: 'ww',
                         bitmapResolution: 1,
-                        md5ext: 'ade067a9d36b483c33c3660fe4be5f39.svg',
+                        md5ext: 'ade71c65863ef2b939bf573ab9cb0049.svg',
                         dataFormat: 'svg',
-                        rotationCenterX: 37.25555111111109,
-                        rotationCenterY: 46.00991971074373
-                    },
-                    {
-                        assetId: 'bd3a66cf64c3b49faa05ca0533fefc7e',
-                        name: 'unhappy',
-                        bitmapResolution: 1,
-                        md5ext: 'bd3a66cf64c3b49faa05ca0533fefc7e.svg',
-                        dataFormat: 'svg',
-                        rotationCenterX: 37.255552222222235,
-                        rotationCenterY: 46.00991942148735
-                    },
-                    {
-                        assetId: '6ef589152edc575109df924e625cc434',
-                        name: 'angry',
-                        bitmapResolution: 1,
-                        md5ext: '6ef589152edc575109df924e625cc434.svg',
-                        dataFormat: 'svg',
-                        rotationCenterX: 37.25555666666665,
-                        rotationCenterY: 46.009922066115564
+                        rotationCenterX: 37.35414650815025,
+                        rotationCenterY: 45.803517747595805
                     }
                 ],
                 sounds: [
                     {
-                        assetId: '18e5a88512296cd96417449496bd8711',
-                        name: 'chirp',
+                        assetId: 'fd8543abeeba255072da239223d2d342',
+                        name: 'Chatter',
                         dataFormat: 'wav',
                         rate: 22050,
-                        sampleCount: 546609,
-                        md5ext: '18e5a88512296cd96417449496bd8711.wav'
+                        sampleCount: 26417,
+                        md5ext: 'fd8543abeeba255072da239223d2d342.wav'
                     }
                 ],
                 volume: 100,
@@ -119,10 +101,11 @@ const projectData = translateFunction => {
             }
         ],
         monitors: [],
-        extensions: [],
+        extensions: {},
         meta: {
-            semver: '3.1.0',
-            vm: '3.1.0',
+            semver: '3.0.0',
+            editor: 'clipcc',
+            vm: '3.1.11',
             agent: ''
         }
     });
