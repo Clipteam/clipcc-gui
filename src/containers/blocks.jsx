@@ -614,6 +614,7 @@ class Blocks extends React.Component {
                         options={{
                             media: options.media
                         }}
+                        parentWorkspace={this.workspace}
                         onRequestClose={this.handleCustomProceduresClose}
                     />
                 ) : null}

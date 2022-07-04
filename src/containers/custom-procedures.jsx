@@ -128,6 +128,11 @@ class CustomProcedures extends React.Component {
             alert('Please enter a name for your procedure');
             return;
         }
+
+        if (this.props.parentWorkspace.getProcedureList().isNameUsed(procCode_)) {
+            alert('Duplicated name');
+            return;
+        }
         
         // 这个bug需要配合clipcc-block修复
         //我懒 屏蔽了 等LLK
@@ -212,7 +217,9 @@ CustomProcedures.propTypes = {
         }),
         comments: PropTypes.bool,
         collapse: PropTypes.bool
-    })
+    }),
+    // eslint-disable-next-line react/forbid-prop-types
+    parentWorkspace: PropTypes.object
 };
 
 CustomProcedures.defaultOptions = {
