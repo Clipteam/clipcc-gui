@@ -110,6 +110,7 @@ class CustomProcedures extends React.Component {
         this.mutationRoot.domToMutation(this.props.mutator);
         this.mutationRoot.initSvg();
         this.mutationRoot.render();
+        this.initialProccode = this.mutationRoot.procCode_;
         this.setState({warp: this.mutationRoot.getWarp()});
         this.setState({global: this.mutationRoot.getGlobal()});
         this.setState({return: this.mutationRoot.getReturn()});
@@ -129,7 +130,8 @@ class CustomProcedures extends React.Component {
             return;
         }
 
-        if (this.props.parentWorkspace.getProcedureList().isNameUsed(procCode_)) {
+        // Check whether name is used only when proccode has been changed
+        if (this.initialProccode !== procCode_ && this.props.parentWorkspace.getProcedureList().isNameUsed(procCode_)) {
             alert('Duplicated name');
             return;
         }
