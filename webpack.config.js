@@ -112,7 +112,12 @@ const base = {
             new CssMinimizerPlugin()
         ]
     },
-    plugins: [new HardSourceWebpackPlugin()]
+    plugins: [
+        new HardSourceWebpackPlugin(),
+        new HardSourceWebpackPlugin.ExcludeModulePlugin([{
+            test: /mini-css-extract-plugin[\\/]dist[\\/]loader/
+        }])
+    ]
 };
 
 if (!process.env.CI) {
