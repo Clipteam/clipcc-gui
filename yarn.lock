@@ -3173,10 +3173,10 @@ cli-width@^2.0.0:
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.1.tgz#b0433d0b4e9c847ef18868a4ef16fd5fc8271c48"
   integrity sha512-GRMWDxpOB6Dgk2E5Uo+3eEBvtOOlimMmpbFiKuLFnQzYDavtLFY3K5ona41jgN/WdRZtG7utuVSVTL4HbZHGkw==
 
-clipcc-block@3.1.6:
-  version "3.1.6"
-  resolved "https://registry.yarnpkg.com/clipcc-block/-/clipcc-block-3.1.6.tgz#b28c3b2ab11fcdb1324c969f7dcbd5283ec0435d"
-  integrity sha512-EgAdPNvAzwVAM9zAEHl3AxL+sV+irWy6zhLMFGy2L7rVZXfWVYdpE9bdddER2AQfyZoYedMorx5BWtY6ItfoZg==
+clipcc-block@3.1.7:
+  version "3.1.7"
+  resolved "https://registry.yarnpkg.com/clipcc-block/-/clipcc-block-3.1.7.tgz#0c637a4ef97ab323d0b7efec8f344b8eb088c724"
+  integrity sha512-R0CQP4OUCeaJi0FdgH/x+KkBru8kEUoJpmwPPOGN8nUz72/1EGA/FCyKHVDlPhlKLIVqLCTNIdrs+jtXECtHdQ==
   dependencies:
     exports-loader "0.6.3"
     imports-loader "0.6.5"
@@ -3193,10 +3193,10 @@ clipcc-extension@^0.1.9:
   resolved "https://registry.yarnpkg.com/clipcc-extension/-/clipcc-extension-0.1.9.tgz#f2526f24ebc7f4aa305d24d9064f14bcd5b3b120"
   integrity sha512-M/k7DB6i0FgcP/5jPaEHtjcRw5u0r+ikJajDrh8Vz/9wuil8x3MMEcLsAJQzkfws9DeNnaJot9GghBzPrNn6wQ==
 
-clipcc-l10n@3.1.7:
-  version "3.1.7"
-  resolved "https://registry.yarnpkg.com/clipcc-l10n/-/clipcc-l10n-3.1.7.tgz#82de27f6275b5117ea4056aed65bf5a4cae6dcdd"
-  integrity sha512-xgbhqcWKYlAENzmCmTHxS3eUP7OfdT5YU2DGM0EG06VPgkH3TurchAcjWjhOBPZlaFCwb678cAbWSFn1d7nD2g==
+clipcc-l10n@3.1.8:
+  version "3.1.8"
+  resolved "https://registry.yarnpkg.com/clipcc-l10n/-/clipcc-l10n-3.1.8.tgz#094703a54469bec02e800d55a53e8ca0993f5086"
+  integrity sha512-YA0O0EtTdbsxSC719IR7H2L3y1km0a2krRK6gFE3DiDm+MxG57H7dLUPX/Do3V4tK1JJ1r9eJ/sJLdBhVQtDcg==
   dependencies:
     "@babel/cli" "^7.1.2"
     "@babel/core" "^7.1.2"
@@ -3205,10 +3205,10 @@ clipcc-l10n@3.1.7:
     form-data "^4.0.0"
     poeditor-api "^1.0.0"
 
-clipcc-paint@3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/clipcc-paint/-/clipcc-paint-3.1.1.tgz#020b4a21018d24027d9e0fcf224fd85dd73056c3"
-  integrity sha512-go+/qcjvICsmm3l+uzzSdbrsfU9ntwnkKX3jOz5jVKi2OY/6tEYoin89j6idu80D1NFZUPJMcBL2WDWBhYz5ig==
+clipcc-paint@3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/clipcc-paint/-/clipcc-paint-3.1.2.tgz#6cab5a7fa26ab947cc0367ea43c83ce985a60722"
+  integrity sha512-8sd0FgM6COPNhAJTLajtD+Je6mFPAgmYW/mBF0s31gL87U165chxLNKA8tp7TalfpUKR39xmkKMyk0QVQ6WA9g==
   dependencies:
     "@scratch/paper" "0.11.20200728195508"
     classnames "2.2.5"
@@ -3234,10 +3234,10 @@ clipcc-render@^3.0.0:
     scratch-svg-renderer "0.2.0-prerelease.20210727023023"
     twgl.js "4.4.0"
 
-clipcc-vm@3.1.11:
-  version "3.1.11"
-  resolved "https://registry.yarnpkg.com/clipcc-vm/-/clipcc-vm-3.1.11.tgz#03257f8c4f9dab5cb23dc90e8fd801db783ed90f"
-  integrity sha512-o8qpv7GPupkXsAsd/ezzZZsp7VY28sFHsv0AAaM0ZeqCspO8DEvdZ0iJj90xO098KIiYV49wrQiJmkieFdbLkg==
+clipcc-vm@3.1.12:
+  version "3.1.12"
+  resolved "https://registry.yarnpkg.com/clipcc-vm/-/clipcc-vm-3.1.12.tgz#dbdb3040b88bd756d2e0f23094f66196f73e3d89"
+  integrity sha512-3zTDJxhKoKVDafsmhNOrw+Q3Op9UNy/7KFHvdxRuYaOavua7cieyC/yDrRAL4ukqY6x5yrUZGJDOhWMR4X8uXw==
   dependencies:
     "@vernier/godirect" "1.5.0"
     arraybuffer-loader "^1.0.6"
@@ -3245,7 +3245,7 @@ clipcc-vm@3.1.11:
     axios "^0.21.1"
     btoa "1.2.1"
     canvas-toBlob "1.0.0"
-    clipcc-l10n "3.1.7"
+    clipcc-l10n "3.1.8"
     decode-html "2.0.0"
     diff-match-patch "1.0.4"
     format-message "6.2.1"
@@ -11932,9 +11932,9 @@ terser-webpack-plugin@v4:
     webpack-sources "^1.4.3"
 
 terser@^4.1.2, terser@^4.6.3:
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/terser/-/terser-4.8.0.tgz#63056343d7c70bb29f3af665865a46fe03a0df17"
-  integrity sha512-EAPipTNeWsb/3wLPeup1tVPaXfIaU68xMnVdPafIL1TV05OhASArYyIfFvnvJCNrR2NIOvDVNNTFRa+Re2MWyw==
+  version "4.8.1"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-4.8.1.tgz#a00e5634562de2239fd404c649051bf6fc21144f"
+  integrity sha512-4GnLC0x667eJG0ewJTa6z/yXrbLGv80D9Ru6HIpCQmO+Q4PfEtBFi0ObSckqwL6VyQv/7ENJieXHo2ANmdQwgw==
   dependencies:
     commander "^2.20.0"
     source-map "~0.6.1"
