@@ -213,10 +213,32 @@ class ExtensionLibrary extends React.PureComponent {
                     });
                 });
         }
+        
+        // 更新逻辑待完善，暂时与 add 保持一致
+        if (event.data.action === 'upd'){
+            fetch(event.data.download)
+                .then(async response => {
+                    await this.props.loadExtensionFromFile(response.arrayBuffer(), 'ccx');
+                    this.extensionChannel.postMessage({
+                        action: 'addSuccess',
+                        extensionId: event.data.extension
+                    });
+                })
+                .catch(err => {
+                    this.extensionChannel.postMessage({
+                        action: 'addFail',
+                        extensionId: event.data.extension,
+                        error: err
+                    });
+                });
+        }
 
         if (event.data.action === 'get') {
             const extensionList = [];
-            for (const ext in this.props.extension) extensionList.push(ext);
+            for (const ext in this.props.extension) {
+                const { version = '1.0.0' } = this.props.extension[ext];
+                extensionList.push(`${ext}@version`);
+            };
             log.info(extensionList);
             this.extensionChannel.postMessage({
                 action: 'tell',
