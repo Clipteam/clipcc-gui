@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {initExtension} from '../reducers/extension';
+import {initExtension, enableExtension} from '../reducers/extension';
 import {addLocales, updateLocale} from '../reducers/locales';
 import {addNewSetting} from '../reducers/settings';
 import {newExtensionSettings} from '../reducers/extension-settings';
@@ -230,6 +230,23 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
         if ('info.json' in zipData.files) {
             const content = await zipData.files['info.json'].async('text');
             info = JSON.parse(content);
+            if (ClipCCExtension.extensionManager.exist(info.id)) {
+                console.warn('reloading extension...');
+                try {
+                    ClipCCExtension.extensionManager.removeInstance(info.id);
+                    /*
+                    ClipCCExtension.extensionManager.unloadExtensions(
+                        [info.id],
+                        extension => ClipCCExtension.api.getVmInstance().extensionManager.unloadExtensionURL(extension)
+                    );
+                    dispatch(disableExtension(info.id));
+                    */
+                    isReload = true;
+                    console.log('reload complete');
+                } catch (e) {
+                    console.error('error occurred while reloading', e);
+                }
+            }
             if (info.icon) {
                 const data = await zipData.files[info.icon].async('arraybuffer');
                 info.icon = URL.createObjectURL(new Blob(
@@ -296,7 +313,7 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
         dispatch(addLocales(locale));
         dispatch(updateLocale());
         dispatch(initExtension(extensionInfo));
-
+        // if (isReload) dispatch(enableExtension(info.id));
         break;
     }
     case 'js': {
