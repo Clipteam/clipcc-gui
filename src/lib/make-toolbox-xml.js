@@ -578,6 +578,18 @@ const sensing = function (isInitialSetup, isStage, targetId, hideNonOriginalBloc
                 </shadow>
             </value>
         </block>
+        <block type="sensing_colorat">
+            <value name="X">
+                <shadow type="math_number">
+                    <field name="NUM"/>
+                </shadow>
+            </value>
+            <value name="Y">
+                <shadow type="math_number">
+                    <field name="NUM"/>
+                </shadow>
+            </value>
+        </block>
         `}
         ${blockSeparator}
         ${isInitialSetup ? '' : `
