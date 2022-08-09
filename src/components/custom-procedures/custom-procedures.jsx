@@ -54,6 +54,24 @@ const CustomProcedures = props => (
                         className={styles.optionCard}
                         role="button"
                         tabIndex="0"
+                        onClick={props.onAddColor}
+                    >
+                        <img
+                            className={styles.optionIcon}
+                            src={textInputIcon}
+                        />
+                        <div className={styles.optionTitle}>
+                            <FormattedMessage
+                                defaultMessage="Add a color input"
+                                description="Label for button to add a color input"
+                                id="gui.customProcedures.addInputColor"
+                            />
+                        </div>
+                    </div>
+                    <div
+                        className={styles.optionCard}
+                        role="button"
+                        tabIndex="0"
                         onClick={props.onAddBoolean}
                     >
                         <img
