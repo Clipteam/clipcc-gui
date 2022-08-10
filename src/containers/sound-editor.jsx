@@ -63,7 +63,7 @@ class SoundEditor extends React.Component {
     componentDidMount () {
         this.audioBufferPlayer = new AudioBufferPlayer(this.props.samples, this.props.sampleRate);
 
-        document.addEventListener('keydown', this.handleKeyPress, { capture: true });
+        document.addEventListener('keydown', this.handleKeyPress, {capture: true});
     }
     // @todo - 更新到新方法
     UNSAFE_componentWillReceiveProps (newProps) {
@@ -78,9 +78,10 @@ class SoundEditor extends React.Component {
         }
     }
     componentWillUnmount () {
-        this.audioBufferPlayer.stop();
+        this.audioBufferPlayer = null;
+        // this.audioBufferPlayer.stop();
 
-        document.removeEventListener('keydown', this.handleKeyPress);
+        document.removeEventListener('keydown', this.handleKeyPress, {capture: true});
     }
     handleKeyPress (event) {
         if (event.target instanceof HTMLInputElement) {
@@ -484,6 +485,9 @@ const mapStateToProps = (state, {soundIndex}) => {
     // Make sure the sound index doesn't go out of range.
     const index = soundIndex < sprite.sounds.length ? soundIndex : sprite.sounds.length - 1;
     const sound = state.scratchGui.vm.editingTarget.sprite.sounds[index];
+    if (!sound) {
+        return {};
+    }
     const audioBuffer = state.scratchGui.vm.getSoundBuffer(index);
     return {
         soundId: sound.soundId,
