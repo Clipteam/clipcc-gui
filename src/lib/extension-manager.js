@@ -222,7 +222,6 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
     switch (type) {
     case 'ccx': {
         const zipData = await JSZip.loadAsync(file);
-        let info = {};
         let settings = null;
         let instance = null;
 
@@ -319,7 +318,7 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
     case 'js': {
         const Extension = vm.runInThisContext(file);
         const instance = new Extension();
-        const info = instance.getInfo();
+        info = instance.getInfo();
         const apiInstance = new ClipCCExtension.CompatibleExtension(instance);
         const extensionInfo = {
             extensionId: info.id,
