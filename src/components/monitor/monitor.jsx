@@ -49,7 +49,7 @@ const MonitorComponent = props => (
                 onDoubleClick={props.mode === 'list' || !props.draggable ? null : props.onNextMode}
             >
                 {React.createElement(modes[props.mode], {
-                    categoryColor: categories[props.category],
+                    categoryColor: props.colour ? props.colour : categories[props.category] || categories['extension'],
                     ...props
                 })}
             </Box>
@@ -127,7 +127,7 @@ MonitorComponent.categories = categories;
 const monitorModes = Object.keys(modes);
 
 MonitorComponent.propTypes = {
-    category: PropTypes.oneOf(Object.keys(categories)),
+    category: PropTypes.string.isRequired,
     componentRef: PropTypes.func.isRequired,
     draggable: PropTypes.bool.isRequired,
     label: PropTypes.string.isRequired,
