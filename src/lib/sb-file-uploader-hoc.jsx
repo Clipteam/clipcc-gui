@@ -195,10 +195,17 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                     for (const file in zipData.files) {
                         if (/^extensions\/.+\.ccx$/g.test(file)) {
                             const data = await zipData.files[file].async('arraybuffer');
-                            const {id} = await this.props.loadExtensionFromFile(data, 'ccx');
-                            this.props.setExtensionEnable(id);
+                            await this.props.loadExtensionFromFile(data, 'ccx');
+                            // this.props.setExtensionEnable(id);
                         }
                     }
+                }
+                const zipData = await JSZip.loadAsync(this.fileReader.result);
+                const projectData = await zipData.file('project.json').async('string');
+                const projectDataObj = JSON.parse(projectData);
+                const projectExtensionList = projectDataObj.extensions || [];
+                for (const extension in projectExtensionList) {
+                    this.props.setExtensionEnable(extension);
                 }
                 this.props.vm.loadProject(this.fileReader.result)
                     .then(() => {
