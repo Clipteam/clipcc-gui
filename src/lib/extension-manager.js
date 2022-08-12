@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {initExtension, enableExtension} from '../reducers/extension';
+import {initExtension, disableExtension, enableExtension} from '../reducers/extension';
 import {addLocales, updateLocale} from '../reducers/locales';
 import {addNewSetting} from '../reducers/settings';
 import {newExtensionSettings} from '../reducers/extension-settings';
@@ -219,6 +219,7 @@ const loadSettings = (dispatch, id, settings) => {
 
 const loadExtensionFromFile = async (dispatch, file, type) => {
     let info = {};
+    let isReload = false;
     switch (type) {
     case 'ccx': {
         const zipData = await JSZip.loadAsync(file);
@@ -233,13 +234,11 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
                 console.warn('reloading extension...');
                 try {
                     ClipCCExtension.extensionManager.removeInstance(info.id);
-                    /*
                     ClipCCExtension.extensionManager.unloadExtensions(
                         [info.id],
                         extension => ClipCCExtension.api.getVmInstance().extensionManager.unloadExtensionURL(extension)
                     );
                     dispatch(disableExtension(info.id));
-                    */
                     isReload = true;
                     console.log('reload complete');
                 } catch (e) {
@@ -312,7 +311,7 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
         dispatch(addLocales(locale));
         dispatch(updateLocale());
         dispatch(initExtension(extensionInfo));
-        // if (isReload) dispatch(enableExtension(info.id));
+        if (isReload) dispatch(enableExtension(info.id));
         break;
     }
     case 'js': {
