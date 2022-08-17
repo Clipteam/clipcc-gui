@@ -8,6 +8,7 @@ import {setFullScreen, setPlayer} from './reducers/mode';
 import {remixProject} from './reducers/project-state';
 import {loadExtensionFromFile} from './lib/extension-manager.js';
 import {setAppElement} from 'react-modal';
+import totallyNormalStrings from './lib/l10n.js';
 
 const guiReducers = {
     locales: LocalesReducer,
@@ -31,5 +32,6 @@ export {
     remixProject,
     setFullScreen,
     setPlayer,
-    loadExtensionFromFile
+    loadExtensionFromFile,
+    totallyNormalStrings
 };

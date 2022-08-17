@@ -86,7 +86,8 @@ class SoundLibrary extends React.PureComponent {
     }
     onStop () {
         if (this.playingSoundPromise !== null) {
-            this.playingSoundPromise.then(soundPlayer => soundPlayer.removeListener('stop', this.onStop));
+            this.playingSoundPromise.then(soundPlayer =>
+                soundPlayer && soundPlayer.removeListener('stop', this.onStop));
             if (this.handleStop) this.handleStop();
         }
 
@@ -99,7 +100,8 @@ class SoundLibrary extends React.PureComponent {
         // normally.
         if (this.playingSoundPromise !== null) {
             // Forcing sound to stop, so stop listening for sound ending:
-            this.playingSoundPromise.then(soundPlayer => soundPlayer.removeListener('stop', this.onStop));
+            this.playingSoundPromise.then(soundPlayer =>
+                soundPlayer && soundPlayer.removeListener('stop', this.onStop));
             // Queued playback began playing before this method.
             if (this.playingSoundPromise.isPlaying) {
                 // Fetch the player from the promise and stop playback soon.
@@ -112,7 +114,7 @@ class SoundLibrary extends React.PureComponent {
                 // immediately after the sound starts playback. Stopping it
                 // immediately will have the effect of no sound being played.
                 this.playingSoundPromise.then(soundPlayer => {
-                    soundPlayer.stopImmediately();
+                    if (soundPlayer) soundPlayer.stopImmediately();
                 });
             }
             // No further work should be performed on this promise and its
@@ -134,26 +136,28 @@ class SoundLibrary extends React.PureComponent {
         // instruction after the play instruction.
         this.playingSoundPromise = vm.runtime.storage.load(vm.runtime.storage.AssetType.Sound, md5)
             .then(soundAsset => {
-                const sound = {
-                    md5: md5ext,
-                    name: soundItem.name,
-                    format: soundItem.format,
-                    data: soundAsset.data
-                };
-                return this.audioEngine.decodeSoundPlayer(sound);
-            })
-            .then(soundPlayer => {
-                soundPlayer.connect(this.audioEngine);
-                // Play the sound. Playing the sound will always come before a
-                // paired stop if the sound must stop early.
-                soundPlayer.play();
-                soundPlayer.addListener('stop', this.onStop);
-                // Set that the sound is playing. This affects the type of stop
-                // instruction given if the sound must stop early.
-                if (this.playingSoundPromise !== null) {
-                    this.playingSoundPromise.isPlaying = true;
+                if (soundAsset) {
+                    const sound = {
+                        md5: md5ext,
+                        name: soundItem.name,
+                        format: soundItem.format,
+                        data: soundAsset.data
+                    };
+                    return this.audioEngine.decodeSoundPlayer(sound)
+                        .then(soundPlayer => {
+                            soundPlayer.connect(this.audioEngine);
+                            // Play the sound. Playing the sound will always come before a
+                            // paired stop if the sound must stop early.
+                            soundPlayer.play();
+                            soundPlayer.addListener('stop', this.onStop);
+                            // Set that the sound is playing. This affects the type of stop
+                            // instruction given if the sound must stop early.
+                            if (this.playingSoundPromise !== null) {
+                                this.playingSoundPromise.isPlaying = true;
+                            }
+                            return soundPlayer;
+                        });
                 }
-                return soundPlayer;
             });
     }
     handleItemMouseLeave () {

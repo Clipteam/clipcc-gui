@@ -159,24 +159,34 @@ function getPlugins () {
             filename: 'player.html',
             title: 'ClipCC 3.0 GUI: Player Example'
         }),
-        new CopyWebpackPlugin([{
-            from: 'static',
-            to: 'static',
-            ignore: ['sw.js', 'manifest.json']
-        }]),
-        new CopyWebpackPlugin([{
-            from: 'node_modules/clipcc-block/media',
-            to: 'static/blocks-media'
-        }]),
-        new CopyWebpackPlugin([{
-            from: 'extensions/**',
-            to: 'static',
-            context: 'src/examples'
-        }]),
-        new CopyWebpackPlugin([{
-            from: 'extension-worker.{js,js.map}',
-            context: 'node_modules/clipcc-vm/dist/web'
-        }])
+        new CopyWebpackPlugin({
+            patterns: [{
+                from: 'static',
+                to: 'static',
+                globOptions: {
+                    ignore: ['sw.js', 'manifest.json']
+                }
+            }]
+        }),
+        new CopyWebpackPlugin({
+            patterns: [{
+                from: 'node_modules/clipcc-block/media',
+                to: 'static/blocks-media'
+            }]
+        }),
+        new CopyWebpackPlugin({
+            patterns: [{
+                from: 'extensions/**',
+                to: 'static',
+                context: 'src/examples'
+            }]
+        }),
+        new CopyWebpackPlugin({
+            patterns: [{
+                from: 'extension-worker.{js,js.map}',
+                context: 'node_modules/clipcc-vm/dist/web'
+            }]
+        })
     ]);
     if (!DIST_BUILD) {
         res = res.concat([
@@ -192,14 +202,18 @@ function getPlugins () {
             new ServiceWorkerWebpackPlugin({
                 entry: path.resolve(__dirname, 'static/sw.build.js')
             }),
-            new CopyWebpackPlugin([{
-                from: 'static/sw.build.js',
-                to: 'sw.js'
-            }]),
-            new CopyWebpackPlugin([{
-                from: 'static/manifest.json',
-                to: 'manifest.json'
-            }])
+            new CopyWebpackPlugin({
+                patterns: [{
+                    from: 'static/sw.build.js',
+                    to: 'sw.js'
+                }]
+            }),
+            new CopyWebpackPlugin({
+                patterns: [{
+                    from: 'static/manifest.json',
+                    to: 'manifest.json'
+                }]
+            })
         ]);
     }
     return res;
@@ -273,20 +287,26 @@ module.exports = [
                 ])
             },
             plugins: base.plugins.concat([
-                new CopyWebpackPlugin([{
-                    from: 'node_modules/clipcc-block/media',
-                    to: 'static/blocks-media'
-                }]),
-                new CopyWebpackPlugin([{
-                    from: 'extension-worker.{js,js.map}',
-                    context: 'node_modules/clipcc-vm/dist/web'
-                }]),
+                new CopyWebpackPlugin({
+                    patterns: [{
+                        from: 'node_modules/clipcc-block/media',
+                        to: 'static/blocks-media'
+                    }]
+                }),
+                new CopyWebpackPlugin({
+                    patterns: [{
+                        from: 'extension-worker.{js,js.map}',
+                        context: 'node_modules/clipcc-vm/dist/web'
+                    }]
+                }),
                 // Include library JSON files for scratch-desktop to use for downloading
-                new CopyWebpackPlugin([{
-                    from: 'src/lib/libraries/*.json',
-                    to: 'libraries',
-                    flatten: true
-                }])
+                new CopyWebpackPlugin({
+                    patterns: [{
+                        from: 'src/lib/libraries/*.json',
+                        to: 'libraries',
+                        flatten: true
+                    }]
+                })
             ])
         })) : []
 );
