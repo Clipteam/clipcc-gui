@@ -183,7 +183,7 @@ function getPlugins () {
         }),
         new CopyWebpackPlugin({
             patterns: [{
-                from: 'extension-worker.{js,js.map}',
+                from: 'extension-worker.js',
                 context: 'node_modules/clipcc-vm/dist/web'
             }]
         })
