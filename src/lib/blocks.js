@@ -343,6 +343,14 @@ export default function (vm) {
     ScratchBlocks.scratchBlocksUtils.compareStrings = function (str1, str2) {
         return collator.compare(str1, str2);
     };
+    
+    ScratchBlocks.scratchBlocksUtils.externalCopyCallback = function (block, event) {
+        console.log('copy', block, event);
+    };
+    
+    ScratchBlocks.scratchBlocksUtils.externalPasteCallback = function (block, event) {
+        console.log('paste', block, event);
+    };
 
     // Blocks wants to know if 3D CSS transforms are supported. The cross
     // section of browsers Scratch supports and browsers that support 3D CSS
