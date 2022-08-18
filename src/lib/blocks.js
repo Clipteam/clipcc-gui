@@ -346,13 +346,23 @@ export default function (vm) {
     
     ScratchBlocks.scratchBlocksUtils.externalCopyCallback = function (xml) {
         console.log('copy', xml);
-        const blockObjects = adapter({xml});
-        const steveScratchCopiedBlock = JSON.stringify(['SSCB3', blockObjects]);
+        const steveScratchCopiedBlock = JSON.stringify(['SSCB3', (new XMLSerializer()).serializeToString(xml)]);
         navigator.clipboard.writeText(steveScratchCopiedBlock);
     };
     
     ScratchBlocks.scratchBlocksUtils.externalPasteCallback = function (block) {
         console.log('paste', block);
+        navigator.clipboard.readText()
+            .then(text => {
+                if (!text.trim().startsWith('["SSCB3"')) {
+                    console.log(`It's not a legal SSCB3 fragment.`);
+                    return;
+                }
+                
+                const xmlString = JSON.parse(text)[1];
+                const parser = new DOMParser();
+                return parser.parseFromString(xmlString, "text/xml");
+            });
     };
 
     // Blocks wants to know if 3D CSS transforms are supported. The cross
