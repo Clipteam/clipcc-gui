@@ -346,8 +346,8 @@ export default function (vm) {
     
     ScratchBlocks.scratchBlocksUtils.externalCopyCallback = function (xml) {
         console.log('copy', xml);
-        const blockObjects = adapter(xml);
-        const steveScratchCopiedBlock = JSON.stringify(blockObjects);
+        const blockObjects = adapter({xml});
+        const steveScratchCopiedBlock = JSON.stringify(['SSCB3', blockObjects]);
         navigator.clipboard.writeText(steveScratchCopiedBlock);
     };
     
