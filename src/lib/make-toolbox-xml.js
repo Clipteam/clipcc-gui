@@ -906,6 +906,19 @@ const operators = function (isInitialSetup, _isStage, _targetId, hideNonOriginal
                     </shadow>
                 </value>
             </block>
+            <block type="operator_join_advanced" id="operator_join_advanced">
+                <mutation argumentids="[&quot;STRING1&quot;, &quot;STRING2&quot;]"></mutation>
+                <value name="STRING1">
+                <shadow type="text">
+                    <field name="TEXT">${apple} </field>
+                </shadow>
+                </value>
+                <value name="STRING2">
+                <shadow type="text">
+                    <field name="TEXT">${banana}</field>
+                </shadow>
+                </value>
+            </block>
             ${hideNonOriginalBlocks ? '' : `
             <block type="operator_indexof">
                 <value name="POS">
