@@ -1,5 +1,5 @@
 import lazyClipCCBlock from './lazy-blocks';
-
+import adapter from 'clipcc-vm/src/engine/adapter';
 
 /**
  * Connect scratch blocks with the vm
@@ -344,12 +344,15 @@ export default function (vm) {
         return collator.compare(str1, str2);
     };
     
-    ScratchBlocks.scratchBlocksUtils.externalCopyCallback = function (block, event) {
-        console.log('copy', block, event);
+    ScratchBlocks.scratchBlocksUtils.externalCopyCallback = function (xml) {
+        console.log('copy', xml);
+        const blockObjects = adapter(xml);
+        const steveScratchCopiedBlock = JSON.stringify(blockObjects);
+        navigator.clipboard.writeText(steveScratchCopiedBlock);
     };
     
-    ScratchBlocks.scratchBlocksUtils.externalPasteCallback = function (block, event) {
-        console.log('paste', block, event);
+    ScratchBlocks.scratchBlocksUtils.externalPasteCallback = function (block) {
+        console.log('paste', block);
     };
 
     // Blocks wants to know if 3D CSS transforms are supported. The cross
