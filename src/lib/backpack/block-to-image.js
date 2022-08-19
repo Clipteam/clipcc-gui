@@ -27,8 +27,8 @@ export default function (blockId) {
             // Needs to be on the DOM to get CSS properties and correct sizing
             document.body.appendChild(svg);
 
-            const padding = 10;
-            const extraHatPadding = 16;
+            const padding = 15;
+            const extraHatPadding = 28;
             const topPadding = padding + (blockSvg.getAttribute('data-shapes') === 'hat' ? extraHatPadding : 0);
             const leftPadding = padding;
             blockSvg.setAttribute('transform', `translate(${leftPadding} ${topPadding})`);
