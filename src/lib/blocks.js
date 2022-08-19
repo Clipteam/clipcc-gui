@@ -345,7 +345,6 @@ export default function (vm) {
     };
     
     ScratchBlocks.scratchBlocksUtils.externalCopyCallback = function (xml) {
-        console.log('copy', xml);
         const steveScratchCopiedBlock = JSON.stringify(['SSCB3', (new XMLSerializer()).serializeToString(xml)]);
         navigator.clipboard.writeText(steveScratchCopiedBlock);
     };
@@ -354,14 +353,13 @@ export default function (vm) {
         navigator.clipboard.readText()
             .then(text => {
                 if (!text.trim().startsWith('["SSCB3"')) {
-                    console.log(`It's not a legal SSCB3 fragment.`);
+                    console.warn(`It's not a legal SSCB3 fragment.`);
                     return;
                 }
                 
                 const xmlString = JSON.parse(text)[1];
                 const parser = new DOMParser();
                 const xml = parser.parseFromString(xmlString, "text/xml");
-                console.log(xml.documentElement);
                 callback(xml.documentElement);
             });
     };
