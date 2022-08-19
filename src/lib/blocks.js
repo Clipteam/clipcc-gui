@@ -359,6 +359,7 @@ export default function (vm) {
                 }
                 
                 const xmlString = JSON.parse(text)[1];
+                if (xmlString.trim() === null) return;
                 const parser = new DOMParser();
                 const xml = parser.parseFromString(xmlString, "text/xml");
                 callback(xml.documentElement);
