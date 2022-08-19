@@ -1,5 +1,4 @@
 import lazyClipCCBlock from './lazy-blocks';
-import adapter from 'clipcc-vm/src/engine/adapter';
 
 /**
  * Connect scratch blocks with the vm
