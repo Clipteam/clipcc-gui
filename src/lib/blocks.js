@@ -350,8 +350,7 @@ export default function (vm) {
         navigator.clipboard.writeText(steveScratchCopiedBlock);
     };
     
-    ScratchBlocks.scratchBlocksUtils.externalPasteCallback = function (block) {
-        console.log('paste', block);
+    ScratchBlocks.scratchBlocksUtils.externalPasteCallback = function () {
         navigator.clipboard.readText()
             .then(text => {
                 if (!text.trim().startsWith('["SSCB3"')) {
