@@ -4,7 +4,7 @@ const jpegThumbnail = (dataUrl, needBlob) => new Promise((resolve, reject) => {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
 
-        const maxDimension = 96; // 3x the maximum displayed size of 32px
+        const maxDimension = needBlob? 1024 : 96; // 3x the maximum displayed size of 32px
 
         if (image.height < 1 || image.width < 1) {
             canvas.width = canvas.height = maxDimension;
