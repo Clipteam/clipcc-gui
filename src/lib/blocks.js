@@ -361,8 +361,8 @@ export default function (vm) {
                 const xmlString = JSON.parse(text)[1];
                 const parser = new DOMParser();
                 const xml = parser.parseFromString(xmlString, "text/xml");
-                console.log(xml);
-                callback(xml);
+                console.log(xml.documentElement);
+                callback(xml.documentElement);
             });
     };
 
