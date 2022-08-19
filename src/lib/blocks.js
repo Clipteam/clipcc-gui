@@ -2,19 +2,6 @@ import lazyClipCCBlock from './lazy-blocks';
 import blockToImage from './backpack/block-to-image';
 import jpegThumbnail from './backpack/jpeg-thumbnail';
 
-function dataURItoBlob (dataURI) {
-  const byteString = atob(dataURI);
-  const mimeString = 'image/jpeg'
-
-  const ab = new ArrayBuffer(byteString.length);
-  const ia = new Uint8Array(ab);
-
-  for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-  }
-  return new Blob([ab], {type: mimeString});
-}
-
 /**
  * Connect scratch blocks with the vm
  * @param {VirtualMachine} vm - The scratch vm
@@ -380,11 +367,12 @@ export default function (vm) {
     
     ScratchBlocks.scratchBlocksUtils.externalCopyImageCallback = function(blockId) {
         return blockToImage(blockId)
-            .then(jpegThumbnail)
+            .then(dataUrl => {
+                return jpegThumbnail(dataUrl, true);
+            })
             .then(thumbnail => {
-                const blob = dataURItoBlob(thumbnail);
                 const clipboardData = new ClipboardItem({
-                    [blob.type]: blob,
+                    [thumbnail.type]: thumbnail,
                 });
                 
                 navigator.clipboard.write([clipboardData]);
