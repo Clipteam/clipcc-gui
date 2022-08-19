@@ -14,8 +14,8 @@ const jpegThumbnail = (dataUrl, needBlob) => new Promise((resolve, reject) => {
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         } else {
             if (!!needBlob) {
-                canvas.width = image.width;
-                canvas.height = image.height;
+                canvas.width = image.width * 2;
+                canvas.height = image.height * 2;
             } else {
                 if (image.height > image.width) {
                     canvas.height = maxDimension;
