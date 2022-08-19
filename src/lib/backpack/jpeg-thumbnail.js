@@ -24,7 +24,11 @@ const jpegThumbnail = (dataUrl, needBlob) => new Promise((resolve, reject) => {
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
         }
-        if (!!needBlob) resolve(canvas.toBlob());
+        if (!!needBlob) {
+            canvas.toBlob(blob => {
+                resolve(blob)
+            }, 'image/jpg');
+        }
         else resolve(canvas.toDataURL('image/jpeg', 0.92 /* quality */)); // Default quality is 0.92
     };
     image.onerror = err => {
