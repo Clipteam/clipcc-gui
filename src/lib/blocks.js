@@ -350,7 +350,7 @@ export default function (vm) {
         navigator.clipboard.writeText(steveScratchCopiedBlock);
     };
     
-    ScratchBlocks.scratchBlocksUtils.externalPasteCallback = function () {
+    ScratchBlocks.scratchBlocksUtils.externalPasteCallback = function (callback) {
         navigator.clipboard.readText()
             .then(text => {
                 if (!text.trim().startsWith('["SSCB3"')) {
@@ -362,7 +362,7 @@ export default function (vm) {
                 const parser = new DOMParser();
                 const xml = parser.parseFromString(xmlString, "text/xml");
                 console.log(xml);
-                return xml;
+                callback(xml);
             });
     };
 
