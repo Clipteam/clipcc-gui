@@ -1,4 +1,19 @@
 import lazyClipCCBlock from './lazy-blocks';
+import blockToImage from './block-to-image';
+import jpegThumbnail from './jpeg-thumbnail';
+
+function dataURItoBlob (dataURI) {
+  const byteString = atob(dataURI);
+  const mimeString = 'image/jpeg'
+
+  const ab = new ArrayBuffer(byteString.length);
+  const ia = new Uint8Array(ab);
+
+  for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+  }
+  return new Blob([ab], {type: mimeString});
+}
 
 /**
  * Connect scratch blocks with the vm
@@ -362,6 +377,19 @@ export default function (vm) {
                 callback(xml.documentElement);
             });
     };
+    
+    ScratchBlocks.scratchBlocksUtils.externalCopyImageCallback = function(blockId) {
+        return blockToImage(blockId)
+            .then(jpegThumbnail)
+            .then(thumbnail => {
+                const blob = dataURItoBlob(thumbnail);
+                const clipboardData = new ClipboardItem({
+                    [blob.type]: blob,
+                });
+                
+                navigator.clipboard.write([clipboardData]);
+            });
+    }
 
     // Blocks wants to know if 3D CSS transforms are supported. The cross
     // section of browsers Scratch supports and browsers that support 3D CSS
