@@ -1,6 +1,6 @@
 import lazyClipCCBlock from './lazy-blocks';
-import blockToImage from './block-to-image';
-import jpegThumbnail from './jpeg-thumbnail';
+import blockToImage from './backpack/block-to-image';
+import jpegThumbnail from './backpack/jpeg-thumbnail';
 
 function dataURItoBlob (dataURI) {
   const byteString = atob(dataURI);
