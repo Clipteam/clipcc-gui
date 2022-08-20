@@ -1,5 +1,6 @@
 import lazyClipCCBlock from './lazy-blocks';
-
+import blockToImage from './backpack/block-to-image';
+import jpegThumbnail from './backpack/jpeg-thumbnail';
 
 /**
  * Connect scratch blocks with the vm
@@ -343,6 +344,41 @@ export default function (vm) {
     ScratchBlocks.scratchBlocksUtils.compareStrings = function (str1, str2) {
         return collator.compare(str1, str2);
     };
+    
+    ScratchBlocks.scratchBlocksUtils.externalCopyCallback = function (xml) {
+        const steveScratchCopiedBlock = JSON.stringify(['SSCB3', (new XMLSerializer()).serializeToString(xml)]);
+        navigator.clipboard.writeText(steveScratchCopiedBlock);
+    };
+    
+    ScratchBlocks.scratchBlocksUtils.externalPasteCallback = function (callback) {
+        navigator.clipboard.readText()
+            .then(text => {
+                if (!text.trim().startsWith('["SSCB3"')) {
+                    console.warn(`It's not a legal SSCB3 fragment.`);
+                    return;
+                }
+                
+                const xmlString = JSON.parse(text)[1];
+                if (xmlString.trim() === null) return;
+                const parser = new DOMParser();
+                const xml = parser.parseFromString(xmlString, "text/xml");
+                callback(xml.documentElement);
+            });
+    };
+    
+    ScratchBlocks.scratchBlocksUtils.externalCopyImageCallback = function(blockId) {
+        return blockToImage(blockId)
+            .then(dataUrl => {
+                return jpegThumbnail(dataUrl, true);
+            })
+            .then(thumbnail => {
+                const clipboardData = new ClipboardItem({
+                    [thumbnail.type]: thumbnail,
+                });
+                
+                navigator.clipboard.write([clipboardData]);
+            });
+    }
 
     // Blocks wants to know if 3D CSS transforms are supported. The cross
     // section of browsers Scratch supports and browsers that support 3D CSS
