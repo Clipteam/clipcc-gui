@@ -4992,7 +4992,7 @@ fast-levenshtein@~2.0.6:
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
   integrity sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==
 
-fastestsmallesttextencoderdecoder@^1.0.7:
+fastestsmallesttextencoderdecoder@^1.0.22, fastestsmallesttextencoderdecoder@^1.0.7:
   version "1.0.22"
   resolved "https://registry.yarnpkg.com/fastestsmallesttextencoderdecoder/-/fastestsmallesttextencoderdecoder-1.0.22.tgz#59b47e7b965f45258629cc6c127bf783281c5e93"
   integrity sha512-Pb8d48e+oIuY4MaM64Cd7OW1gt4nxCHs7/ddPPZ/Ic3sg8yVGM7O9wDvZ7us6ScaUupzM+pfBolwtYhN1IxBIw==
@@ -10426,6 +10426,18 @@ scratch-svg-renderer@0.2.0-prerelease.20210727023023:
     base64-js "1.2.1"
     base64-loader "1.0.0"
     dompurify "2.2.7"
+    minilog "3.1.0"
+    transformation-matrix "1.15.0"
+
+scratch-svg-renderer@^0.2.0-prerelease.20220817124220:
+  version "0.2.0-prerelease.20220817124220"
+  resolved "https://registry.npmmirror.com/scratch-svg-renderer/-/scratch-svg-renderer-0.2.0-prerelease.20220817124220.tgz#b7e45b0999244d2eee990c6ead471dbd1e069995"
+  integrity sha512-Sxr/weomcOZfZrvnIMTEmINeTyVhPyYUMQnrnnqCwPQkSOpRCNKzhHb8QVPVsUzM4J2Lh85SYHGQjM1fAXWNYA==
+  dependencies:
+    base64-js "1.2.1"
+    base64-loader "1.0.0"
+    dompurify "2.2.7"
+    fastestsmallesttextencoderdecoder "^1.0.22"
     minilog "3.1.0"
     transformation-matrix "1.15.0"
 
