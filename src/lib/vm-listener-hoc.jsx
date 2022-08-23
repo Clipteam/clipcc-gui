@@ -68,6 +68,19 @@ const vmListenerHOC = function (WrappedComponent) {
         }
         componentWillUnmount () {
             this.props.vm.removeListener('PERIPHERAL_CONNECTION_LOST_ERROR', this.props.onShowExtensionAlert);
+            this.props.vm.removeListener('targetsUpdate', this.handleTargetsUpdate);
+            this.props.vm.removeListener('MONITORS_UPDATE', this.props.onMonitorsUpdate);
+            this.props.vm.removeListener('BLOCK_DRAG_UPDATE', this.props.onBlockDragUpdate);
+            this.props.vm.removeListener('TURBO_MODE_ON', this.props.onTurboModeOn);
+            this.props.vm.removeListener('TURBO_MODE_OFF', this.props.onTurboModeOff);
+            this.props.vm.removeListener('PROJECT_RUN_START', this.props.onProjectRunStart);
+            this.props.vm.removeListener('PROJECT_RUN_STOP', this.props.onProjectRunStop);
+            this.props.vm.removeListener('PROJECT_CHANGED', this.handleProjectChanged);
+            this.props.vm.removeListener('RUNTIME_STARTED', this.props.onRuntimeStarted);
+            this.props.vm.removeListener('PROJECT_START', this.props.onGreenFlag);
+            this.props.vm.removeListener('PERIPHERAL_CONNECTION_LOST_ERROR', this.props.onShowExtensionAlert);
+            this.props.vm.removeListener('MIC_LISTENING', this.props.onMicListeningUpdate);
+
             if (this.props.attachKeyboardEvents) {
                 document.removeEventListener('keydown', this.handleKeyDown);
                 document.removeEventListener('keyup', this.handleKeyUp);

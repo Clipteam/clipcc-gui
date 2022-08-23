@@ -3133,10 +3133,10 @@ clipcc-l10n@3.1.8:
     form-data "^4.0.0"
     poeditor-api "^1.0.0"
 
-clipcc-paint@3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/clipcc-paint/-/clipcc-paint-3.1.2.tgz#6cab5a7fa26ab947cc0367ea43c83ce985a60722"
-  integrity sha512-8sd0FgM6COPNhAJTLajtD+Je6mFPAgmYW/mBF0s31gL87U165chxLNKA8tp7TalfpUKR39xmkKMyk0QVQ6WA9g==
+clipcc-paint@3.1.1:
+  version "3.1.1"
+  resolved "https://registry.npmmirror.com/clipcc-paint/-/clipcc-paint-3.1.1.tgz#020b4a21018d24027d9e0fcf224fd85dd73056c3"
+  integrity sha512-go+/qcjvICsmm3l+uzzSdbrsfU9ntwnkKX3jOz5jVKi2OY/6tEYoin89j6idu80D1NFZUPJMcBL2WDWBhYz5ig==
   dependencies:
     "@scratch/paper" "0.11.20200728195508"
     classnames "2.2.5"
