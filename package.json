@@ -43,7 +43,7 @@
     "clipcc-block": "3.1.7",
     "clipcc-extension": "^0.1.9",
     "clipcc-l10n": "3.1.8",
-    "clipcc-paint": "3.1.2",
+    "clipcc-paint": "3.1.1",
     "clipcc-render": "^3.0.0",
     "clipcc-vm": "3.1.12",
     "computed-style-to-inline-style": "3.0.0",
