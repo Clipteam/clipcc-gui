@@ -105,7 +105,7 @@ const AboutModal = ({
                     />
                 </a>
                 <a
-                    href="https://jq.qq.com/?_wv=1027&k=924RaGLu"
+                    href="https://jq.qq.com/?k=bqOGdafI"
                     target="_blank"
                     rel="noreferrer"
                 >
