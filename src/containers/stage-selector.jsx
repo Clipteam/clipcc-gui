@@ -52,6 +52,7 @@ class StageSelector extends React.Component {
             'setFileInput',
             'setRef'
         ]);
+        this.ref = React.createRef();
     }
     componentDidMount () {
         document.addEventListener('touchend', this.handleTouchEnd, { capture: true });

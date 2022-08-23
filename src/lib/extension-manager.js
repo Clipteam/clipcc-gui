@@ -236,7 +236,7 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
                     ClipCCExtension.extensionManager.removeInstance(info.id);
                     ClipCCExtension.extensionManager.unloadExtensions(
                         [info.id],
-                        extension => ClipCCExtension.api.getVmInstance().extensionManager.unloadExtensionURL(extension)
+                        extension => ClipCCExtension.api.getVmInstance().extensionManager.unloadExtensionURL(info.id)
                     );
                     dispatch(disableExtension(info.id));
                     isReload = true;

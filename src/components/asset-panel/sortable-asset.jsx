@@ -9,6 +9,7 @@ class SortableAsset extends React.Component {
         bindAll(this, [
             'setRef'
         ]);
+        this.ref = React.createRef();
     }
     componentDidMount () {
         this.props.onAddSortable(this.ref);
