@@ -82,7 +82,7 @@ const AboutModal = ({
                             {...messages.desktopComponentVersion}
                         /></strong>
                         {': '}
-                        <span>{global.ClipCC.versions[component.toLowerCase()]}</span>
+                        <span>{global.ClipCC.versions && global.ClipCC.versions[component.toLowerCase()]}</span>
                     </p>
                 ))
             ) : null}
