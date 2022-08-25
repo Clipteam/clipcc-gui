@@ -76,6 +76,7 @@ class SpriteSelectorItem extends React.PureComponent {
         this.noClick = true;
     }
     handleTouchEnd (e) {
+        if (!this.ref) return;
         const {x, y} = getEventXY(e);
         const {top, left, bottom, right} = this.ref.getBoundingClientRect();
         if (x >= left && x <= right && y >= top && y <= bottom) {
