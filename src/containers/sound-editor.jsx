@@ -58,7 +58,7 @@ class SoundEditor extends React.Component {
         this.redoStack = [];
         this.undoStack = [];
 
-        this.ref = React.createRef();
+        this.ref = null;
     }
     componentDidMount () {
         this.audioBufferPlayer = new AudioBufferPlayer(this.props.samples, this.props.sampleRate);

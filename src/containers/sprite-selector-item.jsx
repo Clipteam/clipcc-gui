@@ -35,7 +35,7 @@ class SpriteSelectorItem extends React.PureComponent {
             onDrag: this.handleDrag,
             onDragEnd: this.handleDragEnd
         });
-        this.ref = React.createRef();
+        this.ref = null;
     }
     componentDidMount () {
         document.addEventListener('touchend', this.handleTouchEnd, { capture: true });

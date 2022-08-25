@@ -44,7 +44,7 @@ const DropAreaHOC = function (dragTypes) {
                     dragOver: false
                 };
 
-                this.ref = React.createRef();
+                this.ref = null;
                 this.containerBox = null;
             }
 

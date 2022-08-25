@@ -16,7 +16,7 @@ const SortableHOC = function (WrappedComponent) {
 
             this.sortableRefs = [];
             this.boxes = null;
-            this.ref = React.createRef();
+            this.ref = null;
             this.containerBox = null;
         }
 
