@@ -247,9 +247,11 @@ class ExtensionLibrary extends React.PureComponent {
         }
     }
     handleClickExtensionStore () {
+        /*
         if (isScratchDesktop()) {
             return window.ClipCC.ipc.send('open-extension-store');
         }
+        */
         if (!this.extensionChannel) {
             alert(this.props.intl.formatMessage(messages.unsupportChannel));
             return;
