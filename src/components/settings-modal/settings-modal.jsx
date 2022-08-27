@@ -509,7 +509,7 @@ class SettingsModal extends React.Component {
                             </p>
                             <Elastic />
                             <Switch
-                                onChange={this.props.onChangeSaveSettings}
+                                onChange={this.handleChangeSettingsItem('saveSettings', this.props.onChangeSaveSettings)}
                                 value={this.props.saveSettings}
                             />
                         </div>

@@ -47,7 +47,6 @@ class SettingsModal extends React.Component {
     }
     
     handleChangeSaveSettings (option) {
-        this.props.updateSettings('saveSettings', option);
         this.props.vm.runtime.storeSettings = !!option;
     }
 
