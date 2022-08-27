@@ -30,7 +30,7 @@ class SettingsModal extends React.Component {
             'handleChangeCompatibility',
             'handleChangeCompressionLevel',
             'handleChangeHQPen',
-            'handleChangeFramerate'
+            'handleChangeSaveSettings'
         ]);
     }
 
