@@ -44,6 +44,11 @@ class SettingsModal extends React.Component {
     handleChangeHQPen (option) {
         this.props.vm.renderer.setUseHighQualityPen(option);
     }
+    
+    handleChangeSaveSettings (option) {
+        this.props.updateSettings('saveSettings', option);
+        this.props.vm.runtime.storeSettings = !!option;
+    }
 
     handleChangeFramerate (framerate) {
         this.props.updateSettings('framerate', framerate);
@@ -85,6 +90,7 @@ class SettingsModal extends React.Component {
                 onChangeCompressionLevel={this.handleChangeCompressionLevel}
                 onChangeCompiler={this.handleChangeCompiler}
                 onChangeHQPen={this.handleChangeHQPen}
+                onChangeSaveSettings={this.handleChangeSaveSettings}
                 {...this.props}
             />
         );
@@ -107,6 +113,7 @@ SettingsModal.propTypes = {
     autosaveInterval: PropTypes.number.isRequired,
     compatibility: PropTypes.string.isRequired,
     compression: PropTypes.number.isRequired,
+    saveSettings: PropTypes.bool.isRequired,
     saveExtension: PropTypes.bool.isRequired,
     saveOptionalExtension: PropTypes.bool.isRequired,
     updateSettings: PropTypes.func.isRequired,
@@ -129,6 +136,7 @@ const mapStateToProps = state => ({
     compatibility: state.scratchGui.settings.compatibility,
     compression: state.scratchGui.settings.compression,
     hideNonOriginalBlocks: state.scratchGui.settings.hideNonOriginalBlocks,
+    saveSettings: state.scratchGui.settings.saveSettings,
     saveExtension: state.scratchGui.settings.saveExtension,
     saveOptionalExtension: state.scratchGui.settings.saveOptionalExtension
 });

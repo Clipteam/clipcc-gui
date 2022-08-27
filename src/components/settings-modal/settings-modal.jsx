@@ -142,6 +142,11 @@ const messages = defineMessages({
         description: 'Label of Compression',
         id: 'gui.settingsModal.compression.label'
     },
+    saveSettings: {
+        defaultMessage: 'Save Settings to Project File',
+        description: 'Label of Save Settings',
+        id: 'gui.settingsModal.saveSettings.label'
+    },
     saveExtension: {
         defaultMessage: 'Save Extension to Project File',
         description: 'Label of Save Extension',
@@ -500,6 +505,16 @@ class SettingsModal extends React.Component {
                         </div>
                         <div className={classNames(styles.item)}>
                             <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.saveSettings)}
+                            </p>
+                            <Elastic />
+                            <Switch
+                                onChange={onChangeSaveSettings}
+                                value={this.props.saveSettings}
+                            />
+                        </div>
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.saveExtension)}
                             </p>
                             <Elastic />
@@ -553,6 +568,7 @@ SettingsModal.propTypes = {
     // compatibility: PropTypes.string.isRequired,
     compression: PropTypes.number.isRequired,
     hideNonOriginalBlocks: PropTypes.bool.isRequired,
+    saveSettings: PropTypes.bool.isRequired,
     saveExtension: PropTypes.bool.isRequired,
     saveOptionalExtension: PropTypes.bool.isRequired,
     onRequestClose: PropTypes.func.isRequired,
@@ -562,6 +578,7 @@ SettingsModal.propTypes = {
     onChangeHQPen: PropTypes.func.isRequired,
     onChangeSeamlessFullscreen: PropTypes.func.isRequired,
     onChangeAutoSave: PropTypes.func.isRequired,
+    onChangeSaveSettings: PropTypes.func.isRequired,
     // onChangeCompatibility: PropTypes.func.isRequired,
     onChangeCompressionLevel: PropTypes.func.isRequired
 };

@@ -34,13 +34,15 @@ const vmManagerHOC = function (WrappedComponent) {
                 this.props.vm.attachAudioEngine(this.audioEngine);
                 this.props.vm.setCompatibilityMode(true);
                 
+                const { vm } = this.props;
                 //初始化设置
                 try {
-                    this.props.vm.runtime.setFramerate(this.props.fps);
-                    this.props.vm.runtime.setCompiler(this.props.compiler);
-                    this.props.vm.setCompressionLevel(this.props.compression);
-                    this.props.vm.setDeserializeOption(this.props.compatibility);
-                    this.props.vm.runtime.renderer.setUseHighQualityPen(this.props.hqpen);
+                    if (vm.runtime.storeSettings) vm.runtime.storeSettings = !!this.props.saveSettings;
+                    if (vm.runtime.setFramerate) vm.runtime.setFramerate(this.props.fps);
+                    if (vm.runtime.setCompiler) vm.runtime.setCompiler(this.props.compiler);
+                    if (vm.setCompressionLevel) vm.setCompressionLevel(this.props.compression);
+                    if (vm.setDeserializeOption) vm.setDeserializeOption(this.props.compatibility);
+                    if (vm.runtime.renderer.setUseHighQualityPen) vm.runtime.renderer.setUseHighQualityPen(this.props.hqpen);
                 } catch (e) {
                     console.log('Failed to initialize settings:', e);
                 }
@@ -129,6 +131,7 @@ const vmManagerHOC = function (WrappedComponent) {
         projectData: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
         projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         username: PropTypes.string,
+        saveSettings: PropTypes.bool,
         fps: PropTypes.number,
         compression: PropTypes.number,
         compatibility: PropTypes.string,
@@ -149,6 +152,7 @@ const vmManagerHOC = function (WrappedComponent) {
             loadingState: loadingState,
             isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
             isStarted: state.scratchGui.vmStatus.started,
+            saveSettings: state.scratchGui.settings.saveSettings,
             fps: state.scratchGui.settings.framerate,
             compiler: state.scratchGui.settings.compiler,
             hqpen: state.scratchGui.settings.hqpen,

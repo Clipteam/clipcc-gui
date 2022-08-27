@@ -15,6 +15,7 @@ const defaultState = {
     compatibility: 'donotload',
     compression: 6,
     hideNonOriginalBlocks: false,
+    saveSettings: false,
     saveExtension: true,
     saveOptionalExtension: false
 };
