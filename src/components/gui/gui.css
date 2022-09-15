@@ -15,10 +15,6 @@
     background-color: $ui-primary-dark;
 }
 
-[theme='dark'] * {
-background-color: black;
-}
-
 .body-wrapper * {
     box-sizing: border-box;
 }
