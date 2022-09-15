@@ -94,7 +94,9 @@ const ContributorModal = ({
             <p>{contributorList.xiaoji4093}</p>
             <strong>{intl.formatMessage(messages.translator)}</strong>
             <p>{contributorList.soilzhu}</p>
+            <p>{contributorList.editmr}</p>
             <p>{contributorList.lmlanmei}</p>
+
             <strong>{intl.formatMessage(messages.donor)}</strong>
             <p>{contributorList.cyarice}</p>
             <p>{contributorList.lyricepic}</p>
