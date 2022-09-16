@@ -1,6 +1,18 @@
 @import "../../css/units.css";
 @import "../../css/colors.css";
 @import "../../css/z-index.css";
+html,body {
+    width: 100vw !important;
+    height: 100vh !important;
+}
+
+html,body {
+    background: $ui-background;
+}
+
+[theme='dark'] html,body {
+    background: $ui-background-dark;
+}
 
 .page-wrapper {
     height: 100%;
@@ -13,10 +25,6 @@
 
 [theme='dark'] .body-wrapper {
     background-color: $ui-primary-dark;
-}
-
-[theme='dark'] * {
-background-color: black;
 }
 
 .body-wrapper * {
