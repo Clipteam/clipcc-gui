@@ -80,6 +80,7 @@ const ContributorModal = ({
             <p>{contributorList.e4361}</p>
             <p>{contributorList.waterblock79}</p>
             <p>{contributorList.sparrowhe}</p>
+            <p>{contributorList.editmr}</p>
             <strong>{intl.formatMessage(messages.designer)}</strong>
             <p>{contributorList.zerlight}</p>
             <p>{contributorList.soilzhu}</p>
@@ -94,7 +95,6 @@ const ContributorModal = ({
             <p>{contributorList.xiaoji4093}</p>
             <strong>{intl.formatMessage(messages.translator)}</strong>
             <p>{contributorList.soilzhu}</p>
-            <p>{contributorList.editmr}</p>
             <p>{contributorList.lmlanmei}</p>
 
             <strong>{intl.formatMessage(messages.donor)}</strong>
