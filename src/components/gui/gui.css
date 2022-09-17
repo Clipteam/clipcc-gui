@@ -2,6 +2,14 @@
 @import "../../css/colors.css";
 @import "../../css/z-index.css";
 
+html,body {
+    background: $ui-background;
+}
+
+[theme='dark'] html,body {
+    background: $ui-background-dark;
+}
+
 .page-wrapper {
     height: 100%;
 }
