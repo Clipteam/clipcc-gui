@@ -3,11 +3,11 @@
 @import "../../css/z-index.css";
 
 html,body {
-    background: $ui-background;
+    background-color: $ui-background;
 }
 
 [theme='dark'] html,body {
-    background: $ui-background-dark;
+    background-color: $ui-background-dark;
 }
 
 .page-wrapper {
