@@ -29,7 +29,7 @@ ClipCC is a powerful scratch fork which adds some useful features such as new ex
 
 In your own node environment/application:
 ```bash
-yarn install https://github.com/Clipteam/clipcc-gui.git
+yarn add https://github.com/Clipteam/clipcc-gui.git
 ```
 If you want to edit/play yourself:
 ```bash
