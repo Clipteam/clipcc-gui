@@ -25,6 +25,9 @@ class SettingsModal extends React.Component {
             'handleChangeSettingsItem',
             'handleChangeFramerate',
             'handleChangeCompiler',
+            'handleChangeWarpTimer',
+            'handleChangePrecompile',
+            'handleChangeWorker',
             'handleChangeSeamlessFullscreen',
             'handleChangeAutoSave',
             'handleChangeCompatibility',
@@ -41,6 +44,14 @@ class SettingsModal extends React.Component {
     handleChangeCompiler (option) {
         this.props.vm.runtime.setCompiler(option);
     }
+    
+    handleChangePrecompile (option) {
+        this.props.vm.runtime.setPrecompile(option);
+    }
+    
+    handleChangeWarpTimer (option) {
+        this.props.vm.runtime.warpTimer = !!option;
+    }
 
     handleChangeHQPen (option) {
         this.props.vm.renderer.setUseHighQualityPen(option);
@@ -53,6 +64,11 @@ class SettingsModal extends React.Component {
     handleChangeFramerate (framerate) {
         this.props.updateSettings('framerate', framerate);
         this.props.vm.runtime.setFramerate(framerate);
+    }
+    
+    handleChangeWorker (num) {
+        this.props.updateSettings('worker', num);
+        this.props.vm.runtime.setWorker(num);
     }
 
     handleChangeSeamlessFullscreen (value) {
@@ -89,6 +105,9 @@ class SettingsModal extends React.Component {
                 onChangeCompatibility={this.handleChangeCompatibility}
                 onChangeCompressionLevel={this.handleChangeCompressionLevel}
                 onChangeCompiler={this.handleChangeCompiler}
+                onChangePrecompile={this.handleChangePrecompile}
+                onChangeWarpTimer={this.handleChangeWarpTimer}
+                onChangeWorker={this.handleChangeWorker}
                 onChangeHQPen={this.handleChangeHQPen}
                 onChangeSaveSettings={this.handleChangeSaveSettings}
                 {...this.props}
@@ -106,6 +125,9 @@ SettingsModal.propTypes = {
     blur: PropTypes.bool.isRequired,
     framerate: PropTypes.number.isRequired,
     compiler: PropTypes.bool.isRequired,
+    warpTimer: PropTypes.bool.isRequired,
+    precompile: PropTypes.bool.isRequired,
+    worker: PropTypes.number.isRequired,
     seamless: PropTypes.bool.isRequired,
     hqpen: PropTypes.bool.isRequired,
     autosave: PropTypes.bool.isRequired,
@@ -129,6 +151,9 @@ const mapStateToProps = state => ({
     blur: state.scratchGui.settings.blur,
     framerate: state.scratchGui.settings.framerate,
     compiler: state.scratchGui.settings.compiler,
+    precompile: state.scratchGui.settings.precompile,
+    warpTimer: state.scratchGui.settings.warpTimer,
+    worker: state.scratchGui.settings.worker,
     hqpen: state.scratchGui.settings.hqpen,
     seamless: state.scratchGui.settings.seamless,
     autosave: state.scratchGui.settings.autosave,

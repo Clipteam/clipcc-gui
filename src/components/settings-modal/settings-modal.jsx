@@ -52,6 +52,26 @@ const messages = defineMessages({
         description: 'Label of compiler',
         id: 'gui.settingsModal.compiler.label'
     },
+    precompile: {
+        defaultMessage: 'Compile blocks eagerly',
+        description: 'Label of precompile',
+        id: 'gui.settingsModal.precompile.label'
+    },
+    warpTimer: {
+        defaultMessage: 'Force refresh when running compiled blocks',
+        description: 'Label of warp timer',
+        id: 'gui.settingsModal.warpTimer.label'
+    },
+    waitCompiling: {
+        defaultMessage: 'Execute after compile finished',
+        description: 'Label of wait compiling',
+        id: 'gui.settingsModal.waitCompiling.label'
+    },
+    worker: {
+        defaultMessage: 'Compile worker',
+        description: 'Label of compile worker',
+        id: 'gui.settingsModal.compileWorker.label'
+    },
     layout: {
         defaultMessage: 'Layout Style',
         description: 'Label of ClipCC layout',
@@ -416,6 +436,64 @@ class SettingsModal extends React.Component {
                                 value={this.props.compiler}
                             />
                         </div>
+                        {this.props.compiler && (<>
+                            <div className={classNames(styles.item)}>
+                                <p className={classNames(styles.text)}>
+                                    {this.props.intl.formatMessage(messages.precompile)}
+                                </p>
+                                <ExperimentalTag intl={this.props.intl} />
+                                <Elastic />
+                                <Switch
+                                    onChange={this.handleChangeSettingsItem('precompile', this.props.onChangePrecompile)}
+                                    value={this.props.precompile}
+                                    disabled={!this.props.compiler}
+                                />
+                            </div>
+                            <div className={classNames(styles.item)}>
+                                <p className={classNames(styles.text)}>
+                                    {this.props.intl.formatMessage(messages.waitCompiling)}
+                                </p>
+                                <ExperimentalTag intl={this.props.intl} />
+                                <Elastic />
+                                <Switch
+                                    onChange={this.handleChangeSettingsItem('waitingCompile', this.props.onChangeWaitingCompile)}
+                                    value={this.props.waitingCompile}
+                                    disabled={!this.props.compiler}
+                                />
+                            </div>
+                            <div className={classNames(styles.item)}>
+                                <p className={classNames(styles.text)}>
+                                    {this.props.intl.formatMessage(messages.warpTimer)}
+                                </p>
+                                <ExperimentalTag intl={this.props.intl} />
+                                <Elastic />
+                                <Switch
+                                    onChange={this.handleChangeSettingsItem('warpTimer', this.props.onChangeWarpTimer)}
+                                    value={this.props.warpTimer}
+                                    disabled={!this.props.compiler}
+                                />
+                            </div>
+                            <div className={classNames(styles.item)}>
+                                <p className={classNames(styles.text)}>
+                                    {this.props.intl.formatMessage(messages.worker)}
+                                </p>
+                                <ExperimentalTag intl={this.props.intl} />
+                                <Elastic />
+                                <BufferedInput
+                                    small
+                                    tabIndex="0"
+                                    type="number"
+                                    min={1}
+                                    max={16}
+                                    precision={0}
+                                    placeholder="4"
+                                    disabled={!this.props.compiler}
+                                    value={this.props.worker}
+                                    onSubmit={this.props.onChangeWorker}
+                                    className={classNames(styles.input)}
+                                />
+                            </div>
+                        </>)}
                         <div className={classNames(styles.item)}>
                             <p className={classNames(styles.text)}>
                                 {this.props.intl.formatMessage(messages.hqpen)}
@@ -562,6 +640,8 @@ SettingsModal.propTypes = {
     framerate: PropTypes.number.isRequired,
     seamless: PropTypes.bool.isRequired,
     compiler: PropTypes.bool.isRequired,
+    precompile: PropTypes.bool.isRequired,
+    worker: PropTypes.number.isRequired,
     hqpen: PropTypes.bool.isRequired,
     autosave: PropTypes.bool.isRequired,
     autosaveInterval: PropTypes.number.isRequired,
@@ -575,6 +655,8 @@ SettingsModal.propTypes = {
     onChangeSettingsItem: PropTypes.func.isRequired,
     onChangeFramerate: PropTypes.func.isRequired,
     onChangeCompiler: PropTypes.func.isRequired,
+    onChangePrecompile: PropTypes.func.isRequired,
+    onChangeWorker: PropTypes.func.isRequired,
     onChangeHQPen: PropTypes.func.isRequired,
     onChangeSeamlessFullscreen: PropTypes.func.isRequired,
     onChangeAutoSave: PropTypes.func.isRequired,

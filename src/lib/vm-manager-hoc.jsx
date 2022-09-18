@@ -40,6 +40,9 @@ const vmManagerHOC = function (WrappedComponent) {
                     if (vm.runtime.storeSettings) vm.runtime.storeSettings = !!this.props.saveSettings;
                     if (vm.runtime.setFramerate) vm.runtime.setFramerate(this.props.fps);
                     if (vm.runtime.setCompiler) vm.runtime.setCompiler(this.props.compiler);
+                    if (vm.runtime.warpTimer) vm.runtime.warpTimer = !!this.props.warpTimer;
+                    if (vm.runtime.setPrecompile) vm.runtime.setPrecompile(this.props.precompile);
+                    if (vm.runtime.setWorker) vm.runtime.setWorker(this.props.worker);
                     if (vm.setCompressionLevel) vm.setCompressionLevel(this.props.compression);
                     if (vm.setDeserializeOption) vm.setDeserializeOption(this.props.compatibility);
                     if (vm.runtime.renderer.setUseHighQualityPen) vm.runtime.renderer.setUseHighQualityPen(this.props.hqpen);
@@ -137,6 +140,9 @@ const vmManagerHOC = function (WrappedComponent) {
         compatibility: PropTypes.string,
         hqpen: PropTypes.bool,
         compiler: PropTypes.bool,
+        precompile: PropTypes.bool,
+        warpTimer: PropTypes.bool,
+        worker: PropTypes.number,
         vm: PropTypes.instanceOf(VM).isRequired
     };
 
@@ -155,6 +161,9 @@ const vmManagerHOC = function (WrappedComponent) {
             saveSettings: state.scratchGui.settings.saveSettings,
             fps: state.scratchGui.settings.framerate,
             compiler: state.scratchGui.settings.compiler,
+            precompile: state.scratchGui.settings.precompile,
+            warpTimer: state.scratchGui.settings.warpTimer,
+            worker: state.scratchGui.settings.worker,
             hqpen: state.scratchGui.settings.hqpen,
             compression: state.scratchGui.settings.compression,
             compatibility: state.scratchGui.settings.compatibility
