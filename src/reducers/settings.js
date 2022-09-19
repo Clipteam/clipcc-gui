@@ -12,6 +12,7 @@ const defaultState = {
     framerate: 30,
     compiler: false,
     precompile: false,
+    waitCompiling: false,
     warpTimer: true,
     worker: 4,
     hqpen: false,

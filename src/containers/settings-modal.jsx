@@ -27,6 +27,7 @@ class SettingsModal extends React.Component {
             'handleChangeCompiler',
             'handleChangeWarpTimer',
             'handleChangePrecompile',
+            'handleChangeWaitCompiling',
             'handleChangeWorker',
             'handleChangeSeamlessFullscreen',
             'handleChangeAutoSave',
@@ -47,6 +48,10 @@ class SettingsModal extends React.Component {
     
     handleChangePrecompile (option) {
         this.props.vm.runtime.setPrecompile(option);
+    }
+    
+    handleChangeWaitCompiling (option) {
+        this.props.vm.runtime.waitingCompile = !!option;
     }
     
     handleChangeWarpTimer (option) {
@@ -106,6 +111,7 @@ class SettingsModal extends React.Component {
                 onChangeCompressionLevel={this.handleChangeCompressionLevel}
                 onChangeCompiler={this.handleChangeCompiler}
                 onChangePrecompile={this.handleChangePrecompile}
+                onChangeWaitCompiling={this.handleChangeWaitCompiling}
                 onChangeWarpTimer={this.handleChangeWarpTimer}
                 onChangeWorker={this.handleChangeWorker}
                 onChangeHQPen={this.handleChangeHQPen}
@@ -127,6 +133,7 @@ SettingsModal.propTypes = {
     compiler: PropTypes.bool.isRequired,
     warpTimer: PropTypes.bool.isRequired,
     precompile: PropTypes.bool.isRequired,
+    waitCompiling: PropTypes.bool.isRequired,
     worker: PropTypes.number.isRequired,
     seamless: PropTypes.bool.isRequired,
     hqpen: PropTypes.bool.isRequired,
@@ -152,6 +159,7 @@ const mapStateToProps = state => ({
     framerate: state.scratchGui.settings.framerate,
     compiler: state.scratchGui.settings.compiler,
     precompile: state.scratchGui.settings.precompile,
+    waitCompiling: state.scratchGui.settings.waitCompiling,
     warpTimer: state.scratchGui.settings.warpTimer,
     worker: state.scratchGui.settings.worker,
     hqpen: state.scratchGui.settings.hqpen,

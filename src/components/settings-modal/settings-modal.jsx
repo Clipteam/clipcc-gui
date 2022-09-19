@@ -456,8 +456,8 @@ class SettingsModal extends React.Component {
                                 <ExperimentalTag intl={this.props.intl} />
                                 <Elastic />
                                 <Switch
-                                    onChange={this.handleChangeSettingsItem('waitingCompile', this.props.onChangeWaitingCompile)}
-                                    value={this.props.waitingCompile}
+                                    onChange={this.handleChangeSettingsItem('waitCompiling', this.props.onChangeWaitCompiling)}
+                                    value={this.props.waitCompiling}
                                     disabled={!this.props.compiler}
                                 />
                             </div>

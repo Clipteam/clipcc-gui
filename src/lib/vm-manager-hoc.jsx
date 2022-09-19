@@ -41,6 +41,7 @@ const vmManagerHOC = function (WrappedComponent) {
                     if (vm.runtime.setFramerate) vm.runtime.setFramerate(this.props.fps);
                     if (vm.runtime.setCompiler) vm.runtime.setCompiler(this.props.compiler);
                     if (vm.runtime.warpTimer) vm.runtime.warpTimer = !!this.props.warpTimer;
+                    if (vm.runtime.waitingCompile) vm.runtime.waitingCompile = !!this.props.waitCompiling;
                     if (vm.runtime.setPrecompile) vm.runtime.setPrecompile(this.props.precompile);
                     if (vm.runtime.setWorker) vm.runtime.setWorker(this.props.worker);
                     if (vm.setCompressionLevel) vm.setCompressionLevel(this.props.compression);
@@ -142,6 +143,7 @@ const vmManagerHOC = function (WrappedComponent) {
         compiler: PropTypes.bool,
         precompile: PropTypes.bool,
         warpTimer: PropTypes.bool,
+        waitCompiling: PropTypes.bool,
         worker: PropTypes.number,
         vm: PropTypes.instanceOf(VM).isRequired
     };
@@ -163,6 +165,7 @@ const vmManagerHOC = function (WrappedComponent) {
             compiler: state.scratchGui.settings.compiler,
             precompile: state.scratchGui.settings.precompile,
             warpTimer: state.scratchGui.settings.warpTimer,
+            waitCompiling: state.scratchGui.settings.waitCompiling,
             worker: state.scratchGui.settings.worker,
             hqpen: state.scratchGui.settings.hqpen,
             compression: state.scratchGui.settings.compression,
