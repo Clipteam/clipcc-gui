@@ -6,13 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google" value="notranslate">
     <link rel="shortcut icon" href="static/favicon.ico">
+    <meta property="og:title" content="ClipCC Editor"/>
+    <meta property="og:site_name" content="ClipCC"/>
+    <meta property="og:image" content="static/social.jpg"/>
+    <meta property="og:type" content="website"/>
+    <meta name="description" content="ClipCC is a powerful scratch fork which adds some useful features such as new extension system, high-quality pen, stage layout and more."/>
     <title>
         <%= htmlWebpackPlugin.options.title %>
     </title>
     <script defer data-domain="codingclip.com" src="https://analytic.codingclip.com/js/plausible.js"></script>
             <% if (htmlWebpackPlugin.options.enablePWA ) { %>
                 <!--<meta name="viewport" content="width=device-width, user-scalable=no" />-->
-                <link rel="manifest" href="manifest.json">
+                <link rel="manifest" href="manifest.webmanifest">
                 <script>
                     if (navigator.serviceWorker) {
                         navigator.serviceWorker.register('sw.js').then(registration => {

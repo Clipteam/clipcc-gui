@@ -2,7 +2,7 @@
     "name": "ClipCC",
     "short_name": "ClipCC",
     "id": "com.codingclip.clipcc3",
-    "start_url": "/",
+    "start_url": "",
     "display": "standalone",
     "background_color": "#4D97FF",
     "description": "A powerful modified Scratch editor.",

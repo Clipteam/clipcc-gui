@@ -136,7 +136,7 @@ function getPlugins () {
         new HtmlWebpackPlugin({
             chunks: ['lib.min', 'gui'],
             template: 'src/playground/index.ejs',
-            title: 'ClipCC 3.0 GUI',
+            title: 'ClipCC Editor',
             scriptLoading: 'defer',
             enablePWA: ENABLE_PWA,
             sentryConfig: process.env.SENTRY_CONFIG ? '"' + process.env.SENTRY_CONFIG + '"' : null
@@ -164,7 +164,7 @@ function getPlugins () {
                 from: 'static',
                 to: 'static',
                 globOptions: {
-                    ignore: ['sw.js', 'manifest.json']
+                    ignore: ['sw.js', 'manifest.webmanifest']
                 }
             }]
         }),
@@ -200,7 +200,8 @@ function getPlugins () {
     if (ENABLE_PWA) {
         res = res.concat([
             new ServiceWorkerWebpackPlugin({
-                entry: path.resolve(__dirname, 'static/sw.build.js')
+                entry: path.resolve(__dirname, 'static/sw.build.js'),
+                publicPath: ''
             }),
             new CopyWebpackPlugin({
                 patterns: [{
@@ -210,8 +211,8 @@ function getPlugins () {
             }),
             new CopyWebpackPlugin({
                 patterns: [{
-                    from: 'static/manifest.json',
-                    to: 'manifest.json'
+                    from: 'static/manifest.webmanifest',
+                    to: 'manifest.webmanifest'
                 }]
             })
         ]);
