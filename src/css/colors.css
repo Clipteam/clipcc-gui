@@ -49,3 +49,6 @@ $extensions-light: hsla(163, 57%, 85%, 1); /* opaque version of extensions-trans
 
 $drop-highlight: hsla(215, 100%, 77%, 1); /* lighter than motion-primary */
 $drop-highlight-dark: rgb(46, 52, 64);
+
+$ui-background: hsl(215, 65%, 55%); /* #4280d7 */
+$ui-background-dark: hsl(214, 13%, 20%); /* #2D333B */
