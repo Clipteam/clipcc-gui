@@ -80,6 +80,7 @@ const ContributorModal = ({
             <p>{contributorList.e4361}</p>
             <p>{contributorList.waterblock79}</p>
             <p>{contributorList.sparrowhe}</p>
+            <p>{contributorList.editmr}</p>
             <strong>{intl.formatMessage(messages.designer)}</strong>
             <p>{contributorList.zerlight}</p>
             <p>{contributorList.soilzhu}</p>
