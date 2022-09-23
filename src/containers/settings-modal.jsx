@@ -30,7 +30,8 @@ class SettingsModal extends React.Component {
             'handleChangeCompatibility',
             'handleChangeCompressionLevel',
             'handleChangeHQPen',
-            'handleChangeSaveSettings'
+            'handleChangeSaveSettings',
+            'handleChangeDisplayMode'
         ]);
     }
 
@@ -78,7 +79,10 @@ class SettingsModal extends React.Component {
         this.props.updateSettings('compression', level);
         this.props.vm.setCompressionLevel(level);
     }
-
+    handleChangeDisplayMode (mode) {
+        this.props.updateSettings('displayMode', mode);
+        this.props.vm.runtime.setStageSize(mode === '16to9');
+    }
     render () {
         return (
             <SettingsComponent
@@ -91,6 +95,7 @@ class SettingsModal extends React.Component {
                 onChangeCompiler={this.handleChangeCompiler}
                 onChangeHQPen={this.handleChangeHQPen}
                 onChangeSaveSettings={this.handleChangeSaveSettings}
+                onChangeDisplayMode={this.handleChangeDisplayMode}
                 {...this.props}
             />
         );
@@ -138,7 +143,8 @@ const mapStateToProps = state => ({
     hideNonOriginalBlocks: state.scratchGui.settings.hideNonOriginalBlocks,
     saveSettings: state.scratchGui.settings.saveSettings,
     saveExtension: state.scratchGui.settings.saveExtension,
-    saveOptionalExtension: state.scratchGui.settings.saveOptionalExtension
+    saveOptionalExtension: state.scratchGui.settings.saveOptionalExtension,
+    displayMode: state.scratchGui.settings.displayMode
 });
 
 const mapDispatchToProps = dispatch => ({

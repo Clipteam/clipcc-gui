@@ -161,6 +161,11 @@ const messages = defineMessages({
         defaultMessage: 'Hide non-original Blocks',
         description: 'Label of Hide non-original Blocks',
         id: 'gui.settingsModal.hideNonoriginalBlocks.label'
+    },
+    displayMode: {
+        defaultMessage: 'Display Mode',
+        description: 'Label of Display Mode',
+        id: 'gui.settingsModal.displayMode.label'
     }
 });
 
@@ -299,7 +304,13 @@ class SettingsModal extends React.Component {
             id: 'dark',
             text: this.props.intl.formatMessage(messages.darkmodeDark)
         }];
-
+        const displayModeOptions = [{
+            id: 'normal',
+            text: '4:3'
+        }, {
+            id: '16to9',
+            text: '16:9'
+        }];
         /* const compatibilityOptions = [{
             id: 'donotload',
             text: this.props.intl.formatMessage(messages.compatibilityDoNotLoad)
@@ -544,6 +555,19 @@ class SettingsModal extends React.Component {
                                 value={this.props.hideNonOriginalBlocks}
                             />
                         </div>
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.displayMode)}
+                            </p>
+                            <ExperimentalTag intl={this.props.intl} />  
+                            <Elastic />
+                            <Select
+                                options={displayModeOptions}
+                                onChange={this.props.onChangeDisplayMode}
+                                value={this.props.displayMode}
+                                styles={styles.selectSmall}
+                            />
+                        </div>
                         {this.renderExtensionSettings()}
                     </Box>
                 </Box>
@@ -580,7 +604,8 @@ SettingsModal.propTypes = {
     onChangeAutoSave: PropTypes.func.isRequired,
     onChangeSaveSettings: PropTypes.func.isRequired,
     // onChangeCompatibility: PropTypes.func.isRequired,
-    onChangeCompressionLevel: PropTypes.func.isRequired
+    onChangeCompressionLevel: PropTypes.func.isRequired,
+    onChangeDisplayMode: PropTypes.func.isRequired
 };
 
 export default injectIntl(SettingsModal);
