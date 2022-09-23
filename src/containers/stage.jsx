@@ -423,6 +423,8 @@ class Stage extends React.Component {
                 onDoubleClick={this.handleDoubleClick}
                 onQuestionAnswered={this.handleQuestionAnswered}
                 dragingFile={this.state.dragingFile}
+                stageWidth={this.state.stageWidth}
+                stageHeight={this.state.stageHeight}
                 {...props}
             />
         );

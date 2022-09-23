@@ -30,10 +30,15 @@ const StageComponent = props => {
         onDoubleClick,
         onQuestionAnswered,
         layoutStyle,
+        stageWidth,
+        stageHeight,
         ...boxProps
     } = props;
 
-    const stageDimensions = getStageDimensions(stageSize, isFullScreen);
+    const stageDimensions = getStageDimensions({
+        width: stageWidth,
+        height: stageHeight,
+    }, stageSize, isFullScreen);
 
     return (
         <React.Fragment>
@@ -152,6 +157,8 @@ StageComponent.propTypes = {
     onQuestionAnswered: PropTypes.func,
     question: PropTypes.string,
     stageSize: PropTypes.oneOf(Object.keys(STAGE_DISPLAY_SIZES)).isRequired,
+    stageWidth: PropTypes.number.isRequired,
+    stageHeight: PropTypes.number.isRequired,
     useEditorDragStyle: PropTypes.bool
 };
 StageComponent.defaultProps = {

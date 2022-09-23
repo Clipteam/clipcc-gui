@@ -59,13 +59,18 @@ const StageHeaderComponent = function (props) {
         showBranding,
         stageSizeMode,
         layoutStyle,
+        stageWidth,
+        stageHeight,
         vm
     } = props;
 
     let header = null;
 
     if (isFullScreen) {
-        const stageDimensions = getStageDimensions(null, true);
+        const stageDimensions = getStageDimensions({
+            width: stageWidth,
+            height: stageHeight,
+        }, null,  true);
         const stageButton = showBranding ? (
             <div className={styles.embedScratchLogo}>
                 <a
