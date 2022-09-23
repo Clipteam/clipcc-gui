@@ -43,6 +43,7 @@ const vmManagerHOC = function (WrappedComponent) {
                     if (vm.setCompressionLevel) vm.setCompressionLevel(this.props.compression);
                     if (vm.setDeserializeOption) vm.setDeserializeOption(this.props.compatibility);
                     if (vm.runtime.renderer.setUseHighQualityPen) vm.runtime.renderer.setUseHighQualityPen(this.props.hqpen);
+                    if (vm.runtime.setStageSize) vm.runtime.setStageSize(this.props.displayMode === '16to9');
                 } catch (e) {
                     console.log('Failed to initialize settings:', e);
                 }
@@ -157,7 +158,8 @@ const vmManagerHOC = function (WrappedComponent) {
             compiler: state.scratchGui.settings.compiler,
             hqpen: state.scratchGui.settings.hqpen,
             compression: state.scratchGui.settings.compression,
-            compatibility: state.scratchGui.settings.compatibility
+            compatibility: state.scratchGui.settings.compatibility,
+            displayMode: state.scratchGui.settings.displayMode,
         };
     };
 

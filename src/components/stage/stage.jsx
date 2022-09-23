@@ -30,7 +30,6 @@ class StageComponent extends React.Component {
                 width: nextProps.stageWidth,
                 height: nextProps.stageHeight
             });
-            console.log('stage size changed');
         }
     }
 
