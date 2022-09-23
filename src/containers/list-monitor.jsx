@@ -132,8 +132,8 @@ class ListMonitor extends React.Component {
             const dx = newPosition.x - this.initialPosition.x;
             const dy = newPosition.y - this.initialPosition.y;
             this.setState({
-                width: Math.max(Math.min(this.initialWidth + dx, 480), 100),
-                height: Math.max(Math.min(this.initialHeight + dy, 360), 60)
+                width: Math.max(Math.min(this.initialWidth + dx, this.props.stageWidth), 100),
+                height: Math.max(Math.min(this.initialHeight + dy, this.props.stageHeight), 60)
             });
         };
 
@@ -196,6 +196,10 @@ ListMonitor.propTypes = {
     y: PropTypes.number
 };
 
-const mapStateToProps = state => ({vm: state.scratchGui.vm});
+const mapStateToProps = state => ({
+    vm: state.scratchGui.vm,
+    stageWidth: state.scratchGui.customStageSize.width,
+    stageHeight: state.scratchGui.customStageSize.height,
+});
 
 export default connect(mapStateToProps)(ListMonitor);
