@@ -304,13 +304,6 @@ class SettingsModal extends React.Component {
             id: 'dark',
             text: this.props.intl.formatMessage(messages.darkmodeDark)
         }];
-        const displayModeOptions = [{
-            id: 'normal',
-            text: '4:3'
-        }, {
-            id: '16to9',
-            text: '16:9'
-        }];
         /* const compatibilityOptions = [{
             id: 'donotload',
             text: this.props.intl.formatMessage(messages.compatibilityDoNotLoad)
@@ -561,11 +554,30 @@ class SettingsModal extends React.Component {
                             </p>
                             <ExperimentalTag intl={this.props.intl} />  
                             <Elastic />
-                            <Select
-                                options={displayModeOptions}
-                                onChange={this.props.onChangeDisplayMode}
-                                value={this.props.displayMode}
-                                styles={styles.selectSmall}
+                            <BufferedInput
+                                small
+                                tabIndex="0"
+                                type="number"
+                                min={480}
+                                max={1024}
+                                precision={0}
+                                placeholder="490"
+                                value={this.props.stageX}
+                                onSubmit={this.props.onChangeStageX}
+                                className={classNames(styles.input)}
+                            />
+                            x
+                            <BufferedInput
+                                small
+                                tabIndex="0"
+                                type="number"
+                                min={320}
+                                max={1024}
+                                precision={0}
+                                placeholder="360"
+                                value={this.props.stageY}
+                                onSubmit={this.props.onChangeStageY}
+                                className={classNames(styles.input)}
                             />
                         </div>
                         {this.renderExtensionSettings()}
@@ -604,8 +616,7 @@ SettingsModal.propTypes = {
     onChangeAutoSave: PropTypes.func.isRequired,
     onChangeSaveSettings: PropTypes.func.isRequired,
     // onChangeCompatibility: PropTypes.func.isRequired,
-    onChangeCompressionLevel: PropTypes.func.isRequired,
-    onChangeDisplayMode: PropTypes.func.isRequired
+    onChangeCompressionLevel: PropTypes.func.isRequired
 };
 
 export default injectIntl(SettingsModal);

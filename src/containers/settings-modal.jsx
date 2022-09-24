@@ -31,7 +31,8 @@ class SettingsModal extends React.Component {
             'handleChangeCompressionLevel',
             'handleChangeHQPen',
             'handleChangeSaveSettings',
-            'handleChangeDisplayMode'
+            'handleChangeStageX',
+            'handleChangeStageY'
         ]);
     }
 
@@ -79,9 +80,13 @@ class SettingsModal extends React.Component {
         this.props.updateSettings('compression', level);
         this.props.vm.setCompressionLevel(level);
     }
-    handleChangeDisplayMode (mode) {
-        this.props.updateSettings('displayMode', mode);
-        this.props.vm.runtime.setStageSize(mode === '16to9');
+    handleChangeStageX (value) {
+        this.props.updateSettings('stageX', value);
+        this.props.vm.runtime.setStageSize(value, this.props.stageY);
+    }
+    handleChangeStageY (value) {
+        this.props.updateSettings('stageY', value);
+        this.props.vm.runtime.setStageSize(this.props.stageX, value);
     }
     render () {
         return (
@@ -95,7 +100,8 @@ class SettingsModal extends React.Component {
                 onChangeCompiler={this.handleChangeCompiler}
                 onChangeHQPen={this.handleChangeHQPen}
                 onChangeSaveSettings={this.handleChangeSaveSettings}
-                onChangeDisplayMode={this.handleChangeDisplayMode}
+                onChangeStageX={this.handleChangeStageX}
+                onChangeStageY={this.handleChangeStageY}
                 {...this.props}
             />
         );
@@ -144,7 +150,8 @@ const mapStateToProps = state => ({
     saveSettings: state.scratchGui.settings.saveSettings,
     saveExtension: state.scratchGui.settings.saveExtension,
     saveOptionalExtension: state.scratchGui.settings.saveOptionalExtension,
-    displayMode: state.scratchGui.settings.displayMode
+    stageX: state.scratchGui.settings.stageX,
+    stageY: state.scratchGui.settings.stageY
 });
 
 const mapDispatchToProps = dispatch => ({
