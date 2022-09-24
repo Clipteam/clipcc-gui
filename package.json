@@ -90,6 +90,7 @@
     "react-tooltip": "4.2.21",
     "react-transition-group": "^4.4.1",
     "react-virtualized": "9.22.3",
+    "react-virtuoso": "^2.19.0",
     "redux": "4.1.2",
     "redux-throttle": "0.1.1",
     "rrweb": "^1.1.3",

@@ -5,7 +5,7 @@ import bindAll from 'lodash.bindall';
 import {FormattedMessage} from 'react-intl';
 
 import styles from './monitor.css';
-import {List} from 'react-virtualized';
+import {Virtuoso} from 'react-virtuoso'
 
 class ListMonitorScroller extends React.Component {
     constructor (props) {
@@ -30,12 +30,10 @@ class ListMonitorScroller extends React.Component {
             </div>
         );
     }
-    rowRenderer ({index, key, style}) {
+    rowRenderer (index) {
         return (
             <div
                 className={styles.listRow}
-                key={key}
-                style={style}
             >
                 <div className={styles.listIndex}>{index + 1 /* one indexed */}</div>
                 <div
@@ -76,19 +74,11 @@ class ListMonitorScroller extends React.Component {
     render () {
         const {height, values, width, activeIndex, activeValue} = this.props;
         // Keep the active index in view if defined, else must be undefined for List component
-        const scrollToIndex = activeIndex === null ? undefined : activeIndex; /* eslint-disable-line no-undefined */
+        // const scrollToIndex = activeIndex === null ? undefined : activeIndex; /* eslint-disable-line no-undefined */
         return (
-            <List
-                activeIndex={activeIndex}
-                activeValue={activeValue}
-                height={(height) - 44 /* Header/footer size, approx */}
-                noRowsRenderer={this.noRowsRenderer}
-                rowCount={values.length}
-                rowHeight={24 /* Row size is same for all rows */}
-                rowRenderer={this.rowRenderer}
-                scrollToIndex={scrollToIndex} /* eslint-disable-line no-undefined */
-                values={values}
-                width={width}
+            <Virtuoso
+                totalCount={values.length}
+                itemContent={(index) => this.rowRenderer(index)}
             />
         );
     }
