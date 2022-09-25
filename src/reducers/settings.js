@@ -19,7 +19,7 @@ const defaultState = {
     saveExtension: true,
     saveOptionalExtension: false,
     stageX: 480,
-    stageY: 360,
+    stageY: 360
 };
 
 const initialState = JSON.parse(localStorage.getItem('settings')) || {};
