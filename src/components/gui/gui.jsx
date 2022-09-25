@@ -503,7 +503,7 @@ const mapStateToProps = state => ({
     // This is the button's mode, as opposed to the actual current state
     stageSizeMode: state.scratchGui.stageSize.stageSize,
     stageWidth: state.scratchGui.customStageSize.width,
-    stageHeight: state.scratchGui.customStageSize.height,
+    stageHeight: state.scratchGui.customStageSize.height
 });
 
 export default injectIntl(connect(

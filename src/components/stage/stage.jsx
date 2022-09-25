@@ -58,7 +58,7 @@ class StageComponent extends React.Component {
         }, stageSize, isFullScreen);
 
         return (
-            <React.Fragment>
+            <>
                 <Box
                     className={classNames(
                         styles.stageWrapper,
@@ -158,7 +158,7 @@ class StageComponent extends React.Component {
                         onClick={onDeactivateColorPicker}
                     />
                 ) : null}
-            </React.Fragment>
+            </>
         );
     }
 };

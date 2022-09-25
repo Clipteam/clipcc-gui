@@ -566,7 +566,11 @@ class SettingsModal extends React.Component {
                                 onSubmit={this.props.onChangeStageX}
                                 className={classNames(styles.input)}
                             />
-                            x
+                            <div
+                                style={{
+                                    margin: '0 0.5rem'
+                                }}
+                            >×</div>
                             <BufferedInput
                                 small
                                 tabIndex="0"
