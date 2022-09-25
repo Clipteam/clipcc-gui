@@ -162,10 +162,10 @@ const messages = defineMessages({
         description: 'Label of Hide non-original Blocks',
         id: 'gui.settingsModal.hideNonoriginalBlocks.label'
     },
-    displayMode: {
-        defaultMessage: 'Display Mode',
-        description: 'Label of Display Mode',
-        id: 'gui.settingsModal.displayMode.label'
+    stageSize: {
+        defaultMessage: 'Stage Size',
+        description: 'Label of stage size',
+        id: 'gui.settingsModal.stageSize.label'
     }
 });
 
@@ -550,7 +550,7 @@ class SettingsModal extends React.Component {
                         </div>
                         <div className={classNames(styles.item)}>
                             <p className={classNames(styles.text)}>
-                                {this.props.intl.formatMessage(messages.displayMode)}
+                                {this.props.intl.formatMessage(messages.stageSize)}
                             </p>
                             <ExperimentalTag intl={this.props.intl} />  
                             <Elastic />
