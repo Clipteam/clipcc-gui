@@ -252,7 +252,7 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
                 ));
             }
             if (info.inset_icon) {
-                const data = await zipData.files[info.inset_icon].async('blob');
+                const data = await zipData.files[info.inset_icon].async('arraybuffer');
                 info.inset_icon = URL.createObjectURL(new Blob(
                     [data], {type: mime.lookup(info.inset_icon)}
                 ));
