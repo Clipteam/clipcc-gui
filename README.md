@@ -12,36 +12,66 @@ ClipCC is a powerful scratch fork which adds some useful features. And it migrat
 ![](https://s3.jpg.cm/2021/09/20/IE4N4S.png)
 ClipCC is a powerful scratch fork which adds some useful features such as new extension system, high-quality pen, stage layout and more.
 
-
 **Special thanks for Ble Studio!**
+
 # Useful Links
+
 ### [Online Editor(Stable)](https://codingclip.com/editor/stable)
 ### [Online Editor(Canary)](https://codingclip.com/editor/canary)
 ### [Offline Editor](https://github.com/Clipteam/clipcc-desktop/releases)
+
 # What's left to be added
+
 - Hide blocks
-- High-quality pen
 - JIT support
 - Blockly optimization
 
 # Building
-**Please note! Please make sure you have installed Git and Node.js before building.**
+<<<<<<< HEAD
 
+=======
+>>>>>>> 90119d38eb6fd7899f707ba4c30f047912855f71
+**Please note! Please make sure you have installed [Git](https://git-scm.com/) and [Node.js](https://nodejs.org/) before building.**
+
+## Install only
 In your own node environment/application:
+
 ```bash
 yarn add https://github.com/Clipteam/clipcc-gui.git
 ```
+
+<<<<<<< HEAD
+=======
+## edit/play yourself
+>>>>>>> 90119d38eb6fd7899f707ba4c30f047912855f71
 If you want to edit/play yourself:
+
 ```bash
 git clone https://github.com/Clipteam/clipcc-gui.git
 cd clipcc-gui
 yarn install
 ```
 
-Open a Command Prompt or Terminal in the repository and run:
+<<<<<<< HEAD
+# Running
+
+For Windows, you can directly click `start.bat` to start. Your browser will automatically be opened, please wait for it to load.
+
+If you want to add a shortcut at the start menu, create a shortcut at `C:\ProgramData\Microsoft\Windows\Start Menu\Programs` Link to the `start.bat` file. You can change the icon to make it prettier.
+
+For others, please open a Command Prompt or Terminal in the repository and run:
+
+=======
+## run
+If you are a Windows user, double click `run.bat` to start. Your browser will automatically be opened
+
+
+otherwise, open a Command Prompt or Terminal in the repository and run:
+>>>>>>> 90119d38eb6fd7899f707ba4c30f047912855f71
 ```bash
 yarn start
 ```
+
 Then go to [http://localhost:8601/](http://localhost:8601/) - the playground outputs the default GUI component.
 
 ## Developing alongside other Scratch repositories
@@ -241,16 +271,15 @@ Here's what will happen in the project state machine:
 
 ## Contact us
 
-You can contact us by sending an email to [sinangentoo@gmail.com](mailto:sinangentoo.gmail.com). We are looking forward to you feedback.
+If you find a bug or have any idea, welcome to [open a issue](https://github.com/Clipteam/clipcc-gui/issues/new/choose). Also, you can contact us by [sending an email](mailto:sinangentoo.gmail.com) or join our server. We are looking forward to you feedback. 
 
-## Donate
+<a href="mailto:sinangentoo@gmail.com"><img src="https://img.shields.io/badge/-sinangentoo@gmail.com-D14836?style=flat-square&logo=Gmail&logoColor=white"/></a>
+<a href="https://discord.gg/uuyHNBH"><img src="https://img.shields.io/badge/-Discord-5865F2?style=flat-square&logo=Discord&logoColor=white"/></a>
+<a href="https://t.me/ClipCChat"><img src="https://img.shields.io/badge/-Telegram-169BD7?style=flat-square&logo=Telegram&logoColor=white"/></a>
+<a href="https://jq.qq.com/?_wv=1027&k=wWQALsUb"><img src="https://img.shields.io/badge/-QQ-EB1923?style=flat-square&logo=TencentQQ&logoColor=white"/></a>
 
 <div align="center">
-
-![](https://s3.jpg.cm/2021/10/23/IgkIgD.jpg)
 
 #### Copyright © *Clipteam* All rights reserved.
 
 </div>
-
-
