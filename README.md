@@ -257,12 +257,11 @@ Here's what will happen in the project state machine:
 
 If you find a bug or have any idea, welcome to [open a issue](https://github.com/Clipteam/clipcc-gui/issues/new/choose). Also, you can contact us by [sending an email](mailto:sinangentoo.gmail.com) or join our server. We are looking forward to you feedback. 
 
+<div align="center">
 <a href="mailto:sinangentoo@gmail.com"><img src="https://img.shields.io/badge/-sinangentoo@gmail.com-D14836?style=flat-square&logo=Gmail&logoColor=white"/></a>
 <a href="https://discord.gg/uuyHNBH"><img src="https://img.shields.io/badge/-Discord-5865F2?style=flat-square&logo=Discord&logoColor=white"/></a>
 <a href="https://t.me/ClipCChat"><img src="https://img.shields.io/badge/-Telegram-169BD7?style=flat-square&logo=Telegram&logoColor=white"/></a>
 <a href="https://jq.qq.com/?_wv=1027&k=wWQALsUb"><img src="https://img.shields.io/badge/-QQ-EB1923?style=flat-square&logo=TencentQQ&logoColor=white"/></a>
-
-<div align="center">
 
 #### Copyright © *Clipteam* All rights reserved.
 
