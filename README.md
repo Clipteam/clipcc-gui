@@ -262,6 +262,7 @@ If you find a bug or have any idea, welcome to [open a issue](https://github.com
 <a href="https://discord.gg/uuyHNBH"><img src="https://img.shields.io/badge/-Discord-5865F2?style=flat-square&logo=Discord&logoColor=white"/></a>
 <a href="https://t.me/ClipCChat"><img src="https://img.shields.io/badge/-Telegram-169BD7?style=flat-square&logo=Telegram&logoColor=white"/></a>
 <a href="https://jq.qq.com/?_wv=1027&k=wWQALsUb"><img src="https://img.shields.io/badge/-QQ-EB1923?style=flat-square&logo=TencentQQ&logoColor=white"/></a>
+
 #### Copyright © *Clipteam* All rights reserved.
 
 </div>
