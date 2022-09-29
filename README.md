@@ -27,23 +27,15 @@ ClipCC is a powerful scratch fork which adds some useful features such as new ex
 - Blockly optimization
 
 # Building
-<<<<<<< HEAD
 
-=======
->>>>>>> 90119d38eb6fd7899f707ba4c30f047912855f71
 **Please note! Please make sure you have installed [Git](https://git-scm.com/) and [Node.js](https://nodejs.org/) before building.**
 
-## Install only
 In your own node environment/application:
 
 ```bash
 yarn add https://github.com/Clipteam/clipcc-gui.git
 ```
 
-<<<<<<< HEAD
-=======
-## edit/play yourself
->>>>>>> 90119d38eb6fd7899f707ba4c30f047912855f71
 If you want to edit/play yourself:
 
 ```bash
@@ -52,7 +44,6 @@ cd clipcc-gui
 yarn install
 ```
 
-<<<<<<< HEAD
 # Running
 
 For Windows, you can directly click `start.bat` to start. Your browser will automatically be opened, please wait for it to load.
@@ -61,13 +52,6 @@ If you want to add a shortcut at the start menu, create a shortcut at `C:\Progra
 
 For others, please open a Command Prompt or Terminal in the repository and run:
 
-=======
-## run
-If you are a Windows user, double click `run.bat` to start. Your browser will automatically be opened
-
-
-otherwise, open a Command Prompt or Terminal in the repository and run:
->>>>>>> 90119d38eb6fd7899f707ba4c30f047912855f71
 ```bash
 yarn start
 ```
