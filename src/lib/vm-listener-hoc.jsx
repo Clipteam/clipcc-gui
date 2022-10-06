@@ -13,7 +13,7 @@ import {setRunningState, setTurboState, setStartedState} from '../reducers/vm-st
 import {showExtensionAlert} from '../reducers/alerts';
 import {updateMicIndicator} from '../reducers/mic-indicator';
 import {setCustomStageSize} from '../reducers/custom-stage-size';
-
+import {updateSetting} from '../reducers/settings';
 /*
  * Higher Order Component to manage events emitted by the VM
  * @param {React.Component} WrappedComponent component to manage VM events for
@@ -48,6 +48,7 @@ const vmListenerHOC = function (WrappedComponent) {
             this.props.vm.on('PERIPHERAL_CONNECTION_LOST_ERROR', this.props.onShowExtensionAlert);
             this.props.vm.on('MIC_LISTENING', this.props.onMicListeningUpdate);
             this.props.vm.on('STAGE_SIZE_UPDATE', this.props.onStageSizeUpdate);
+            this.props.vm.on('FENCING_UPDATE', this.props.onFencingUpdate);
 
         }
         componentDidMount () {
@@ -82,6 +83,8 @@ const vmListenerHOC = function (WrappedComponent) {
             this.props.vm.removeListener('PROJECT_START', this.props.onGreenFlag);
             this.props.vm.removeListener('PERIPHERAL_CONNECTION_LOST_ERROR', this.props.onShowExtensionAlert);
             this.props.vm.removeListener('MIC_LISTENING', this.props.onMicListeningUpdate);
+            this.props.vm.removeListener('STAGE_SIZE_UPDATE', this.props.onStageSizeUpdate);
+            this.props.vm.removeListener('FENCING_UPDATE', this.props.onFencingUpdate);
 
             if (this.props.attachKeyboardEvents) {
                 document.removeEventListener('keydown', this.handleKeyDown);
@@ -141,6 +144,7 @@ const vmListenerHOC = function (WrappedComponent) {
                 onKeyUp,
                 onMicListeningUpdate,
                 onStageSizeUpdate,
+                onFencingUpdate,
                 onMonitorsUpdate,
                 onTargetsUpdate,
                 onProjectChanged,
@@ -165,6 +169,7 @@ const vmListenerHOC = function (WrappedComponent) {
         onKeyUp: PropTypes.func,
         onMicListeningUpdate: PropTypes.func.isRequired,
         onStageSizeUpdate: PropTypes.func.isRequired,
+        onFencingUpdate: PropTypes.func.isRequired,
         onMonitorsUpdate: PropTypes.func.isRequired,
         onProjectChanged: PropTypes.func.isRequired,
         onProjectRunStart: PropTypes.func.isRequired,
@@ -222,6 +227,9 @@ const vmListenerHOC = function (WrappedComponent) {
         },
         onStageSizeUpdate: (width, height) => {
             dispatch(setCustomStageSize(width, height));
+        },
+        onFencingUpdate: (fencing) => {
+            dispatch(updateSetting('removeFencing', !fencing));
         }
     });
     return connect(

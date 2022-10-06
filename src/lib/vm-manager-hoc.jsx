@@ -44,6 +44,7 @@ const vmManagerHOC = function (WrappedComponent) {
                     if (vm.setDeserializeOption) vm.setDeserializeOption(this.props.compatibility);
                     if (vm.runtime.renderer.setUseHighQualityPen) vm.runtime.renderer.setUseHighQualityPen(this.props.hqpen);
                     if (vm.runtime.setStageSize) vm.runtime.setStageSize(this.props.stageX, this.props.stageY);
+                    if (vm.runtime.setFencing) vm.runtime.setFencing(this.props.removeFencing);
                 } catch (e) {
                     console.log('Failed to initialize settings:', e);
                 }
@@ -161,6 +162,7 @@ const vmManagerHOC = function (WrappedComponent) {
             compatibility: state.scratchGui.settings.compatibility,
             stageX: state.scratchGui.settings.stageX,
             stageY: state.scratchGui.settings.stageY,
+            removeFencing: state.scratchGui.settings.removeFencing,
         };
     };
 

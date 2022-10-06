@@ -164,8 +164,13 @@ const messages = defineMessages({
     },
     stageSize: {
         defaultMessage: 'Stage Size',
-        description: 'Label of stage size',
+        description: 'Label of Stage Size',
         id: 'gui.settingsModal.stageSize.label'
+    },
+    removeFencing: {
+        defaultMessage: 'Remove Fencing',
+        description: 'Label of Remove Fencing',
+        id: 'gui.settingsModal.removeFencing.label'
     }
 });
 
@@ -582,6 +587,16 @@ class SettingsModal extends React.Component {
                                 value={this.props.stageY}
                                 onSubmit={this.props.onChangeStageY}
                                 className={classNames(styles.input)}
+                            />
+                        </div>
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.removeFencing)}
+                            </p>
+                            <Elastic />
+                            <Switch
+                                onChange={this.props.onRemoveFencing}
+                                value={this.props.removeFencing}
                             />
                         </div>
                         {this.renderExtensionSettings()}
