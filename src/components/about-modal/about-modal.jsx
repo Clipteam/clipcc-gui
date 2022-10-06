@@ -66,26 +66,29 @@ const AboutModal = ({
                 {': '}
                 <span>{isProd ? appVersion : appVersionFull}</span>
             </p>
-            {isProd ? null : (
-                <p>
-                    <strong><FormattedMessage {...messages.compileTime} /></strong>
-                    {': '}
-                    <span>{compileTime}</span>
-                </p>
-
-            )}
-            {isScratchDesktop() ? (
-                ['Electron', 'Chrome', 'Node'].map(component => (
-                    <p key={component}>
-                        <strong><FormattedMessage
-                            values={{component}}
-                            {...messages.desktopComponentVersion}
-                        /></strong>
-                        {': '}
-                        <span>{global.ClipCC.versions && global.ClipCC.versions[component.toLowerCase()]}</span>
-                    </p>
-                ))
-            ) : null}
+            <p>
+                <strong><FormattedMessage {...messages.compileTime} /></strong>
+                {': '}
+                <span>{compileTime}</span>
+            </p>
+            {isScratchDesktop() && typeof global.ClipCC !== 'undefined' ? (
+                ['Electron', 'Chrome', 'Node', 'Tauri'].map(component => {
+                    if (global.ClipCC.versions &&
+                        typeof global.ClipCC.versions[component.toLowerCase()] !== 'undefined'
+                    ) {
+                        return (
+                            <p key={component}>
+                                <strong><FormattedMessage
+                                    values={{component}}
+                                    {...messages.desktopComponentVersion}
+                                /></strong>
+                                {': '}
+                                <span>{global.ClipCC.versions && global.ClipCC.versions[component.toLowerCase()]}</span>
+                            </p>
+                        );
+                    }
+                    return null;
+                })) : null}
             <p>
                 <strong><FormattedMessage {...messages.license} /></strong>
                 {': '}

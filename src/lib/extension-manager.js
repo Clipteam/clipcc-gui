@@ -6,6 +6,7 @@ import {newExtensionSettings} from '../reducers/extension-settings';
 
 import JSZip from 'jszip';
 import mime from 'mime-types';
+import log from '../lib/log';
 import vm from 'vm';
 
 import ClipCCExtension from 'clipcc-extension';
@@ -231,7 +232,7 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
             const content = await zipData.files['info.json'].async('text');
             info = JSON.parse(content);
             if (ClipCCExtension.extensionManager.exist(info.id)) {
-                console.warn('reloading extension...');
+                log.warn('reloading extension...');
                 try {
                     ClipCCExtension.extensionManager.removeInstance(info.id);
                     ClipCCExtension.extensionManager.unloadExtensions(
@@ -240,21 +241,22 @@ const loadExtensionFromFile = async (dispatch, file, type) => {
                     );
                     dispatch(disableExtension(info.id));
                     isReload = true;
-                    console.log('reload complete');
+
+                    log.info('reload complete');
                 } catch (e) {
-                    console.error('error occurred while reloading', e);
+                    log.error('error occurred while reloading', e);
                 }
             }
             if (info.icon) {
                 const data = await zipData.files[info.icon].async('arraybuffer');
                 info.icon = URL.createObjectURL(new Blob(
-                    [data], {type: mime.lookup(info.icon)}
+                    [data], {type: mime.lookup(info.icon) || 'image/png'}
                 ));
             }
             if (info.inset_icon) {
                 const data = await zipData.files[info.inset_icon].async('arraybuffer');
                 info.inset_icon = URL.createObjectURL(new Blob(
-                    [data], {type: mime.lookup(info.inset_icon)}
+                    [data], {type: mime.lookup(info.inset_icon) || 'image/svg+xml'}
                 ));
             }
             info.api = 1;
