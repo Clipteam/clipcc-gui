@@ -58,6 +58,8 @@ import {loadBuiltinExtension, initExtensionAPI} from '../lib/extension-manager.j
 import GUIComponent from '../components/gui/gui.jsx';
 import {setIsScratchDesktop} from '../lib/isScratchDesktop.js';
 
+let api = null;
+
 class GUI extends React.Component {
     constructor (props) {
         super(props);
@@ -68,8 +70,12 @@ class GUI extends React.Component {
         setIsScratchDesktop(this.props.isScratchDesktop);
         this.props.onStorageInit(storage);
         this.props.onVmInit(this.props.vm);
-        this.extensionAPI = new extensionAPI(this);
-        this.props.onLoadBuiltinExtension();
+        if (!api) { // cc - react-intl will remount all components after changing langauge
+            api = this.extensionAPI = new extensionAPI(this);
+            this.props.onLoadBuiltinExtension();
+        } else {
+            this.extensionAPI = api;
+        }
     }
     componentDidUpdate (prevProps) {
         if (this.props.projectId !== prevProps.projectId && this.props.projectId !== null) {
