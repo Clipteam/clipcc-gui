@@ -2,6 +2,16 @@
 @import "../../css/colors.css";
 @import "../../css/z-index.css";
 
+body {
+    width: 100vw !important;
+    height: 100vh !important;
+    background-color: $ui-background;
+}
+
+body[theme='dark'] {
+    background-color: $ui-background-dark !important;
+}
+
 .page-wrapper {
     height: 100%;
 }

@@ -23,5 +23,6 @@ export const contributorList = {
     lyricepic: 'LyricEpic',
     cyarice: 'Cya_Rice',
     afadian: 'Afadian_c5qE',
-    mbzzw: 'mbzzw'
+    mbzzw: 'mbzzw',
+    editmr: 'Edit Mr.'
 };

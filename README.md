@@ -23,13 +23,13 @@ ClipCC is a powerful scratch fork which adds some useful features such as new ex
 - High-quality pen
 - JIT support
 - Blockly optimization
-- custom stage size
+
 # Building
 **Please note! Please make sure you have installed Git and Node.js before building.**
 
 In your own node environment/application:
 ```bash
-yarn install https://github.com/Clipteam/clipcc-gui.git
+yarn add https://github.com/Clipteam/clipcc-gui.git
 ```
 If you want to edit/play yourself:
 ```bash
