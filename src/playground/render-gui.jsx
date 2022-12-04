@@ -73,17 +73,15 @@ export default appTarget => {
                 onTelemetryModalOptIn={handleTelemetryModalOptIn}
                 onTelemetryModalOptOut={handleTelemetryModalOptOut}
             /> : (
-                <React.StrictMode>
-                    <WrappedGui
-                        canEditTitle
-                        isStandalone
-                        backpackVisible={false}
-                        showComingSoon
-                        backpackHost={backpackHost}
-                        canSave={false}
-                        onClickLogo={onClickLogo}
-                    />
-                </React.StrictMode>
+                <WrappedGui
+                    canEditTitle
+                    isStandalone
+                    backpackVisible={false}
+                    showComingSoon
+                    backpackHost={backpackHost}
+                    canSave={false}
+                    onClickLogo={onClickLogo}
+                />
             ),
         appTarget);
 };

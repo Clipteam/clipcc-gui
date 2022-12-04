@@ -13,7 +13,7 @@
     "i18n:build:gui": "build-i18n-src ./translations/messages/gui ./translations/ gui",
     "i18n:build:extension": "build-i18n-src ./translations/messages/extension ./translations/ extension",
     "i18n:push": "poe-push gui translations/gui.json && poe-push extension translations/extension.json",
-    "start": "yarn run genmeta && webpack-dev-server",
+    "start": "yarn run genmeta && webpack serve",
     "test": "yarn run test:lint && yarn run test:unit && yarn run build && yarn run test:integration",
     "test:integration": "jest --runInBand test[\\\\/]integration",
     "test:lint": "eslint . --ext .js,.jsx",
@@ -34,7 +34,7 @@
   "dependencies": {
     "@sentry/react": "^6.16.1",
     "@sentry/tracing": "^6.16.1",
-    "arraybuffer-loader": "^1.0.6",
+    "arraybuffer-loader": "^1.0.8",
     "autoprefixer": "^9.0.1",
     "base64-loader": "1.0.0",
     "bowser": "1.9.4",
@@ -53,7 +53,6 @@
     "file-loader": "6.2.0",
     "get-float-time-domain-data": "0.1.0",
     "get-user-media-promise": "1.1.4",
-    "hard-source-webpack-plugin": "^0.13.1",
     "immutable": "3.8.2",
     "js-base64": "2.4.9",
     "jszip": "^3.7.1",
@@ -73,7 +72,6 @@
     "postcss-simple-vars": "^5.0.1",
     "prop-types": "^15.5.10",
     "query-string": "^5.1.1",
-    "raw-loader": "^0.5.1",
     "react": "17.0.2",
     "react-contextmenu": "2.9.4",
     "react-dom": "17.0.2",
@@ -98,7 +96,7 @@
     "scratch-svg-renderer": "^0.2.0-prerelease.20220912180225",
     "startaudiocontext": "1.2.1",
     "style-loader": "^0.23.0",
-    "terser-webpack-plugin": "v4",
+    "terser-webpack-plugin": "^5.3.6",
     "thread-loader": "^2.1.3",
     "to-style": "1.3.3",
     "wav-encoder": "1.3.0",
@@ -135,6 +133,7 @@
     "jest-junit": "7.0.0",
     "mini-css-extract-plugin": "1.6.2",
     "mkdirp": "1.0.3",
+    "node-polyfill-webpack-plugin": "^2.0.1",
     "raf": "3.4.1",
     "react-test-renderer": "16.2.0",
     "redux-mock-store": "1.5.3",
@@ -142,9 +141,9 @@
     "selenium-webdriver": "3.6.0",
     "serviceworker-webpack-plugin": "^1.0.1",
     "web-audio-test-api": "^0.5.2",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.2"
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
   },
   "jest": {
     "setupFiles": [

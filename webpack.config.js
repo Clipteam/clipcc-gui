@@ -5,11 +5,12 @@ const path = require('path');
 const webpack = require('webpack');
 
 // Plugins
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
-const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+// const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin'); // @todo use WorkboxPlugin instead
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
@@ -28,10 +29,13 @@ const base = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
     devtool: 'cheap-module-source-map',
     devServer: {
-        contentBase: path.resolve(__dirname, 'build'),
+        static: {
+            directory: path.resolve(__dirname, 'build')
+        },
         host: '0.0.0.0',
         port: process.env.PORT || 8601,
         https: ENABLE_HTTPS,
+        hot: true,
         proxy: {
             '/extension/': {
                 target: 'http://localhost:3000',
@@ -45,7 +49,22 @@ const base = {
         chunkFilename: 'chunks/[name].js'
     },
     resolve: {
+        fallback: {
+            vm: require.resolve("vm-browserify"),
+            stream: require.resolve("stream-browserify"),
+            path: require.resolve("path-browserify")
+        },
+        alias: {
+            "@": path.resolve(__dirname, "src"),
+        },
         symlinks: false
+    },
+    // replace hard-source-webpack-plugin
+    cache: {
+        type: 'filesystem',
+        buildDependencies: {
+            config: [__filename]
+        }
     },
     module: {
         rules: [{
@@ -112,12 +131,7 @@ const base = {
             new CssMinimizerPlugin()
         ]
     },
-    plugins: [
-        new HardSourceWebpackPlugin(),
-        new HardSourceWebpackPlugin.ExcludeModulePlugin([{
-            test: /mini-css-extract-plugin[\\/]dist[\\/]loader/
-        }])
-    ]
+    plugins: []
 };
 
 if (!process.env.CI) {
@@ -128,11 +142,6 @@ if (!process.env.CI) {
 
 function getPlugins () {
     let res = base.plugins.concat([
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': '"' + process.env.NODE_ENV + '"',
-            'process.env.DEBUG': Boolean(process.env.DEBUG),
-            'process.env.GA_ID': '"' + (process.env.GA_ID || 'UA-000000-01') + '"'
-        }),
         new HtmlWebpackPlugin({
             chunks: ['lib.min', 'gui'],
             template: 'src/playground/index.ejs',
@@ -181,12 +190,15 @@ function getPlugins () {
                 context: 'src/examples'
             }]
         }),
+        new NodePolyfillPlugin(), // fixed other clipcc dependencies problem
+        /*
         new CopyWebpackPlugin({
             patterns: [{
                 from: 'extension-worker.js',
                 context: 'node_modules/clipcc-vm/dist/web'
             }]
         })
+        */
     ]);
     if (!DIST_BUILD) {
         res = res.concat([
@@ -247,14 +259,13 @@ module.exports = [
         },
         optimization: {
             splitChunks: {
-                name: 'lib.min',
                 chunks: 'all',
                 minChunks: 2,
-                maxInitialRequests: 5
+                maxInitialRequests: 5,
+                cacheGroups: {
+                    default: false,
+                }
             },
-            runtimeChunk: {
-                name: 'lib.min'
-            }
         },
         plugins: getPlugins()
     })
@@ -284,6 +295,10 @@ module.exports = [
                             outputPath: 'static/assets/',
                             publicPath: `${STATIC_PATH}/assets/`
                         }
+                    },
+                    {
+                        resourceQuery: /inline/,
+                        type: 'asset/source',
                     }
                 ])
             },
