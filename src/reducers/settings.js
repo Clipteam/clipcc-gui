@@ -17,7 +17,10 @@ const defaultState = {
     hideNonOriginalBlocks: false,
     saveSettings: false,
     saveExtension: true,
-    saveOptionalExtension: false
+    saveOptionalExtension: false,
+    stageX: 480,
+    stageY: 360,
+    removeFencing: false,
 };
 
 const initialState = JSON.parse(localStorage.getItem('settings')) || {};

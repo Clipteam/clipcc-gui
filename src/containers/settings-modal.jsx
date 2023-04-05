@@ -30,7 +30,10 @@ class SettingsModal extends React.Component {
             'handleChangeCompatibility',
             'handleChangeCompressionLevel',
             'handleChangeHQPen',
-            'handleChangeSaveSettings'
+            'handleChangeSaveSettings',
+            'handleChangeStageX',
+            'handleChangeStageY',
+            'handleRemoveFencing'
         ]);
     }
 
@@ -78,7 +81,17 @@ class SettingsModal extends React.Component {
         this.props.updateSettings('compression', level);
         this.props.vm.setCompressionLevel(level);
     }
-
+    handleChangeStageX (value) {
+        this.props.updateSettings('stageX', value);
+        this.props.vm.runtime.setStageSize(value, this.props.stageY);
+    }
+    handleChangeStageY (value) {
+        this.props.updateSettings('stageY', value);
+        this.props.vm.runtime.setStageSize(this.props.stageX, value);
+    }
+    handleRemoveFencing (fencing) {
+        this.props.vm.runtime.setFencing(fencing);
+    }
     render () {
         return (
             <SettingsComponent
@@ -91,6 +104,9 @@ class SettingsModal extends React.Component {
                 onChangeCompiler={this.handleChangeCompiler}
                 onChangeHQPen={this.handleChangeHQPen}
                 onChangeSaveSettings={this.handleChangeSaveSettings}
+                onChangeStageX={this.handleChangeStageX}
+                onChangeStageY={this.handleChangeStageY}
+                onRemoveFencing={this.handleRemoveFencing}
                 {...this.props}
             />
         );
@@ -138,7 +154,10 @@ const mapStateToProps = state => ({
     hideNonOriginalBlocks: state.scratchGui.settings.hideNonOriginalBlocks,
     saveSettings: state.scratchGui.settings.saveSettings,
     saveExtension: state.scratchGui.settings.saveExtension,
-    saveOptionalExtension: state.scratchGui.settings.saveOptionalExtension
+    saveOptionalExtension: state.scratchGui.settings.saveOptionalExtension,
+    stageX: state.scratchGui.settings.stageX,
+    stageY: state.scratchGui.settings.stageY,
+    removeFencing: state.scratchGui.settings.removeFencing
 });
 
 const mapDispatchToProps = dispatch => ({

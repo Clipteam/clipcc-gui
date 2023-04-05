@@ -423,6 +423,8 @@ class Stage extends React.Component {
                 onDoubleClick={this.handleDoubleClick}
                 onQuestionAnswered={this.handleQuestionAnswered}
                 dragingFile={this.state.dragingFile}
+                stageWidth={this.state.stageWidth}
+                stageHeight={this.state.stageHeight}
                 {...props}
             />
         );
@@ -451,6 +453,8 @@ const mapStateToProps = state => ({
     isFullScreen: state.scratchGui.mode.isFullScreen,
     isStarted: state.scratchGui.vmStatus.started,
     micIndicator: state.scratchGui.micIndicator,
+    stageHeight: state.scratchGui.customStageSize.height,
+    stageWidth: state.scratchGui.customStageSize.width,
     // Do not use editor drag style in fullscreen or player mode.
     useEditorDragStyle: !(state.scratchGui.mode.isFullScreen || state.scratchGui.mode.isPlayerOnly)
 });

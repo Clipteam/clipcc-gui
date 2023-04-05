@@ -161,6 +161,16 @@ const messages = defineMessages({
         defaultMessage: 'Hide non-original Blocks',
         description: 'Label of Hide non-original Blocks',
         id: 'gui.settingsModal.hideNonoriginalBlocks.label'
+    },
+    stageSize: {
+        defaultMessage: 'Stage Size',
+        description: 'Label of Stage Size',
+        id: 'gui.settingsModal.stageSize.label'
+    },
+    removeFencing: {
+        defaultMessage: 'Remove Fencing',
+        description: 'Label of Remove Fencing',
+        id: 'gui.settingsModal.removeFencing.label'
     }
 });
 
@@ -299,7 +309,6 @@ class SettingsModal extends React.Component {
             id: 'dark',
             text: this.props.intl.formatMessage(messages.darkmodeDark)
         }];
-
         /* const compatibilityOptions = [{
             id: 'donotload',
             text: this.props.intl.formatMessage(messages.compatibilityDoNotLoad)
@@ -542,6 +551,52 @@ class SettingsModal extends React.Component {
                             <Switch
                                 onChange={this.handleChangeSettingsItem('hideNonOriginalBlocks')}
                                 value={this.props.hideNonOriginalBlocks}
+                            />
+                        </div>
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.stageSize)}
+                            </p>
+                            <ExperimentalTag intl={this.props.intl} />  
+                            <Elastic />
+                            <BufferedInput
+                                small
+                                tabIndex="0"
+                                type="number"
+                                min={480}
+                                max={1024}
+                                precision={0}
+                                placeholder="490"
+                                value={this.props.stageX}
+                                onSubmit={this.props.onChangeStageX}
+                                className={classNames(styles.input)}
+                            />
+                            <div
+                                style={{
+                                    margin: '0 0.5rem'
+                                }}
+                            >×</div>
+                            <BufferedInput
+                                small
+                                tabIndex="0"
+                                type="number"
+                                min={320}
+                                max={1024}
+                                precision={0}
+                                placeholder="360"
+                                value={this.props.stageY}
+                                onSubmit={this.props.onChangeStageY}
+                                className={classNames(styles.input)}
+                            />
+                        </div>
+                        <div className={classNames(styles.item)}>
+                            <p className={classNames(styles.text)}>
+                                {this.props.intl.formatMessage(messages.removeFencing)}
+                            </p>
+                            <Elastic />
+                            <Switch
+                                onChange={this.props.onRemoveFencing}
+                                value={this.props.removeFencing}
                             />
                         </div>
                         {this.renderExtensionSettings()}
