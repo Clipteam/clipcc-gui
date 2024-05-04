@@ -6,13 +6,17 @@ import {defineMessages, injectIntl, FormattedMessage} from 'react-intl';
 import Modal from '../../containers/modal.jsx';
 import styles from './about-modal.css';
 import logo from './clipcc3_logo.svg';
+import uwuLogo from './clipcc3_cute_logo_transparent.svg';
 import telegram from './telegram.svg';
 import qq from './qq.svg';
+import queryString from 'query-string';
 import discord from './discord.svg';
 
 import {appVersion, appVersionFull, compileTime, isProd} from '../../lib/app-info';
 import {isScratchDesktop} from '../../lib/isScratchDesktop';
 
+
+const queryParams = queryString.parse(location.search);
 const messages = defineMessages({
     aboutModalTitle: {
         defaultMessage: 'About',
@@ -58,8 +62,8 @@ const AboutModal = ({
     >
         <Box className={styles.body}>
             <img
-                src={logo}
-                className={styles.logo}
+                src={typeof queryParams.uwu !== 'undefined' ? uwuLogo : logo}
+                className={typeof queryParams.uwu !== 'undefined' ? styles.logouwu : styles.logo}
             />
             <p>
                 <strong><FormattedMessage {...messages.appVersion} /></strong>

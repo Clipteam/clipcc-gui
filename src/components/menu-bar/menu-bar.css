@@ -49,6 +49,10 @@
     vertical-align: middle;
 }
 
+.uwulogo {
+    height: 2.3rem;
+}
+
 .scratch-logo.clickable {
     cursor: pointer;
 }

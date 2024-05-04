@@ -4,6 +4,7 @@ import {compose} from 'redux';
 import {defineMessages, FormattedMessage, injectIntl} from 'react-intl';
 import PropTypes from 'prop-types';
 import bindAll from 'lodash.bindall';
+import queryString from 'query-string';
 import bowser from 'bowser';
 import React from 'react';
 
@@ -84,9 +85,11 @@ import languageIcon from '../language-selector/language-icon.svg';
 import aboutIcon from './icon--about.svg';
 
 import scratchLogo from './clipcc3_logo_white.svg';
+import scratchUwuLogo from './clipcc3_cute_logo.svg';
 
 import sharedMessages from '../../lib/shared-messages';
 
+const queryParams = queryString.parse(location.search);
 const ariaMessages = defineMessages({
     language: {
         id: 'gui.menuBar.LanguageSelector',
@@ -451,7 +454,8 @@ class MenuBar extends React.Component {
                             <img
                                 alt="ClipCC"
                                 className={classNames(styles.scratchLogo, {
-                                    [styles.clickable]: typeof this.props.onClickLogo !== 'undefined'
+                                    [styles.clickable]: typeof this.props.onClickLogo !== 'undefined',
+                                    [styles.uwulogo]: typeof queryParams.uwu !== 'undefined'
                                 })}
                                 draggable={false}
                                 src={this.props.logo}
@@ -983,7 +987,7 @@ MenuBar.propTypes = {
 };
 
 MenuBar.defaultProps = {
-    logo: scratchLogo,
+    logo: typeof queryParams.uwu !== 'undefined' ? scratchUwuLogo : scratchLogo,
     onShare: () => {}
 };
 
