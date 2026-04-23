@@ -40,11 +40,14 @@ const resolveStageSize = (stageSizeMode, isFullSize) => {
  * @param {STAGE_DISPLAY_SIZES} stageSize - the current fully-resolved stage size.
  * @param {boolean} isFullScreen - true if full-screen mode is enabled.
  * @return {StageDimensions} - an object describing the dimensions of the stage.
+ * reference: tw/gui/src/lib/screen-utils.js
  */
-const getStageDimensions = (stageSize, isFullScreen) => {
+const getStageDimensions = (customStageSize, stageSize, isFullScreen) => {
+    const maxScaleParam = typeof URLSearchParams !== 'undefined' && new URLSearchParams(location.search).get('scale');
+
     const stageDimensions = {
-        heightDefault: layout.standardStageHeight,
-        widthDefault: layout.standardStageWidth,
+        heightDefault: customStageSize.height,
+        widthDefault: customStageSize.width,
         height: 0,
         width: 0,
         scale: 0
@@ -55,11 +58,14 @@ const getStageDimensions = (stageSize, isFullScreen) => {
             STAGE_DIMENSION_DEFAULTS.menuHeightAdjustment -
             STAGE_DIMENSION_DEFAULTS.fullScreenSpacingBorderAdjustment;
 
-        stageDimensions.width = stageDimensions.height + (stageDimensions.height / 3);
+        stageDimensions.width = stageDimensions.height * (customStageSize.width / customStageSize.height);
 
-        if (stageDimensions.width > window.innerWidth) {
-            stageDimensions.width = window.innerWidth;
-            stageDimensions.height = stageDimensions.width * .75;
+        const maxWidth = maxScaleParam ? (
+            Math.min(window.innerWidth, maxScaleParam * customStageSize.width)
+        ) : window.innerWidth;
+        if (stageDimensions.width > maxWidth) {
+            stageDimensions.width = maxWidth;
+            stageDimensions.height = stageDimensions.width * (customStageSize.height / customStageSize.width);
         }
 
         stageDimensions.scale = stageDimensions.width / stageDimensions.widthDefault;

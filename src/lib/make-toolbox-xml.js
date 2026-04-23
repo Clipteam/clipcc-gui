@@ -650,6 +650,8 @@ const sensing = function (isInitialSetup, isStage, targetId, hideNonOriginalBloc
         <block type="sensing_isturbomode"/>
         <block type="sensing_turnonturbomode"/>
         <block type="sensing_turnoffturbomode"/>
+        <block type="sensing_stage_width"/>
+        <block type="sensing_stage_height"/>
         `}
 
         <label text="${obsoletedBlocks}"></label>

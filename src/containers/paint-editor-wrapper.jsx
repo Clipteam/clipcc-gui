@@ -14,6 +14,10 @@ class PaintEditorWrapper extends React.Component {
             'handleUpdateImage',
             'handleUpdateName'
         ]);
+        this.state = {
+            width: this.props.width,
+            height: this.props.height
+        }
     }
     shouldComponentUpdate (nextProps) {
         return this.props.imageId !== nextProps.imageId ||
@@ -39,6 +43,14 @@ class PaintEditorWrapper extends React.Component {
                 2 /* bitmapResolution */);
         }
     }
+    UNSAFE_componentWillReceiveProps (nextProps) {
+        if (this.props.width !== nextProps.width || this.props.height !== nextProps.height) {
+            this.setState({
+                width: nextProps.width,
+                height: nextProps.height
+            });
+        }
+    }
     render () {
         if (!this.props.imageId) return null;
         const {
@@ -54,6 +66,8 @@ class PaintEditorWrapper extends React.Component {
                 onUpdateImage={this.handleUpdateImage}
                 onUpdateName={this.handleUpdateName}
                 fontInlineFn={inlineSvgFonts}
+                width={this.state.width}
+                height={this.state.height}
             />
         );
     }
@@ -86,7 +100,9 @@ const mapStateToProps = (state, {selectedCostumeIndex}) => {
         rtl: state.locales.isRtl,
         selectedCostumeIndex: index,
         vm: state.scratchGui.vm,
-        zoomLevelId: targetId
+        zoomLevelId: targetId,
+        width: state.scratchGui.customStageSize.width,
+        height: state.scratchGui.customStageSize.height
     };
 };
 

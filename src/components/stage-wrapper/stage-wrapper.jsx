@@ -19,6 +19,8 @@ const StageWrapperComponent = function (props) {
         loading,
         layoutStyle,
         stageSize,
+        stageWidth,
+        stageHeight,
         vm
     } = props;
 
@@ -28,6 +30,10 @@ const StageWrapperComponent = function (props) {
                 styles.stageWrapper,
                 {[styles.fullScreen]: isFullScreen}
             )}
+            // style={{
+            //     width: stageWidth,
+            //     height: stageHeight
+            // }}
             dir={isRtl ? 'rtl' : 'ltr'}
         >
             <Box className={styles.stageMenuWrapper}>
@@ -35,6 +41,8 @@ const StageWrapperComponent = function (props) {
                     layoutStyle={layoutStyle}
                     stageSize={stageSize}
                     vm={vm}
+                    stageWidth={stageWidth}
+                    stageHeight={stageHeight}
                 />
             </Box>
             <Box className={styles.stageCanvasWrapper}>
@@ -44,6 +52,12 @@ const StageWrapperComponent = function (props) {
                             layoutStyle={layoutStyle}
                             isFullScreen={isFullScreen}
                             stageSize={stageSize}
+                            stageWidth={stageWidth}
+                            stageHeight={stageHeight}
+                            // style={{
+                            //     width: stageWidth,
+                            //     height: stageHeight
+                            // }}
                             vm={vm}
                         /> :
                         null

@@ -134,6 +134,8 @@ const GUIComponent = props => {
         tipsLibraryVisible,
         layoutStyle,
         vm,
+        stageWidth,
+        stageHeight,
         ...componentProps
     } = omit(props, 'dispatch');
     if (children) {
@@ -152,7 +154,6 @@ const GUIComponent = props => {
     if (isRendererSupported === null) {
         isRendererSupported = Renderer.isSupported();
     }
-
     return (<MediaQuery minWidth={layout.fullSizeMinWidth}>{isFullSize => {
         const stageSize = resolveStageSize(stageSizeMode, isFullSize);
         const guiContent = [
@@ -270,6 +271,8 @@ const GUIComponent = props => {
                     isRtl={isRtl}
                     stageSize={stageSize}
                     vm={vm}
+                    stageWidth={stageWidth}
+                    stageHeight={stageHeight}
                 />
                 <Box className={styles.targetWrapper}>
                     <TargetPane
@@ -290,6 +293,8 @@ const GUIComponent = props => {
                 loading={loading}
                 stageSize={STAGE_SIZE_MODES.large}
                 vm={vm}
+                stageWidth={stageWidth}
+                stageHeight={stageHeight}
             >
                 {alertsVisible ? (
                     <Alerts className={styles.alertsContainer} />
@@ -496,7 +501,9 @@ GUIComponent.defaultProps = {
 
 const mapStateToProps = state => ({
     // This is the button's mode, as opposed to the actual current state
-    stageSizeMode: state.scratchGui.stageSize.stageSize
+    stageSizeMode: state.scratchGui.stageSize.stageSize,
+    stageWidth: state.scratchGui.customStageSize.width,
+    stageHeight: state.scratchGui.customStageSize.height
 });
 
 export default injectIntl(connect(
