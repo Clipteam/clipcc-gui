@@ -1,3 +1,8 @@
+## We moved to another repo, see our [new monorepo!](https://github.com/Clipteam/clipcc)
+## This repository has been no longer maintained
+
+---
+
 <div align="center">
 
 <img src="https://raw.githubusercontent.com/Clipteam/clipcc-gui/master/src/components/about-modal/clipcc3_logo.svg" alt="logo" width="300"/>
